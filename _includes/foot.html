@@ -1,0 +1,16 @@
+<!-- Copyright -->
+<div id="copyright">
+  <ul>
+    <li>&copy; Oriol Abril Pla</li>
+    <li>Design by <a href="https://html5up.net" rel="nofollow">HTML5 UP</a></li>
+    <li>Jekyll Integration by <a href="https://slapform.com">Slapform</a> </li>
+    <li><a href="https://twitter.com/{{site.twitter}}" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
+    <li><a href="https://github.com/{{site.github}}" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+    <li>{% if site.plugins contains 'jekyll-feed' or site.gems contains 'jekyll-feed' %}
+      <a href="{{ site.feed.path | default: 'feed.xml' | relative_url }}" title="Atom Feed" class="icon fa-rss" rel="nofollow">
+        <span class="label">{{ site.data.theme.t.subscribe | default: 'Subscribe' }}</span>
+      </a>
+    {% endif %}
+    </li>
+  </ul>
+</div>

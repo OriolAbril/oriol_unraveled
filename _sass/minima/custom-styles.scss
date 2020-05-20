@@ -1,0 +1,23 @@
+/*-----------------------------------*/
+/*--- IMPORT STYLES FOR FASTPAGES ---*/
+@import "minima/fastpages-styles";
+
+/*-----------------------------------*/
+/*----- ADD YOUR STYLES BELOW -------*/
+
+// If you want to turn off dark background for syntax highlighting, comment or delete the below line.
+@import "minima/fastpages-dracula-highlight";
+
+// notebook badges class: https://stackoverflow.com/a/20653092/2504700
+.nb-badges
+{
+    padding:5px; /* this */
+}
+
+.nb-badges > div
+{
+    margin:5px;  /* and that, will result in a 10px gap */
+}
+
+@import "global";
+@import "entries";

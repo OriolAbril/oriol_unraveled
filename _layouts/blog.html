@@ -1,0 +1,61 @@
+<html>
+  <head>
+    {% include head.html %}
+
+  </head>
+  <body class="is-loading">
+
+    <!-- Wrapper -->
+      <div id="wrapper" class="fade-in">
+
+        <!-- Header -->
+        <header id="header">
+          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
+        </header>
+
+
+        <!-- Nav -->
+          <nav id="nav">
+
+            {% include nav.html %}
+
+          </nav>
+
+        <!-- Main -->
+        <div id="main">
+
+          <!-- Post -->
+          <section class="posts">
+            {% for post in site.posts %}
+              <article>
+                <header>
+                  <span class="date">{{ post.date | date_to_string }}</span><br />
+                  <h2><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h2>
+                </header>
+                {%- if post.image -%}
+                  <a href="{{ post.url | absolute_url }}" class="image fit"><img src="{{ post.image | absolute_url }}" alt="" /></a>
+                {%- endif -%}
+                {%- if post.description -%}
+                  <p><i>{{ post.description }}</i></p>
+                {%- endif -%}
+                <ul class="actions">
+                  <li><a href="{{ post.url | absolute_url }}" class="button">Read more</a></li>
+                </ul>
+              </article>
+            {% endfor %}
+
+          </section>
+
+          </div>
+
+        <!-- Footer -->
+        {% include foot.html %}
+
+      </div>
+
+      <!-- Scripts -->
+      {% include scripts-main.html %}
+      {% include tracking.html %}
+
+  </body>
+</html>

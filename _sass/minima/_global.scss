@@ -1,0 +1,207 @@
+// from basically basic
+@import "breakpoint/breakpoint";
+@import "functions/fluid-type";
+@import "mixins/lists";
+
+/* Breakpoint widths */
+$small: 320px !default;
+$medium: 768px !default;
+$large: 1024px !default;
+$xlarge: 1280px !default;
+
+/* Fluid type */
+$base-font-size: 16px !default;
+$min-vw: $small !default;
+$max-vw: $xlarge !default;
+$min-font-size: 14px !default;
+$max-font-size: 18px !default;
+
+.taxonomy-section {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+
+  &:not(:last-child) {
+    border-bottom: solid 1px #444444;
+  }
+
+  + .taxonomy-section {
+    margin-top: 2em;
+  }
+}
+
+.taxonomy-title {
+  @include fluid-type($min-vw, $max-vw, 28px, 32px);
+  margin-bottom: 0.5em;
+  color: _palette(fg-light);
+  font-family: _font(family);
+}
+
+.taxonomy-count {
+  color: _palette(fg-light);
+}
+
+.taxonomy-index {
+  display: grid;
+  grid-column-gap: 2em;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  padding: 0;
+  font-family: _font(family);
+  font-size: 0.9em;
+  list-style: none;
+
+  @include breakpoint($large) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0.25em 0;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid #444444;
+
+    &:hover {
+      color: _palette(accent);
+    }
+  }
+
+  + .taxonomy-section {
+    margin-top: 3em;
+  }
+}
+
+/*
+   Layout specific adjustments
+   ========================================================================== */
+
+/* Border radius */
+$border-radius: 0.25em !default;
+
+.layout--post,
+.layout--page {
+  .entry-content {
+    @include breakpoint($large) {
+      width: span(14 of 16);
+    }
+  }
+}
+
+.layout--about {
+  .entry-wrap {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+    @include breakpoint($medium) {
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+    }
+  }
+
+  .entry-content {
+    @include breakpoint($medium) {
+      -ms-flex: 1;
+      flex: 1;
+    }
+  }
+
+  .entry-sidebar {
+    order: -1;
+    -ms-flex-order: -1;
+
+    @include breakpoint($medium) {
+      order: initial;
+      -ms-flex-order: initial;
+    }
+
+    .author-picture {
+      margin: 0 0 2rem;
+      border-radius: 2 * $border-radius;
+
+      @include breakpoint($medium) {
+        margin: 0 0 0 2rem;
+      }
+    }
+  }
+}
+
+.layout--cv {
+  .entries {
+    .entry-header {
+      @include breakpoint($medium) {
+        width: span(5 of 16);
+        padding-right: gutter(1 of 16);
+
+        /* remove space after last child element */
+        > *:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .entry-content {
+      @include breakpoint($medium) {
+        float: right;
+        width: span(11 of 16);
+      }
+    }
+  }
+
+  .entry {
+    a {
+      color: _palette(accent);
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    .title,
+    .position,
+    .institution,
+    .language {
+      margin-bottom: 0;
+    }
+
+    .date {
+      margin-bottom: 1rem;
+      color: _palette(fg-bold);
+      font-family: _font(family-fixed);
+      font-size: 80%;
+    }
+
+    .courses-title,
+    .awarder,
+    .publisher,
+    .level {
+      margin: 1rem 0 0;
+    }
+
+    .courses,
+    .keywords {
+      @include list-unstyled;
+    }
+  }
+
+  .taxonomy {
+    + .taxonomy {
+      margin-top: 0.5rem;
+    }
+
+    .title {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    .keywords {
+      display: inline-block;
+    }
+  }
+}
