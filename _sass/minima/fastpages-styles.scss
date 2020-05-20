@@ -29,7 +29,6 @@ img.emoji{
 
 // make non-headings slightly lighter
 .post-content p, .post-content li {
-   font-size: 20px;
    color: #515151;
 }
 
@@ -47,7 +46,6 @@ li {
   }
   .post-meta-description {
     color: rgb(88, 88, 88);
-    font-size: 15px;
     margin-top:.05rem !important;
     margin-bottom:.05rem !important;
   }
@@ -71,18 +69,10 @@ details.description:not([open]) summary::after {
 
 // Adjust font size for footnotes.
 .footnotes {
-  font-size: 12px !important;
+  font-size: .9rem !important;
   p, li{
-    font-size: 12px !important;
+    font-size: .9rem !important;
  }
-}
-
-// Adjust with of social media icons were getting cut off
-.social-media-list{
-  .svg-icon {
-    width: 25px !important;
-    height: 23px !important;
-  }
 }
 
 // Make Anchor Links Appear Only on Hover
@@ -135,14 +125,14 @@ h6:hover .anchor-link {
 }
 .category-tags-link {
   color:rgb(187, 129, 129) !important;
-  font-size: 13px !important;
+  font-size: 1rem !important;
 }
 
 // Search Page Styles
 .js-search-results {padding-top: 0.2rem;}
 .search-results-list-item {padding-bottom: 1rem;}
 .search-results-list-item .search-result-title {
-  font-size: 16px;
+  font-size: 1rem;
   color: #d9230f;
 }
 .search-result-rel-url {color: silver;}
@@ -152,12 +142,12 @@ h6:hover .anchor-link {
 
 .search-result-rel-date {
   color: rgb(109, 120, 138);
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .search-result-preview {
   color: #777;
-  font-size: 16px;
+  font-size: 1rem;
   margin-top:.02rem !important;
   margin-bottom:.02rem !important;
 }
