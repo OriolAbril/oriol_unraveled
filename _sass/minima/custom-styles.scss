@@ -19,6 +19,15 @@
     margin:3px;  /* and that, will result in a 10px gap */
 }
 
+// copy icon behaviour to ai (for academicons)
+.ai {
+  border-bottom: none;
+
+  > .label {
+    display: none;
+  }
+}
+
 @import "global";
 @import "entries";
 @import "base";

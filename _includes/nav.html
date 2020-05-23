@@ -1,13 +1,13 @@
 <ul class="links">
   <li class="{% if page.url == "/" %} active {% endif %}"><a href="{{ "/" | absolute_url }}">Home</a></li>
-  <li class="{% if page.url contains '/about/' %} active {% endif %}"><a href="{{ "/about/" | absolute_url }}">About</a></li>
   <li class="{% if page.url contains '/blog/' %} active {% endif %}"><a href="{{ "/blog.html" | absolute_url }}">Blog</a></li>
   <li class="{% if page.url contains '/categories/' %} active {% endif %}"><a href="{{ "/categories/" | absolute_url }}">Tag Archive</a></li>
+  <li class="{% if page.url contains '/about/' %} active {% endif %}"><a href="{{ "/about/" | absolute_url }}">About</a></li>
 </ul>
 
 <ul class="icons">
-  <li><a href="https://twitter.com/{{site.twitter}}" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
-  <li><a href="https://github.com/{{site.github}}" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+  <li><a href="https://github.com/{{site.github_username}}" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+  <li><a href="https://twitter.com/{{site.twitter_username}}" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
   <li>
     {% if site.plugins contains 'jekyll-feed' or site.gems contains 'jekyll-feed' %}
       <a href="{{ site.feed.path | default: 'feed.xml' | relative_url }}" title="Atom Feed" class="icon fa-rss">

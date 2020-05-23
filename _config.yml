@@ -40,6 +40,9 @@ url: "https://OriolAbril.github.io" # the base hostname & protocol for your site
 baseurl: "/fastpages_massively" # the subpath of your site, e.g. "/blog".
 
 twitter_username: OriolAbril
+orcid_id: 0000-0002-1847-9481
+google_scholar_id: srEgvQgAAAAJ
+
 
 # Set this to true to get LaTeX math equation support
 use_math: true
