@@ -1,0 +1,9 @@
+name: oriol-unraveled
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - matplotlib
+  - pandas
+  - pymc3
+  - arviz
