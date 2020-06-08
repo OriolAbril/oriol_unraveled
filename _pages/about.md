@@ -18,7 +18,7 @@ reproducible research and science communication. I want to pursue a career in
 probabilistic modeling and statistical research with special emphasis on
 openness and reproducibility.
 
-In my spare time, I like to play board games and going to the beach to do
+In my spare time, I like playing board games and going to the beach to do
 water activities. I have been sailing and snorkeling regularly since I was
 little and more I recently added kayaking to the mix too! I generally spend
 the summer at the _Costa Brava_. Here I leave you a sneak peak of the views
