@@ -31,3 +31,18 @@
 @import "global";
 @import "entries";
 @import "base";
+
+// extra customization on massively
+body, input, select, textarea {
+    line-height: 1.5;
+  }
+
+ul, ol {
+  margin: 0 0 0 0;
+}
+
+.toc-h2 {
+  &:last-child {
+    margin: 0 0 1.5rem 0;
+  }
+}
