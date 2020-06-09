@@ -6,6 +6,7 @@
 </ul>
 
 <ul class="icons">
+  <li class="{% if page.url contains '/search/' %} active {% endif %}"><a href="{{ "/search" | absolute_url }}" class="icon fa-search"><span class="label">Search</span></a></li>
   <li><a href="https://github.com/{{site.github_username}}" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
   <li><a href="https://twitter.com/{{site.twitter_username}}" class="icon fa-twitter" rel="nofollow"><span class="label">Twitter</span></a></li>
   <li>
