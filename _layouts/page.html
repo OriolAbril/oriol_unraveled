@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
   <head>
     {% include head.html %}
   </head>
@@ -41,9 +42,8 @@
 
       </div>
 
-      <!-- Scripts -->
-      {% include scripts-main.html %}
-      {% include tracking.html %}
+    <!-- Scripts -->
+    {% include scripts-main.html %}
 
   </body>
 </html>
