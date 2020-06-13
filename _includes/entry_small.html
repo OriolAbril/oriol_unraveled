@@ -1,0 +1,22 @@
+<article>
+  <header>
+    <efoot class="entry-times">
+    <ul>
+    {% if post.date %}
+      <li><span class="icon"><i class="fa fa-calendar" aria-hidden="true"></i>
+</span><time class="entry-time" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></li>
+    {% endif %}
+    {% if post.read_time %}
+      <li><span class="icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{% capture read_time %}{% include read-time.html %}{% endcapture %}{{ read_time | strip }}</li>
+    {% endif %}
+    </ul>
+    </efoot>
+    <h4><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h4>
+  </header>
+  {%- if post.description -%}
+    <p>{{ post.description }}</p>
+  {%- endif -%}
+  <ul class="actions">
+    <li><a href="{{ post.url | absolute_url }}" class="button">Read more</a></li>
+  </ul>
+</article>

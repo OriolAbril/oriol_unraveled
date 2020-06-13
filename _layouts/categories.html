@@ -1,48 +1,87 @@
----
-layout: page
----
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  <head>
+    {% include head.html %}
+  </head>
+  <body class="is-loading">
 
-{{ content }}
+    <!-- Wrapper -->
+      <div id="wrapper" class="fade-in">
 
-<ul class="taxonomy-index">
-  {% assign categories_max = 0 %}
-  {% for category in site.categories %}
-    {% if category[1].size > categories_max %}
-      {% assign categories_max = category[1].size %}
-    {% endif %}
-  {% endfor %}
-  {% for i in (1..categories_max) reversed %}
-    {% for category in site.categories %}
-      {% if category[1].size == i %}
-        <li>
-          <a href="#{{ category[0] | slugify }}">
-            <strong>{{ category[0] }}</strong> <span class="taxonomy-count">{{ i }}</span>
-          </a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  {% endfor %}
-</ul>
+        <!-- Header -->
+        <header id="header">
+          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
+        </header>
 
-{% assign categories_max = 0 %}
-{% for category in site.categories %}
-  {% if category[1].size > categories_max %}
-    {% assign categories_max = category[1].size %}
-  {% endif %}
-{% endfor %}
+        <!-- Nav -->
+          <nav id="nav">
 
-{% for i in (1..categories_max) reversed %}
-  {% for category in site.categories %}
-    {% if category[1].size == i %}
-      <section id="{{ category[0] | slugify | downcase }}" class="taxonomy-section">
-        <h2 class="taxonomy-title">{{ category[0] }}</h2>
-        <div class="entries-{{ page.entries_layout | default: 'list' }}">
-          {% for post in category.last %}
-            {% include entry.html %}
+            {% include nav.html %}
+
+          </nav>
+
+        <!-- Main -->
+        <div id="main">
+
+          <h1>{{ page.title }}</h1>
+
+          <ul class="taxonomy-index">
+            {% assign categories_max = 0 %}
+            {% for category in site.categories %}
+              {% if category[1].size > categories_max %}
+                {% assign categories_max = category[1].size %}
+              {% endif %}
+            {% endfor %}
+            {% for i in (1..categories_max) reversed %}
+              {% for category in site.categories %}
+                {% if category[1].size == i %}
+                  <li>
+                    <a href="#{{ category[0] | slugify }}">
+                      <strong>{{ category[0] }}</strong> <span class="taxonomy-count">{{ i }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </ul>
+
+          {% assign categories_max = 0 %}
+          {% for category in site.categories %}
+            {% if category[1].size > categories_max %}
+              {% assign categories_max = category[1].size %}
+            {% endif %}
           {% endfor %}
-        </div>
-        <a href="#header" class="back-to-top">{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
-      </section>
-    {% endif %}
-  {% endfor %}
-{% endfor %}
+
+          {% for i in (1..categories_max) reversed %}
+            {% for category in site.categories %}
+              {% if category[1].size == i %}
+                <h2 class="taxonomy-title">{{ category[0] }}</h2>
+                <section id="{{ category[0] | slugify | downcase }}" class="posts">
+                    {% for post in category.last %}
+                      {% include entry_small.html %}
+                    {% endfor %}
+                </section>
+                <a href="#header" class="back-to-top">{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+
+          <!-- Footer -->
+            <footer>
+              <ul class="actions">
+                <li><a href="{{ "/" | absolute_url }}" class="button">Home</a></li>
+                <li><a href="{{ "/blog/" | absolute_url }}" class="button">Blog</a></li>
+              </ul>
+            </footer>
+          </div>
+
+        <!-- Footer -->
+        {% include foot.html %}
+
+      </div>
+
+    <!-- Scripts -->
+    {% include scripts-main.html %}
+
+  </body>
+</html>
