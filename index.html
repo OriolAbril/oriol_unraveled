@@ -1,6 +1,6 @@
 ---
 layout: null
-title: Home | Oriol unraveled
+title: Home
 description: "
 <br>I am a software engineer, statistician and physicist in the making.<br>
 I believe in interdisciplinary collaboration and open science.<br>
@@ -78,21 +78,7 @@ search_exclude: true
             <!-- Posts -->
               <section class="posts">
                 {% for post in site.posts %}
-                  <article>
-                    <header>
-                      <span class="date">{{ post.date | date_to_string }}</span>
-                      <h2><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h2>
-                    </header>
-                    {%- if post.image -%}
-                      <a href="{{ post.url | absolute_url }}" class="image fit"><img src="{{ post.image | absolute_url }}" alt="" /></a>
-                    {%- endif -%}
-                    {%- if post.description -%}
-                      <p>{{ post.description }}</p>
-                    {%- endif -%}
-                    <ul class="actions">
-                      <li><a href="{{ post.url | absolute_url }}" class="button">Read more</a></li>
-                    </ul>
-                  </article>
+                  {% include entry_square.html %}
                 {% endfor %}
 
               </section>
@@ -101,7 +87,7 @@ search_exclude: true
               <footer>
                 <ul class="actions">
                   <li><a href="{{ "/" | absolute_url }}" class="button">Back to top</a></li>
-                  <li><a href="{{ "/blog.html" | absolute_url }}" class="button">Blog</a></li>
+                  <li><a href="{{ "/blog/" | absolute_url }}" class="button">Blog</a></li>
                 </ul>
               </footer>
 

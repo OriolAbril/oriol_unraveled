@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About Me | Oriol unraveled
+title: About Me
 permalink: /about/
 ---
 
