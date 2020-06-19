@@ -19,14 +19,13 @@
     margin:3px;  /* and that, will result in a 10px gap */
 }
 
-// modify fastpages defaults
+// make code output wrap text
 .output_area pre {
   border-left: none;
   overflow-x: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-
 
 // copy icon behaviour to ai (for academicons)
 .ai {
