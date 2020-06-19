@@ -28,21 +28,7 @@
           <!-- Post -->
           <section class="posts">
             {% for post in site.posts %}
-              <article>
-                <header>
-                  <span class="date">{{ post.date | date_to_string }}</span><br />
-                  <h2><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h2>
-                </header>
-                {%- if post.description -%}
-                  <p><i>{{ post.description }}</i></p>
-                {%- endif -%}
-                {%- if post.image -%}
-                  <a href="{{ post.url | absolute_url }}" class="image fit"><img src="{{ post.image | absolute_url }}" alt="" /></a>
-                {%- endif -%}
-                <ul class="actions">
-                  <li><a href="{{ post.url | absolute_url }}" class="button">Read more</a></li>
-                </ul>
-              </article>
+              {% include entry_square.html %}
             {% endfor %}
 
           </section>
