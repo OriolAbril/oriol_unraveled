@@ -20,7 +20,7 @@ openness and reproducibility.
 
 In my spare time, I like playing board games and going to the beach to do
 water activities. I have been sailing and snorkeling regularly since I was
-little and more I recently added kayaking to the mix too! I generally spend
+little and more recently I added kayaking to the mix too! I generally spend
 the summer at the _Costa Brava_. Here I leave you a sneak peak of the views
 when nobody is around
 
