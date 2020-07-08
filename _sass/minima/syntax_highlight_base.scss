@@ -1,0 +1,48 @@
+// from fastpages-dracula
+@import "minima/colorschemes/fastpages-dracula-highlight";
+
+.language-python + .language-plaintext {
+    border-left: 1px solid grey;
+    margin-left: 1rem !important;
+}
+
+// ensure dark background for code in markdown
+[class^="language-"]:not(.language-plaintext) pre,
+[class^="language-"]:not(.language-plaintext) code {
+    background-color: $dt-code-cell-background;
+    color: $dt-code-cell-text;
+}
+
+.language-python + .language-plaintext code { background-color: white !important; }
+.language-python + .language-plaintext pre  { background-color: white !important; }
+
+// for Jupyter Notebook HTML Code Cells modified from https://www.fast.ai/public/css/hyde.css
+
+.input_area pre, .input_area div {
+    margin-bottom:2rem !important;
+    margin-top:1.5rem !important;
+    padding-bottom:0 !important;
+    padding-top:0 !important;
+    background: $dt-code-cell-background;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: Menlo, Monaco, Consolas, "Lucida Console", Roboto, Ubuntu, monospace;
+    border-radius: 5px;
+    font-size: 100%;
+    font-weight: 350; // make code have slightly more weight than text
+}
+.output_area pre, .output_area div {
+    margin-bottom:1rem !important;
+    margin-top:1rem !important;
+    padding-bottom:0 !important;
+    padding-top:0 !important;
+}
+.input_area pre {
+    border-left: 5px solid $dt-code-cell-background;
+}
+.output_area pre {
+    border-left: 1px solid grey;
+    margin-left: 1rem !important;
+}
+
+.code_cell table { width: auto; }

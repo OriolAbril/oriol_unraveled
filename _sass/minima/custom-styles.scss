@@ -4,9 +4,9 @@
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
+@import "minima/syntax_highlight_base"; // colorscheme is defined there
 
-// If you want to turn off dark background for syntax highlighting, comment or delete the below line.
-@import "minima/fastpages-dracula-highlight";
+// must go after colorscheme
 
 // notebook badges class: https://stackoverflow.com/a/20653092/2504700
 .nb-badges
