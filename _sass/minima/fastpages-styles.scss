@@ -1,4 +1,4 @@
-//Default Overrides For Styles In Minima
+//Default Overrides For Styles In theme used
 // If you wish to override any of this CSS, do so in _sass/minima/custom-styles.css
 
 .post img {
@@ -69,7 +69,7 @@ details.description:not([open]) summary::after {
 // Adjust font size for footnotes.
 .footnotes {
   font-size: .9rem !important;
-  p, li{
+  p, li {
     font-size: .9rem !important;
  }
 }
@@ -204,9 +204,18 @@ table {
 
 
 // Handling large charts on mobile devices
-@media only screen and (max-width: 900px) {
-  /* for mobile phone and tablet devices */
-  .output_wrapper{
-    overflow: scroll;
-  }
+// @media only screen and (max-width: 1200px) {
+//   /* for mobile phone and tablet devices */
+//   .output_wrapper{
+//     overflow: scroll;
+//   }
+// }
+
+.output_wrapper{
+  overflow: scroll;
+}
+
+.svg-icon.orange{
+  width: 30px;
+  height: 23px;
 }

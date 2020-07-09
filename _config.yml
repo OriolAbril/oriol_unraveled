@@ -86,7 +86,6 @@ plugins:
   - jekyll-octicons
   - jekyll-toc
   - jekyll-twitter-plugin
-  - jekyll-seo-tag
   - jekyll-relative-links
   - jekyll-remote-theme
   - jekyll-paginate
@@ -101,7 +100,6 @@ paginate_path: /page:num/
 feed:
   path: atom.xml
 
-# remote_theme: mmistakes/jekyll-theme-basically-basic
 remote_theme: jekyllup/jekyll-theme-massively
 
 titles_from_headings:

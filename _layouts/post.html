@@ -31,7 +31,7 @@ layout: page
             {%- if forloop.last == false %}, {% endif -%}
         {% endfor %}
       {%- endif %}
-       • {% include reading_time.html -%}
+       • {% include read-time.html -%}
     </p>
 
     {% if page.categories.size > 0 and site.show_tags %}
