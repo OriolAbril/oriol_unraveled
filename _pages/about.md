@@ -27,7 +27,11 @@ when nobody is around
 ![cala_costa_brava]({{ site.baseurl }}/images/cala_costa_brava.jpg)
 
 ## Projects
-Here are highlighted some projects I contribute to, check out my
+* [**PyMCon 2020**](https://pymc-devs.github.io/pymcon//): PyMCon 2020 is an
+  asynchronous-first virtual conference for the Bayesian community
+
+## Open source work
+Here are highlighted some open source projects I contribute to, check out my
 [GitHub profile](https://github.com/OriolAbril) for a complete list
 of the projects I contribute to.
 
@@ -40,9 +44,13 @@ of the projects I contribute to.
   your interactions with the NASA Exoplanet Archive using Python and pandas.
 * [**PyMC**](https://github.com/pymc-devs)[**3**](https://github.com/pymc-devs/pymc3)/[**4**](https://github.com/pymc-devs/pymc4): Friendly probabilistic programming in Python.
 
-
-## Publications and presentations
+## Talks and conferences
 * PROBPROG 2020: _Coming on autumn 2020_
+* StanCon 2020: _ArviZ, InferenceData, and NetCDF: A unified file format for Bayesians._
+  Slides and video presentation are available at [GitHub](https://github.com/arviz-devs/arviz_misc/tree/master/stancon_2020),
+  the slides are executable thanks to Binder!
+
+## Publications
 * M. Badenas-Agusti, M. N. Günther, T. Daylan, et al., 2020, HD 191939: _Three Sub-Neptunes Transiting a Sun-like Star Only 54 pc Away_
 * D. Foreman-Mackey, W. Farr, M. Sinha, A. Archibald, et al., 2019, _emcee v3: A Python ensemble sampling toolkit for affine-invariant MCMC._
   - Get the [emcee package code](https://github.com/dfm/emcee)!

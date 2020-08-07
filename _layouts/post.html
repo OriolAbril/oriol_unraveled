@@ -35,9 +35,18 @@ layout: page
     </p>
 
     {% if page.categories.size > 0 and site.show_tags %}
-      <p class="category-tags"><i class="fa fa-tags category-tags-icon"></i></i>
+      <p class="category-tags"><i class="fa fa-folder category-tags-icon"></i></i>
       {% for category in  page.categories  %}
         <a class="category-tags-link" href="{{site.baseurl}}/categories/#{{category|slugize}}">{{category}}</a>
+        {% unless forloop.last %}&nbsp;{% endunless %}
+      {% endfor %}
+      </p>
+    {% endif %}
+
+    {% if page.tags.size > 0 and site.show_tags %}
+      <p class="category-tags"><i class="fa fa-tags category-tags-icon"></i></i>
+      {% for tag in  page.tags  %}
+        <a class="category-tags-link" href="{{site.baseurl}}/tags/#{{tag|slugize}}">{{tag}}</a>
         {% unless forloop.last %}&nbsp;{% endunless %}
       {% endfor %}
       </p>
