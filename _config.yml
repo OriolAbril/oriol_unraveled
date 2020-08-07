@@ -87,6 +87,7 @@ plugins:
   - jekyll-toc
   - jekyll-twitter-plugin
   - jekyll-relative-links
+  - jekyll-seo-tag
   - jekyll-remote-theme
   - jekyll-paginate
   - jekyll-sitemap
