@@ -125,3 +125,4 @@ defaults:
       type: posts
     values:
       read_time: true
+      twitter_large_image: false

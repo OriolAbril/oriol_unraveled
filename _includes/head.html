@@ -1,24 +1,28 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="twitter:card" content="summary" />
+{%- if page.twitter_large_image -%}
+  <meta name="twitter:card" content="summary_large_image" />
+{%- else -%}
+  <meta name="twitter:card" content="summary" />
+{%- endif -%}
 
 <title>{{ page.title }} | {{ site.title }}</title>
 <meta name="description" content="{{ page.description }}">
-
-{%- include favicons.html -%}
-
-<!-- CSS -->
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{ "/assets/css/main.css" | absolute_url }}" />
-<noscript><link rel="stylesheet" href="{{ "/assets/css/noscript.css" | absolute_url }}" /></noscript>
-<link rel="stylesheet" href="{{ "/assets/stylesheets/main.css" | absolute_url }}" />
-<link rel="stylesheet" href="{{ "/assets/css/academicons.min.css" | absolute_url }}"/>
 
 <!-- SEO and meta information for twitter/whatsupp cards -->
 {%- seo -%}
 <!-- Feed -->
 {%- feed_meta -%}
+
+
+<!-- CSS -->
+{%- include favicons.html -%}
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ "/assets/css/main.css" | absolute_url }}" />
+<noscript><link rel="stylesheet" href="{{ "/assets/css/noscript.css" | absolute_url }}" /></noscript>
+<link rel="stylesheet" href="{{ "/assets/stylesheets/main.css" | absolute_url }}" />
+<link rel="stylesheet" href="{{ "/assets/css/academicons.min.css" | absolute_url }}"/>
 
 <!-- Analytics -->
 {%- if jekyll.environment == 'production' and site.google_analytics -%}
