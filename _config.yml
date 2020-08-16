@@ -43,10 +43,6 @@ twitter_username: OriolAbril
 orcid_id: 0000-0002-1847-9481
 google_scholar_id: srEgvQgAAAAJ
 
-
-# Set this to true to get LaTeX math equation support
-use_math: true
-
 # Set this to true to display the summary of your blog post under your title on the Home page.
 show_description: true
 
@@ -126,3 +122,4 @@ defaults:
     values:
       read_time: true
       twitter_large_image: false
+      use_math: false
