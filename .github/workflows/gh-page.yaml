@@ -1,11 +1,11 @@
 name: GH-Pages Status
 on:
   page_build
-  
+
 jobs:
   see-page-build-payload:
     runs-on: ubuntu-latest
-    steps:      
+    steps:
       - name: check status
         run: |
           import os
