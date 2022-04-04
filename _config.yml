@@ -9,7 +9,7 @@
 title: "Oriol unraveled"
 description: "Personal website of an enthusiast about open source and statistics"
 logo: images/logo.png
-background_image:   "/oriol_unraveled/images/bg.jpg"
+background_image:   "/images/bg.jpg"
 copyright: "Created by Oriol Abril. Powered by [fastpages](https://fastpages.fast.ai/) and [Basically Basic](https://mmistakes.github.io/jekyll-theme-basically-basic/)"
 github_username: OriolAbril
 # you can comment the below line out if your repo name is not different than your baseurl
@@ -17,7 +17,7 @@ github_repo: "oriol_unraveled"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value.
-url: "https://OriolAbril.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://oriolabrilpla.cat" # the base hostname & protocol for your site, e.g. http://example.com
 
 ###########################################################
 #########  Special Instructions for baseurl ###############
@@ -37,7 +37,7 @@ url: "https://OriolAbril.github.io" # the base hostname & protocol for your site
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-baseurl: "/oriol_unraveled" # the subpath of your site, e.g. "/blog".
+baseurl: "" # the subpath of your site, e.g. "/blog".
 
 twitter_username: OriolAbril
 orcid_id: 0000-0002-1847-9481
