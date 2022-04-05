@@ -4,4 +4,4 @@
 
 Checkout the blog at:
 
-https://oriolabril.github.io/oriol_unraveled/
+https://oriolabrilpla.cat
