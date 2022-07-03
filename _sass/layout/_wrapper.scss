@@ -25,35 +25,8 @@
     background-attachment: scroll, scroll, scroll;
     z-index: -1;
 
-    &.fixed {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-    }
   }
 
-  &.fade-in {
-    &:before {
-      @include vendor('pointer-events', 'none');
-      @include vendor('transition', 'opacity 1s ease-in-out');
-      @include vendor('transition-delay', '0.75s');
-      background: _palette(invert, bg);
-      content: '';
-      display: block;
-      height: 100%;
-      left: 0;
-      opacity: 0;
-      position: fixed;
-      top: 0;
-      width: 100%;
-    }
-
-    body.is-loading & {
-      &:before {
-        opacity: 1;
-      }
-    }
-  }
 
   @include orientation(portrait) {
     > .bg {

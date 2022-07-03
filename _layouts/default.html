@@ -21,12 +21,17 @@
       <div id="main">
 
         <!-- Post -->
+        {% if page.layout == 'page' %}
         <section class="post">
-          {% if page.layout == 'page' %}
             <h1>{{ page.title }}</h1>
-          {% endif %}
           <p>{{content}}</p>
         </section>
+        {% else %}
+        <h1>{{ page.title }}</h1>
+
+          {{ content }}
+
+        {% endif %}
 
         <!-- Epilogue: home and blog buttons -->
           <footer>
@@ -39,6 +44,7 @@
 
       <!-- Footer -->
       {% include foot.html %}
+      <div class="bg"></div>
 
     <!-- Scripts -->
     {% include scripts-main.html %}
