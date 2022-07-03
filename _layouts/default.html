@@ -3,31 +3,32 @@
   <head>
     {% include head.html %}
   </head>
-  <body class="is-loading">
+  <body id="wrapper">
 
-    <!-- Wrapper -->
-      <div id="wrapper" class="fade-in">
+      <!-- Header -->
+      <header id="header">
+        <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
+      </header>
 
-        <!-- Header -->
-        <header id="header">
-          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
-        </header>
+      <!-- Nav -->
+        <nav id="nav">
 
-        <!-- Nav -->
-          <nav id="nav">
+          {% include nav.html %}
 
-            {% include nav.html %}
+        </nav>
 
-          </nav>
+      <!-- Main -->
+      <div id="main">
 
-        <!-- Main -->
-        <div id="main">
+        <!-- Post -->
+        <section class="post">
+          {% if page.layout == 'page' %}
+            <h1>{{ page.title }}</h1>
+          {% endif %}
+          <p>{{content}}</p>
+        </section>
 
-          <h1>{{ page.title }}</h1>
-
-          {{ content }}
-
-          <!-- Footer -->
+        <!-- Epilogue: home and blog buttons -->
           <footer>
             <ul class="actions">
               <li><a href="{{ "/" | absolute_url }}" class="button">Home</a></li>
@@ -36,10 +37,8 @@
           </footer>
         </div>
 
-        <!-- Footer -->
-        {% include foot.html %}
-
-      </div>
+      <!-- Footer -->
+      {% include foot.html %}
 
     <!-- Scripts -->
     {% include scripts-main.html %}

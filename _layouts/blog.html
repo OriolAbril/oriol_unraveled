@@ -2,43 +2,36 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
   <head>
     {% include head.html %}
-
   </head>
-  <body class="is-loading">
+  <body id="wrapper">
 
-    <!-- Wrapper -->
-      <div id="wrapper" class="fade-in">
+      <!-- Header -->
+      <header id="header">
+        <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
+      </header>
 
-        <!-- Header -->
-        <header id="header">
-          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
-        </header>
+      <!-- Nav -->
+        <nav id="nav">
 
+          {% include nav.html %}
 
-        <!-- Nav -->
-          <nav id="nav">
+        </nav>
 
-            {% include nav.html %}
+      <!-- Main -->
+      <div id="main">
 
-          </nav>
+        <!-- Post -->
+        <section class="posts">
+          {% for post in site.posts %}
+            {% include entry_square.html %}
+          {% endfor %}
 
-        <!-- Main -->
-        <div id="main">
+        </section>
 
-          <!-- Post -->
-          <section class="posts">
-            {% for post in site.posts %}
-              {% include entry_square.html %}
-            {% endfor %}
+        </div>
 
-          </section>
-
-          </div>
-
-        <!-- Footer -->
-        {% include foot.html %}
-
-      </div>
+      <!-- Footer -->
+      {% include foot.html %}
 
     <!-- Scripts -->
     {% include scripts-main.html %}

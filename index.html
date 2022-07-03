@@ -28,75 +28,70 @@ search_exclude: true
 
 
   </head>
-  <body class="is-loading">
+  <body id="wrapper">
 
-    <!-- Wrapper -->
-      <div id="wrapper" class="fade-in">
+      <!-- Intro -->
+        <div id="intro">
+          <h1>{{site.title}}</h1>
+          <p>{{page.description}}</p>
+          <ul class="actions">
+            <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
+          </ul>
+        </div>
 
-        <!-- Intro -->
-          <div id="intro">
-            <h1>{{site.title}}</h1>
-            <p>{{page.description}}</p>
-            <ul class="actions">
-              <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
-            </ul>
-          </div>
+      <!-- Header -->
+        <header id="header">
+          <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
+        </header>
 
-        <!-- Header -->
-          <header id="header">
-            <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
-          </header>
+      <!-- Nav -->
+        <nav id="nav">
 
-        <!-- Nav -->
-          <nav id="nav">
+          {% include nav.html %}
 
-            {% include nav.html %}
+        </nav>
 
-          </nav>
+      <!-- Main -->
+        <div id="main">
+          <!-- Featured Post -->
+            <article class="post featured">
+              <header class="major">
+                <h2><a href="#">Oriol unraveled</a></h2>
+                <h4></h4>
+                <p>A well known Catalan saying goes: "Xerrar pels descosits".
+                  It means that somebody talks too much. "xerrar" is talking and
+                  a "descosit" refers to pieces of fabric that have come undone or
+                  been unraveled. I generally do not talk too much, in fact I tend
+                  to talk too little unless we are talking about topics such as
+                  statistics or programming. I hope this blog can be a place to
+                  unravel concepts on statistics, open source and programming,
+                  allowing me to "xerrar pels descosits" in blog version.</p>
+                <p>Get ready for some puns and let's dive in!</p>
+              </header>
+              <a href="#" class="image main"><img src="{{ "/images/theme_image.png" | absolute_url }}" alt="" /></a>
 
-        <!-- Main -->
-          <div id="main">
-            <!-- Featured Post -->
-              <article class="post featured">
-                <header class="major">
-                  <h2><a href="#">Oriol unraveled</a></h2>
-                  <h4></h4>
-                  <p>A well known Catalan saying goes: "Xerrar pels descosits".
-                    It means that somebody talks too much. "xerrar" is talking and
-                    a "descosit" refers to pieces of fabric that have come undone or
-                    been unraveled. I generally do not talk too much, in fact I tend
-                    to talk too little unless we are talking about topics such as
-                    statistics or programming. I hope this blog can be a place to
-                    unravel concepts on statistics, open source and programming,
-                    allowing me to "xerrar pels descosits" in blog version.</p>
-                  <p>Get ready for some puns and let's dive in!</p>
-                </header>
-                <a href="#" class="image main"><img src="{{ "/images/theme_image.png" | absolute_url }}" alt="" /></a>
+            </article>
 
-              </article>
+          <!-- Posts -->
+            <section class="posts">
+              {% for post in site.posts %}
+                {% include entry_square.html %}
+              {% endfor %}
 
-            <!-- Posts -->
-              <section class="posts">
-                {% for post in site.posts %}
-                  {% include entry_square.html %}
-                {% endfor %}
+            </section>
 
-              </section>
+          <!-- Epilogue -->
+            <footer>
+              <ul class="actions">
+                <li><a href="{{ "/" | absolute_url }}" class="button">Back to top</a></li>
+                <li><a href="{{ "/blog/" | absolute_url }}" class="button">Blog</a></li>
+              </ul>
+            </footer>
 
-            <!-- Footer -->
-              <footer>
-                <ul class="actions">
-                  <li><a href="{{ "/" | absolute_url }}" class="button">Back to top</a></li>
-                  <li><a href="{{ "/blog/" | absolute_url }}" class="button">Blog</a></li>
-                </ul>
-              </footer>
+        </div>
 
-          </div>
-
-        <!-- Footer -->
-        {% include foot.html %}
-
-      </div>
+      <!-- Footer -->
+      {% include foot.html %}
 
     <!-- Scripts -->
     {% include scripts-main.html %}
