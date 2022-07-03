@@ -1,5 +1,48 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  <head>
+    {% include head.html %}
+  </head>
+  <body id="wrapper">
 
-{{ content }}
+      <!-- Header -->
+      <header id="header">
+        <a href="{{ "/" | absolute_url }}" class="logo">{{site.title}}</a>
+      </header>
+
+      <!-- Nav -->
+        <nav id="nav">
+
+          {% include nav.html %}
+
+        </nav>
+
+      <!-- Main -->
+      <div id="main">
+
+        <!-- Post -->
+        <section class="post">
+          {% if page.layout == 'page' %}
+            <h1>{{ page.title }}</h1>
+          {% endif %}
+          <p>{{content}}</p>
+        </section>
+
+        <!-- Epilogue: home and blog buttons -->
+          <footer>
+            <ul class="actions">
+              <li><a href="{{ "/" | absolute_url }}" class="button">Home</a></li>
+              <li><a href="{{ "/blog/" | absolute_url }}" class="button">Blog</a></li>
+            </ul>
+          </footer>
+        </div>
+
+      <!-- Footer -->
+      {% include foot.html %}
+      <div class="bg"></div>
+
+    <!-- Scripts -->
+    {% include scripts-main.html %}
+
+  </body>
+</html>

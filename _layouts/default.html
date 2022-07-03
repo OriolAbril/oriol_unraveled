@@ -20,18 +20,9 @@
       <!-- Main -->
       <div id="main">
 
-        <!-- Post -->
-        {% if page.layout == 'page' %}
-        <section class="post">
-            <h1>{{ page.title }}</h1>
-          <p>{{content}}</p>
-        </section>
-        {% else %}
         <h1>{{ page.title }}</h1>
 
           {{ content }}
-
-        {% endif %}
 
         <!-- Epilogue: home and blog buttons -->
           <footer>
