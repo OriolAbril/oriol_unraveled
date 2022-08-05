@@ -74,7 +74,7 @@ search_exclude: true
 
           <!-- Posts summary grid -->
             <section class="posts">
-              {% for post in site.posts %}
+              {% for post in site.posts limit: 2 %}
                 {% include entry_square.html %}
               {% endfor %}
 
