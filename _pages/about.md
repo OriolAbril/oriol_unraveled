@@ -32,14 +32,14 @@ Here are highlighted some open source projects I contribute to, check out my
 [GitHub profile](https://github.com/OriolAbril) for a complete list
 of the projects I contribute to.
 
-* [**ArviZ**](https://github.com/arviz-devs/arviz): Exploratory analysis of
-  Bayesian models in [Python](https://arviz-devs.github.io/arviz/index.html)
-  or [Julia](https://arviz-devs.github.io/ArviZ.jl/stable/)
-* [**xarray-einstats**](https://xarray-einstats.readthedocs.io/en/latest):
+* [**ArviZ**](https://www.arviz.org): Exploratory analysis of
+  Bayesian models in [Python](https://python.arviz.org)
+  or [Julia](https://julia.arviz.org)
+* [**xarray-einstats**](https://einstats.python.arviz.org/en/latest):
   Label based statistics, linear algebra and einops for xarray objects.
 * [**PyMC**](https://www.pymc.io): Friendly probabilistic programming in Python.
   - In addition to helping a bit with PyMC development, I am one of the main curator/reviewers
-    of [PyMC-examples](https://docs.pymc.io/projects/examples/en/latest/),
+    of [PyMC-examples](https://www.pymc.io/projects/examples/en/latest/),
     a collection of Jupyter notebooks about Bayesian modeling with PyMC.
 * [**mombf**](https://github.com/davidrusi/mombf): Bayesian model selection and
   averaging for regression and mixtures for non-local and local priors.
