@@ -6,7 +6,7 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
-_notebooks/.ipynb_checkpoints
+sphinx_source/blog/.ipynb_checkpoints
 # Local Netlify folder
 .netlify
 .tweet-cache
@@ -15,5 +15,10 @@ __pycache__
 # mypy
 .mypy_cache
 
-_notebooks/stan_codes/*
-!_notebooks/stan_codes/*.stan
+sphinx_source/blog/stan_codes/*
+!sphinx_source/blog/stan_codes/*.stan
+
+# sphinx
+build
+gettext
+jupyter_execute
