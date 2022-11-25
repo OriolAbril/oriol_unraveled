@@ -1,0 +1,10 @@
+Sphinx>=5
+sphinx-copybutton
+sphinx-design
+myst-nb
+ablog>=0.11
+sphinx-codeautolink
+sphinxext-opengraph
+sphinx-notfound-page
+sphinxext-rediraffe
+oriol-personal-theme

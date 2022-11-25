@@ -65,6 +65,7 @@ blog_authors = {
     "oriol": ("Oriol Abril Pla", "https://oriolabrilpla.cat"),
 }
 blog_default_author = "oriol"
+post_show_prev_next = False
 post_auto_image = 1
 fontawesome_included = True
 
@@ -118,6 +119,12 @@ html_theme_options = {
             "url": "https://twitter.com/OriolAbril",
             "icon": "fa-brands fa-twitter",
             "type": "fontawesome",
+        },
+        {
+            "name": "Mastodon",
+            "url": "https://toot.cat/@oriolabril",
+            "icon": "fa-brands fa-mastodon",
+            "attributes": {"rel": "me"},
         },
         {
             "name": "Atom Feed",

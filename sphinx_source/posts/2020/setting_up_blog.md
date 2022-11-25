@@ -12,7 +12,7 @@ html_theme.comments:
 Sailing in the sea of blogging alternatives
 :::
 
-:::{image} ../images/posts/blog.png
+:::{image} ../post_images/blog.png
 :alt:
 :class: hidden-metadata
 :::
