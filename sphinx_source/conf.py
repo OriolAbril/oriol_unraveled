@@ -4,6 +4,8 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+
 # -- Project information -----------------------------------------------------
 
 project = "Oriol unraveled"
@@ -63,6 +65,7 @@ blog_authors = {
     "oriol": ("Oriol Abril Pla", "https://oriolabrilpla.cat"),
 }
 blog_default_author = "oriol"
+post_auto_image = 1
 fontawesome_included = True
 
 notfound_urls_prefix = ""
@@ -102,8 +105,31 @@ html_theme = "oriol_personal_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 
 html_theme_options = {
-    "show_nav_level": 2,
-    "navbar_start": ["navbar-logo"],
+    "use_edit_page_button": False,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/OriolAbril",
+            "icon": "fa-brands fa-github",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Twitter",
+            "url": "https://twitter.com/OriolAbril",
+            "icon": "fa-brands fa-twitter",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Atom Feed",
+            "url": "https://oriolabrilpla.cat/blog/atom.xml",
+            "icon": "fa-solid fa-rss",
+            "type": "fontawesome",
+        },
+    ],
+    "switcher": {
+        "json_url": "https://sphinx-primer.readthedocs.io/en/latest/_static/switcher.json",
+        "version_match": os.environ.get("READTHEDOCS_LANGUAGE", "en")
+    },
 }
 html_context = {
     "github_user": "oriolabril",
@@ -120,23 +146,4 @@ html_static_path = ["images"]
 # html_css_files = ["custom.css"]
 html_title = "Oriol unraveled"
 
-html_sidebars = {
-    "blog/tag": [
-        "tagcloud.html",
-        "sidebar-nav-bs.html",
-    ],
-    "blog/category": [
-        "categories.html",
-        "sidebar-nav-bs.html",
-    ],
-    "blog/archive": [
-        "archives.html",
-        "sidebar-nav-bs.html",
-    ],
-    "blog/*": [
-        "postcard.html",
-        "sidebar-nav-bs.html",
-    ],
-    "blog": ["sidebar-nav-bs.html"],
-    "[!blog]**": ["sidebar-nav-bs.html"],
-}
+html_sidebars = {"**": []}

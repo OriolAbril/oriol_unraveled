@@ -1,8 +1,4 @@
----
-layout: page
-title: About Me
-permalink: /about/
----
+# About me
 
 I'm a physicist/engineer converted into a computational statistician.
 I love statistical data analysis, programming and data visualization.
@@ -25,7 +21,7 @@ little and more recently I added kayaking to the mix too! I generally spend
 the summer at the _Costa Brava_. Here I leave you a sneak peak of the views
 when nobody is around
 
-![cala_costa_brava]({{ site.baseurl }}/images/cala_costa_brava.jpg)
+![A small cave with clear water and pine trees growing near the sea](images/cala_costa_brava.jpg)
 
 ## Open source libraries
 Here are highlighted some open source projects I contribute to, check out my

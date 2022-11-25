@@ -1,14 +1,21 @@
 ---
-toc: false
-layout: post
-description: "Sailing in the sea of blogging alternatives"
-categories: [jekyll]
-tags: [blogging, communication]
-title: "Creating a blog"
-image: "images/posts/blog.png"
-comments: true
+html_theme.comments:
 ---
+
 # A blog is born
+
+:::{post} July 10, 2020
+:category: jekyll
+:tags: blogging, communication
+:exclude:
+
+Sailing in the sea of blogging alternatives
+:::
+
+:::{image} ../images/posts/blog.png
+:alt:
+:class: hidden-metadata
+:::
 
 These days, there are countless blogging alternatives covering an
 extremely wide range of needs, from writing everything in `.docx` format to
