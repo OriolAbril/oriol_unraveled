@@ -1,0 +1,964 @@
+
+<!DOCTYPE html>
+
+<html lang="ca">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="«LOO-CV on transformed data»" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://oriolabrilpla.cat/posts/2019/2019-06-21-loo-cv-transformed-data.html" property="og:url"/>
+<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="Can different transformations of the data be compared with leave one out cross validation? toc: true, author: Oriol Abril, badges: true, categories: [python, arviz, stan], tags: [model comparison],..." property="og:description"/>
+<meta content="Can different transformations of the data be compared with leave one out cross validation? toc: true, author: Oriol Abril, badges: true, categories: [python, arviz, stan], tags: [model comparison],..." name="description"/>
+<title>«LOO-CV on transformed data» — Oriol unraveled</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css">
+<link href="../../_static/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css">
+<link href="../../_static/copybutton.css" rel="stylesheet" type="text/css">
+<link href="../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
+<link href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css">
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<link as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script src="../../_static/sphinx_highlight.js"></script>
+<script src="../../_static/clipboard.min.js"></script>
+<script src="../../_static/copybutton.js"></script>
+<script src="../../_static/translations.js"></script>
+<script src="../../_static/design-tabs.js"></script>
+<script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'posts/2019/2019-06-21-loo-cv-transformed-data';</script>
+<script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://sphinx-primer.readthedocs.io/en/latest/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        </script>
+<link href="../../_static/favicon.ico" rel="shortcut icon">
+<link href="../../about.html" rel="author" title="Quant a aquests documents">
+<link href="../../genindex.html" rel="index" title="Índex">
+<link href="../../search.html" rel="search" title="Cerca"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="ca" name="docsearch:language"/>
+</link></link></link></link></link></link></link></link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
+<a class="skip-link" href="#main">Skip to main content</a>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+</div>
+<header class="logo-header">
+<a class="logo" href="../../index.html">Oriol unraveled</a>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-center-item">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/category.html">
+                        Categories
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../about.html">
+                        About me
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-end-item">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-end-items sidebar-primary__section">
+<div class="sidebar-end-items__item">
+</div>
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content-nav bd-content">
+<div class="bd-header-article">
+<nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/category.html">
+                        Categories
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../about.html">
+                        About me
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+<div class="version-switcher__container dropdown">
+<button class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" type="button">
+        en  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
+</div>
+<div class="article-navbar-search">
+<button aria-label="Cerca" class="btn btn-sm navbar-btn search-button search-button__button" data-toggle="tooltip" title="Cerca">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</nav></div>
+<div class="bd-content" id="main">
+<div class="bd-article-container bd-content-page">
+<article class="bd-article" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="loo-cv-on-transformed-data">
+<h1>«LOO-CV on transformed data»<a class="headerlink" href="#loo-cv-on-transformed-data" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p>Can different transformations of the data be compared with leave one out cross validation?</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>toc: true</p></li>
+<li><p>author: Oriol Abril</p></li>
+<li><p>badges: true</p></li>
+<li><p>categories: [python, arviz, stan]</p></li>
+<li><p>tags: [model comparison]</p></li>
+<li><p>image: images/nb/loo_regression.png</p></li>
+<li><p>use_math: true</p></li>
+</ul>
+<p>Blog post exploring whether or not LOO-CV can be used to compare models that try to explain some data <span class="math notranslate nohighlight">\(y\)</span> with models trying to explain the same data after a transformation <span class="math notranslate nohighlight">\(z=f(y)\)</span>. Inspired by <a class="reference external" href="https://discourse.mc-stan.org/t/very-simple-loo-question/9258">@tiagocc question</a> on Stan Forums. This post has two sections, the first one is the mathematical derivation of the equations used and their application on a validation example, and the second section is a real example. In addition to the LOO-CV usage examples and explanations, another goal of this notebook is to show and highlight the capabilities of <a class="reference external" href="https://arviz-devs.github.io/arviz/">ArviZ</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pystan</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="mathematical-derivation-and-validation-example">
+<h2>Mathematical derivation and validation example<a class="headerlink" href="#mathematical-derivation-and-validation-example" title="Permalink to this heading">#</a></h2>
+<p>In the first example, we will compare two equivalent models:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(y \sim \text{LogNormal}(\mu, \sigma)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log y \sim \text{Normal}(\mu, \sigma)\)</span></p></li>
+</ol>
+<section id="model-definition-and-execution">
+<h3>Model definition and execution<a class="headerlink" href="#model-definition-and-execution" title="Permalink to this heading">#</a></h3>
+<p>Define the data and execute the two models</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">logy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logy</span><span class="p">)</span> <span class="c1"># y will then be distributed as lognormal</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'N'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="s1">'y'</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'logy'</span><span class="p">:</span> <span class="n">logy</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">lognormal_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">data {</span>
+<span class="s2">  int&lt;lower=0&gt; N;</span>
+<span class="s2">  vector[N] y;</span>
+<span class="s2">}</span>
+
+<span class="s2">parameters {</span>
+<span class="s2">  real mu;</span>
+<span class="s2">  real&lt;lower=0&gt; sigma;</span>
+<span class="s2">}</span>
+
+<span class="s2">model {</span>
+<span class="s2">    y ~ lognormal(mu, sigma);</span>
+<span class="s2">}</span>
+
+<span class="s2">generated quantities {</span>
+<span class="s2">    vector[N] log_lik;</span>
+<span class="s2">    vector[N] y_hat;</span>
+
+<span class="s2">    for (i in 1:N) {</span>
+<span class="s2">        log_lik[i] = lognormal_lpdf(y[i] | mu, sigma);</span>
+<span class="s2">        y_hat[i] = lognormal_rng(mu, sigma);</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_lognormal</span> <span class="o">=</span> <span class="n">pystan</span><span class="o">.</span><span class="n">StanModel</span><span class="p">(</span><span class="n">model_code</span><span class="o">=</span><span class="n">lognormal_code</span><span class="p">)</span>
+<span class="n">fit_lognormal</span> <span class="o">=</span> <span class="n">sm_lognormal</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pystan:COMPILING THE C++ CODE FOR MODEL anon_model_af04dcd0464f65fe0e5bbc595b4eb9d6 NOW.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_lognormal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_lognormal</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">normal_on_log_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">data {</span>
+<span class="s2">  int&lt;lower=0&gt; N;</span>
+<span class="s2">  vector[N] logy;</span>
+<span class="s2">}</span>
+
+<span class="s2">parameters {</span>
+<span class="s2">  real mu;</span>
+<span class="s2">  real&lt;lower=0&gt; sigma;</span>
+<span class="s2">}</span>
+
+<span class="s2">model {</span>
+<span class="s2">    logy ~ normal(mu, sigma);</span>
+<span class="s2">}</span>
+
+<span class="s2">generated quantities {</span>
+<span class="s2">    vector[N] log_lik;</span>
+<span class="s2">    vector[N] logy_hat;</span>
+
+<span class="s2">    for (i in 1:N) {</span>
+<span class="s2">        log_lik[i] = normal_lpdf(logy[i] | mu, sigma);</span>
+<span class="s2">        logy_hat[i] = normal_rng(mu, sigma);</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_normal</span> <span class="o">=</span> <span class="n">pystan</span><span class="o">.</span><span class="n">StanModel</span><span class="p">(</span><span class="n">model_code</span><span class="o">=</span><span class="n">normal_on_log_code</span><span class="p">)</span>
+<span class="n">fit_normal</span> <span class="o">=</span> <span class="n">sm_normal</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pystan:COMPILING THE C++ CODE FOR MODEL anon_model_acd7c874588f1c862727f931f4dbf916 NOW.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_normal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_normal</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'logy_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'logy'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'logy'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check model convergence. Use <code class="docutils literal notranslate"><span class="pre">az.summary</span></code> to in one view that the effective sample size (ESS) is large enough and <span class="math notranslate nohighlight">\(\hat{R}\)</span> is close to one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mean</th>
+<th>sd</th>
+<th>hdi_3%</th>
+<th>hdi_97%</th>
+<th>mcse_mean</th>
+<th>mcse_sd</th>
+<th>ess_mean</th>
+<th>ess_sd</th>
+<th>ess_bulk</th>
+<th>ess_tail</th>
+<th>r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>mu</th>
+<td>1.857</td>
+<td>0.210</td>
+<td>1.485</td>
+<td>2.259</td>
+<td>0.005</td>
+<td>0.004</td>
+<td>1533.0</td>
+<td>1526.0</td>
+<td>1535.0</td>
+<td>1483.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>sigma</th>
+<td>1.145</td>
+<td>0.164</td>
+<td>0.853</td>
+<td>1.451</td>
+<td>0.005</td>
+<td>0.004</td>
+<td>1103.0</td>
+<td>1046.0</td>
+<td>1195.0</td>
+<td>929.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mean</th>
+<th>sd</th>
+<th>hdi_3%</th>
+<th>hdi_97%</th>
+<th>mcse_mean</th>
+<th>mcse_sd</th>
+<th>ess_mean</th>
+<th>ess_sd</th>
+<th>ess_bulk</th>
+<th>ess_tail</th>
+<th>r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>mu</th>
+<td>1.854</td>
+<td>0.205</td>
+<td>1.448</td>
+<td>2.222</td>
+<td>0.005</td>
+<td>0.004</td>
+<td>1456.0</td>
+<td>1456.0</td>
+<td>1446.0</td>
+<td>1187.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>sigma</th>
+<td>1.138</td>
+<td>0.155</td>
+<td>0.862</td>
+<td>1.420</td>
+<td>0.004</td>
+<td>0.003</td>
+<td>1196.0</td>
+<td>1070.0</td>
+<td>1312.0</td>
+<td>1154.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div></div></div>
+</div>
+<p>In addition, we can plot the quantile ESS plot for one of them directly with <code class="docutils literal notranslate"><span class="pre">plot_ess</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"quantile"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/900caf2ca3ba31c4622593238de454286dfbccaa7cfc73b9a97c29298f6e8434.png" src="../../_images/900caf2ca3ba31c4622593238de454286dfbccaa7cfc73b9a97c29298f6e8434.png"/>
+</div>
+</div>
+</section>
+<section id="posterior-validation">
+<h3>Posterior validation<a class="headerlink" href="#posterior-validation" title="Permalink to this heading">#</a></h3>
+<p>Check that both models are equivalent and do indeed give the same result for both parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_density</span><span class="p">([</span><span class="n">idata_lognormal</span><span class="p">,</span> <span class="n">idata_normal</span><span class="p">],</span> <span class="n">data_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Lognormal likelihood"</span><span class="p">,</span> <span class="s2">"Normal likelihood"</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/43a0e1aea0be6c7e75db80f6bb3d53911f666e2409fa5e9306719ba42337db8b.png" src="../../_images/43a0e1aea0be6c7e75db80f6bb3d53911f666e2409fa5e9306719ba42337db8b.png"/>
+</div>
+</div>
+</section>
+<section id="calculate-loo-cv">
+<h3>Calculate LOO-CV<a class="headerlink" href="#calculate-loo-cv" title="Permalink to this heading">#</a></h3>
+<p>Now we get to calculate LOO-CV using Pareto Smoothed Importance Sampling as detailed in Vehtari et al., 2017. As we explained above, both models are equivalent, but one is in terms of <span class="math notranslate nohighlight">\(y\)</span> and the other in terms of <span class="math notranslate nohighlight">\(\log y\)</span>. Therefore, their likelihoods will be on different scales, and hence, their expected log predictive density will also be different.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computed from 2000 by 30 log-likelihood matrix
+
+         Estimate       SE
+elpd_loo  -102.50     7.28
+p_loo        1.80        -
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computed from 2000 by 30 log-likelihood matrix
+
+         Estimate       SE
+elpd_loo   -46.57     3.46
+p_loo        1.64        -
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have found that as expected, the two models yield different results despite being actually the same model. This is because. LOO is estimated from the log likelihood, <span class="math notranslate nohighlight">\(\log p(y_i\mid\theta^s)\)</span>, being <span class="math notranslate nohighlight">\(i\)</span> the observation id, and <span class="math notranslate nohighlight">\(s\)</span> the MCMC sample id. Following Vehtari et al., 2017, this log likelihood is used to calculate the PSIS weights and to estimate the expected log pointwise predictive density in the following way:</p>
+<ol class="arabic simple">
+<li><p>Calculate raw importance weights: <span class="math notranslate nohighlight">\(r_i^s = \frac{1}{p(y_i\mid\theta^s)}\)</span></p></li>
+<li><p>Smooth the <span class="math notranslate nohighlight">\(r_i^s\)</span> (see original paper for details) to get the PSIS weights <span class="math notranslate nohighlight">\(w_i^s\)</span></p></li>
+<li><p>Calculate elpd LOO as:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ \text{elpd}_{psis-loo} = \sum_{i=1}^n \log \left( \frac{\sum_s w_i^s p(y_i|\theta^s)}{\sum_s w_i^s} \right) \]</div>
+<p>This will estimate the out of sample predictive fit of <span class="math notranslate nohighlight">\(y\)</span> (where <span class="math notranslate nohighlight">\(y\)</span> is the data of the model. Therefore, for the first model, using a LogNormal distribution, we are indeed calculating the desired quantity:</p>
+<div class="math notranslate nohighlight">
+\[ \text{elpd}_{psis-loo}^{(1)} \approx \sum_{i=1}^n \log p(y_i|y_{-i}) \]</div>
+<p>Whereas for the second model, we are calculating:</p>
+<div class="math notranslate nohighlight">
+\[ \text{elpd}_{psis-loo}^{(2)} \approx \sum_{i=1}^n \log p(z_i|z_{-i}) \]</div>
+<p>being <span class="math notranslate nohighlight">\(z_i = \log y_i\)</span>. We actually have two different probability density functions, one over <span class="math notranslate nohighlight">\(y\)</span> which from here on we will note <span class="math notranslate nohighlight">\(p_y(y)\)</span>, and <span class="math notranslate nohighlight">\(p_z(z)\)</span>.</p>
+<p>In order to estimate the elpd loo for <span class="math notranslate nohighlight">\(y\)</span> from the data in the second model, <span class="math notranslate nohighlight">\(z\)</span>, we have to describe <span class="math notranslate nohighlight">\(p_y(y)\)</span> as a function of <span class="math notranslate nohighlight">\(z\)</span> and <span class="math notranslate nohighlight">\(p_z(z)\)</span>. We know that <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span> are actually related, and we can use this relation to find how would the random variable <span class="math notranslate nohighlight">\(y\)</span> (which is actually a transformation of the random variable <span class="math notranslate nohighlight">\(z\)</span>) be distributed. This is done with the Jacobian. Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+p_y(y|\theta)=p_z(z|\theta)|\frac{dz}{dy}|=\frac{1}{|y|}p_z(z|\theta)=e^{-z}p_z(z|\theta)
+\]</div>
+<p>In the log scale:</p>
+<div class="math notranslate nohighlight">
+\[
+\log p_y(y|\theta)=-z + \log p_z(z|\theta)
+\]</div>
+<p>We apply the results to the log likelihood data of the second model (the normal on the logarithm instead of the lognormal) and check that now the result does coincide with the LOO-CV estimated by the lognormal model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">logy</span>
+<span class="n">idata_normal</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">z</span><span class="o">+</span><span class="n">idata_normal</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">logy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computed from 2000 by 30 log-likelihood matrix
+
+         Estimate       SE
+elpd_loo  -102.30     7.26
+p_loo        1.64        -
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="real-example">
+<h2>Real example<a class="headerlink" href="#real-example" title="Permalink to this heading">#</a></h2>
+<p>We will now use as data a subsample of a <a class="reference external" href="https://docs.google.com/spreadsheets/d/1gt1Dvi7AnQJiBb5vKaxanTis_sfd4sC4sVoswM1Fz7s/pub#">real dataset</a>. The subset has been selected using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"indicator breast female incidence.xlsx"</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Breast Female Incidence"</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">thresh</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"indicator_breast_female_incidence.csv"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Below, the data is loaded and plotted for inspection.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/indicator_breast_female_incidence.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mf">5.5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/fcb681a50dd584b06128ed7db3c5de4b88eaa5582490b028ea5833e290a85083.png" src="../../_images/fcb681a50dd584b06128ed7db3c5de4b88eaa5582490b028ea5833e290a85083.png"/>
+</div>
+</div>
+<p>In order to show different examples of LOO on transformed data, we will take into account the following models:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+&amp;y=a_1 x+a_0 \\
+&amp;y=e^{b_0}e^{b_1 x}  &amp;\rightarrow&amp; \quad\log y = z_1 = b_1 x + b_0\\
+&amp;y=c_1^2 x^2 + 2 c_1 c_2 x + c_0^2  &amp;\rightarrow&amp; \quad\sqrt{y} = z_2 = c_1 x + c_0
+\end{align}
+\end{split}\]</div>
+<p>This models have been chosen mainly because of their simplicity. In addition, they can all be applied using the same Stan code and the data looks kind of linear. This will put the focus of the example on the loo calculation instead of on the model itself. For the online example, the data from Finland has been chosen, but feel free to download the notebook and experiment with it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Finland</span>
+<span class="n">z1_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">z2_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">/</span><span class="mi">100</span> <span class="c1"># rescale to set both to a similar scale</span>
+<span class="n">dict_y</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">y_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">dict_z1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">z1_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">dict_z2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">z2_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">dims</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"year"</span><span class="p">],</span> <span class="s2">"log_likelihood"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"year"</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">lr_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">data {</span>
+<span class="s2">  int&lt;lower=0&gt; N;</span>
+<span class="s2">  vector[N] x;</span>
+<span class="s2">  vector[N] y;</span>
+<span class="s2">}</span>
+
+<span class="s2">parameters {</span>
+<span class="s2">  real b0;</span>
+<span class="s2">  real b1;</span>
+<span class="s2">  real&lt;lower=0&gt; sigma_e;</span>
+<span class="s2">}</span>
+
+<span class="s2">model {</span>
+<span class="s2">  b0 ~ normal(0, 20);</span>
+<span class="s2">  b1 ~ normal(0, 20);</span>
+<span class="s2">  for (i in 1:N) {</span>
+<span class="s2">    y[i] ~ normal(b0 + b1 * x[i], sigma_e);</span>
+<span class="s2">  }</span>
+
+<span class="s2">}</span>
+
+<span class="s2">generated quantities {</span>
+<span class="s2">    vector[N] log_lik;</span>
+<span class="s2">    vector[N] y_hat;</span>
+<span class="s2">    for (i in 1:N) {</span>
+<span class="s2">        log_lik[i] = normal_lpdf(y[i] | b0 + b1 * x[i], sigma_e);</span>
+<span class="s2">        y_hat[i] = normal_rng(b0 + b1 * x[i], sigma_e);</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_lr</span> <span class="o">=</span> <span class="n">pystan</span><span class="o">.</span><span class="n">StanModel</span><span class="p">(</span><span class="n">model_code</span><span class="o">=</span><span class="n">lr_code</span><span class="p">)</span>
+<span class="n">control</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"max_treedepth"</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:pystan:COMPILING THE C++ CODE FOR MODEL anon_model_01dac21720941a01839c67cf2ac4a0fc NOW.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_y</span> <span class="o">=</span> <span class="n">sm_lr</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dict_y</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="n">control</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_z1</span> <span class="o">=</span> <span class="n">sm_lr</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dict_z1</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="n">control</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_z2</span> <span class="o">=</span> <span class="n">sm_lr</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dict_z2</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="n">control</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_y</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_y</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">idata_y</span><span class="o">.</span><span class="n">posterior</span> <span class="o">=</span> <span class="n">idata_y</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">"b0"</span><span class="p">:</span> <span class="s2">"a0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">:</span> <span class="s2">"a1"</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z1</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_z1</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'z1'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_z2</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'z2'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">idata_z2</span><span class="o">.</span><span class="n">posterior</span> <span class="o">=</span> <span class="n">idata_z2</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">"b0"</span><span class="p">:</span> <span class="s2">"c0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">:</span> <span class="s2">"c1"</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In order to compare the out of sample predictive accuracy, we have to apply the Jacobian transformation to the 2 latter models, so that all of them are in terms of <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>Note: we will use LOO instead of Leave Future Out algorithm even though it may be more appropriate because the Jacobian transformation to be applied is the same in both cases. Moreover, PSIS-LOO does not require refitting, and it is already implemented in ArviZ.</p>
+<p>The transformation to apply to the second model <span class="math notranslate nohighlight">\(z_1 = \log y\)</span> is the same as the previous example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z1</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">z1_data</span><span class="o">.</span><span class="n">values</span><span class="o">+</span><span class="n">idata_z1</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">z1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the case of the third model, <span class="math notranslate nohighlight">\(z_2 = \sqrt{y}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ |\frac{dz}{dy}| = |\frac{1}{2\sqrt{y}}| = \frac{1}{2 z_2} \quad \rightarrow \quad \log |\frac{dz}{dy}| = -\log (2 z_2)\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z2_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">+</span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">z2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computed from 4500 by 46 log-likelihood matrix
+
+         Estimate       SE
+elpd_loo  -194.26     3.83
+p_loo        1.58        -
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z1"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LOO before Jacobian transformation: 70.56
+Computed from 4500 by 46 log-likelihood matrix
+
+         Estimate       SE
+elpd_loo  -100.44     4.47
+p_loo        3.14        -
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z2"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LOO before Jacobian transformation: 2.21
+Computed from 4500 by 46 log-likelihood matrix
+
+         Estimate       SE
+elpd_loo  -115.17     3.81
+p_loo        2.92        -
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>Vehtari, A., Gelman, A., and Gabry, J. (2017):  Practical Bayesian Model Evaluation Using Leave-One-OutCross-Validation and WAIC, <em>Statistics and Computing</em>, vol. 27(5), pp. 1413–1432.</p>
+<hr class="docutils"/>
+<p>Comments are not enabled for the blog, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://github.com/arviz-devs/arviz/issues">ArviZ Issues</a> or <a class="reference external" href="https://discourse.mc-stan.org/">Stan Discourse</a></p>
+</section>
+</section>
+</article>
+<footer class="bd-footer-article">
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+</div>
+<div class="toc-item">
+<div class="tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+</div>
+<nav class="page-toc" id="bd-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#mathematical-derivation-and-validation-example">
+   Mathematical derivation and validation example
+  </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#model-definition-and-execution">
+     Model definition and execution
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#posterior-validation">
+     Posterior validation
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#calculate-loo-cv">
+     Calculate LOO-CV
+    </a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#real-example">
+   Real example
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#references">
+   References
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="toc-item">
+<div id="searchbox"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner"></div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/js/main.js"></script>
+<div class="footer-notes">
+<ul class="footer-list">
+<li>© Oriol Abril Pla |
+      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+</li>
+<li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+</ul>
+</div>
+</body>
+</html>

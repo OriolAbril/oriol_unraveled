@@ -1,0 +1,1033 @@
+
+<!DOCTYPE html>
+
+<html lang="ca">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="«PyMC3 with labeled coords and dims»" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://oriolabrilpla.cat/posts/2020/2020-09-22-pymc3-arviz.html" property="og:url"/>
+<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="«Go crazy with your virtual label-maker!» toc: true, author: Oriol Abril, badges: true, categories: [python, arviz, pymc3, xarray], tags: [data storage, arviz converters], image: images/nb/labeled_..." property="og:description"/>
+<meta content="«Go crazy with your virtual label-maker!» toc: true, author: Oriol Abril, badges: true, categories: [python, arviz, pymc3, xarray], tags: [data storage, arviz converters], image: images/nb/labeled_..." name="description"/>
+<title>«PyMC3 with labeled coords and dims» — Oriol unraveled</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css">
+<link href="../../_static/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css">
+<link href="../../_static/copybutton.css" rel="stylesheet" type="text/css">
+<link href="../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
+<link href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css">
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<link as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script src="../../_static/sphinx_highlight.js"></script>
+<script src="../../_static/clipboard.min.js"></script>
+<script src="../../_static/copybutton.js"></script>
+<script src="../../_static/translations.js"></script>
+<script src="../../_static/design-tabs.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'posts/2020/2020-09-22-pymc3-arviz';</script>
+<script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://sphinx-primer.readthedocs.io/en/latest/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        </script>
+<link href="../../_static/favicon.ico" rel="shortcut icon">
+<link href="../../about.html" rel="author" title="Quant a aquests documents">
+<link href="../../genindex.html" rel="index" title="Índex">
+<link href="../../search.html" rel="search" title="Cerca"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="ca" name="docsearch:language"/>
+</link></link></link></link></link></link></link></link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
+<a class="skip-link" href="#main">Skip to main content</a>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+</div>
+<header class="logo-header">
+<a class="logo" href="../../index.html">Oriol unraveled</a>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-center-item">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/category.html">
+                        Categories
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../about.html">
+                        About me
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-end-item">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-end-items sidebar-primary__section">
+<div class="sidebar-end-items__item">
+</div>
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content-nav bd-content">
+<div class="bd-header-article">
+<nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../blog/category.html">
+                        Categories
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../about.html">
+                        About me
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+<div class="version-switcher__container dropdown">
+<button class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" type="button">
+        en  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
+</div>
+<div class="article-navbar-search">
+<button aria-label="Cerca" class="btn btn-sm navbar-btn search-button search-button__button" data-toggle="tooltip" title="Cerca">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</nav></div>
+<div class="bd-content" id="main">
+<div class="bd-article-container bd-content-page">
+<article class="bd-article" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="pymc3-with-labeled-coords-and-dims">
+<h1>«PyMC3 with labeled coords and dims»<a class="headerlink" href="#pymc3-with-labeled-coords-and-dims" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p>«Go crazy with your virtual label-maker!»</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>toc: true</p></li>
+<li><p>author: Oriol Abril</p></li>
+<li><p>badges: true</p></li>
+<li><p>categories: [python, arviz, pymc3, xarray]</p></li>
+<li><p>tags: [data storage, arviz converters]</p></li>
+<li><p>image: images/nb/labeled_arys.png</p></li>
+<li><p>twitter_large_image: true</p></li>
+</ul>
+<blockquote>
+<div><p>Important: This blog post uses version 3.x of PyMC. PyMC 4.0 is already available and with it even better labeling support and <a class="reference external" href="https://oriolabrilpla.cat/python/arviz/pymc/xarray/2022/06/07/pymc-arviz.html">an updated version of this same blogpost using PyMC 4.0</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="c1"># use text display to keep blog fast and responsive, </span>
+<span class="c1"># do not execute this cell when running the code</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+<a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/generated/xarray.set_options.html#xarray.set_options" title="xarray.set_options"><span class="n">xr</span><span class="o">.</span><span class="n">set_options</span></a><span class="p">(</span><span class="n">display_style</span><span class="o">=</span><span class="s2">"text"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="for-the-heart-of-labeled-arrays">
+<h2>For the :heart: of labeled arrays<a class="headerlink" href="#for-the-heart-of-labeled-arrays" title="Permalink to this heading">#</a></h2>
+<p>For all of us who love labeled arrays, <a class="reference external" href="https://github.com/pymc-devs/pymc3/blob/master/RELEASE-NOTES.md#pymc3-390-16-june-2020">PyMC 3.9.0</a> came with some amazing news: support for using coordinate and dimension names to specify the shapes of variables in a <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code>. While this is good news by its own merit, its seamless integration with ArviZ even more impactful and relevant.</p>
+<p>This post will focus on using PyMC3 coords and dims and the conversion of traces and models to <a class="reference external" href="https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html"><code class="docutils literal notranslate"><span class="pre">InferenceData</span></code></a> using <code class="docutils literal notranslate"><span class="pre">arviz.from_pymc3</span></code>. To see <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> in action, refer to <a class="reference external" href="https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/multilevel_modeling.html">this example</a> in PyMC docs.</p>
+<p>We will use an example based approach and use models from the <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest/gallery.html">example gallery</a> to illustrate how to use coords and dims within PyMC3 models.</p>
+</section>
+<section id="st-example-rugby-analytics">
+<h2>1st example: rugby analytics<a class="headerlink" href="#st-example-rugby-analytics" title="Permalink to this heading">#</a></h2>
+<p>We will use an alternative parametrization of the same model used in the <a class="reference external" href="https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/rugby_analytics.html">rugby analytics example</a> taking advantage of dims and coords. Here, we will use as observations a 2d matrix, whose rows are the matches and whose columns are the field: home and away.</p>
+<p>The first step after preprocessing is to define the dimensions used by the model and their coordinates. In our case, we have 3 dimensions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">team</span></code>: each team will have its own offensive and defensive power</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">match</span></code>: an integer identifying the match. There are 6 teams who play twice against each other so we have <code class="docutils literal notranslate"><span class="pre">6*5*2=60</span></code> matches</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">field</span></code>: either home or away.</p></li>
+</ul>
+<p>These coordinates are passed to <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code> as a dict whose keys are dimension names and whose values are coordinate values. The dimensions can then be used when defining PyMC3 variables to indicate their shape.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rugby</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">'rugby.csv'</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">home_idx</span><span class="p">,</span> <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">df_rugby</span><span class="p">[</span><span class="s2">"home_team"</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">away_idx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">df_rugby</span><span class="p">[</span><span class="s2">"away_team"</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"team"</span><span class="p">:</span> <span class="n">teams</span><span class="p">,</span>
+    <span class="s2">"match"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span>
+    <span class="s2">"field"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"away"</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">rugby_model</span><span class="p">:</span>
+    <span class="c1"># global model parameters</span>
+    <span class="n">home</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Flat</span><span class="p">(</span><span class="s1">'home'</span><span class="p">)</span>
+    <span class="n">sd_att</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s1">'sd_att'</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="n">sd_def</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s1">'sd_def'</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="n">intercept</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Flat</span><span class="p">(</span><span class="s1">'intercept'</span><span class="p">)</span>
+
+    <span class="c1"># team-specific model parameters</span>
+    <span class="n">atts_star</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"atts_star"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sd_att</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+    <span class="n">defs_star</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"defs_star"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sd_def</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+
+    <span class="n">atts</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">'atts'</span><span class="p">,</span> <span class="n">atts_star</span> <span class="o">-</span> <span class="n">tt</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">atts_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+    <span class="n">defs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">'defs'</span><span class="p">,</span> <span class="n">defs_star</span> <span class="o">-</span> <span class="n">tt</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">defs_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+    <span class="n">home_theta</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">home</span> <span class="o">+</span> <span class="n">atts</span><span class="p">[</span><span class="n">home_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">defs</span><span class="p">[</span><span class="n">away_idx</span><span class="p">])</span>
+    <span class="n">away_theta</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">atts</span><span class="p">[</span><span class="n">away_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">defs</span><span class="p">[</span><span class="n">home_idx</span><span class="p">])</span>
+
+    <span class="c1"># likelihood of observed data</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span>
+        <span class="s1">'home_points'</span><span class="p">,</span> 
+        <span class="n">mu</span><span class="o">=</span><span class="n">tt</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">home_theta</span><span class="p">,</span> <span class="n">away_theta</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> 
+        <span class="n">observed</span><span class="o">=</span><span class="n">df_rugby</span><span class="p">[[</span><span class="s2">"home_score"</span><span class="p">,</span> <span class="s2">"away_score"</span><span class="p">]],</span>
+        <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"match"</span><span class="p">,</span> <span class="s2">"field"</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">rugby_trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [defs_star, atts_star, intercept, sd_def, sd_att, home]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+<style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+<progress class="" max="8000" style="width:300px; height:20px; vertical-align: middle;" value="8000"></progress>
+      100.00% [8000/8000 00:12&lt;00:00 Sampling 4 chains, 0 divergences]
+    </div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 13 seconds.
+The number of effective samples is smaller than 25% for some parameters.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have now defined the shapes or our variables, which is convenient and helps understanding the code, but the dimensions and coordinates are lost during sampling. <code class="docutils literal notranslate"><span class="pre">pm.MultiTrace</span></code> objects do not store the labeled coordinates of their variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rugby_trace</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rugby_trace</span><span class="p">[</span><span class="s2">"atts"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;MultiTrace: 4 chains, 1000 iterations, 10 variables&gt;
+[[ 0.17387955 -0.02422528  0.13753953 -0.36843038 -0.04525461  0.1264912 ]
+ [ 0.25936021 -0.10837995  0.14656402 -0.2846651  -0.16805903  0.15517984]
+ [ 0.24825271 -0.10056153  0.05230409 -0.23062107 -0.10570005  0.13632584]
+ ...
+ [ 0.24992917 -0.0886659   0.08541612 -0.32679123 -0.04984795  0.1299598 ]
+ [ 0.25626853 -0.07558793  0.14828311 -0.36233563 -0.19319771  0.22656963]
+ [ 0.25679719 -0.12705182  0.12258069 -0.29169309 -0.11814407  0.1575111 ]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>To also take advantage of the labeled coords and dims for exploratory analysis of the results, we have to convert the results to <a class="reference external" href="https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html"><code class="docutils literal notranslate"><span class="pre">az.InferenceData</span></code></a>. This can be done with <code class="docutils literal notranslate"><span class="pre">az.from_pymc3</span></code> or using the <code class="docutils literal notranslate"><span class="pre">return_inferencedata=True</span></code> argument in <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. To avoid having to resample again, we will use the former and use the latter in the second example.</p>
+<p>ArviZ is aware of the model context, and will use it to get the coords and dims automatically. If necessary however, we may also modify or add dimensions or coordinates using the <code class="docutils literal notranslate"><span class="pre">dims</span></code>/<code class="docutils literal notranslate"><span class="pre">coords</span></code> arguments of <code class="docutils literal notranslate"><span class="pre">from_pymc3</span></code>. We’ll also see an example of this afterwards.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rugby_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">rugby_trace</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">rugby_model</span><span class="p">)</span>
+<span class="n">rugby_idata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>Inference data with groups:
+	&gt; posterior
+	&gt; log_likelihood
+	&gt; sample_stats
+	&gt; observed_data</pre></div></div>
+</div>
+</section>
+<section id="nd-example-radon-multilevel-model">
+<h2>2nd example: radon multilevel model<a class="headerlink" href="#nd-example-radon-multilevel-model" title="Permalink to this heading">#</a></h2>
+<p>We will now use one of the many models in the <a class="reference external" href="https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/multilevel_modeling.html">A Primer on Bayesian Methods for Multilevel Modeling</a> notebook to dive deeper into coords and dims functionality. We won’t cover the model itself, it’s already explained in the example notebook, we will explain in detail how are labeled coords and dims being used.</p>
+<p>The code used to load and clean the data is hidden, click the button below to see it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">srrs2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">"srrs2.dat"</span><span class="p">))</span>
+<span class="n">srrs2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">srrs2</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">)</span>
+<span class="n">srrs_mn</span> <span class="o">=</span> <span class="n">srrs2</span><span class="p">[</span><span class="n">srrs2</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"MN"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">srrs_mn</span><span class="p">[</span><span class="s2">"fips"</span><span class="p">]</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">stfips</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">+</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">cntyfips</span>
+<span class="n">cty</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">"cty.dat"</span><span class="p">))</span>
+<span class="n">cty_mn</span> <span class="o">=</span> <span class="n">cty</span><span class="p">[</span><span class="n">cty</span><span class="o">.</span><span class="n">st</span> <span class="o">==</span> <span class="s2">"MN"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">cty_mn</span><span class="p">[</span><span class="s2">"fips"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">cty_mn</span><span class="o">.</span><span class="n">stfips</span> <span class="o">+</span> <span class="n">cty_mn</span><span class="o">.</span><span class="n">ctfips</span>
+
+<span class="n">srrs_mn</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cty_mn</span><span class="p">[[</span><span class="s2">"fips"</span><span class="p">,</span> <span class="s2">"Uppm"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"fips"</span><span class="p">)</span>
+<span class="n">srrs_mn</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"idnum"</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">Uppm</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">srrs_mn</span><span class="p">)</span>
+<span class="n">srrs_mn</span><span class="o">.</span><span class="n">county</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">county</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">)</span>
+<span class="n">srrs_mn</span><span class="p">[</span><span class="s2">"county_code"</span><span class="p">],</span> <span class="n">mn_counties</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">county</span><span class="p">)</span>
+<span class="n">srrs_mn</span><span class="p">[</span><span class="s2">"log_radon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">activity</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The first step is again defining the dimensions and their coordinate values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Level</span></code>: observations can correspond to the basement or the first floor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">obs_id</span></code>: unique integer identifying each observation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">County</span></code>: each county has its own basement, intercept: <code class="docutils literal notranslate"><span class="pre">a</span></code>, and first floor, slope <code class="docutils literal notranslate"><span class="pre">b</span></code>, effects. Details are in the example notebook</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">param</span></code>: one of <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">param_bis</span></code>: same as param, used for the covariance matrix because a variable can’t have repeated dimensions</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Level"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Basement"</span><span class="p">,</span> <span class="s2">"Floor"</span><span class="p">],</span> 
+    <span class="s2">"obs_id"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
+    <span class="s2">"County"</span><span class="p">:</span> <span class="n">mn_counties</span><span class="p">,</span>
+    <span class="s2">"param"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
+    <span class="s2">"param_bis"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll begin to define the model creating the indexing arrays that will implement the hierarchical model. We are using the <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> container to tell ArviZ to store the variables in the <code class="docutils literal notranslate"><span class="pre">constant_data</span></code> group. Moreover, <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> defines a theano shared variable, so its values can be modified in order to call <code class="docutils literal notranslate"><span class="pre">pm.sample_posterior_predictive</span></code> using different data. This is particularly interesting for regressions for example in order to generate predictions for the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">radon_model</span><span class="p">:</span>
+    <span class="n">floor_idx</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"floor_idx"</span><span class="p">,</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
+    <span class="n">county_idx</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"county_idx"</span><span class="p">,</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">county_code</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll also use a <code class="docutils literal notranslate"><span class="pre">LKJCholeskyCov</span></code>as prior for the covariance matrix. As you can see, it has no <code class="docutils literal notranslate"><span class="pre">dims</span></code> argument. Given that we are going to use <code class="docutils literal notranslate"><span class="pre">return_inferencedata=True</span></code> here in order to get an InferenceData directly as a result of <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>, we will have to indicate the dims that correspond to these variables as <code class="docutils literal notranslate"><span class="pre">idata_kwargs</span></code>. <code class="docutils literal notranslate"><span class="pre">idata_kwargs</span></code> is used to indicate <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code> what arguments to pass to <a class="reference external" href="https://python.arviz.org/en/v0.11.3/api/generated/arviz.from_pymc3.html">az.from_pymc3</a>, which is called internally to convert the trace to InferenceData.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
+    <span class="n">sd_dist</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"z"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"param"</span><span class="p">,</span> <span class="s2">"County"</span><span class="p">))</span>
+    
+    <span class="n">chol</span><span class="p">,</span> <span class="n">corr</span><span class="p">,</span> <span class="n">stds</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">LKJCholeskyCov</span><span class="p">(</span>
+        <span class="s2">"chol"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">sd_dist</span><span class="o">=</span><span class="n">sd_dist</span><span class="p">,</span> <span class="n">compute_corr</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now will store two intermediate results as variables. However, one is wrapped inside a <code class="docutils literal notranslate"><span class="pre">pm.Deterministic</span></code> whereas the other is not. Both are equally valid. <code class="docutils literal notranslate"><span class="pre">pm.Deterministic</span></code> tells PyMC3 to store that variable in the trace. Thus <code class="docutils literal notranslate"><span class="pre">pm.Deterministic</span></code> should only be used when we actively want to store the intermediate result. In our case, we want to store <code class="docutils literal notranslate"><span class="pre">ab_county</span></code> but not <code class="docutils literal notranslate"><span class="pre">theta</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
+    <span class="n">ab_county</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s2">"ab_county"</span><span class="p">,</span> <span class="n">tt</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">chol</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"County"</span><span class="p">,</span> <span class="s2">"param"</span><span class="p">))</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">ab_county</span><span class="p">[</span><span class="n">county_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">ab_county</span><span class="p">[</span><span class="n">county_idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">floor_idx</span>
+
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">"sigma"</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">log_radon</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally we will call <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code> with <code class="docutils literal notranslate"><span class="pre">return_inferencedata=True</span></code> and defining the dimensions of the covariance matrix as <code class="docutils literal notranslate"><span class="pre">idata_kwargs</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
+    <span class="n">radon_idata</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+        <span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">target_accept</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">75625</span><span class="p">,</span> <span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">idata_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"dims"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"chol_stds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"param"</span><span class="p">],</span> <span class="s2">"chol_corr"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"param"</span><span class="p">,</span> <span class="s2">"param_bis"</span><span class="p">]}}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [sigma, chol, z, b, a]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+<style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+<progress class="" max="16000" style="width:300px; height:20px; vertical-align: middle;" value="16000"></progress>
+      100.00% [16000/16000 03:17&lt;00:00 Sampling 4 chains, 0 divergences]
+    </div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 2_000 tune and 2_000 draw iterations (8_000 + 8_000 draws total) took 197 seconds.
+The number of effective samples is smaller than 25% for some parameters.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="there-is-life-outside-the-posterior">
+<h2>There is life outside the posterior<a class="headerlink" href="#there-is-life-outside-the-posterior" title="Permalink to this heading">#</a></h2>
+<p>The posterior is the center of Bayesian analysis but other quantities such as the prior or the posterior predictive are also crucial to an analysis workflow. We’ll use a linear regression to quickly showcase some of the key steps in a Bayesian workflow: prior predictive checks, posterior sampling, posterior predictive checks (using LOO-PIT) and out of sample predictions.</p>
+<p>We will start generating some simulated data (code hidden, click to expand) and defining the model. As it’s a simple linear regression we’ll only have scalar parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
+<span class="n">a_</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b_</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.4</span>
+<span class="n">x_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">year_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2021</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x_</span><span class="p">),</span> <span class="mi">2021</span><span class="p">)</span>
+<span class="n">y_</span> <span class="o">=</span> <span class="n">a_</span> <span class="o">+</span> <span class="n">b_</span> <span class="o">*</span> <span class="n">x_</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$y_i = a + bx_i + \mathcal</span><span class="si">{N}</span><span class="s2">(0,1)$"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'right'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'top'</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span>
+<span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_</span><span class="p">[::</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">year_</span><span class="p">[::</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Quantity of interest"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/83cc9da6855828f3055ae8fae67535f857e8b32a1a5e2953c5d6f2d61ed3ae1d.png" src="../../_images/83cc9da6855828f3055ae8fae67535f857e8b32a1a5e2953c5d6f2d61ed3ae1d.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">year_</span><span class="p">}</span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">linreg_model</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"year"</span><span class="p">)</span>
+    
+    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">"sigma"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"year"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have now written a model in order to study our super interesting quantity <code class="docutils literal notranslate"><span class="pre">y</span></code>. We have used everything we have seen so far, the <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> container and the labeled dims and coords. We will now simulate a workflow starting from prior predictive checks and finishing with predicting the values of our <em>quantity of interest</em> in 2021 and 2022.</p>
+<section id="priors">
+<h3>Priors<a class="headerlink" href="#priors" title="Permalink to this heading">#</a></h3>
+<p>We start by sampling both prior and prior predictive with <code class="docutils literal notranslate"><span class="pre">pm.sample_prior_predictive</span></code>. This will generate a dictionary whose keys are variable names and whose values are numpy arrays. We can then pass this dictionary to <code class="docutils literal notranslate"><span class="pre">az.from_pymc3</span></code> as the <code class="docutils literal notranslate"><span class="pre">prior</span></code> argument. ArviZ will then use the information in the <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code> instance to 1) split the variables between <code class="docutils literal notranslate"><span class="pre">prior</span></code> and <code class="docutils literal notranslate"><span class="pre">prior_predictive</span></code> groups, 2) fill the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> and <code class="docutils literal notranslate"><span class="pre">constant_data</span></code> groups and 3) get the <code class="docutils literal notranslate"><span class="pre">dims</span></code> and <code class="docutils literal notranslate"><span class="pre">coords</span></code> if present.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">700</span><span class="p">)</span>
+    <span class="n">linreg_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">)</span>
+<span class="n">linreg_idata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>Inference data with groups:
+	&gt; prior
+	&gt; prior_predictive
+	&gt; observed_data</pre></div></div>
+</div>
+<p>We can now use <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> to perform prior predictive checks for our model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"prior"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3a6557f002fc35c344e95937b4d7dd3ef068a2da48501db18db758203f38ea01.png" src="../../_images/3a6557f002fc35c344e95937b4d7dd3ef068a2da48501db18db758203f38ea01.png"/>
+</div>
+</div>
+</section>
+<section id="posterior">
+<h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this heading">#</a></h3>
+<p>The next step will be computing the posterior. As we have seen, we can use <code class="docutils literal notranslate"><span class="pre">return_inferencedata</span></code> to get an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> as a result of <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In this case however, we will store it as an auxiliary variable to then use <code class="docutils literal notranslate"><span class="pre">InferenceData.extend</span></code> and add the new groups to the <code class="docutils literal notranslate"><span class="pre">linreg_idata</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
+    <span class="n">idata_aux</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">linreg_idata</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">idata_aux</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [sigma, b, a]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+<style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+<progress class="" max="8000" style="width:300px; height:20px; vertical-align: middle;" value="8000"></progress>
+      100.00% [8000/8000 00:03&lt;00:00 Sampling 4 chains, 0 divergences]
+    </div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
+The acceptance probability does not match the target. It is 0.879454342399517, but should be close to 0.8. Try to increase the number of tuning steps.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg_idata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>Inference data with groups:
+	&gt; prior
+	&gt; prior_predictive
+	&gt; observed_data
+	&gt; posterior
+	&gt; log_likelihood
+	&gt; sample_stats
+	&gt; constant_data</pre></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2014fe97297cb5f1fe13d0777707be980c4f9b6c7584da7ea75a111f3adcbb01.png" src="../../_images/2014fe97297cb5f1fe13d0777707be980c4f9b6c7584da7ea75a111f3adcbb01.png"/>
+</div>
+</div>
+</section>
+<section id="posterior-predictive">
+<h3>Posterior predictive<a class="headerlink" href="#posterior-predictive" title="Permalink to this heading">#</a></h3>
+<p>Our third step will be to evaluate the posterior predictive at the observations so we can perform model checking with functions such as <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> or <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code>. Here again we are using the <code class="docutils literal notranslate"><span class="pre">extend</span></code> trick to keep all our data as part of the same <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>. This has two main advantages. <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code> requires both the <code class="docutils literal notranslate"><span class="pre">posterior_predictive</span></code> group, generated here and the <code class="docutils literal notranslate"><span class="pre">log_likelihood</span></code> group which was created in <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In addition, keeping all our data in a single <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> means we can store it as a netCDF and share a single file to allow reproducing the whole exploratory analysis of our model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
+    <span class="n">post_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">)</span>
+    <span class="n">idata_aux</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">posterior_predictive</span><span class="o">=</span><span class="n">post_pred</span><span class="p">)</span>
+<span class="n">linreg_idata</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">idata_aux</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+<style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+<progress class="" max="4000" style="width:300px; height:20px; vertical-align: middle;" value="4000"></progress>
+      100.00% [4000/4000 00:36&lt;00:00]
+    </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg_idata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>Inference data with groups:
+	&gt; prior
+	&gt; prior_predictive
+	&gt; observed_data
+	&gt; posterior
+	&gt; log_likelihood
+	&gt; sample_stats
+	&gt; constant_data
+	&gt; posterior_predictive</pre></div></div>
+</div>
+<p>We will now get to use <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code>, which as expected does not show any issues. To learn how to interpret those plots, you can read the <a class="reference external" href="https://oriolabrilpla.cat/python/arviz/pymc3/2019/07/31/loo-pit-tutorial.html">LOO-PIT tutorial</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_loo_pit</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/59ccb506b33008886146c861921513094e0f86e24c04212bb5a376e52943c8a9.png" src="../../_images/59ccb506b33008886146c861921513094e0f86e24c04212bb5a376e52943c8a9.png"/>
+</div>
+</div>
+</section>
+<section id="predictions">
+<h3>Predictions<a class="headerlink" href="#predictions" title="Permalink to this heading">#</a></h3>
+<p>Finally, our last step will be to get some predictions, which in this case is evaluating the posterior predictive at positions different than the observations. In the example below, we are evaluating our predictions at 2021 and 2020. To do so, we are using <code class="docutils literal notranslate"><span class="pre">pm.set_data</span></code> to modify the values of <code class="docutils literal notranslate"><span class="pre">x</span></code> to the ones that correspond to these two future years.</p>
+<p>Here we will use <code class="docutils literal notranslate"><span class="pre">from_pymc3_predictions</span></code> instead of <code class="docutils literal notranslate"><span class="pre">from_pymc3</span></code>+<code class="docutils literal notranslate"><span class="pre">extend</span></code>. <code class="docutils literal notranslate"><span class="pre">from_pymc3_predictions</span></code> combines functionality from both of these functions and let’s the user choose how to handle predictions depending on the goal at hand: if <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> is not present, the returned object will be an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> containing only the predictions groups; if <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> is present and <code class="docutils literal notranslate"><span class="pre">inplace=False</span></code> the returned <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> will be a copy of <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> with the predictions groups added, and with <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> there is no returned object, the preditcions groups are added to <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> which is not returned.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
+    <span class="n">pm</span><span class="o">.</span><span class="n">set_data</span><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">x_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]})</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">)</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3_predictions</span><span class="p">(</span>
+        <span class="n">predictions</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">]},</span> <span class="n">idata_orig</span><span class="o">=</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+<style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+<progress class="" max="4000" style="width:300px; height:20px; vertical-align: middle;" value="4000"></progress>
+      100.00% [4000/4000 01:13&lt;00:00]
+    </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg_idata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>Inference data with groups:
+	&gt; posterior
+	&gt; posterior_predictive
+	&gt; predictions
+	&gt; log_likelihood
+	&gt; sample_stats
+	&gt; prior
+	&gt; prior_predictive
+	&gt; observed_data
+	&gt; constant_data
+	&gt; predictions_constant_data</pre></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"predictions"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7a5b2009c1d6f29685dd284d0e202a5989e6915a2252e4bd7a6ed4df523c6478.png" src="../../_images/7a5b2009c1d6f29685dd284d0e202a5989e6915a2252e4bd7a6ed4df523c6478.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="extra-generating-the-post-image">
+<h2>Extra: generating the post image<a class="headerlink" href="#extra-generating-the-post-image" title="Permalink to this heading">#</a></h2>
+<p>Here is the code used to generate the summary image for this post. Take a look if you want to use matplotlib to create array diagrams!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#hide</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="matplotlib"><span class="nn">matplotlib</span></a>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
+<span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/toolkits/mplot3d.html#module-mpl_toolkits.mplot3d" title="mpl_toolkits.mplot3d"><span class="nn">mpl_toolkits.mplot3d</span></a> <span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
+<span class="n">side</span> <span class="o">=</span> <span class="mi">3</span> 
+<span class="n">r</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">one_2d</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">one_1d</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+<span class="c1">################</span>
+<span class="c1">###  theta   ###</span>
+<span class="c1">################</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">one_2d</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="o">-</span><span class="n">one_2d</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">one_2d</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\theta$"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+<span class="c1"># school dim</span>
+<span class="n">school_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
+<span class="n">school_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">school_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span> <span class="o">*</span> <span class="mf">1.1</span>
+<span class="n">schools</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"Choate"</span><span class="p">,</span> <span class="s2">"Deerfield"</span><span class="p">,</span> <span class="s2">"Phillips Andover"</span><span class="p">,</span> <span class="s2">"Phillips Exeter"</span><span class="p">,</span> 
+                    <span class="s2">"Hotchkiss"</span><span class="p">,</span> <span class="s2">"Lawrenceville"</span><span class="p">,</span> <span class="s2">"St. Paul's"</span><span class="p">,</span> <span class="s2">"Mt. Hermon"</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">school_grid</span><span class="p">,</span> <span class="n">school_one</span><span class="p">,</span> <span class="n">school_one</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"|"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">school</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">schools</span><span class="p">,</span> <span class="n">school_grid</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.15</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">school</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+<span class="c1"># chain dim</span>
+<span class="n">chain_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
+<span class="n">chain_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">chain_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span> <span class="o">*</span> <span class="mf">1.1</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">chain_one</span><span class="p">,</span> <span class="n">chain_grid</span><span class="p">,</span> <span class="n">chain_one</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"|"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">chain</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chain_grid</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.15</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">chain</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="s2">"Chain"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">),</span> <span class="n">va</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+    
+<span class="c1"># draw dim</span>
+<span class="n">draw_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
+<span class="n">draw_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">draw_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span> <span class="o">*</span> <span class="mf">1.1</span>
+<span class="n">draws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">draw_one</span><span class="p">,</span> <span class="o">-</span><span class="n">draw_one</span><span class="p">,</span> <span class="n">draw_grid</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"_"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">draws</span><span class="p">,</span> <span class="n">draw_grid</span><span class="p">[</span><span class="n">draws</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.15</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">draw</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">"Draw"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">)</span>
+
+<span class="c1">################</span>
+<span class="c1">###   tau    ###</span>
+<span class="c1">################</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">one_2d</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.525</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\tau$"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+
+<span class="c1">################</span>
+<span class="c1">###    mu    ###</span>
+<span class="c1">################</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="mi">8</span><span class="o">+</span><span class="n">one_2d</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C2"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\mu$"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+
+<span class="c1">################</span>
+<span class="c1">###  grids   ###</span>
+<span class="c1">################</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
+<span class="n">grid_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">lw</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">;</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.7</span>
+<span class="k">for</span> <span class="n">chain_pos</span> <span class="ow">in</span> <span class="n">chain_grid</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">draw_pos</span> <span class="ow">in</span> <span class="n">draw_grid</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">-</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">school_pos</span> <span class="ow">in</span> <span class="n">school_grid</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">school_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">school_pos</span><span class="p">,</span> <span class="o">-</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=-</span><span class="mi">69</span><span class="p">)</span>
+<span class="c1">#fig.savefig("labeled_arys.png", dpi=300)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0ce7689b90d45f6446b11dfb67c04962a8ffe59e881702b5c2d869d640c96691.png" src="../../_images/0ce7689b90d45f6446b11dfb67c04962a8ffe59e881702b5c2d869d640c96691.png"/>
+</div>
+</div>
+<p>Package versions used to generate this post:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#hide_input</span>
+<span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pymc3      3.9.3
+matplotlib 3.3.1
+pandas     1.1.1
+numpy      1.19.1
+arviz      0.10.0
+xarray     0.16.1
+last updated: Thu Sep 24 2020 
+
+CPython 3.6.9
+IPython 7.16.1
+watermark 2.0.2
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils"/>
+<p>Comments are not enabled for this post, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://discourse.pymc.io/">PyMC Discourse</a>. Feel free to tag me at <a class="reference external" href="https://discourse.pymc.io/u/oriolabril">@OriolAbril</a></p>
+</section>
+</section>
+</article>
+<footer class="bd-footer-article">
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+</div>
+<div class="toc-item">
+<div class="tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+</div>
+<nav class="page-toc" id="bd-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#for-the-heart-of-labeled-arrays">
+   For the :heart: of labeled arrays
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#st-example-rugby-analytics">
+   1st example: rugby analytics
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#nd-example-radon-multilevel-model">
+   2nd example: radon multilevel model
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#there-is-life-outside-the-posterior">
+   There is life outside the posterior
+  </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#priors">
+     Priors
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#posterior">
+     Posterior
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#posterior-predictive">
+     Posterior predictive
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#predictions">
+     Predictions
+    </a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#extra-generating-the-post-image">
+   Extra: generating the post image
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="toc-item">
+<div id="searchbox"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner"></div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/js/main.js"></script>
+<div class="footer-notes">
+<ul class="footer-list">
+<li>© Oriol Abril Pla |
+      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+</li>
+<li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+</ul>
+</div>
+</body>
+</html>

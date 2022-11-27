@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ca">
+  <id>https://oriolabrilpla.cat</id>
+  <title>Oriol unraveled</title>
+  <updated>2022-11-27T18:42:52.592719+00:00</updated>
+  <link href="https://oriolabrilpla.cat"/>
+  <link href="https://oriolabrilpla.cat/blog/atom.xml" rel="self"/>
+  <generator uri="https://ablog.readthedocs.io/" version="0.10.30.dev25+g343e8df">ABlog</generator>
+  <entry>
+    <id>https://oriolabrilpla.cat/posts/2020/setting_up_blog.html</id>
+    <title>A blog is born</title>
+    <updated>2020-07-10T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Sailing in the sea of blogging alternatives&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="_images/blog.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/posts/2020/setting_up_blog.html" rel="alternate"/>
+    <summary>Sailing in the sea of blogging alternatives</summary>
+    <category term="blogging" label="blogging"/>
+    <category term="communication" label="communication"/>
+    <published>2020-07-10T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/posts/2022/2022-05-25-too-eager-reduction.html</id>
+    <title>Some dimensionality devils</title>
+    <updated>2022-05-25T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Common cases of excessively eager dimensionality reduction&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="_images/evil_kermit_posterior_mean.jpeg" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/posts/2022/2022-05-25-too-eager-reduction.html" rel="alternate"/>
+    <summary>Common cases of excessively eager dimensionality reduction</summary>
+    <category term="rant" label="rant"/>
+    <category term="recommendation" label="recommendation"/>
+    <published>2022-05-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/posts/2022/pymc-arviz.html</id>
+    <title>PyMC 4.0 with labeled coords and dims</title>
+    <updated>2022-06-07T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
+&lt;p&gt;Go even crazier with your virtual label-maker!&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="_images/labeled_arys_v4.png" /&gt;
+&lt;/div&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/posts/2022/pymc-arviz.html" rel="alternate"/>
+    <summary>Go even crazier with your virtual label-maker!</summary>
+    <category term="arvizconverters" label="arviz converters"/>
+    <category term="datastorage" label="data storage"/>
+    <published>2022-06-07T00:00:00+00:00</published>
+  </entry>
+</feed>
