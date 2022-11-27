@@ -133,6 +133,7 @@ html_theme_options = {
             "type": "fontawesome",
         },
     ],
+    "secondary_sidebar_items": ["ablog/postcard", "page-toc", "searchbox"],
     "switcher": {
         "json_url": "https://sphinx-primer.readthedocs.io/en/latest/_static/switcher.json",
         "version_match": os.environ.get("READTHEDOCS_LANGUAGE", "en")
