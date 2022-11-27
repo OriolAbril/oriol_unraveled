@@ -21,13 +21,13 @@ jobs:
     - name: Install requirements
       run: python -m pip install -r sphinx_source/requirements.txt
     - name: Build documentation
-      run: python -m sphinx sphinx_source website -b html -D language=${{ matrix.language}}
+      run: python -m sphinx sphinx_source ${{ matrix.language }} -b html -D language=${{ matrix.language}}
     # Publish built docs to sphinx-build branch.
     # ===============================
     - name: Commit documentation changes
       run: |
         git clone https://github.com/OriolAbril/oriol_unraveled.git --branch sphinx-build --single-branch sphinx-build
-        cd website
+        cd ${{ matrix.language }}
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
@@ -38,6 +38,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         branch: sphinx-build
-        directory: ${{ matrix.language }}
         github_token: ${{ secrets.SSH_DEPLOY_KEY }}
     # ===============================
