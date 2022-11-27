@@ -28,4 +28,4 @@ jobs:
         publish_branch: sphinx-build
         publish_dir: ./website
         destination_dir: ${{ matrix.language }}
-        github_token: ${{ secrets.SSH_DEPLOY_KEY }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
