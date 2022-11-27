@@ -1,0 +1,754 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="A blog is born" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://oriolabrilpla.cat/posts/2020/setting_up_blog.html" />
+<meta property="og:site_name" content="Oriol unraveled" />
+<meta property="og:description" content="These days, there are countless blogging alternatives covering an extremely wide range of needs, from writing everything in.docx format to customizing every minor nit with CSS and HTML. It is not d..." />
+<meta name="description" content="These days, there are countless blogging alternatives covering an extremely wide range of needs, from writing everything in.docx format to customizing every minor nit with CSS and HTML. It is not d..." />
+
+    <title>A blog is born &#8212; Oriol unraveled</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'posts/2020/setting_up_blog';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://sphinx-primer.readthedocs.io/en/latest/_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        </script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search..." aria-label="Search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+
+<header class="logo-header">
+  <a href="../../index.html" class="logo">Oriol unraveled</a>
+</header>
+
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../blog.html">
+                        Blog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../blog/tag.html">
+                        Tags
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../blog/category.html">
+                        Categories
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about.html">
+                        About me
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/OriolAbril" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/OriolAbril" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+            
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://toot.cat/@oriolabril" title="Mastodon" class="nav-link" rel="me" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-mastodon"></i></span>
+            <label class="sr-only">Mastodon</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://oriolabrilpla.cat/blog/atom.xml" title="Atom Feed" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-solid fa-rss"></i></span>
+            <label class="sr-only">Atom Feed</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+  <div class="bd-content-nav bd-content">
+    
+    
+      <div class="bd-header-article">
+    
+    <nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+  <span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+  <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../blog.html">
+                        Blog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../blog/tag.html">
+                        Tags
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../blog/category.html">
+                        Categories
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../about.html">
+                        About me
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
+        en  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+</div>
+<div class="article-navbar-search">
+  
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+  <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/OriolAbril" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/OriolAbril" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+        <li class="nav-item">
+            
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://toot.cat/@oriolabril" title="Mastodon" class="nav-link" rel="me" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-mastodon"></i></span>
+            <label class="sr-only">Mastodon</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://oriolabrilpla.cat/blog/atom.xml" title="Atom Feed" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-solid fa-rss"></i></span>
+            <label class="sr-only">Atom Feed</label></a>
+        </li>
+      </ul>
+</div>
+
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <span class="fa-solid fa-outdent"></span>
+  </label>
+
+</nav></div>
+  <div class="bd-content" id="main">
+    
+      <div class="bd-article-container bd-content-page">
+    
+      
+      
+        <article class="bd-article" role="main">
+          
+  <section class="tex2jax_ignore mathjax_ignore" id="a-blog-is-born">
+<h1>A blog is born<a class="headerlink" href="#a-blog-is-born" title="Permalink to this heading">#</a></h1>
+<img alt="" class="hidden-metadata" src="../../_images/blog.png" />
+<p>These days, there are countless blogging alternatives covering an
+extremely wide range of needs, from writing everything in <code class="docutils literal notranslate"><span class="pre">.docx</span></code> format to
+customizing every minor nit with CSS and HTML. It is not difficult to get lost
+in this sea of blogging alternatives and end up being unable to choose one of
+the alternatives and set the blog up. I already experimented with
+<a class="reference external" href="https://oriolabril.github.io/gsoc2019_blog/">a blog</a> during my Google Summer
+of Code internship and I have now started this new blog. Thus, being this my
+second blog, I am far from an expert in blogging platforms.</p>
+<p>I cannot write a complete guide for prospective bloggers, however, I still feel like
+writing about how I created and configured this blog can be useful to anyone
+who is considering creating a blog somewhat similar to this one. As you
+may have guessed already from other pages in the blog, I highly value understanding
+what I do and being able to modify (or at least see) its inner workings.</p>
+<p>The first section is an overview of the technologies and libraries used in this blog.
+Afterwards there are 3 sections covering the base of blogging: writing the content,
+building the blog and hosting it. These cover the base elements needed to get
+the blog running. Eventually, there is one section on more advanced configuration
+and on the features I value the most.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>The content for this blog is written using either jupyter notebooks, markdown
+or docx files. Posts are then converted thanks to
+<a class="reference external" href="https://fastpages.fast.ai/">fastpages</a> to markdown and html files that
+<a class="reference external" href="https://jekyllrb.com/">Jekyll</a> can use to build the static website. Every
+time a new commit is pushed to GitHub,
+<a class="reference external" href="https://github.com/features/actions">GitHub Actions</a> are used to
+automatically build the website and push it to the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch. The
+website stored in the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch is then hosted on
+<a class="reference external" href="https://pages.github.com/">GitHub pages</a>. Here is the diagram of the workflow
+from the fastpages website:</p>
+<p><img alt="" src="https://fastpages.fast.ai/images/diagram.png" /></p>
+</section>
+<section id="writing-content">
+<h2>Writing content<a class="headerlink" href="#writing-content" title="Permalink to this heading">#</a></h2>
+<p>Writing the content using Markdown is one of the most common alternatives for
+writing blog posts. Writing in Markdown has many advantages and produces files
+which are readable both rendered and without rendering. To write code tutorials
+however, they are not too convenient as we need to manually execute each
+cell and add the output of the code to the post.</p>
+<p>If we use Jupyter notebooks instead, we can keep the code, its output and the
+explanations in the same <em>executable</em> file. This is really convenient as I can
+easily rerun the notebooks whenever there has been a significant change in the
+libraries used and keep the tutorials up to date. The main drawback of writing
+posts in Jupyter notebooks is having to convert the notebooks to markdown or
+html so the post can be added to the blog. I am taking advantage of
+fastpages to both take care of the conversion and to automate the process.</p>
+<p>Eventually, I only have to write my posts in either markdown or Jupyter
+notebook files and push them to GitHub. This is crucial to me as it
+makes creating new posts be only about writing! I don’t have to take care
+about conversion.</p>
+</section>
+<section id="building-the-blog">
+<h2>Building the blog<a class="headerlink" href="#building-the-blog" title="Permalink to this heading">#</a></h2>
+<p>This blog is built using Jekyll, an open source static website generator.
+Roughly speaking, it takes a configuration file and the website content as markdown
+or html files and generates a static website where the theme has been filled
+with the content, pages and blog posts. The configuration file,
+<code class="docutils literal notranslate"><span class="pre">_config.yml</span></code> contains information such as the theme or the markdown parser
+to be used.</p>
+<p>fastpages uses the default Jekyll theme: <a class="reference external" href="https://github.com/jekyll/minima">minima</a>.
+Even though minima has many features and everything works straight away with
+fastpages, I wanted to use a different theme, to give another look to the
+website and make it more attractive to readers.
+I therefore tried changing the theme specified in <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>
+for several new themes I found more visually attractive. I
+found <a class="reference external" href="https://mmistakes.github.io/jekyll-theme-basically-basic/">basically basic</a>
+(see screenshots below) and
+<a class="reference external" href="https://iwiedenm.github.io/jekyll-theme-massively/">massively</a> to work
+quite well right out of the box. Most of the themes did not work at all due to
+incompatibilities with fastpages. After comparing both themes for a while, I
+decided to go with massively. I therefore tweaked the theme to fix the minor
+incompatibilities it presented with fastpages. This is still a work in
+progress, not everything that works with fastpages+minima works with massively
+yet.</p>
+<div class="box alt"><div class="row 50% uniform">
+  <div class="6u"><span class="image fit"><img src="{{ "images/posts/bb_home.png" | absolute_url }}" alt="" /></span></div>
+  <div class="6u$"><span class="image fit"><img src="{{ "images/posts/bb_posts.png" | absolute_url }}" alt="" /></span></div>
+</div></div>
+<p>Some of the tweaks will be detailed in the last two sections of the post, but
+most of them will not be covered here. If you are interested in any of the two themes
+and their compatibility with fastpages please reach out in an
+<a class="reference external" href="https://github.com/OriolAbril/oriol_unraveled/issues">issue</a>, or what’s
+nearly the same (thanks <a class="reference external" href="https://utteranc.es/">utterances</a>), comment below.</p>
+</section>
+<section id="hosting-a-static-website">
+<h2>Hosting a static website<a class="headerlink" href="#hosting-a-static-website" title="Permalink to this heading">#</a></h2>
+<p>As explained in the overview, this website is hosted by GitHub pages. Even
+though this was initially the one that seemed more difficult to me, I actually
+found this step simpler than the other two. Basically GitHub Pages takes care
+of everything.</p>
+<p>The main friction I encountered while using GitHub pages was the <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code>
+file. There are two main ways of interacting with GitHub pages. The first
+alternative is to push to <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> a directory containing a <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>
+file with the Jekyll configuration and the content in Markdown and HTML
+format. GitHub then builds the site for you using Jekyll. The second
+alternative is to build the site and push the result to <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch
+together with a <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> file. The <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> file tells GitHub to not
+build the site with Jekyll and host directly the contents of the branch
+instead.</p>
+<p>In this particular case, we are using GitHub Actions from fastpages to convert
+the posts and build the site using Jekyll, so we are actually using the second
+alternative. Luckily, thanks to fastpages, these two alternatives do not affect
+the writing process at all.</p>
+</section>
+<section id="the-best-of-many-worlds">
+<h2>The best of many worlds<a class="headerlink" href="#the-best-of-many-worlds" title="Permalink to this heading">#</a></h2>
+<p>So far we have described how to create and maintain a plain blog, the main
+difference with forking the minima theme and writing a blog in markdown is
+the ability to write posts in Jupyter notebooks. I would like this blog to be
+more than that. This blog combines features from fastpages, massively and
+basically basic. My aim was to hand pick the features of each source that
+were a better fit to my idea and needs for this website.</p>
+<p>The blog is mobile friendly thanks to the massively theme plus some extra
+tweaks from Basically Basic theme. I also borrowed the text size scaling from
+Basically Basic, now whatever the screen size, the text should always be
+readable.</p>
+<p>I customized the favicon too. As you can see, it is neither the one of
+fastpages nor of massively theme. It is a custom image of a MATLAB-style
+waterfall plot of a 2d group MOM prior. You can see the regular scale image
+used to generate the favicon below, more details on what is a group MOM prior
+will come in a future post. This was actually simpler than I
+expected, there are converters online to generate favicons from regular
+images, and then saving the favicon as <code class="docutils literal notranslate"><span class="pre">images/favicon.ico</span></code> is enough for
+everything to work.</p>
+<p>![]({{ “images/posts/gmom_pdf_arrow.png” | relative_url }})</p>
+<p>fastpages also has support for many other awesome features such as
+google analytics, comments or SEO tag management. For
+now, I decided to use google analytics and comments powered by utterances
+but remove the SEO related code. I may add it again at some point after I
+better understand how they work.</p>
+<section id="notebook-shields">
+<h3>Notebook shields<a class="headerlink" href="#notebook-shields" title="Permalink to this heading">#</a></h3>
+<p>Many of my posts will be tutorials written as Jupyter notebooks. Being able to
+include the content from ipynb files to the blog is awesome, but why stop
+here? fastpages allows to add 3 shields (shown below) to notebook posts so
+that the notebook can be opened in GitHub, Google Colab or
+<a class="reference external" href="https://mybinder.org/">Binder</a>. Binder! :heart:</p>
+<div class="nb-badges" style="display: flex; justify-content: flex-start">
+  <div class="px-2"><img class="notebook-badge-image" src="{{ "assets/badges/github.svg" | relative_url }}" alt="Open In GitHub"/></div>
+  <div class="px-2"><img class="notebook-badge-image" src="{{ "assets/badges/binder.svg" | relative_url }}" alt="Open In Binder"/></div>
+  <div class="px-2"><img class="notebook-badge-image" src="{{ "assets/badges/colab.svg" | relative_url }}" alt="Open In Colab"/></div>
+</div>
+<p>Binder generates a container where the notebook can be executed interactively
+without requiring any local installation. This allows readers to run the code
+included in the tutorial while they read it with little to no effort, just
+click on the binder shield. Binder cannot work straight out of the box
+however, to create the container it needs to know what should be installed. I
+have used an <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> to install the required Python libraries with
+Conda and a <code class="docutils literal notranslate"><span class="pre">JuliaProject.toml</span></code> for the Julia libraries. I may add also some R
+dependencies too. Guidance on
+specifying requirements for Binder can be found in its
+<a class="reference external" href="https://mybinder.readthedocs.io/en/latest/using.html">docs</a>.</p>
+</section>
+<section id="tag-archive">
+<h3>Tag Archive<a class="headerlink" href="#tag-archive" title="Permalink to this heading">#</a></h3>
+<p>The tag archive, similarly to the index of a reference book can be an
+invaluable help to readers in navigating the website and finding posts
+relevant to their interests. fastpages already includes a tag archive page
+unlike the massively theme, however, I think its single list formatting does
+not scale well with the number of posts and different tags. The table format
+from Basically Basic was much more attractive to me, so I combined the tag
+archive page from BB theme with the square layout of massively. I also removed
+the post image to get a more compact look.</p>
+</section>
+<section id="colour-schemes-and-syntax-highlighting">
+<h3>Colour schemes and syntax highlighting<a class="headerlink" href="#colour-schemes-and-syntax-highlighting" title="Permalink to this heading">#</a></h3>
+<p>Choosing a colour scheme for our code editors can be a very personal choice
+influenced by many different reasons. When configuring our code editor, we can
+decide whatever we want and choose to completely ignore everyone
+else in the entire world. With websites and other public resources however
+this is not a choice. Websites should be careful with their colour themes to be
+accessible to people with colour vision deficiency. One clear example of a bad
+practice on this is GitHub symbols of open and closed pull requests. The image
+below uses the Mozilla add-on <a class="reference external" href="https://addons.mozilla.org/en-US/firefox/addon/let-s-get-color-blind/">Let’s get
+colour blind</a>.
+to simulate how someone with Deuteranomaly sees a list of GitHub pull
+requests.</p>
+<div class="box alt"><div class="row 50% uniform">
+  <div class="6u"><span class="image fit"><img src="{{ "images/posts/pr_normal.png" | absolute_url }}" alt="" /></span></div>
+  <div class="6u$"><span class="image fit"><img src="{{ "images/posts/pr_deuteranomaly.png" | absolute_url }}" alt="" /></span></div>
+</div></div>
+<p>I used this same add-on to make sure everything could be seen without too much
+effort and did a couple of changes to the fastpages-dracula pygments theme for
+syntax highlighting. I also tried <a class="reference external" href="https://github.com/mpchadwick/pygments-high-contrast-stylesheets">high contrast colour schemes</a>
+so feel free to contact me if you were to need help modifying the colour scheme
+of your website. The plots in my post use the
+<a class="reference external" href="https://github.com/arviz-devs/arviz/blob/master/arviz/plots/styles/arviz-darkgrid.mplstyle"><code class="docutils literal notranslate"><span class="pre">arviz-darkgrid</span></code></a>
+theme whose palette is colourblind friendly, so I have not modified them. In
+the future I’ll try to be more careful and try to not rely only on colour to
+distinguish lines in plots.</p>
+</section>
+<section id="social-media-links-and-serch-icon">
+<h3>Social Media links and serch icon<a class="headerlink" href="#social-media-links-and-serch-icon" title="Permalink to this heading">#</a></h3>
+<p>Thanks to <a class="reference external" href="https://fontawesome.com/">fontawesome</a> I have been able to add links
+to GitHub and Twitter profiles and to the blog’s Atom feed: <a href="{{ site.feed.path | default: 'feed.xml' | relative_url }}" title="Atom Feed" class="icon fa-rss">
+<span class="label">{{ site.data.theme.t.subscribe | default: ‘Subscribe’ }}</span></a>
+in the navigation bar. Moreover, there is also a link to the search page.
+Search is powered by <a class="reference external" href="https://lunrjs.com/">Lunr</a> via fastpages.</p>
+<p>All these social media links are also in the copyright notice found in the
+website footer, where thanks to <a class="reference external" href="https://jpswalsh.github.io/academicons/">academicons</a>,
+the links to my ORCID and Google Scholar profiles are also available.
+Fontawsome icons worked out of the box with all the 3 themes I tinkered with,
+while academicons was not supported by any of them and had to be added
+manually following the instructions on their website.</p>
+</section>
+</section>
+</section>
+
+
+        </article>
+      
+      
+      <footer class="bd-footer-article">
+        
+      </footer>
+    </div>
+    
+    
+      
+        <div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+  
+<div class="ablog__postcard">
+
+<h5>
+  
+  <i class="fa-regular fa-calendar-days"></i>
+  10 July 2020
+  
+</h5>
+<ul>
+  
+<li id="ablog-sidebar-item author ablog__author">
+  <span>
+    <i class="fa-solid fa-user-pen"></i>
+  </span>
+  <label class="sr-only">Author</label>
+  
+  
+  <a href="../../blog/author/oriol-abril-pla.html">Oriol Abril Pla</a>
+  
+  
+  
+</li>
+
+
+
+<li id="ablog-sidebar-item category ablog__category">
+  <span>
+    <i class="fa-regular fa-folder-open"></i>
+  </span>
+  <label class="sr-only">Category</label>
+  
+  
+  <a href="../../blog/category/jekyll.html">jekyll</a>
+  
+  
+  
+</li>
+
+
+<li id="ablog-sidebar-item tags ablog__tags">
+  <span>
+    <i class="fa-solid fa-tags"></i>
+  </span>
+  <label class="sr-only">Tags</label>
+  
+  
+  <a href="../../blog/tag/communication.html">communication</a>
+  
+  
+  
+  
+  
+  <a href="../../blog/tag/blogging.html">blogging</a>
+  
+  
+  
+</li>
+
+</ul>
+</div>
+
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-content">
+   Writing content
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-the-blog">
+   Building the blog
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hosting-a-static-website">
+   Hosting a static website
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-best-of-many-worlds">
+   The best of many worlds
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#notebook-shields">
+     Notebook shields
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tag-archive">
+     Tag Archive
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#colour-schemes-and-syntax-highlighting">
+     Colour schemes and syntax highlighting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#social-media-links-and-serch-icon">
+     Social Media links and serch icon
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div id="searchbox"></div>
+</div>
+</div>
+      
+    
+  </div>
+  </div>
+  <footer class="bd-footer-content">
+    <div class="bd-footer-content__inner"></div>
+    
+      <!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="oriolabril + '/' + oriol_unraveled"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    
+  </footer>
+
+      </main>
+    </div>
+  </div>
+
+  
+
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+<script src="../../_static/js/main.js"></script>
+<div class="footer-notes">
+  <ul class="footer-list">
+    <li>&copy; Oriol Abril Pla |
+      <a href="https://github.com/OriolAbril" title="GitHub" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a href="https://twitter.com/OriolAbril" title="Twitter" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a href="https://oriolabrilpla.cat/blog/atom.xml" title="Atom Feed" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+    </li>
+    <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+    <li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+  </ul>
+</div>
+
+  </body>
+</html>
