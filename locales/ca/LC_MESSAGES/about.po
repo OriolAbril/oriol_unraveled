@@ -1,0 +1,225 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-27 19:08+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/about.md:1
+msgid "About me"
+msgstr ""
+
+#: ../sphinx_source/about.md:3
+msgid ""
+"I'm a physicist/engineer converted into a computational statistician. I "
+"love statistical data analysis, programming and data visualization. I am "
+"currently a doctoral researcher at [Helsinki "
+"University](https://researchportal.helsinki.fi/en/persons/oriol-abril-"
+"pla) working on AI assisted Bayesian workflow and contributing to open "
+"source. I am a core contributor of [ArviZ](https://arviz-"
+"devs.github.io/arviz/) a project for exploratory analysis of Bayesian "
+"models. In addition to probabilistic modeling, I also enjoy teaching and "
+"technical writing."
+msgstr ""
+
+#: ../sphinx_source/about.md:12
+msgid ""
+"I think that the culture in scientific research needs deep changes "
+"towards a more collaborative, open and diverse model. I am interested in "
+"open science, reproducible research and science communication. I want to "
+"pursue a career in probabilistic modeling and statistical research with "
+"special emphasis on openness and reproducibility."
+msgstr ""
+
+#: ../sphinx_source/about.md:18
+msgid ""
+"In my spare time, I like playing board games and going to the beach to do"
+" water activities. I have been sailing and snorkeling regularly since I "
+"was little and more recently I added kayaking to the mix too! I generally"
+" spend the summer at the _Costa Brava_. Here I leave you a sneak peak of "
+"the views when nobody is around"
+msgstr ""
+
+#: ../sphinx_source/about.md:24
+msgid ""
+"![A small cave with clear water and pine trees growing near the "
+"sea](images/cala_costa_brava.jpg)"
+msgstr ""
+
+#: ../sphinx_source/about.md:24
+msgid "A small cave with clear water and pine trees growing near the sea"
+msgstr ""
+
+#: ../sphinx_source/about.md:26
+msgid "Open source libraries"
+msgstr ""
+
+#: ../sphinx_source/about.md:27
+msgid ""
+"Here are highlighted some open source projects I contribute to, check out"
+" my [GitHub profile](https://github.com/OriolAbril) for a complete list "
+"of the projects I contribute to."
+msgstr ""
+
+#: ../sphinx_source/about.md:31
+msgid ""
+"[**ArviZ**](https://github.com/arviz-devs/arviz): Exploratory analysis of"
+" Bayesian models in [Python](https://arviz-"
+"devs.github.io/arviz/index.html) or [Julia](https://arviz-"
+"devs.github.io/ArviZ.jl/stable/)"
+msgstr ""
+
+#: ../sphinx_source/about.md:34
+msgid ""
+"[**xarray-einstats**](https://xarray-einstats.readthedocs.io/en/latest): "
+"Label based statistics, linear algebra and einops for xarray objects."
+msgstr ""
+
+#: ../sphinx_source/about.md:36
+msgid ""
+"[**PyMC**](https://www.pymc.io): Friendly probabilistic programming in "
+"Python."
+msgstr ""
+
+#: ../sphinx_source/about.md:37
+msgid ""
+"In addition to helping a bit with PyMC development, I am one of the main "
+"curator/reviewers of [PyMC-"
+"examples](https://docs.pymc.io/projects/examples/en/latest/), a "
+"collection of Jupyter notebooks about Bayesian modeling with PyMC."
+msgstr ""
+
+#: ../sphinx_source/about.md:40
+msgid ""
+"[**mombf**](https://github.com/davidrusi/mombf): Bayesian model selection"
+" and averaging for regression and mixtures for non-local and local "
+"priors."
+msgstr ""
+
+#: ../sphinx_source/about.md:42
+msgid ""
+"[**exosherlock**](https://github.com/mbadenas/exosherlock): Smooth your "
+"interactions with the NASA Exoplanet Archive using Python and pandas."
+msgstr ""
+
+#: ../sphinx_source/about.md:45
+msgid "Projects and initiatives"
+msgstr ""
+
+#: ../sphinx_source/about.md:46
+msgid ""
+"[**CZI EOSS 4 grant**](https://chanzuckerberg.com/eoss/proposals"
+"/bayesian-open-source-software-for-biomedicine-stan-arviz-and-pymc3/): "
+"Bayesian Open Source Software for Biomedicine: Stan, ArviZ and PyMC"
+msgstr ""
+
+#: ../sphinx_source/about.md:48
+msgid ""
+"[**PyMC-Data Umbrella sprint**](https://pymc-data-"
+"umbrella.xyz/en/latest): A series of webinars and sprint event to "
+"encourage and help people contribute to PyMC."
+msgstr ""
+
+#: ../sphinx_source/about.md:50
+msgid ""
+"[**Season of Docs at ArviZ**](https://arviz-"
+"gsod.readthedocs.io/en/latest/): [GSoD](https://developers.google.com"
+"/season-of-docs/) is an initiative to help open source projects get in "
+"contact and hire technical writers."
+msgstr ""
+
+#: ../sphinx_source/about.md:53
+msgid ""
+"[**PyMCon 2020**](https://pymc-devs.github.io/pymcon//): PyMCon 2020 is "
+"an asynchronous-first virtual conference for the Bayesian community"
+msgstr ""
+
+#: ../sphinx_source/about.md:56
+msgid "Publications"
+msgstr ""
+
+#: ../sphinx_source/about.md:57
+msgid ""
+"Mikkola, Petrus, et al. \"Prior knowledge elicitation: The past, present,"
+" and future.\" _arXiv preprint arXiv:2112.01380_ (2021)."
+msgstr ""
+
+#: ../sphinx_source/about.md:58
+msgid ""
+"Rossell, David, Oriol Abril, and Anirban Bhattacharya. \"Approximate "
+"Laplace approximations for scalable model selection.\" _Journal of the "
+"Royal Statistical Society: Series B (Statistical Methodology)_ 83.4 "
+"(2021): 853-879."
+msgstr ""
+
+#: ../sphinx_source/about.md:60
+msgid ""
+"Badenas-Agusti, Mariona, et al. \"HD 191939: Three Sub-Neptunes "
+"Transiting a Sun-like Star Only 54 pc Away.\" _The Astronomical Journal_ "
+"160.3 (2020): 113."
+msgstr ""
+
+#: ../sphinx_source/about.md:62
+msgid ""
+"Foreman-Mackey, Daniel, et al. \"emcee v3: A Python ensemble sampling "
+"toolkit for affine-invariant MCMC.\" _arXiv preprint arXiv:1911.07688_ "
+"(2019)."
+msgstr ""
+
+#: ../sphinx_source/about.md:64
+msgid "Get the [emcee package code](https://github.com/dfm/emcee)!"
+msgstr ""
+
+#: ../sphinx_source/about.md:66
+msgid "Talks and conferences"
+msgstr ""
+
+#: ../sphinx_source/about.md:67
+msgid ""
+"PyMC-Data Umbrella sprint webinar: _Contributing to PyMC documentation_ "
+"[video and presentation material](https://pymc-data-"
+"umbrella.xyz/en/latest/webinars/contributing_to_documentation/index.html)"
+msgstr ""
+
+#: ../sphinx_source/about.md:69
+msgid ""
+"Data Umbrella webinar: _Bayesian modeling with PyMC3_ [video "
+"recording](https://www.youtube.com/watch?v=6dc7JgR8eI0), "
+"[slides](https://oriolabril.github.io/pymc3-data_umbrella/)"
+msgstr ""
+
+#: ../sphinx_source/about.md:71
+msgid ""
+"PROBPROG 2020: _Backend agnostic exploratory analysis of Bayesian "
+"models_. Poster presentation. All the materials are available on "
+"[GitHub](https://github.com/OriolAbril/arviz-probprog-2020)"
+msgstr ""
+
+#: ../sphinx_source/about.md:73
+msgid ""
+"StanCon 2020: _ArviZ, InferenceData, and NetCDF: A unified file format "
+"for Bayesians._ Slides and video presentation are available at "
+"[GitHub](https://github.com/arviz-"
+"devs/arviz_misc/tree/master/stancon_2020), the slides are executable "
+"thanks to Binder!"
+msgstr ""
+
+#: ../sphinx_source/about.md:76
+msgid ""
+"Slides and video presentations are available in English, Catalan, French "
+"and Finnish."
+msgstr ""
+

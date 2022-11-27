@@ -1,0 +1,3301 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-27 19:08+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10002
+msgid "\"LOO-CV on transformed data\""
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10003
+msgid ""
+"Can different transformations of the data be compared with leave one out "
+"cross validation?"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10005
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10005
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10005
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10005
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10005
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10005
+msgid "toc: true"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10006
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10006
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10006
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10006
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10006
+msgid "author: Oriol Abril"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10007
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10007
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10007
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10007
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10007
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10007
+msgid "badges: true"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10008
+msgid "categories: [python, arviz, stan]"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10009
+msgid "tags: [model comparison]"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10010
+msgid "image: images/nb/loo_regression.png"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:10011
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10011
+msgid "use_math: true"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:20002
+msgid ""
+"Blog post exploring whether or not LOO-CV can be used to compare models "
+"that try to explain some data $y$ with models trying to explain the same "
+"data after a transformation $z=f(y)$. Inspired by [@tiagocc "
+"question](https://discourse.mc-stan.org/t/very-simple-loo-question/9258) "
+"on Stan Forums. This post has two sections, the first one is the "
+"mathematical derivation of the equations used and their application on a "
+"validation example, and the second section is a real example. In addition"
+" to the LOO-CV usage examples and explanations, another goal of this "
+"notebook is to show and highlight the capabilities of [ArviZ](https"
+"://arviz-devs.github.io/arviz/)."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:50002
+msgid "Mathematical derivation and validation example"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:50003
+msgid "In the first example, we will compare two equivalent models:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:50005
+msgid "$y \\sim \\text{LogNormal}(\\mu, \\sigma)$"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:50006
+msgid "$\\log y \\sim \\text{Normal}(\\mu, \\sigma)$"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:60002
+msgid "Model definition and execution"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:60003
+msgid "Define the data and execute the two models"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:140002
+msgid ""
+"Check model convergence. Use `az.summary` to in one view that the "
+"effective sample size (ESS) is large enough and $\\hat{R}$ is close to "
+"one."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:170002
+msgid ""
+"In addition, we can plot the quantile ESS plot for one of them directly "
+"with `plot_ess`"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:190002
+msgid "Posterior validation"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:190003
+msgid ""
+"Check that both models are equivalent and do indeed give the same result "
+"for both parameters."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:210002
+msgid "Calculate LOO-CV"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:210003
+msgid ""
+"Now we get to calculate LOO-CV using Pareto Smoothed Importance Sampling "
+"as detailed in Vehtari et al., 2017. As we explained above, both models "
+"are equivalent, but one is in terms of $y$ and the other in terms of "
+"$\\log y$. Therefore, their likelihoods will be on different scales, and "
+"hence, their expected log predictive density will also be different."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:240002
+msgid ""
+"We have found that as expected, the two models yield different results "
+"despite being actually the same model. This is because. LOO is estimated "
+"from the log likelihood, $\\log p(y_i\\mid\\theta^s)$, being $i$ the "
+"observation id, and $s$ the MCMC sample id. Following Vehtari et al., "
+"2017, this log likelihood is used to calculate the PSIS weights and to "
+"estimate the expected log pointwise predictive density in the following "
+"way:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:240004
+msgid ""
+"Calculate raw importance weights: $r_i^s = "
+"\\frac{1}{p(y_i\\mid\\theta^s)}$"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:240005
+msgid ""
+"Smooth the $r_i^s$ (see original paper for details) to get the PSIS "
+"weights $w_i^s$"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:240006
+msgid "Calculate elpd LOO as:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:240008
+msgid ""
+" \\text{elpd}_{psis-loo} = \\sum_{i=1}^n \\log \\left( \\frac{\\sum_s "
+"w_i^s p(y_i|\\theta^s)}{\\sum_s w_i^s} \\right) "
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:250002
+msgid ""
+"This will estimate the out of sample predictive fit of $y$ (where $y$ is "
+"the data of the model. Therefore, for the first model, using a LogNormal "
+"distribution, we are indeed calculating the desired quantity:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:250004
+msgid " \\text{elpd}_{psis-loo}^{(1)} \\approx \\sum_{i=1}^n \\log p(y_i|y_{-i}) "
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:250006
+msgid "Whereas for the second model, we are calculating:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:250008
+msgid " \\text{elpd}_{psis-loo}^{(2)} \\approx \\sum_{i=1}^n \\log p(z_i|z_{-i}) "
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:250010
+msgid ""
+"being $z_i = \\log y_i$. We actually have two different probability "
+"density functions, one over $y$ which from here on we will note $p_y(y)$,"
+" and $p_z(z)$."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:260002
+msgid ""
+"In order to estimate the elpd loo for $y$ from the data in the second "
+"model, $z$, we have to describe $p_y(y)$ as a function of $z$ and "
+"$p_z(z)$. We know that $y$ and $z$ are actually related, and we can use "
+"this relation to find how would the random variable $y$ (which is "
+"actually a transformation of the random variable $z$) be distributed. "
+"This is done with the Jacobian. Therefore:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:260004
+msgid ""
+"\n"
+"p_y(y|\\theta)=p_z(z|\\theta)|\\frac{dz}{dy}|=\\frac{1}{|y|}p_z(z|\\theta)=e^{-z}p_z(z|\\theta)"
+"\n"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:270002
+msgid "In the log scale:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:270004
+msgid ""
+"\n"
+"\\log p_y(y|\\theta)=-z + \\log p_z(z|\\theta)\n"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:280002
+msgid ""
+"We apply the results to the log likelihood data of the second model (the "
+"normal on the logarithm instead of the lognormal) and check that now the "
+"result does coincide with the LOO-CV estimated by the lognormal model."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:310002
+msgid "Real example"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:310004
+msgid ""
+"We will now use as data a subsample of a [real "
+"dataset](https://docs.google.com/spreadsheets/d/1gt1Dvi7AnQJiBb5vKaxanTis_sfd4sC4sVoswM1Fz7s/pub#)."
+" The subset has been selected using:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:310011
+msgid "Below, the data is loaded and plotted for inspection."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:330002
+msgid ""
+"In order to show different examples of LOO on transformed data, we will "
+"take into account the following models:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:330004
+msgid ""
+"\n"
+"\\begin{align}\n"
+"&y=a_1 x+a_0 \\\\\n"
+"&y=e^{b_0}e^{b_1 x}  &\\rightarrow& \\quad\\log y = z_1 = b_1 x + b_0\\\\"
+"\n"
+"&y=c_1^2 x^2 + 2 c_1 c_2 x + c_0^2  &\\rightarrow& \\quad\\sqrt{y} = z_2 "
+"= c_1 x + c_0\n"
+"\\end{align}\n"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:330012
+msgid ""
+"This models have been chosen mainly because of their simplicity. In "
+"addition, they can all be applied using the same Stan code and the data "
+"looks kind of linear. This will put the focus of the example on the loo "
+"calculation instead of on the model itself. For the online example, the "
+"data from Finland has been chosen, but feel free to download the notebook"
+" and experiment with it."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:430002
+msgid ""
+"In order to compare the out of sample predictive accuracy, we have to "
+"apply the Jacobian transformation to the 2 latter models, so that all of "
+"them are in terms of $y$."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:430004
+msgid ""
+"Note: we will use LOO instead of Leave Future Out algorithm even though "
+"it may be more appropriate because the Jacobian transformation to be "
+"applied is the same in both cases. Moreover, PSIS-LOO does not require "
+"refitting, and it is already implemented in ArviZ."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:440002
+msgid ""
+"The transformation to apply to the second model $z_1 = \\log y$ is the "
+"same as the previous example:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:460002
+msgid "In the case of the third model, $z_2 = \\sqrt{y}$:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:460004
+msgid ""
+" |\\frac{dz}{dy}| = |\\frac{1}{2\\sqrt{y}}| = \\frac{1}{2 z_2} \\quad "
+"\\rightarrow \\quad \\log |\\frac{dz}{dy}| = -\\log (2 z_2)"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:510002
+msgid "References"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:510003
+msgid ""
+"Vehtari, A., Gelman, A., and Gabry, J. (2017):  Practical Bayesian Model "
+"Evaluation Using Leave-One-OutCross-Validation and WAIC, _Statistics and "
+"Computing_, vol. 27(5), pp. 1413–1432."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-06-21-loo-cv-transformed-data.ipynb:520003
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues) or [Stan Discourse](https://discourse.mc-stan.org/)"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10002
+msgid "\"LOO-PIT tutorial\""
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10003
+msgid ""
+"Extend your posterior predictive checks with leave one out probability "
+"integral transform"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10008
+msgid "categories: [python, arviz, pymc3]"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10009
+msgid "tags: [visualization, model criticism]"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:10010
+msgid "image: images/nb/loo_pit_bias.png"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:20002
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:30002
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:20002
+msgid "Introduction"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:20004
+msgid ""
+"One of the new functionalities I added in ArviZ during my GSoC internship"
+" is Leave One Out (LOO) Probability Integral Transform (PIT) marginal "
+"posterior predictive checks. You can see [two](https://arviz-"
+"devs.github.io/arviz/examples/plot_loo_pit_ecdf.html) [examples](https"
+"://arviz-devs.github.io/arviz/examples/plot_loo_pit_overlay.html) of its "
+"usage in the example gallery and also some examples in its [API "
+"section](https://arviz-"
+"devs.github.io/arviz/generated/arviz.plot_loo_pit.html#arviz.plot_loo_pit)."
+" However, these examples are mainly related to the usage of the "
+"functionalities, not so much on the usage of LOO-PIT itself nor its "
+"interpretability."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:20006
+msgid ""
+"I feel that the LOO-PIT algorithm usage and interpretability needs a "
+"short summary with examples showing the most common issues found when "
+"checking models with LOO-PIT. This tutorial will tackle this issue: how "
+"can LOO-PIT be used for model checking and what does it tell us in a "
+"practical manner, so we can see firsthand how wrongly specified models "
+"cause LOO-PIT values to differ from a uniform distribution. I have "
+"included a short description on what is the algorithm doing, however, for"
+" a detailed explanation, see:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:20008
+msgid ""
+"Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., and "
+"Rubin, D. B. (2013). Bayesian Data Analysis. Chapman & Hall/CRC Press, "
+"London, third edition. (p. 152-153)"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:30002
+msgid ""
+"We will use LOO-PIT checks along with non-marginal posterior predictive "
+"checks as implemented in ArviZ. This will allow to see some differences "
+"between the two kinds of posterior predictive checks as well as to "
+"provide some intuition to cases where one may be best and cases where "
+"both are needed."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:40002
+msgid ""
+"Here, we will experiment with LOO-PIT using two different models. First "
+"an estimation of the mean and standard deviation of a 1D Gaussian Random "
+"Variable, and then a 1D linear regression. Afterwards, we will see how to"
+" use LOO-PIT checks with multivariate data using as example a "
+"multivariate linear regression."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:50002
+msgid "Background"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:50004
+msgid ""
+"One of the pilars of Bayesian Statistics is working with the posterior "
+"distribution of the parameters instead of using point estimates and "
+"errors or confidence intervals. We all know how to obtain this posterior "
+"given the likelihood, the prior and the , $p(\\theta \\mid y) = p(y \\mid"
+" \\theta) p(\\theta) / p(y)$. In addition, in many cases we are also "
+"interested in **the probability of future observations given the observed"
+" data** according to our model. This is called posterior predictive, "
+"which is calculated integrating out $\\theta$:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:50006
+msgid " p(y^* | y) = \\int p(y^*|\\theta) p(\\theta|y) d\\theta"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:50008
+msgid ""
+"where $y^*$ is the possible unobserved data and $y$ is the observed data."
+" Therefore, if our model is correct, the observed data and the posterior "
+"predictive follow the same probability density function (pdf). In order "
+"to check if this holds, it is common to perform posterior predictive "
+"checks comparing the posterior predictive to the observed data. This can "
+"be done directly, comparing the kernel density estimates (KDE) of the "
+"observed data and posterior predictive samples, etc. A KDEs is nothing "
+"else than an estimation of the pdf of a random variable given a finite "
+"number of samples from this random variable."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:50010
+msgid ""
+"Another alternative it to perform LOO-PIT checks, which are a kind of "
+"marginal posterior predictive checks. Marginal because we compare each "
+"observation only with the corresponding posterior predictive samples "
+"instead of combining all observations and all posterior predictive "
+"samples. As the name indicates, it combines two different concepts, "
+"Leave-One-Out Cross-Validation and Probability Integral Transform."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:60002
+msgid "Probability Integral Transform"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:60004
+msgid ""
+"Probability Integral Transform stands for the fact that given a random "
+"variable $X$, **the random variable $Y = F_X(X) = P(x \\leq X)$ is a "
+"uniform random variable if the transformation $F_X$ is the Cumulative "
+"Density Function** (CDF) of the original random variable $X$."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:60006
+msgid ""
+"If instead of $F_X$ we have $n$ samples from $X$, $\\{x_1, \\dots, "
+"x_n\\}$, we can use them to estimate $\\hat{F_X}$ and apply it to future "
+"$X$ samples ${x^*}$. In this case, $\\hat{F_X}(x^*)$ will be "
+"approximately a uniform random variable, converging to an exact uniform "
+"variable as $n$ tends to infinity."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:60008
+msgid ""
+"The mathematical demonstration can be found on wikipedia itself just "
+"googling it. However here, instead of reproducing it I will try to "
+"outline the intuition behind this fact. One way to imagine it is with "
+"posterior samples from an MCMC run. If we have enough samples, the "
+"probability of a new sample falling between the two smallest values will "
+"be the same than the probability of a new sample falling inside the two "
+"values closest to the median."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:60010
+msgid ""
+"This is because around the probability around the smallest values will be"
+" lower, but they will be further apart, whereas the probability around "
+"the median will be larger but they will be extremely close. These two "
+"effect compensate each other and the probability is indeed the same. "
+"Thus, the probability is constant independently of the square the new "
+"sample would fall in, which is only compatible with a uniform "
+"distribution."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:70002
+msgid "Leave-One-Out Cross-Validation"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:70004
+msgid ""
+"Cross-Validation is one way to try to solve the problem with all the "
+"*future data* I have been mentioning so far. We do not have this future "
+"data, so how are we supposed to make calculations with it? Cross-"
+"Validation solves this problem by dividing the observed data in $K$ "
+"subsets, excluding one subset from the data used to fit the model (so it "
+"is data unknown to the model, aka future data) and then using this "
+"excluded subset as future data. In general, to get better results, this "
+"process is preformed $K$ times, excluding one different subset every "
+"time."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:70006
+msgid ""
+"LOO-CV is one particular case where the number of subsets is equal to the"
+" number of observations so that each iteration only one observation is "
+"excluded. That is, we **fit the model one time per observation excluding "
+"only this one observation**."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:80002
+msgid "LOO-PIT"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:80004
+msgid ""
+"LOO-PIT checks consist on checking the PIT using LOO-CV. That is, fit the"
+" model on all data but observation $y_i$ (we will refer to this leave one"
+" out subset as $y_{-i}$), use this model to estimate the cumulative "
+"density function of the posterior predictive and calculate the PIT, "
+"$P(y_i < y^* \\mid y_{-i}) = \\int_{-\\infty}^{y_i} p(y^* \\mid y_{-i}) "
+"dy^*$, of each observation. Then, the KDE of all LOO-PIT values is "
+"estimated to see whether or not it is compatible with the LOO-PIT values "
+"being draws from a uniform variable."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:90002
+msgid "Data generation"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:150002
+msgid ""
+"We will now plot the two datsets generated, to give graphical an idea of "
+"the data we are working with."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:170002
+msgid "Unidimensional Gaussian variable"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:170003
+msgid ""
+"We will start with a model that correctly fits with the data, to show how"
+" should both checks look like. Afterwards, we will see cases were these "
+"checks deviate from this ideal case and give some hints on how to "
+"interpret these deviations."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:200002
+msgid ""
+"To begin with, it can be seen that **the observed KDE is similar to the "
+"overlayed posterior predictive KDEs**. The **same happens with the LOO-"
+"PIT values**; the LOO-PIT KDE is similar to the overlayed uniform KDEs. "
+"Thus, in this first example, similar information can be obteined from "
+"their interpretation."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:210002
+msgid "Overdispersion signs"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:210003
+msgid ""
+"We will now move to one common mismatch between the model and the "
+"observed data. We will perform the same fit as the previous example but "
+"fixing the standard deviation of the normal random variable. This is "
+"actually not an unrealistic case, as in many cases where the instrument "
+"used to measure gives error data in addition to the measure, this error "
+"is used to fix the standard deviation."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:210005
+msgid ""
+"These two examples show how the LOO-PIT looks like for overdispersed "
+"models (i.e. the error is assumed to be larger than what it actually is) "
+"and for underdispersed models (i.e. the error is assumed to be smaller "
+"than what it really is)."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:240002
+msgid ""
+"In this example of **overdispersed model**, we can see that the posterior"
+" predictive checks show that the **observed KDE is narrower than most of "
+"the posterior predictive KDEs** and narrower than the mean KDE of the "
+"posterior predictive samples. However, there are still some posterior "
+"predictive samples whose KDEs are similar to the observed KDE. In the "
+"LOO-PIT check though, there is no room for confursion. **The LOO-PIT KDE "
+"is not uniform between 0 and 1**, its range is much quite more limited "
+"than the uniform counterparts. Moreover, the difference between the "
+"Empirical Cumulative Density Function (ECDF) and the ideal uniform CDF "
+"lays outside the envelope most of the time."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:250002
+msgid "Underdispersion signs"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:280002
+msgid ""
+"Here, the differences are similar to the overdispersed case, modifying "
+"overdispersed by underdispersed and inverting the shapes."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:290002
+msgid "Bias signs"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:290004
+msgid ""
+"In addition, LOO-PIT checks also show signs of model bias, as shown in "
+"the following example:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:320002
+msgid ""
+"It is important to note though, that the LOO-PIT itself already indicates"
+" the problem with the model:"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:320003
+msgid ""
+"a convex KDE shape (inverted-U shape or range smaller than 0-1) or an N "
+"in the ECDF difference plot is a sign of an overdispersed model"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:320004
+msgid ""
+"a concave KDE shape (U shape) or an inverted-N ECDF difference is a sign "
+"of underdispersion"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:320005
+msgid ""
+"an asymmetrical KDE (range may also be reduced instead of 0-1) or ECDF "
+"difference is a sign for model bias"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:320007
+msgid ""
+"In general though, we will probably find a combination of all these cases"
+" and it may not be straigthforward to interpretate what is wrong with the"
+" model using LOO-PIT or posterior predictive KDE checks."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:330002
+msgid "Linear regression"
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:330003
+msgid ""
+"In the case of a linear regression, the posterior predictive checks "
+"direclty do not give us much information, because each datapoint is "
+"centered at a different location, so combining them to create a single "
+"KDE won't yield useful results.  It is important to note though, that "
+"this is not an issue inherent to the posterior predictive checks, and "
+"could be solved by rescaling each observation by substracting the mean "
+"and divide by the standard deviation along every observation from the "
+"posterior predictive. We will also include an example of this kind of "
+"transformation in the last example, but there should not be much to worry"
+" about as this improvement is on the ArviZ roadmap."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:360002
+msgid "Now let's see how does introducing some small bias modifies the results."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:390002
+msgid ""
+"Now the LOO-PIT check is clearly showing signs of bias in the model, "
+"whereas due to the lack of rescaling, no bias is seen in the posterior "
+"predictive checks."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:400002
+msgid ""
+"Finally, let's combine some bias with overdispersion, to see how is LOO-"
+"PIT modified. Moreover, we will rescale the posterior predictive data to "
+"see how would rescaling affect the posterior predictive checks."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:450002
+#, python-format
+msgid ""
+"As you can see, the posterior predictive check for `obs_rescaled` does "
+"indicate overdispersion and bias of the posterior predictive samples, "
+"whereas the one for `obs` does not, following what we were seeing "
+"previously. The LOO-PIT checks do not change one bit however. This is "
+"actually a property of the LOO-PIT algorithm. As it is comparing the "
+"marginal distributions of the posterior predictive and the observed data "
+"using the MCMC samples, any _monotonous_ transformation will not modify "
+"its value because it won't modify the order between the samples. "
+"Therefore, if the observed data is larger than 36% of the posterior "
+"predictive samples, the rescaling we have done does not modify this fact."
+msgstr ""
+
+#: ../sphinx_source/posts/2019/2019-07-31-loo-pit-tutorial.ipynb:460003
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues) or [PyMC3 Discourse](https://discourse.pymc.io/)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10002
+msgid "\"ArviZ customization with rcParams\""
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10003
+msgid "\"Use ArviZ rcParams to get sensible defaults right out of the box\""
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10008
+msgid "categories: [python, arviz]"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10009
+msgid "tags: [customization, rcparams]"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:10010
+msgid "image: images/nb/rc_context.png"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:20002
+msgid "About"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:20003
+msgid ""
+"ArviZ not only builds on top of matplotlib's `rcParams` but also adds its"
+" own rcParams instance to handle specific settings. This post will only "
+"graze matplotlib's rcParams, which are already detailed in [matplotlib's "
+"docs](https://matplotlib.org/1.4.1/users/customizing.html); it will dive "
+"into specific ArviZ rcParams."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:30003
+msgid ""
+"Paraphrasing the description on rcParams in the documentation of "
+"matplotlib:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:30005
+msgid ""
+"ArviZ uses arvizrc configuration files to customize all kinds of "
+"properties, which we call rcParams. You can control the defaults of many "
+"properties in ArviZ: data loading mode (lazy or eager), automatically "
+"showing generated plots, the default information criteria and so on."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:30007
+msgid ""
+"There are several ways of modifying `arviz.rcParams` instance, each of "
+"them targeted to specific needs."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:50002
+msgid "Customizing ArviZ"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60002
+msgid "arvizrc file"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60003
+msgid ""
+"To define default values on a per user or per project basis, `arvizrc` "
+"file should be used. When imported, ArviZ search for an `arvizrc` file in"
+" several locations sorted below by priority:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60004
+msgid "`$PWD/arvizrc`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60005
+msgid "`$ARVIZ_DATA/arvizrc`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60006
+msgid "On Linux,"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60007
+msgid "`$XDG_CONFIG_HOME/arviz/arvizrc` (if `$XDG_CONFIG_HOME` is defined)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60009
+msgid "or `$HOME/.config/arviz/arvizrc` (if `$XDG_CONFIG_HOME` is not defined)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60011
+msgid "On other platforms,"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60012
+msgid "`$HOME/.arviz/arvizrc` if `$HOME` is defined"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:60014
+msgid ""
+"Once one of these files is found, ArviZ stops looking and loads its "
+"configuration. If none of them are present, the values hardcoded in ArviZ"
+" codebase are used. The file used to set the default values in ArviZ can "
+"be obtained with the following command:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:80002
+msgid ""
+"ArviZ has loaded a file used to set defaults on a per user basis. Unless "
+"I use a different rc file in the current directory or modify `rcParams` "
+"as explained above, this configuration will be automatically used every "
+"time ArviZ is imported."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:80004
+msgid ""
+"This can be really useful to define the favourite backend or information "
+"criterion, written once in the rc file and ArviZ automatically uses the "
+"desired values."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:90002
+msgid "Important: You should not rely on ArviZ defaults being always the same."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:100002
+msgid ""
+"ArviZ strives to encourage best practices and therefore will change the "
+"default values whenever a new algorithm is developed to achieve this "
+"goal. If you rely on a specific value, you should either use an `arvizrc`"
+" template or set the defaults at the beggining of every script/notebook."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:110002
+msgid "Dynamic rc settings"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:110003
+msgid ""
+"To set default values on a per file or per project basis, `rcParams` can "
+"also be modified dynamically, either overwritting a specific key:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:130002
+msgid ""
+"Note that `rcParams` is the instance to be modified, exactly like in "
+"matplotlib. Careful with capitalization!"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:130004
+msgid ""
+"Another option is to define a dictionary with several new defaults and "
+"update rcParams all at once."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:150002
+msgid "rc_context"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:150003
+msgid ""
+"And last but not least, to temporarily use a different set of defaults, "
+"ArviZ also has a [`rc_context`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.rc_context.html#arviz.rc_context) "
+"function. Its main difference and advantage is that it is a context "
+"manager, therefore, all code executed inside the context will use the "
+"defaults defined by `rc_context` but once we exit the context, everything"
+" goes back to normal. Let's generate 3 posterior plots with the same "
+"command to show this:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:170002
+msgid "ArviZ default settings"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:170003
+msgid ""
+"This section will describe ArviZ rcParams as version 0.8.3 (see "
+"[GitHub](https://github.com/arviz-"
+"devs/arviz/blob/master/arvizrc.template) for an up to date version)."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:180002
+msgid "Data"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:180003
+msgid ""
+"The rcParams in this section are related to the [data](https://arviz-"
+"devs.github.io/arviz/api.html#data) module in ArviZ, that is, they are "
+"either related to `from_xyz` converter functions or to `InferenceData` "
+"class."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:190002
+msgid "**data.http_protocol** : *{https, http}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:190004
+msgid ""
+"Only the first two example datasets `centered_eight` and "
+"`non_centered_eight` come as part of ArviZ. All the others are downloaded"
+" from figshare the first time and stored locally to help reloading them "
+"the next time. We can get the names of the data available by not passing "
+"any argument to `az.load_arviz_data` (you can also get the description of"
+" each of them with `az.list_datasets`):"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:210002
+msgid ""
+"Thus, the first time you call `az.load_arviz_data(\"radon\")`, ArviZ "
+"downloads the dataset using `data.http_protocol`. The default is set to "
+"`https` but if needed, it can be modified to `http`. Notice how there is "
+"no fallback, if downloading with `https` fails, there is no second try "
+"with `http`, an error is risen. To use `http` you have to set the rcParam"
+" explicitly."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:220002
+msgid "**data.index_origin** : *{0, 1}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:220004
+msgid ""
+"ArviZ integration with Stan and Julia who use 1 based indexing motivate "
+"this rcParam. This rcParam is still at an early stage and its "
+"implementation is bound to vary, therefore it has no detailed "
+"description."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:230002
+msgid "**data.load** : *{lazy, eager}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:230004
+msgid ""
+"Even when not using Dask, xarray's default is to load data lazily into "
+"memory when reading from disk. ArviZ's `from_netcdf` also uses the same "
+"default. That is, ArviZ functions that read data from disk `from_netcdf` "
+"and `load_arviz_data` do not load the data into memory unless `data.load`"
+" rcParam is set to `eager`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:230006
+msgid ""
+"Most use cases not only do not require loading data into memory but will "
+"also benefit from lazy loading. However, there is one clear exception: "
+"when too many files are lazily opened at the same time, xarray ends up "
+"crashing with extremely cryptic error messages, these cases require "
+"setting data loading to eager mode. One example of such situation is "
+"generating ArviZ documentation, we therefore set `data.load` to `eager` "
+"in sphinx configuration file."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:240002
+msgid "**data.metagroups** : *mapping of {str : list of str}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:250002
+msgid ""
+"Warning: Do not overwrite `data.metagroups` as things may break, to add "
+"custom metagroups add new keys to the dictionary as shown below"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:260002
+msgid ""
+"One of the current projects in ArviZ is to extend the capabilities of "
+"`InferenceData`. One of the limitations was not allowing its functions "
+"and methods to be applied to several groups at the same time. Starting "
+"with ArviZ 0.8.0, [`InferenceData` methods](https://arviz-"
+"devs.github.io/arviz/generated/arviz.InferenceData.html#arviz.InferenceData)"
+" take arguments `groups` and `filter_groups` to overcome this limitation."
+" These two combined arguments have the same capabilities as "
+"`var_names`+`filter_vars` in plotting functions: exact matching, like and"
+" regex matching like pandas and support for ArviZ `~` negation prefix and"
+" one extra feature: metagroups. So what are metagroups? Let's see"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:280002
+msgid ""
+"Imagine the data you passed to the model was rescaled, after converting "
+"to `InferenceData` you have to rescale the data again to its original "
+"values, but not only the observations, posterior and prior predictive "
+"values too!"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:280004
+msgid ""
+"Having to apply the rescaling manually to each of the three groups is "
+"tedious at best, and creating a variable called `observed_vars` storing a"
+" list with these 3 groups is problematic -- when doing prior checks there"
+" is no `posterior_predictive` group, it's a highway towards errors at "
+"every turn. Metagroups are similar to the variable approach but it's "
+"already there and it applies the function only to present groups. Let's "
+"add a new metagroup and use it to shift our data:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:300002
+msgid "**data.save_warmup** : *bool*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:300004
+msgid ""
+"If `True`, converter functions will store warmup iterations in the "
+"corresponding groups by default."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:300006
+msgid ""
+"Note: `data.save_warmup` does not affect `from_netcdf`, all groups are "
+"always loaded from file"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:320002
+msgid "Plot"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:330002
+msgid "General"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:340002
+msgid "**plot.backend** : *{matplotlib, bokeh}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:340004
+msgid "Default plotting backend."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:350002
+msgid "**plot.max_subplots** : int"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:350004
+msgid ""
+"Maximum number of subplots in a single figure. Adding too many subplots "
+"into a figure can be really slow, to the point that it looks like "
+"everthing has crashed without any error message. When there are more "
+"variables to plot than `max_subplots` allowed, ArviZ sends a warning and "
+"plots at most `max_suplots`. See for yourselves:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:370002
+msgid "**plot.point_estimate** : *{mean, median, model, None}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:370004
+msgid ""
+"Default point estimate to include in plots like `plot_posterior` or "
+"`plot_density`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:380002
+msgid "Bokeh"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:390002
+msgid ""
+"**plot.bokeh.bounds_x_range**, **plot.bokeh.bounds_y_range** : *auto, "
+"None or tuple of (float, float), default auto*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:400002
+msgid "**plot.bokeh.figure.dpi** : *int, default 60*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:410002
+msgid ""
+"**plot.bokeh.figure.height**, **plot.bokeh.figure.width** : *int, default"
+" 500*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:420002
+msgid "**plot.bokeh.layout.order** : *str, default default*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:420004
+msgid ""
+"Select subplot structure for bokeh. One of `default`, `column`, `row`, "
+"`square`, `square_trimmed` or `Ncolumn` (`Nrow`) where N is an integer "
+"number of columns (rows), here is one example to generate a subplot grid "
+"with 2 columns and the necessary rows to fit all variables."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:440002
+msgid ""
+"**plot.bokeh.layout.sizing_mode** : *{fixed, stretch_width, "
+"stretch_height, stretch_both, scale_width, scale_height, scale_both}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:450002
+msgid ""
+"**plot.bokeh.layout.toolbar_location** : *{above, below, left, right, "
+"None}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:450004
+msgid "Location for toolbar on bokeh layouts. `None` will hide the toolbar."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:460002
+msgid "**plot.bokeh.marker** : *str, default Cross*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:460004
+msgid ""
+"Default marker for bokeh plots. See [bokeh reference on "
+"markers](https://docs.bokeh.org/en/latest/docs/reference/models/markers.html)"
+" for more details."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:470002
+msgid "**plot.bokeh.output_backend** : *{webgl, canvas, svg}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:480002
+msgid "**plot.bokeh.show** : *bool, default True*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:480004
+msgid "Show bokeh plot before returning in ArviZ function."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:490002
+msgid ""
+"**plot.bokeh.tools** : *str, default "
+"reset,pan,box_zoom,wheel_zoom,lasso_select,undo,save,hove*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:490004
+msgid ""
+"Default tools in bokeh plots. More details on [Configuring Plot Tools "
+"docs](https://docs.bokeh.org/en/latest/docs/user_guide/tools.html)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:500002
+msgid "Matplotlib"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:500003
+msgid ""
+"Matplotlib already has its own "
+"[`rcParams`](https://matplotlib.org/3.2.1/tutorials/introductory/customizing.html#a"
+"-sample-matplotlibrc-file), which are actually the inspiration for ArviZ "
+"rcParams. Therefore, this section is minimalistic."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:510002
+msgid "**plot.matplotlib.show** : *bool, default False*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:510004
+msgid ""
+"Call `plt.show` from within ArviZ plotting functions. This generally "
+"makes no difference in jupyter like environments, but it can be useful "
+"for instance in the IPython terminal when we don't want to customize the "
+"plots genereted by ArviZ by changing titles or labels."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:530002
+msgid "Stats"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:540002
+msgid "**stats.hdi_prob** : *float*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:540004
+msgid "Default probability of the calculated HDI intervals."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:540006
+msgid ""
+"Important: This probability is completely arbitrary. ArviZ using 0.94 "
+"instead of the more common 0.95 aims to emphasize this arbitrary choice."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:550002
+msgid "**stats.information_criterion** : *{loo, waic}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:550004
+msgid "Default information criterion used by `compare` and `plot_elpd`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:560002
+msgid "**stats.ic_pointwise** : *bool, default False*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:560004
+msgid ""
+"Return pointwise values when calling `loo` or `waic`. Pointwise values "
+"are an intermediate result and therefore setting `ic_pointwise` to true "
+"does not require extra computation."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:570002
+msgid "**stats.ic_scale** : *{log, deviance, negative_log}*"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:570004
+msgid ""
+"Default information criterion scale. See docs on [`loo`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.loo.html#arviz.loo) or "
+"[`waic`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.waic.html#arviz.waic) for more "
+"detail."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:590002
+msgid ""
+"Tip: Is there any extra rcParam you'd like to see in ArviZ? Check out "
+"[arviz-devs/arviz#792](https://github.com/arviz-devs/arviz/issues/792), "
+"it's more than possible you'll be able to add it yourself!"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:600002
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:420002
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:560002
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:550002
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:510002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:490002
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-19-rcParams.ipynb:620003
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues)."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10002
+msgid "\"ArviZ in depth: plot_trace\""
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10003
+msgid "Who said looking at traces wasn't fun?"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10006
+msgid "author: Oriol Abril Pla"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10008
+msgid "categories: [python, arviz, matplotlib]"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10009
+msgid "tags: [visualization]"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:10010
+msgid "image: images/nb/plot_trace_purple.png"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:20003
+msgid ""
+"`plot_trace` is one of the most common plots to assess the convergence of"
+" MCMC runs, therefore, it is also one of the most used ArviZ functions. "
+"`plot_trace` has a lot of parameters that allow creating highly "
+"customizable plots, but they may not be straightforward to use. There are"
+" many reasons that can explain this convolutedness of the arguments and "
+"their format, there is no clear culprit: ArviZ has to integrate with "
+"several libraries such as xarray and matplotlib which provide amazing "
+"features and customization power, and we'd like to allow ArviZ users to "
+"access all these features. However, we also aim to keep ArviZ usage "
+"simple and with sensible defaults; `plot_xyz(idata)` should generate "
+"acceptable results in most situations."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:20005
+msgid ""
+"This post aims to be an extension to the API section on "
+"[`plot_trace`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.plot_trace.html#arviz.plot_trace), "
+"focusing mostly on arguments where examples may be lacking and arguments "
+"that appear often in questions posted to ArviZ issues."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:20007
+msgid ""
+"Therefore, the most common arguments such as `var_names` will not be "
+"covered, and for arguments that I do not remeber appearing in issues or "
+"generating confusion only some examples will be shown without an in depth"
+" description."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:60002
+msgid "The `kind` argument"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:60003
+msgid ""
+"`az.plot_trace` generates two columns. The left one calls `plot_dist` to "
+"plot KDE/Histogram of the data, and the right column can contain either "
+"the trace itself (which gives the name to the plot) or a rank plot for "
+"which two visualizations are available. Rank plots are an alternative to "
+"trace plots, see https://arxiv.org/abs/1903.08008 for more details."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:80002
+msgid "The `divergences` argument"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:80003
+msgid ""
+"If present, divergences are indicated as a black rugplot in both columns "
+"of the trace plot. By default they are placed at the bottom of the plot, "
+"but they can be placed at the top or hidden."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:110002
+msgid "The `rug` argument"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:110003
+msgid ""
+"`rug` adds a rug plot with the posterior samples at the bottom of the "
+"distribution plot, there are no changes in the trace plot column."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:130002
+msgid ""
+"But what about having both rug and divergences at the same time? Fear "
+"not, ArviZ automatically modifies the default for divergences from "
+"`bottom` to `top` to prevent rug and divergences from overlapping:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:150002
+msgid "The `lines` argument"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:150003
+msgid "The description about lines in `plot_trace`'s docstring is the following:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:170002
+msgid ""
+"It is possible that the first thought after reading this line is similar "
+"to _\"What is with this weird format?\"_ Well, this format is actually "
+"the stardard way ArviZ uses to iterate over `xarray.Dataset` objects "
+"because it contains all the info about the variable and the selected "
+"coordinates as well as the values themselves. The main helper function "
+"that handles this is `arviz.plots.plot_utils.xarray_var_iter`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:180002
+msgid ""
+"This section will be a little different from the other ones, and will "
+"focus on boosting `plot_trace` capabilities with internal ArviZ "
+"functions. You may want to skip to the section altogether of go straigh "
+"to the end."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:180004
+msgid ""
+"Let's see what `xarray_var_iter` does with a simple dataset. We will "
+"create a dataset with two variables: `a` will be a 2x3 matrix and `b` "
+"will be a scalar. In addition, the dimensions of `a` will be labeled."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:210002
+msgid ""
+"`xarray_var_iter` has iterated over every single scalar value without "
+"loosing track of where did every value come from. We can also modify the "
+"behaviour to skip some dimensions (i.e. in ArviZ we generally iterate "
+"over data dimensions and skip `chain` and `draw` dims)."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:230002
+msgid ""
+"Now that we know about `xarray_var_iter` and what it does, we can use it "
+"to generate a list in the required format directly from xarray objects. "
+"Let's say for example we were interested in plotting the mean as a line "
+"in the trace plot:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:250002
+msgid ""
+"And what about quantile lines? Lets plot the 10% and 90% quantile lines "
+"but only for defs variable:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:260002
+msgid ""
+"Note: This same approach can also be used with `az.hdi` skipping `hdi` "
+"dimension"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:280002
+msgid "Aggregation kwargs"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:280003
+msgid ""
+"This section is dedicated to 5 different kwargs, closely related to each "
+"other: `compact`+`compact_prop`, `combined`+`chain_prop` and `legend`. If"
+" we focus on the distribution plots of the left column, we may want to "
+"aggregate data along 2 possible dimensions, chains or variable "
+"dimension(s) -- school dimension in `centered_eight` data, team dimension"
+" in `rugby` data... As aggragation or not along these 2 possible "
+"dimensions is independent, we end up with 4 possibilities."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:280005
+msgid ""
+"In `az.plot_trace`, the argument `combined` governs the aggregation of "
+"all chains into a single plot (has no effect in trace, only in "
+"distributions), and `compact` governs the aggregation of the variable "
+"dimension(s). In order to be able to distinguish each single line after "
+"some aggregation has taken place, a `legend` argument is also available "
+"to show the legend with the data labels. `chain_prop` and `compact_prop` "
+"allow customization of the aesthetics mapping."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:280007
+msgid ""
+"We'll now cover all 4 possibilities to showcase all supported cases and "
+"explore related customizations."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:290002
+msgid "`combined=False` and `compact=False`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:290003
+msgid ""
+"The default behaviour of `plot_trace` is to perform no aggregation at "
+"all. In this case therefore, all subplots will have exactly one line per "
+"chain in the posterior. In this chain only setting, the default mapping "
+"is to use color to distinguish chains:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:310002
+msgid "`combined=True` and `compact=False`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:310003
+msgid ""
+"Chains are aggregated into a single quantity if possible. Therefore, "
+"distribution column will have one line per subplot due to the aggregation"
+" but the trace column will be the same as in the previous section. This "
+"is also a chain only setting, the default mapping is to use color to "
+"distinguish chains. However, we'll use this example to show usage of "
+"`chain_prop` to map the chain to the linewidth:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:330002
+msgid "`combined=False` and `compact=True`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:330003
+msgid ""
+"You are probably tired already from scrolling down and we have only 6 "
+"teams! Imagine having a variable with a dimension of length 100 or more "
+":scream:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:330005
+msgid ""
+"In these cases, it may be more convenient to analyze a compact version of"
+" the trace plot:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:350002
+msgid ""
+"The first two things that jump to the eye are that ArviZ has drastically "
+"modified the default aesthetic of the plot and that the plot fits now "
+"comfortable in a single screen, bye bye scrolling :wave:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:350004
+msgid ""
+"We can also see that `legend=True` has included multiple legends to the "
+"figure. The `chain` legend is always included in the top right trace "
+"plot, and the plots in the distribution column contain a legend if "
+"necessary."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:360002
+msgid "`combined=True` and `compact=True`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:360003
+msgid ""
+"To reduce even more the clutter of lines in the trace plot, we can also "
+"combine chains. Moreover, the `linestyle -> chain` mapping can be "
+"distracting, especially if we don't care too much about distinguishing "
+"the chains between them. Like we did before, we will use `chain_prop` to "
+"control this."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:380002
+msgid ""
+"Finally, we will explore alternative usage options for `chain_prop` and "
+"`compact_prop`. In the two previous examples we have used a 2 element "
+"tuple where the second position of the tuple contained the properties to "
+"use. Another alternative is to pass a string present in "
+"`plt.rcParams[\"axes.prop_cycle\"]`, which in our case is `color` only."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:400002
+msgid "Summing it all up"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:400003
+msgid ""
+"Now that we have covered most arguments, let's put everything to "
+"practice. Try to generate a trace plot following the instructions below:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:400005
+msgid ""
+"Show variables `home`, `defs` and `atts` showing only `Scotland, Ireland,"
+" Italy, Wales` coordinates."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:400006
+msgid "For `defs` variable, plot lines showing the 70% HDI."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:400007
+msgid ""
+"Map chains to the following colors: `'C0', 'C1', 'C2', 'C3', "
+"\"xkcd:purple blue\"`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:400008
+msgid "Map team dimension to both linestyle (solid and dashed) and linewidth"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-06-20-plot-trace.ipynb:440003
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues) or [PyMC Discourse](https://discourse.pymc.io/)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10002
+msgid "\"PyMC3 with labeled coords and dims\""
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10003
+msgid "\"Go crazy with your virtual label-maker!\""
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10008
+msgid "categories: [python, arviz, pymc3, xarray]"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10009
+msgid "tags: [data storage, arviz converters]"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10010
+msgid "image: images/nb/labeled_arys.png"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:10011
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10011
+msgid "twitter_large_image: true"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:20002
+msgid ""
+"Important: This blog post uses version 3.x of PyMC. PyMC 4.0 is already "
+"available and with it even better labeling support and [an updated "
+"version of this same blogpost using PyMC "
+"4.0](https://oriolabrilpla.cat/python/arviz/pymc/xarray/2022/06/07/pymc-"
+"arviz.html)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:60002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:50002
+msgid "For the :heart: of labeled arrays"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:60003
+msgid ""
+"For all of us who love labeled arrays, [PyMC 3.9.0](https://github.com"
+"/pymc-devs/pymc3/blob/master/RELEASE-NOTES.md#pymc3-390-16-june-2020) "
+"came with some amazing news: support for using coordinate and dimension "
+"names to specify the shapes of variables in a `pm.Model`. While this is "
+"good news by its own merit, its seamless integration with ArviZ even more"
+" impactful and relevant."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:70002
+msgid ""
+"This post will focus on using PyMC3 coords and dims and the conversion of"
+" traces and models to "
+"[`InferenceData`](https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html)"
+" using `arviz.from_pymc3`. To see `InferenceData` in action, refer to "
+"[this "
+"example](https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/multilevel_modeling.html)"
+" in PyMC docs."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:80002
+msgid ""
+"We will use an example based approach and use models from the [example "
+"gallery](https://www.pymc.io/projects/examples/en/latest/gallery.html) to"
+" illustrate how to use coords and dims within PyMC3 models."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:90002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:80002
+msgid "1st example: rugby analytics"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:90003
+msgid ""
+"We will use an alternative parametrization of the same model used in the "
+"[rugby analytics "
+"example](https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/rugby_analytics.html)"
+" taking advantage of dims and coords. Here, we will use as observations a"
+" 2d matrix, whose rows are the matches and whose columns are the field: "
+"home and away."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:100002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:90002
+msgid ""
+"The first step after preprocessing is to define the dimensions used by "
+"the model and their coordinates. In our case, we have 3 dimensions:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:100004
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:90004
+msgid "`team`: each team will have its own offensive and defensive power"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:100005
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:90005
+msgid ""
+"`match`: an integer identifying the match. There are 6 teams who play "
+"twice against each other so we have `6*5*2=60` matches"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:100006
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:90006
+msgid "`field`: either home or away."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:100008
+msgid ""
+"These coordinates are passed to `pm.Model` as a dict whose keys are "
+"dimension names and whose values are coordinate values. The dimensions "
+"can then be used when defining PyMC3 variables to indicate their shape."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:130002
+msgid ""
+"We have now defined the shapes or our variables, which is convenient and "
+"helps understanding the code, but the dimensions and coordinates are lost"
+" during sampling. `pm.MultiTrace` objects do not store the labeled "
+"coordinates of their variables."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:150002
+msgid ""
+"To also take advantage of the labeled coords and dims for exploratory "
+"analysis of the results, we have to convert the results to "
+"[`az.InferenceData`](https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html)."
+" This can be done with `az.from_pymc3` or using the "
+"`return_inferencedata=True` argument in `pm.sample`. To avoid having to "
+"resample again, we will use the former and use the latter in the second "
+"example."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:160002
+msgid ""
+"ArviZ is aware of the model context, and will use it to get the coords "
+"and dims automatically. If necessary however, we may also modify or add "
+"dimensions or coordinates using the `dims`/`coords` arguments of "
+"`from_pymc3`. We'll also see an example of this afterwards."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:180002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:140002
+msgid "2nd example: radon multilevel model"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:180003
+msgid ""
+"We will now use one of the many models in the [A Primer on Bayesian "
+"Methods for Multilevel "
+"Modeling](https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/multilevel_modeling.html)"
+" notebook to dive deeper into coords and dims functionality. We won't "
+"cover the model itself, it's already explained in the example notebook, "
+"we will explain in detail how are labeled coords and dims being used."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:180005
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:140005
+msgid ""
+"The code used to load and clean the data is hidden, click the button "
+"below to see it."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:200002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160002
+msgid ""
+"The first step is again defining the dimensions and their coordinate "
+"values:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:200004
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160004
+msgid "`Level`: observations can correspond to the basement or the first floor"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:200005
+msgid "`obs_id`: unique integer identifying each observation"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:200006
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160005
+msgid ""
+"`County`: each county has its own basement, intercept: `a`, and first "
+"floor, slope `b`, effects. Details are in the example notebook"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:200007
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160006
+msgid "`param`: one of `a`, `b`"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:200008
+msgid ""
+"`param_bis`: same as param, used for the covariance matrix because a "
+"variable can't have repeated dimensions"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:220002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:180002
+msgid ""
+"We'll begin to define the model creating the indexing arrays that will "
+"implement the hierarchical model. We are using the `pm.Data` container to"
+" tell ArviZ to store the variables in the `constant_data` group. "
+"Moreover, `pm.Data` defines a theano shared variable, so its values can "
+"be modified in order to call `pm.sample_posterior_predictive` using "
+"different data. This is particularly interesting for regressions for "
+"example in order to generate predictions for the model."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:240002
+msgid ""
+"We'll also use a `LKJCholeskyCov`as prior for the covariance matrix. As "
+"you can see, it has no `dims` argument. Given that we are going to use "
+"`return_inferencedata=True` here in order to get an InferenceData "
+"directly as a result of `pm.sample`, we will have to indicate the dims "
+"that correspond to these variables as `idata_kwargs`. `idata_kwargs` is "
+"used to indicate `pm.sample` what arguments to pass to "
+"[az.from_pymc3](https://python.arviz.org/en/v0.11.3/api/generated/arviz.from_pymc3.html),"
+" which is called internally to convert the trace to InferenceData."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:260002
+msgid ""
+"We now will store two intermediate results as variables. However, one is "
+"wrapped inside a `pm.Deterministic` whereas the other is not. Both are "
+"equally valid. `pm.Deterministic` tells PyMC3 to store that variable in "
+"the trace. Thus `pm.Deterministic` should only be used when we actively "
+"want to store the intermediate result. In our case, we want to store "
+"`ab_county` but not `theta`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:280002
+msgid ""
+"Finally we will call `pm.sample` with `return_inferencedata=True` and "
+"defining the dimensions of the covariance matrix as `idata_kwargs`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:300002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:260002
+msgid "There is life outside the posterior"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:300003
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:260003
+msgid ""
+"The posterior is the center of Bayesian analysis but other quantities "
+"such as the prior or the posterior predictive are also crucial to an "
+"analysis workflow. We'll use a linear regression to quickly showcase some"
+" of the key steps in a Bayesian workflow: prior predictive checks, "
+"posterior sampling, posterior predictive checks (using LOO-PIT) and out "
+"of sample predictions."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:310002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:270002
+msgid ""
+"We will start generating some simulated data (code hidden, click to "
+"expand) and defining the model. As it's a simple linear regression we'll "
+"only have scalar parameters, `a`, `b` and `sigma`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:340002
+msgid ""
+"We have now written a model in order to study our super interesting "
+"quantity `y`. We have used everything we have seen so far, the `pm.Data` "
+"container and the labeled dims and coords. We will now simulate a "
+"workflow starting from prior predictive checks and finishing with "
+"predicting the values of our _quantity of interest_ in 2021 and 2022."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:350002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:310002
+msgid "Priors"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:350003
+msgid ""
+"We start by sampling both prior and prior predictive with "
+"`pm.sample_prior_predictive`. This will generate a dictionary whose keys "
+"are variable names and whose values are numpy arrays. We can then pass "
+"this dictionary to `az.from_pymc3` as the `prior` argument. ArviZ will "
+"then use the information in the `pm.Model` instance to 1) split the "
+"variables between `prior` and `prior_predictive` groups, 2) fill the "
+"`observed_data` and `constant_data` groups and 3) get the `dims` and "
+"`coords` if present."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:370002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:330002
+msgid ""
+"We can now use `plot_ppc` to perform prior predictive checks for our "
+"model."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:390002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:350002
+msgid "Posterior"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:390003
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:350003
+msgid ""
+"The next step will be computing the posterior. As we have seen, we can "
+"use `return_inferencedata` to get an `InferenceData` as a result of "
+"`pm.sample`. In this case however, we will store it as an auxiliary "
+"variable to then use `InferenceData.extend` and add the new groups to the"
+" `linreg_idata`."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:430002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:390002
+msgid "Posterior predictive"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:430003
+msgid ""
+"Our third step will be to evaluate the posterior predictive at the "
+"observations so we can perform model checking with functions such as "
+"`plot_ppc` or `plot_loo_pit`. Here again we are using the `extend` trick "
+"to keep all our data as part of the same `InferenceData`. This has two "
+"main advantages. `plot_loo_pit` requires both the `posterior_predictive` "
+"group, generated here and the `log_likelihood` group which was created in"
+" `pm.sample`. In addition, keeping all our data in a single "
+"`InferenceData` means we can store it as a netCDF and share a single file"
+" to allow reproducing the whole exploratory analysis of our model."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:460002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:420002
+msgid ""
+"We will now get to use `plot_loo_pit`, which as expected does not show "
+"any issues. To learn how to interpret those plots, you can read the [LOO-"
+"PIT tutorial](https://oriolabrilpla.cat/python/arviz/pymc3/2019/07/31"
+"/loo-pit-tutorial.html)."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:480002
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:440002
+msgid "Predictions"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:480003
+msgid ""
+"Finally, our last step will be to get some predictions, which in this "
+"case is evaluating the posterior predictive at positions different than "
+"the observations. In the example below, we are evaluating our predictions"
+" at 2021 and 2020. To do so, we are using `pm.set_data` to modify the "
+"values of `x` to the ones that correspond to these two future years."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:490002
+msgid ""
+"Here we will use `from_pymc3_predictions` instead of "
+"`from_pymc3`+`extend`. `from_pymc3_predictions` combines functionality "
+"from both of these functions and let's the user choose how to handle "
+"predictions depending on the goal at hand: if `idata_orig` is not "
+"present, the returned object will be an `InferenceData` containing only "
+"the predictions groups; if `idata_orig` is present and `inplace=False` "
+"the returned `InferenceData` will be a copy of `idata_orig` with the "
+"predictions groups added, and with `inplace=True` there is no returned "
+"object, the preditcions groups are added to `idata_orig` which is not "
+"returned."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:530002
+msgid "Extra: generating the post image"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:530003
+msgid ""
+"Here is the code used to generate the summary image for this post. Take a"
+" look if you want to use matplotlib to create array diagrams!"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/2020-09-22-pymc3-arviz.ipynb:580003
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:510003
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [PyMC "
+"Discourse](https://discourse.pymc.io/). Feel free to tag me at "
+"[@OriolAbril](https://discourse.pymc.io/u/oriolabril)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:5
+msgid "A blog is born"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:20
+msgid ""
+"These days, there are countless blogging alternatives covering an "
+"extremely wide range of needs, from writing everything in `.docx` format "
+"to customizing every minor nit with CSS and HTML. It is not difficult to "
+"get lost in this sea of blogging alternatives and end up being unable to "
+"choose one of the alternatives and set the blog up. I already "
+"experimented with [a blog](https://oriolabril.github.io/gsoc2019_blog/) "
+"during my Google Summer of Code internship and I have now started this "
+"new blog. Thus, being this my second blog, I am far from an expert in "
+"blogging platforms."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:29
+msgid ""
+"I cannot write a complete guide for prospective bloggers, however, I "
+"still feel like writing about how I created and configured this blog can "
+"be useful to anyone who is considering creating a blog somewhat similar "
+"to this one. As you may have guessed already from other pages in the "
+"blog, I highly value understanding what I do and being able to modify (or"
+" at least see) its inner workings."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:35
+msgid ""
+"The first section is an overview of the technologies and libraries used "
+"in this blog. Afterwards there are 3 sections covering the base of "
+"blogging: writing the content, building the blog and hosting it. These "
+"cover the base elements needed to get the blog running. Eventually, there"
+" is one section on more advanced configuration and on the features I "
+"value the most."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:41
+msgid "Overview"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:42
+msgid ""
+"The content for this blog is written using either jupyter notebooks, "
+"markdown or docx files. Posts are then converted thanks to "
+"[fastpages](https://fastpages.fast.ai/) to markdown and html files that "
+"[Jekyll](https://jekyllrb.com/) can use to build the static website. "
+"Every time a new commit is pushed to GitHub, [GitHub "
+"Actions](https://github.com/features/actions) are used to automatically "
+"build the website and push it to the `gh-pages` branch. The website "
+"stored in the `gh-pages` branch is then hosted on [GitHub "
+"pages](https://pages.github.com/). Here is the diagram of the workflow "
+"from the fastpages website:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:53
+msgid "![](https://fastpages.fast.ai/images/diagram.png)"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:55
+msgid "Writing content"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:56
+msgid ""
+"Writing the content using Markdown is one of the most common alternatives"
+" for writing blog posts. Writing in Markdown has many advantages and "
+"produces files which are readable both rendered and without rendering. To"
+" write code tutorials however, they are not too convenient as we need to "
+"manually execute each cell and add the output of the code to the post."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:62
+msgid ""
+"If we use Jupyter notebooks instead, we can keep the code, its output and"
+" the explanations in the same _executable_ file. This is really "
+"convenient as I can easily rerun the notebooks whenever there has been a "
+"significant change in the libraries used and keep the tutorials up to "
+"date. The main drawback of writing posts in Jupyter notebooks is having "
+"to convert the notebooks to markdown or html so the post can be added to "
+"the blog. I am taking advantage of fastpages to both take care of the "
+"conversion and to automate the process."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:70
+msgid ""
+"Eventually, I only have to write my posts in either markdown or Jupyter "
+"notebook files and push them to GitHub. This is crucial to me as it makes"
+" creating new posts be only about writing! I don't have to take care "
+"about conversion."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:75
+msgid "Building the blog"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:76
+msgid ""
+"This blog is built using Jekyll, an open source static website generator."
+" Roughly speaking, it takes a configuration file and the website content "
+"as markdown or html files and generates a static website where the theme "
+"has been filled with the content, pages and blog posts. The configuration"
+" file, `_config.yml` contains information such as the theme or the "
+"markdown parser to be used."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:83
+msgid ""
+"fastpages uses the default Jekyll theme: "
+"[minima](https://github.com/jekyll/minima). Even though minima has many "
+"features and everything works straight away with fastpages, I wanted to "
+"use a different theme, to give another look to the website and make it "
+"more attractive to readers. I therefore tried changing the theme "
+"specified in `_config.yml` for several new themes I found more visually "
+"attractive. I found [basically basic](https://mmistakes.github.io/jekyll-"
+"theme-basically-basic/) (see screenshots below) and "
+"[massively](https://iwiedenm.github.io/jekyll-theme-massively/) to work "
+"quite well right out of the box. Most of the themes did not work at all "
+"due to incompatibilities with fastpages. After comparing both themes for "
+"a while, I decided to go with massively. I therefore tweaked the theme to"
+" fix the minor incompatibilities it presented with fastpages. This is "
+"still a work in progress, not everything that works with fastpages+minima"
+" works with massively yet."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:104
+msgid ""
+"Some of the tweaks will be detailed in the last two sections of the post,"
+" but most of them will not be covered here. If you are interested in any "
+"of the two themes and their compatibility with fastpages please reach out"
+" in an [issue](https://github.com/OriolAbril/oriol_unraveled/issues), or "
+"what's nearly the same (thanks [utterances](https://utteranc.es/)), "
+"comment below."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:110
+msgid "Hosting a static website"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:111
+msgid ""
+"As explained in the overview, this website is hosted by GitHub pages. "
+"Even though this was initially the one that seemed more difficult to me, "
+"I actually found this step simpler than the other two. Basically GitHub "
+"Pages takes care of everything."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:116
+msgid ""
+"The main friction I encountered while using GitHub pages was the "
+"`.nojekyll` file. There are two main ways of interacting with GitHub "
+"pages. The first alternative is to push to `gh-pages` a directory "
+"containing a `_config.yml` file with the Jekyll configuration and the "
+"content in Markdown and HTML format. GitHub then builds the site for you "
+"using Jekyll. The second alternative is to build the site and push the "
+"result to `gh-pages` branch together with a `.nojekyll` file. The "
+"`.nojekyll` file tells GitHub to not build the site with Jekyll and host "
+"directly the contents of the branch instead."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:126
+msgid ""
+"In this particular case, we are using GitHub Actions from fastpages to "
+"convert the posts and build the site using Jekyll, so we are actually "
+"using the second alternative. Luckily, thanks to fastpages, these two "
+"alternatives do not affect the writing process at all."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:131
+msgid "The best of many worlds"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:132
+msgid ""
+"So far we have described how to create and maintain a plain blog, the "
+"main difference with forking the minima theme and writing a blog in "
+"markdown is the ability to write posts in Jupyter notebooks. I would like"
+" this blog to be more than that. This blog combines features from "
+"fastpages, massively and basically basic. My aim was to hand pick the "
+"features of each source that were a better fit to my idea and needs for "
+"this website."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:139
+msgid ""
+"The blog is mobile friendly thanks to the massively theme plus some extra"
+" tweaks from Basically Basic theme. I also borrowed the text size scaling"
+" from Basically Basic, now whatever the screen size, the text should "
+"always be readable."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:144
+msgid ""
+"I customized the favicon too. As you can see, it is neither the one of "
+"fastpages nor of massively theme. It is a custom image of a MATLAB-style "
+"waterfall plot of a 2d group MOM prior. You can see the regular scale "
+"image used to generate the favicon below, more details on what is a group"
+" MOM prior will come in a future post. This was actually simpler than I "
+"expected, there are converters online to generate favicons from regular "
+"images, and then saving the favicon as `images/favicon.ico` is enough for"
+" everything to work."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:153
+msgid "![]({{ \"images/posts/gmom_pdf_arrow.png\" | relative_url }})"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:155
+msgid ""
+"fastpages also has support for many other awesome features such as google"
+" analytics, comments or SEO tag management. For now, I decided to use "
+"google analytics and comments powered by utterances but remove the SEO "
+"related code. I may add it again at some point after I better understand "
+"how they work."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:161
+msgid "Notebook shields"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:162
+msgid ""
+"Many of my posts will be tutorials written as Jupyter notebooks. Being "
+"able to include the content from ipynb files to the blog is awesome, but "
+"why stop here? fastpages allows to add 3 shields (shown below) to "
+"notebook posts so that the notebook can be opened in GitHub, Google Colab"
+" or [Binder](https://mybinder.org/). Binder! :heart:"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:174
+msgid ""
+"Binder generates a container where the notebook can be executed "
+"interactively without requiring any local installation. This allows "
+"readers to run the code included in the tutorial while they read it with "
+"little to no effort, just click on the binder shield. Binder cannot work "
+"straight out of the box however, to create the container it needs to know"
+" what should be installed. I have used an `environment.yml` to install "
+"the required Python libraries with Conda and a `JuliaProject.toml` for "
+"the Julia libraries. I may add also some R dependencies too. Guidance on "
+"specifying requirements for Binder can be found in its "
+"[docs](https://mybinder.readthedocs.io/en/latest/using.html)."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:185
+msgid "Tag Archive"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:186
+msgid ""
+"The tag archive, similarly to the index of a reference book can be an "
+"invaluable help to readers in navigating the website and finding posts "
+"relevant to their interests. fastpages already includes a tag archive "
+"page unlike the massively theme, however, I think its single list "
+"formatting does not scale well with the number of posts and different "
+"tags. The table format from Basically Basic was much more attractive to "
+"me, so I combined the tag archive page from BB theme with the square "
+"layout of massively. I also removed the post image to get a more compact "
+"look."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:195
+msgid "Colour schemes and syntax highlighting"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:196
+msgid ""
+"Choosing a colour scheme for our code editors can be a very personal "
+"choice influenced by many different reasons. When configuring our code "
+"editor, we can decide whatever we want and choose to completely ignore "
+"everyone else in the entire world. With websites and other public "
+"resources however this is not a choice. Websites should be careful with "
+"their colour themes to be accessible to people with colour vision "
+"deficiency. One clear example of a bad practice on this is GitHub symbols"
+" of open and closed pull requests. The image below uses the Mozilla add-"
+"on [Let's get colour blind](https://addons.mozilla.org/en-"
+"US/firefox/addon/let-s-get-color-blind/). to simulate how someone with "
+"Deuteranomaly sees a list of GitHub pull requests."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:213
+msgid ""
+"I used this same add-on to make sure everything could be seen without too"
+" much effort and did a couple of changes to the fastpages-dracula "
+"pygments theme for syntax highlighting. I also tried [high contrast "
+"colour schemes](https://github.com/mpchadwick/pygments-high-contrast-"
+"stylesheets) so feel free to contact me if you were to need help "
+"modifying the colour scheme of your website. The plots in my post use the"
+" [`arviz-darkgrid`](https://github.com/arviz-"
+"devs/arviz/blob/master/arviz/plots/styles/arviz-darkgrid.mplstyle) theme "
+"whose palette is colourblind friendly, so I have not modified them. In "
+"the future I'll try to be more careful and try to not rely only on colour"
+" to distinguish lines in plots."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:223
+msgid "Social Media links and serch icon"
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:224
+msgid ""
+"Thanks to [fontawesome](https://fontawesome.com/) I have been able to add"
+" links to GitHub and Twitter profiles and to the blog's Atom feed: <a "
+"href=\"{{ site.feed.path | default: 'feed.xml' | relative_url }}\" "
+"title=\"Atom Feed\" class=\"icon fa-rss\"> <span class=\"label\">{{ "
+"site.data.theme.t.subscribe | default: 'Subscribe' }}</span></a> in the "
+"navigation bar. Moreover, there is also a link to the search page. Search"
+" is powered by [Lunr](https://lunrjs.com/) via fastpages."
+msgstr ""
+
+#: ../sphinx_source/posts/2020/setting_up_blog.md:230
+msgid ""
+"All these social media links are also in the copyright notice found in "
+"the website footer, where thanks to "
+"[academicons](https://jpswalsh.github.io/academicons/), the links to my "
+"ORCID and Google Scholar profiles are also available. Fontawsome icons "
+"worked out of the box with all the 3 themes I tinkered with, while "
+"academicons was not supported by any of them and had to be added manually"
+" following the instructions on their website."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10002
+msgid "CmdStanPy and ArviZ integration"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10003
+msgid ""
+"\"Embrace labeled multi-dimensional arrays for better exploratory "
+"analysis of your Bayesian models\""
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10008
+msgid "categories: [python, arviz, stan, xarray, xarray-einstats]"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10009
+msgid "tags: [arviz converters, posterior predictive]"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:10010
+msgid "image: images/nb/hmm_drive.png"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:20002
+msgid ""
+"This blog post is an adaptation of the [Tagging Basketball Events with "
+"HMM in Stan](https://mc-stan.org/users/documentation/case-studies/bball-"
+"hmm.html) case study. It will not cover any new topics or analysis and "
+"assumes you have at least skimmed the original case study."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:20004
+msgid ""
+"So what is this post about? I will use cmdstanpy+ArviZ integration to "
+"show the potential of using labeled arrays when doing exploratory "
+"analysis of Bayesian models. I will use [xarray](https://xarray.dev/)'s "
+"automatic broadcasting and alignment of arrays and the `stats` module of "
+"[xarray-einstats](https://einstats.python.arviz.org) for posterior "
+"predictive sampling."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:20006
+msgid ""
+"Each section maps to an example on the original case study: simple HMM "
+"example, tagging drive events and defensive assignment. All sections "
+"follow the same structure."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:20008
+msgid ""
+"The beginning is as concise as possible to avoid duplication: the data "
+"needed for the model is read, the model is compiled and sampled. If you "
+"are interested you'll be able to read the stan code of the model clicking"
+" on the \"Show Output\" buttons. We then move to the target of this blog "
+"post: conversion of the cmdstanpy fit to ArviZ `InferenceData` and "
+"postprocessing with [xarray](https://xarray.dev/) and [xarray-"
+"einstats](https://einstats.python.arviz.org)."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:60002
+msgid "Simple HMM example"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:60003
+msgid ""
+"Link to [this same section](https://mc-stan.org/users/documentation/case-"
+"studies/bball-hmm.html#simple-hmm-example) in the original Stan case "
+"study."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:80002
+msgid "Click the button below to see the Stan code:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:120002
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:330002
+msgid "Conversion to `InferenceData`"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:120003
+msgid ""
+"To convert a CmdStanPy fit to `InferenceData`, only the `CmdStanMCMC` "
+"object is needed. However, to make the most out of ArviZ and xarray "
+"features, the dimensions of each variable should also be provided."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:120005
+msgid ""
+"Optionally, you can also give coordinate values to some of the "
+"dimensions. The dimensions without coordinate values provided are "
+"initialized with integers starting from 0 as their coordinate values."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:120007
+msgid ""
+"Dimensions are provided as a dictionary whose keys are variable names and"
+" whose values are a list with the dimension names."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:120009
+msgid ""
+"Coordinates are provided as a dictionary whose keys are now dimension "
+"names, and whose values are coordinate values."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:140002
+msgid ""
+"We have now created an `InferenceData` object with two groups, the "
+"`posterior` (shown below) contains all posterior samples, and the "
+"`sample_stats` one contains sampler information like the log probability,"
+" which samples are divergent or the treedepth."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:140004
+msgid ""
+"Each group is an [xarray.Dataset](https://docs.xarray.dev/en/stable/user-"
+"guide/data-structures.html#dataset). As you can see, `Dataset`s have "
+"dimensions, coordinates, data variables and attributes. When printed "
+"(either as text or as html repr) each element has its own section with "
+"the relevant information."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:140006
+msgid ""
+"The dimensions section lists all the dimensions and their lenghts. There "
+"we can quickly see that we have 2 states, and have sampled 1000 draws in "
+"4 independent chains..."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:140008
+msgid ""
+"The coordinates section lists information in the following order: "
+"coordinate name, dimension name, type of coordinate values and coordinate"
+" values. Moreover, in the beginning there can be an `*` which indicates "
+"it is an indexing coordinate. With indexing coordinates, you can use "
+"`.sel` method on either `InferenceData` or `Dataset` to select a subset "
+"of the data using coordinate values."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:140010
+msgid ""
+"The data variables lists: variables name, dimensions, type and values. "
+"Each variable, stored as a `DataArray` object, is independent of the "
+"others. They can have any of the dimensions of the `Dataset` and in any "
+"order."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:140012
+msgid ""
+"The attributes section lists `Dataset` level attributes. By default, "
+"ArviZ adds some attributes to give an idea of how the data was generated."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:160002
+msgid "Diagnostics"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:160003
+msgid ""
+"`arviz.summary` gives an overview of the fit with both summary statistics"
+" and diagnostics."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:180002
+msgid ""
+"We can customize the appearance of the summary with the `labeller` "
+"argument. The `arviz.labels` module includes some common labeller "
+"classes. The default is showing only variable name and coordinate values."
+" We will now use the `DimCoordLabeller` to show also the dimension name:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:200002
+msgid ""
+"Further guidance on sorting and customizing ArviZ labels can be found in "
+"the [ArviZ label "
+"guide](https://python.arviz.org/en/latest/user_guide/label_guide.html)"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:210002
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:350002
+msgid "Posterior predictive sampling"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:210003
+msgid ""
+"Following the case study, we will perform posterior predictive sampling "
+"in Python instead of in the `generated_quantities` block of Stan. We will"
+" use [xarray-einstats](https://einstats.python.arviz.org/en/latest/) to "
+"generate the random samples from xarray objects."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:230002
+msgid ""
+"When we do `.sel(state=DataArray)` we are telling xarray to use the "
+"values in the provided `DataArray` as labels with which to index the "
+"`state` dimension. xarray takes care of aligning and broadcasting the "
+"dimensions for the indexing to work and generates the desired 3d array "
+"with chain, draw and time dimensions."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:230004
+msgid ""
+"With the means that correspond to each posterior predictive sample, we "
+"need to generate random draws from a normal with mean `mu` and standard "
+"deviation `1`.  xarray-einstats provides the "
+"[XrContinuousRV](https://einstats.python.arviz.org/en/latest/tutorials/stats_tutorial.html"
+"#probability-distributions) class to wrap SciPy distributions and have "
+"them take `DataArray`s as inputs."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:230007
+msgid ""
+"We can then generate the distribution and generate the random samples "
+"with the `rvs` method like we would do with SciPy. The `to_dataset` "
+"method is called so we can then add the data as a new group to our "
+"`InferenceData`."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:250002
+msgid ""
+"Before plotting we will use the "
+"[extract_dataset](https://python.arviz.org/en/latest/api/generated/arviz.extract_dataset.html)"
+" function to get a random subset of 100 samples. Plotting the 4000 "
+"samples we have available would be excessive and not add any information "
+"to the plot."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:270002
+msgid "Tagging Drive Events"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:270003
+msgid ""
+"Link to [this same section](https://mc-stan.org/users/documentation/case-"
+"studies/bball-hmm.html#tagging-drive-events) in the original Stan case "
+"study."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:330003
+msgid ""
+"In this example we also use the `observed_data` argument to add some data"
+" to the `observed_data` group. This can be useful to have the "
+"observations also as xarray objects and ease postprocessing operations, "
+"or to share the model and InferenceData file for collaborators to "
+"reproduce the fit or work with the results directly."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:350003
+msgid ""
+"We use again the same functions as before, with only a small difference, "
+"we now use `.sel` on a `Dataset` with the two variables of interest "
+"instead of a `DataArray`. As you can see, everything works the same."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:370002
+msgid ""
+"We end reproducing the plot in the original case study to show that the "
+"posterior predictive samples do indeed look the same."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:390002
+msgid "Defensive assignment"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:390003
+msgid ""
+"Link to [this same section](https://mc-stan.org/users/documentation/case-"
+"studies/bball-hmm.html#defensive-assignment) in the original Stan case "
+"study."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:440002
+msgid ""
+"In this example we already have the data as an xarray object, so we won't"
+" use the `observed_data` group. If you still wanted to include it, it "
+"might be easier to use `.add_groups` with the already existing `Dataset` "
+"like we did with the posterior predictive samples."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:480002
+msgid ""
+"Here I have chosen `param` as dimension name for `lambda` because each "
+"component multiplies a different provided variable, and used `o, h, b` as"
+" coordinate names to match the variable names in the data block, but they"
+" could be `offensive player, hoop, ball` as well, there is no need to "
+"restrict oneself to one character coordinate values."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:510002
+msgid ""
+"Note that `mu0b` is now a 5d array. Thanks to xarray automatic alignment "
+"and broadcasting capabilities we have calculated its values for all "
+"players, all time steps and all samples at once:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:530002
+msgid ""
+"This doesn't make any difference in this case, because we are multiplying"
+" the components of `lambda` by quantities that are not random variables, "
+"so we will get the same result averaging on `lambda` before operating or "
+"averaging on `mu` after operating."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:530004
+msgid ""
+"However, in many cases we need to operate with all the draws of each "
+"random variable. xarray makes it straightforward to work with all the "
+"samples and average only once we have the quantity of interest."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:540002
+msgid "Further reading"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:540003
+msgid ""
+"[Working with "
+"InferenceData](https://python.arviz.org/en/latest/getting_started/WorkingWithInferenceData.html)"
+" page in the ArviZ docs"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-04-25-einstats-hmm-cmdstanpy.ipynb:570003
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [Stan Discourse](https://discourse.mc-"
+"stan.org/). Feel free to tag me at [@OriolAbril](https://discourse.mc-"
+"stan.org/u/oriolabril/summary)"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:10002
+msgid "Some dimensionality devils"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:20002
+msgid ""
+"This blog post is a loosely connected collection of potentially bad "
+"practices that I have come accross while answering questions on discourse"
+" and reading the [PyMC examples "
+"collection](https://docs.pymc.io/projects/examples/en/latest/) or similar"
+" blog posts and case studies. They are not necessarily the worst or most "
+"dangerous practices, they might not even be the most common ones! The "
+"main relation between the cases covered here is that they are related to "
+"my work and so it is much more easy for me to notice them and to remember"
+" them."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:20004
+msgid ""
+"In fact, all examples are related to \"dimensionality\" but not "
+"necessarly using the exact same definition for the term!"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:50002
+msgid "Simulated data generation"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:60002
+msgid ""
+"I initialize three distributions to use in the examples below. I will use"
+" 2d distributions with different shape but the same marginal means `(2, "
+"3)` and standard deviations `(0.4, 0.3)`. 2d is clearly not high "
+"dimensional and so the effects might not be of the same magnitude as what"
+" you will encounter in your real models, but it is much more convenient "
+"for visualization purposes and already serves to illustrate my points."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:60004
+msgid ""
+"To give it a feel of \"MCMC output\" I will generate 4000 samples per "
+"distribution in a 4 \"chains\" and 1000 \"draws\" shape. This also allows"
+" loading the data as `InferenceData` and taking advantage of ArviZ "
+"functions."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:60006
+msgid ""
+"For the purposes of the blog post, only the shape of the data is "
+"relevant, so the data generation is hidden inside the toggle button below"
+" and only the plots are visible by default."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:90002
+msgid ""
+"You can now see the draws of all 3 distributions in the 2d plane to see "
+"their shape. The distributions are all 2d representing a joint posterior "
+"with variables `shot` and `distance` and I have named the distributions "
+"`a, b, c` to distinguish them throughout the blog post."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:130002
+msgid ""
+"You can also see their marginal distributions compared below. Both `a` "
+"and `c` have the exact same marginal distributions, all normal, whereas "
+"the marginal distribution for `b` is also the same for the `shot` "
+"variable but not for the `distance` one."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:150002
+msgid "Last but not least, I also double check the normalization has worked:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:170002
+msgid "Premature aggregation"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:170003
+msgid ""
+"Now let's get to work! It is very tempting to take the means and go with "
+"it instead of using the whole posterior, working with high dimensional "
+"arrays can be annoying or even borderline impossible unless we recurr to "
+"nested on nested loops. For the data generation to work we had to add "
+"these `[..., i]` clauses for example and it is also very common to need "
+"to reshape the data or use `[None, :]` for broadcasting to work."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:170005
+msgid ""
+"And in some cases, doing that won't make any difference. If you were "
+"calculating the mean of a linear regression for example:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:170007
+msgid ""
+"\n"
+"\\mu = \\alpha + \\beta x \\\\\n"
+"\\text{E}[\\mu] = \\text{E}[\\alpha + \\beta x] = \\text{E}[\\alpha] + "
+"\\text{E}[\\beta] x\n"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:170012
+msgid ""
+"Still, very often (I might even say more often than not) this is not the "
+"case. Sometimes even with a single variable the result of the _posterior "
+"pushforward_ operations followed by the mean is not the same as the "
+"result of first taking the mean and then doing the pushforward "
+"operations."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:170014
+msgid ""
+"Note: I call _posterior pushforward_ operations to deterministic "
+"operations on posterior variables as opposed to sampling from the "
+"posterior predictive which should never be done with the means alone."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:190002
+msgid ""
+"In the blogpost I use only the `mean` as summary, to see how things look "
+"for the median you'll need to rerun the notebook (you can download it or "
+"run it online clicking on the badges at the top of the notebook)."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:190005
+msgid ""
+"Important: If you use the median as summary, there can be differences "
+"between aggregating before or after pushforward computation even for "
+"linear operations. Linearity of expectations is a property of the "
+"expectation (mean) function, not of the .5 quantile function!"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200002
+msgid "Pushforward computation examples"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200004
+msgid ""
+"In this section I will go over some pushforward computation examples. "
+"I'll take a function that depends on two variables and apply it to each "
+"of the 3 distributions we generated. First I'll compute the result using "
+"the `post_summary` with the already averaged data and then compare it to "
+"doing the operation first and averaging later."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200006
+msgid ""
+"I will generate the same plot for each combination of function and "
+"distribution. That plot will have the following elements:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200008
+msgid ""
+"Two vertical lines, indicating the result we get averaging before and "
+"after operating"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200009
+msgid ""
+"A box with two quantities annotated: the relative error (as a percentage)"
+" and the ratio between the difference of results and the Monte Carlo "
+"standard error (MCSE) of the result"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200010
+msgid ""
+"A histogram with the result of (block-wise) averaging after and "
+"pushforward computation and dividing all the 2000 samples into 80 blocks."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:200012
+msgid ""
+"The vertical lines can probably be considered the key element of the "
+"plot, but they don't really give any information without the context "
+"provided by the other elements too. You can click to see the plotting "
+"code, but it is hidden by default as it is not necessary to follow the "
+"blog post."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:220002
+msgid ""
+"The expectancy of a sum is always the sum of expectancies, and we see "
+"that indeed the difference is of the order of floating point accuracy now"
+" that we are using the mean (but again, it won't be if you rerun this "
+"using the median as summary):"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:240002
+msgid ""
+"The second example is a product between our two variables. This is no "
+"longer a linear operation and we can see noticeable differences in the "
+"result of distribution `a`. However, the dashed orange line is still only"
+" 3.7 MCSE units away from the real average and inside the region of the "
+"histogram. That means that it is still a credible value for the mean of "
+"the product."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:260002
+msgid ""
+"The 3rd example is a division between the two variables. Here we see that"
+" the dashed orange line lies always outside the histogram range and over "
+"9 MCSE units away from the real average. These values are no longer "
+"credible as the mean of the quotient!"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:260004
+msgid ""
+"If we plotted the distribution of quotient values, the dashed orange line"
+" would most probably still be on a high probability region, after all the"
+" relative difference is not too big. However, plausible **values** of the"
+" quotient and plausible **means** of the quotient are very different "
+"concepts that should not be confused."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:260006
+msgid ""
+"I am currently working on MCSE for arbitrary quantities and arbitrary "
+"summary statistics and on some recommendations related to its use. "
+"Hopefully I'll be able to write more on this."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:280002
+msgid "Moreover, we can always find pathological cases:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:300002
+msgid "Golf putting example"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:300003
+msgid ""
+"I will also use the code from the [golf putting case "
+"study](https://docs.pymc.io/projects/examples/en/latest/case_studies/putting_workflow.html)"
+" (from PyMC examples because it already uses xarray). To illustrate two "
+"more points."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:300005
+msgid ""
+"The first is that averaging before operating is also dangerous when "
+"having a single variable: $E[f(x)] \\neq f(E[x])$ (except for [linear "
+"functions](https://en.wikipedia.org/wiki/Expected_value#Properties) as we"
+" have seen)."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:300007
+msgid ""
+"And the second is that the \"badness\" of averaging before operating "
+"depends as we have seen on the distribution, on the function and can also"
+" depend on other constant inputs of the function. In this case, the "
+"effect of averaging before gets worse as we compute the pushforward "
+"operation on larger distances (we are modeling probabilities of making "
+"the putt as a function of the distance)."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:320002
+msgid "Plotting code collapsed below:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:360002
+msgid "A possible solution"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:360003
+msgid ""
+"I know the fact that all posterior samples should be used is not a secret"
+" in any sense, it is mostly the challenge of working comfortably with "
+"them that motivates computing summary statistics earlier than one should."
+" The Bayesian workflow paper (Gelman et al 2020) mentions this as one of "
+"the open challenges in using Bayesian workflow in practice:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:360005
+msgid ""
+"Probabilistic programming ultimately has the potential to allow random "
+"variables to manipulated like any other data objects, with uncertainty "
+"implicit in all the plots and calculations, but much more work needs to "
+"be done to turn this possibility into reality, going beyond point and "
+"interval estimation so that we can make full use of the models we fit."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:360007
+msgid ""
+"And while it is true it can still be challenging, batching operations is "
+"becoming increasingly simple and performant in Python, Julia or R and "
+"label based multidimensional arrays are also becoming more popular and "
+"applicable to a wide set of domains and tasks. I find that working with "
+"label based arrays and indexing operations is much more clear (both to "
+"others and to future me)."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:360009
+msgid ""
+"You can use [ArviZ](https://python.arviz.org) which builds on top of "
+"[xarray](https://docs.xarray.dev/en/stable/) and [xarray-"
+"einstats](https://einstats.python.arviz.org) to make all these "
+"computations while preserving the chain and draw dimensions in order to "
+"average later. The xarray ecosystem is developing and maturing quickly, "
+"you can already take advantage of automatic alignment and broadcasting "
+"for general python or math operations, for linear algebra, statistical "
+"operations like evaluation of pdf/cdf... or drawing from a specified "
+"distribution, fast fourier transforms..."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:370002
+msgid ""
+"As you'll have seen, this is what I am using in this post because I am "
+"the most comfortable working with Python and xarray, but the posterior R "
+"package recently introduced an [rvar](https://mc-"
+"stan.org/posterior/articles/rvar.html) type with similar properties for "
+"example, and similar work is also happening in the Julia ecosystem."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380002
+msgid "Univariate priors"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380003
+msgid ""
+"I recently collaborated a little to a [paper on prior "
+"elicitation](https://arxiv.org/abs/2112.01380), where the current state "
+"and future research possibilities are discussed. One of the challenges "
+"mentioned is that most of the work so far has been done on eliciting the "
+"univariate marginal prior distributions. But what we really need to "
+"elicit are multivariate prior distributions because it is the joint prior"
+" what afects the model and the sampling."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380005
+msgid ""
+"This section won't have (yet) a possible solution section at the end "
+":sweat_smile:. I realize that univariate priors are the default and that "
+"we need to develop better tools before this can actually change in "
+"practice. But I think it is still good to be aware of its limitations. I "
+"will use an extreme example to show some of its limitations. Hopefully "
+"this will motivate more thorough prior and prior predictive checks."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380007
+msgid ""
+"I will use the [updating "
+"priors](https://docs.pymc.io/projects/examples/en/latest/pymc3_howto/updating_priors.html)"
+" notebook in the PyMC examples collection. It is a very popular example, "
+"there are often questions on discourse about adapting it to the specific "
+"situations of new users; and for good reason. It promises the philosophal"
+" stone of Bayesian statistics: using an old posterior as prior when we "
+"get new data so we can update our beliefs after seeing this new data and "
+"get an updated posterior. Again, this is very tempting, maybe even more "
+"so than premature averaging. But again, this is usually a bad idea, and "
+"more often than not a terrible one."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380009
+msgid "Let's see why."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380011
+msgid ""
+"In case you haven't gone through the linked notebook, the idea is the "
+"following:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380013
+msgid "Fit the model on the available data"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380014
+msgid "Convert the posterior obtained into a prior using a KDE approximation"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380015
+msgid "Get new data and fit the model using the generated prior"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380016
+msgid "Repeat 2-3 every time new data becomes available"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:380018
+msgid "Here is the function used to take care of step 2:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:400002
+msgid ""
+"As usual, the devil lies in the details, there are two issues to take "
+"into account."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:400004
+msgid ""
+"First and foremost, _this generates univariate priors_. The fit generated"
+" a _joint posterior_ and variables will probably not be independent "
+"between them. Therefore, any prior generated as a product of univariate "
+"distributions won't generally be able to represent the posterior."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:400006
+msgid ""
+"Secondly and not so relevant, the KDE is also an approximation which "
+"might not be very accurate, especially when it comes to the tails. This "
+"`from_posterior` already contains a handmade correction to account for "
+"the tails being longer than the observed data, which is somewhat sensible"
+" but it also is clearly different from the actual tails we'd expect our "
+"distributions to have."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:400008
+msgid ""
+"(This extension of the tails is done with the two `concatenate` lines, "
+"you can try comenting them if you download the notebook. If you do, "
+"you'll see better prior checks, but you will also be constraining all "
+"prior and posterior samples to have values between the minimum of the "
+"maximum in the distribution used to interpolate)"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:400010
+msgid ""
+"The bad news is that there really isn't anything you can do about this. "
+"There are some 2d KDE approximations available, but that will generally "
+"not be enough either to represent the posterior (as it will be more than "
+"2d) and they are even less reliable than 1d KDEs."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:400012
+msgid ""
+"We can use prior sampling to get an idea of the differences between the "
+"posteriors and the priors generated by this method by using our 3 "
+"simulated cases as posteriors."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:440002
+msgid ""
+"The figure on the left shows both the 2d distribution and the two "
+"marginals, and the one on the right shows only the 2d distribution zoomed"
+" in. All 2d KDEs (here and in coming posts) have 4 contour lines with the"
+" probability inside each line being `[.2, .4, .6, .8]` in order to allow "
+"proper comparison."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:440004
+#, python-format
+msgid ""
+"The figure on the left shows the problematic with the KDE approximation "
+"and the tail extension. The combination of the high probability central "
+"region with the low probability but not negligible tails generates this +"
+" looking shape. It is possible to have values outside this cross, and in "
+"this generation there is one on the lower right quadrant, but the "
+"probability of a draw being on the tail of the distribution is very low "
+"so the probability of this happening twice even for the two independent "
+"distributions is extremely low. We can see however how this tail "
+"expansion has no effect on the KDE lines, not even for the one that "
+"contains 80% of the probability, so even if their values are a bit too "
+"extreme, their probability is very low and generally not a source of "
+"worry."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:440006
+msgid ""
+"The figure on the right shows clearly how our prior even if generated "
+"from interpolating our original (red) distribution is unable to retrieve "
+"the dependency between the two variables."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:470002
+msgid ""
+"Here again, we see the same effects as we saw for distribution `a`. Even "
+"a bit more exagerated. Now the marginal distribution on the `distance` "
+"variable is not symettric, so the tail extension fares worse than before."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:470004
+msgid ""
+"The shape of the dependency between variables is also more complicated "
+"now than it was in distribution `a`, so the isodensity regions differ "
+"even more from the original (red) distribution."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:500002
+msgid ""
+"The two variables in `c` are independent, so here the only source of "
+"error will be the KDE approximation and tail expansion. We see that "
+"indeed the shape of the posterior is now right, but the size is not "
+"exactly the same. Like in all other examples, the tails are overpopulated"
+" due to the tail extension."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:500004
+msgid ""
+"Again, hopefully I'll be able to write about tools for multidimensional "
+"prior elicitation at some point :see_no_evil:."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/2022-05-25-too-eager-reduction.ipynb:530003
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [Stan Discourse](https://discourse.mc-"
+"stan.org/) or [PyMC Discourse](https://discourse.pymc.io/). Feel free to "
+"tag me at `@OriolAbril`"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:10002
+msgid "PyMC 4.0 with labeled coords and dims"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:50003
+msgid ""
+"While [PyMC 3.9.0](https://github.com/pymc-devs/pymc3/blob/master"
+"/RELEASE-NOTES.md#pymc3-390-16-june-2020) came with some amazing news for"
+" those of us who love labeled arrays: support for using coordinate and "
+"dimension names to specify the shapes of variables in a `pm.Model`; now, "
+"2 years later, with the release of PyMC 4.0, the integration between "
+"ArviZ and PyMC has improved even more."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:50005
+msgid ""
+"Therefore, I decided to post and updated version of [my original blog "
+"post](https://oriolabrilpla.cat/python/arviz/pymc3/xarray/2020/09/22/pymc3-arviz.html)"
+" using version 3.x of PyMC now using version 4.0 of PyMC which was "
+"released earlier this week."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:60002
+msgid ""
+"This post will focus on using PyMC coords, dims and dims without "
+"coordinate values, and explain the conversion of traces and models to "
+"[`InferenceData`](https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html)."
+" Here are two resources to [learn about working with "
+"`InferenceData`](https://python.arviz.org/en/latest/getting_started/WorkingWithInferenceData.html)"
+" on ArviZ docs and to see `InferenceData` in action in the famous [radon "
+"example](https://www.pymc.io/projects/examples/en/latest/case_studies/multilevel_modeling.html)"
+" on PyMC examples website."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:70002
+msgid ""
+"We will use an example based approach and use models from the [example "
+"gallery](https://www.pymc.io/projects/examples/en/latest) to illustrate "
+"how to use coords and dims within PyMC models."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:80003
+msgid ""
+"We will use an alternative parametrization of the same model used in the "
+"[rugby analytics "
+"example](https://www.pymc.io/projects/examples/en/latest/case_studies/rugby_analytics.html)"
+" taking advantage of dims and coords. Here, we will use as observations a"
+" 2d matrix, whose rows are the matches and whose columns are the field: "
+"home and away."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:90008
+msgid ""
+"These coordinates are passed to `pm.Model` as a dict whose keys are "
+"dimension names and whose values are coordinate values. The dimensions "
+"can then be used when defining PyMC variables to indicate their shape."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:120002
+msgid ""
+"We have now _defined_ the shapes of some of our variables (`atts_star` "
+"and `defs_star`) and _annotated_ the dimensions of some others. This is "
+"convenient and makes the code easier to understand, but we need to "
+"remember that in PyMC, dimensions are not inherited like in xarray."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:120004
+msgid ""
+"`atts` is `atts_star` minus a scalar value and it will be an array with "
+"the same shape as `atts_star` even without the `dims` argument. However, "
+"we need to _annotate_ the dimension if we want the output to have it."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:120006
+msgid ""
+"In PyMC 4.0, the default return type of all sampling functions is "
+"`InferenceData`:"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:140003
+msgid ""
+"We will now use one of the many models in the [A Primer on Bayesian "
+"Methods for Multilevel "
+"Modeling](https://www.pymc.io/projects/examples/en/latest/case_studies/multilevel_modeling.html)"
+" notebook to dive deeper into coords and dims functionality. We won't "
+"cover the model itself, it's already explained in the example notebook, "
+"we will explain in detail how are labeled coords and dims being used."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160007
+msgid ""
+"`param2`: same as param, used for the covariance matrix because a "
+"variable can't have repeated dimensions"
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160009
+msgid ""
+"We will also use a dimension called `obs_id` for the `n` observations. In"
+" that case however, we don't care about the coordinate values and we are "
+"fine with them being an integer id."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:160011
+msgid ""
+"In PyMC 4.0, if you _annotate_ the dimensions of a `pm.Data` object (also"
+" of `pm.ConstantData` or `pm.MutableData` which are aliases of "
+"`pm.Data`), that dimension will be automatically created as dimension "
+"without coordinate values."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:200002
+msgid ""
+"We'll also use a `LKJCholeskyCov`as prior for the covariance matrix. As "
+"you can see, it has no `dims` argument. We will have to indicate the dims"
+" that correspond to these variables with the `idata_kwargs` argument. "
+"`idata_kwargs` is used to indicate `pm.sample` what arguments to pass to "
+"[`pm.to_inference_data`](https://www.pymc.io/projects/docs/en/v4.0.0/api/generated/pymc.to_inference_data.html),"
+" which is called internally to convert the trace to InferenceData."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:220002
+msgid ""
+"We now will store two intermediate results as variables. However, one is "
+"wrapped inside a `pm.Deterministic` whereas the other is not. Both are "
+"equally valid. `pm.Deterministic` tells PyMC to store that variable in "
+"the trace. Thus `pm.Deterministic` should only be used when we actively "
+"want to store the intermediate result. In our case, we want to store "
+"`ab_county` but not `theta`."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:220004
+msgid ""
+"As we saw in the previous example, `pm.Deterministic` also has a `dims` "
+"argument, but it can only be used to _annotate_ the dimensions of that "
+"variable, not to _define_ an array variable from scalar parameters."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:240002
+msgid ""
+"Finally we will call `pm.sample` and define the dimensions of the "
+"covariance matrix as `idata_kwargs`."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:300002
+msgid ""
+"We have now written a model in order to study our quantity of interest "
+"`y`. We have used everything we have seen so far, the `pm.MutableData` "
+"container and the labeled dims and coords."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:300004
+msgid ""
+"We will now simulate a workflow starting from prior predictive checks and"
+" finishing with predicting the values of our _quantity of interest_ in "
+"2022 and 2023."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:300006
+msgid ""
+"Here however, as our goal is to generate out of sample predictions, there"
+" is an important difference. Instead of providing the coordinates when "
+"initializing the model context, we add them in the call to "
+"`pm.MutableData`. By initializing the coordinates with a `pm.MutableData`"
+" object we make sure that we can later modify both the length of the "
+"`year` dimension and its associated coordinate values."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:300008
+msgid ""
+"The dimensions defined from `coords` passed while initializing the model "
+"context can't be modified. Their length is fixed. The coordinate values "
+"can be updated, but only for an array of the same length."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:310003
+msgid ""
+"We start by sampling both prior and prior predictive with "
+"`pm.sample_prior_predictive`. In PyMC 4.0, this returns an "
+"`InferenceData` object with multiple groups depending on the data "
+"available, if provided, variables will have their corresponding dims and "
+"coords."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:390003
+msgid ""
+"Our third step will be to evaluate the posterior predictive at the "
+"observations so we can perform model checking with functions such as "
+"`plot_ppc` or `plot_loo_pit`. `sample_posterior_predictive` already "
+"returns an InferenceData, we will use the `extend_inferencedata` argument"
+" to indicate PyMC to add the new groups inplace."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:390005
+msgid ""
+"This has two main advantages. `plot_loo_pit` requires both the "
+"`posterior_predictive` group, generated here and the `log_likelihood` "
+"group which was created in `pm.sample`. In addition, keeping all our data"
+" in a single `InferenceData` means we can store it as a netCDF and share "
+"a single file to allow reproducing the whole exploratory analysis of our "
+"model."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:440003
+msgid ""
+"Finally, our last step will be to get some predictions, which in this "
+"case is evaluating the posterior predictive at positions different than "
+"the observations. In the example below, we are evaluating our predictions"
+" at 2022 and 2023. To do so, we are using `pm.set_data` to modify the "
+"values of `x` to the ones that correspond to these two future years and "
+"to update the coordinate values of the `year` dimension."
+msgstr ""
+
+#: ../sphinx_source/posts/2022/pymc-arviz.ipynb:450002
+msgid ""
+"Here we will use `predictions` and `extend_inferencedata` keywords. This "
+"will store these new samples in the `predictions` group and the modified "
+"`x` values in `predictions_constant_data` and add these groups inplace to"
+" our InferenceData object"
+msgstr ""
+

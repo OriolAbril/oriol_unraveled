@@ -1,0 +1,32 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-27 19:08+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/blog.md:5
+msgid "Blog"
+msgstr ""
+
+#: ../sphinx_source/blog/category.md:1
+msgid "Categories"
+msgstr ""
+
+#: ../sphinx_source/blog/tag.md:1
+msgid "Tags"
+msgstr ""
+
