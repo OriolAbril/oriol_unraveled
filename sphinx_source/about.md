@@ -2,10 +2,8 @@
 
 I'm a physicist/engineer converted into a computational statistician.
 I love statistical data analysis, programming and data visualization.
-I am currently a doctoral researcher at [Helsinki University](https://researchportal.helsinki.fi/en/persons/oriol-abril-pla)
-working on AI assisted Bayesian workflow and contributing to open source.
 I am a core contributor of
-[ArviZ](https://arviz-devs.github.io/arviz/) a project for exploratory
+[ArviZ](https://www.arviz.org) a project for exploratory
 analysis of Bayesian models. In addition to probabilistic
 modeling, I also enjoy teaching and technical writing.
 
@@ -22,38 +20,11 @@ the summer at the _Costa Brava_. Here I leave you a sneak peak of the views
 when nobody is around
 
 ![A small cave with clear water and pine trees growing near the sea](images/cala_costa_brava.jpg)
+## Academic work and publications
+I have also worked as doctoral researcher and research assistant,
+at Helsinki University and at Universitat Pompeu Fabra respectively.
+Here are some publications I have helped a bit with:
 
-## Open source libraries
-Here are highlighted some open source projects I contribute to, check out my
-[GitHub profile](https://github.com/OriolAbril) for a complete list
-of the projects I contribute to.
-
-* [**ArviZ**](https://github.com/arviz-devs/arviz): Exploratory analysis of
-  Bayesian models in [Python](https://arviz-devs.github.io/arviz/index.html)
-  or [Julia](https://arviz-devs.github.io/ArviZ.jl/stable/)
-* [**xarray-einstats**](https://xarray-einstats.readthedocs.io/en/latest):
-  Label based statistics, linear algebra and einops for xarray objects.
-* [**PyMC**](https://www.pymc.io): Friendly probabilistic programming in Python.
-  - In addition to helping a bit with PyMC development, I am one of the main curator/reviewers
-    of [PyMC-examples](https://docs.pymc.io/projects/examples/en/latest/),
-    a collection of Jupyter notebooks about Bayesian modeling with PyMC.
-* [**mombf**](https://github.com/davidrusi/mombf): Bayesian model selection and
-  averaging for regression and mixtures for non-local and local priors.
-* [**exosherlock**](https://github.com/mbadenas/exosherlock): Smooth
-  your interactions with the NASA Exoplanet Archive using Python and pandas.
-
-## Projects and initiatives
-* [**CZI EOSS 4 grant**](https://chanzuckerberg.com/eoss/proposals/bayesian-open-source-software-for-biomedicine-stan-arviz-and-pymc3/):
-  Bayesian Open Source Software for Biomedicine: Stan, ArviZ and PyMC
-* [**PyMC-Data Umbrella sprint**](https://pymc-data-umbrella.xyz/en/latest):
-  A series of webinars and sprint event to encourage and help people contribute to PyMC.
-* [**Season of Docs at ArviZ**](https://arviz-gsod.readthedocs.io/en/latest/):
-  [GSoD](https://developers.google.com/season-of-docs/) is an initiative to help
-  open source projects get in contact and hire technical writers.
-* [**PyMCon 2020**](https://pymc-devs.github.io/pymcon//): PyMCon 2020 is an
-  asynchronous-first virtual conference for the Bayesian community
-
-## Publications
 * Mikkola, Petrus, et al. "Prior knowledge elicitation: The past, present, and future." _arXiv preprint arXiv:2112.01380_ (2021).
 * Rossell, David, Oriol Abril, and Anirban Bhattacharya. "Approximate Laplace approximations for scalable model selection."
   _Journal of the Royal Statistical Society: Series B (Statistical Methodology)_ 83.4 (2021): 853-879.
@@ -63,14 +34,44 @@ of the projects I contribute to.
   _arXiv preprint arXiv:1911.07688_ (2019).
   - Get the [emcee package code](https://github.com/dfm/emcee)!
 
-## Talks and conferences
-* PyMC-Data Umbrella sprint webinar: _Contributing to PyMC documentation_
-  [video and presentation material](https://pymc-data-umbrella.xyz/en/latest/webinars/contributing_to_documentation/index.html)
-* Data Umbrella webinar: _Bayesian modeling with PyMC3_ [video recording](https://www.youtube.com/watch?v=6dc7JgR8eI0),
-  [slides](https://oriolabril.github.io/pymc3-data_umbrella/)
-* PROBPROG 2020: _Backend agnostic exploratory analysis of Bayesian models_. Poster presentation.
-  All the materials are available on [GitHub](https://github.com/OriolAbril/arviz-probprog-2020)
-* StanCon 2020: _ArviZ, InferenceData, and NetCDF: A unified file format for Bayesians._
-  Slides and video presentation are available at [GitHub](https://github.com/arviz-devs/arviz_misc/tree/master/stancon_2020),
-  the slides are executable thanks to Binder!
-  - Slides and video presentations are available in English, Catalan, French and Finnish.
+(support_me)=
+## Support me
+You can support me directly via
+
+:::{include} partials/donations.md
+:::
+
+When you support me directly you are both
+helping me dedicate time to the open source projects I contribute to
+and sustaining this blog and other personal projects.
+
+If you or your company prefers supporting the open source projects directly,
+you can also do so through NumFOCUS:
+
+:::::{grid} 2
+::::{grid-item}
+:class: sd-text-center
+
+:::{button-link} https://numfocus.org/donate-to-arviz
+:color: info
+
+Donate to ArviZ
+:::
+::::
+::::{grid-item}
+:class: sd-text-center
+
+:::{button-link} https://numfocus.org/donate-to-pymc
+:color: info
+
+Donate to PyMC
+:::
+::::
+:::::
+
+When donating to ArviZ or PyMC, you are supporting me indirectly,
+along with the rest of the people who make these libraries possible.
+
+If you use open source and have the means to do so, please consider donating somehow.
+We need some financial support to make sure open source is sustainable.
+

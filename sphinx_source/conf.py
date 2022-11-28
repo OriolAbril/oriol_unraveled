@@ -14,6 +14,7 @@ copyright = f"2019, {author}"
 version = ""
 release = ""
 
+language = os.environ.get("WEBSITE_LANGUAGE", "en")
 
 # -- General configuration ---------------------------------------------------
 
@@ -27,7 +28,7 @@ extensions = [
     "sphinxext.opengraph",
     "sphinx_codeautolink",
     "notfound.extension",
-    "sphinxext.rediraffe",
+    # "sphinxext.rediraffe",
 ]
 
 # List of patterns, relative to source directory, that match files and
@@ -40,9 +41,14 @@ exclude_patterns = [
     "build",
     "jupyter_execute",
     "README.md",
+    "sphinx_source/partials/*",
 ]
 
 # -- Options for extensions
+
+ogp_site_url = f"https://oriolabrilpla.cat/{language}"
+ogp_use_first_image = True
+
 
 nb_execution_mode = "auto"
 nb_execution_excludepatterns = ["*.ipynb"]
@@ -50,6 +56,7 @@ myst_enable_extensions = ["colon_fence", "deflist", "dollarmath", "amsmath"]
 
 intersphinx_mapping = {
     "arviz": ("https://python.arviz.org/en/latest/", None),
+    "arviz_org": (f"https://www.arviz.org/{language}/latest/", None),
     "mpl": ("https://matplotlib.org/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pymc": ("https://www.pymc.io/projects/docs/en/stable/", None),
@@ -58,11 +65,11 @@ intersphinx_mapping = {
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
 }
 
-blog_baseurl = "https://oriolabrilpla.cat"
+blog_baseurl = ogp_site_url
 blog_title = "Oriol unraveled"
 blog_path = "blog"
 blog_authors = {
-    "oriol": ("Oriol Abril Pla", "https://oriolabrilpla.cat"),
+    "oriol": ("Oriol Abril Pla", ogp_site_url),
 }
 blog_default_author = "oriol"
 post_show_prev_next = False
@@ -70,11 +77,6 @@ post_auto_image = 1
 fontawesome_included = True
 
 notfound_urls_prefix = ""
-
-rediraffe_redirects = {
-    "blog/tags/index.md": "blog/tag.md",
-    "blog/categories/index.md": "blog/category.md",
-}
 
 def remove_catalogs(app):
     """
@@ -91,9 +93,6 @@ def setup(app):
     """
 
     app.connect("html-collect-pages", remove_catalogs, 100)
-
-ogp_site_url = "https://oriolabrilpla.cat"
-ogp_use_first_image = False
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -128,15 +127,15 @@ html_theme_options = {
         },
         {
             "name": "Atom Feed",
-            "url": "https://oriolabrilpla.cat/blog/atom.xml",
+            "url": f"{ogp_site_url}/blog/atom.xml",
             "icon": "fa-solid fa-rss",
             "type": "fontawesome",
         },
     ],
     "secondary_sidebar_items": ["ablog/postcard", "page-toc", "searchbox"],
     "switcher": {
-        "json_url": "https://sphinx-primer.readthedocs.io/en/latest/_static/switcher.json",
-        "version_match": os.environ.get("READTHEDOCS_LANGUAGE", "en")
+        "json_url": "https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json",
+        "version_match": language,
     },
 }
 html_context = {
