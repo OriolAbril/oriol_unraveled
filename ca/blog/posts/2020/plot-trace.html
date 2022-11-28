@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+<html lang="ca">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="ArviZ in depth: plot_trace" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://oriolabrilpla.cat/blog/posts/2020/plot-trace.html" property="og:url"/>
+<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="Introduction: plot_trace is one of the most common plots to assess the convergence of MCMC runs, therefore, it is also one of the most used ArviZ functions. plot_trace has a lot of parameters that ..." property="og:description"/>
+<meta content="https://oriolabrilpla.cat/_images/plot_trace_purple.png" property="og:image"/>
+<meta content="" property="og:image:alt"/>
+<meta content="Introduction: plot_trace is one of the most common plots to assess the convergence of MCMC runs, therefore, it is also one of the most used ArviZ functions. plot_trace has a lot of parameters that ..." name="description"/>
+<title>ArviZ in depth: plot_trace — Oriol unraveled</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css">
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+<script src="../../../_static/jquery.js"></script>
+<script src="../../../_static/underscore.js"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/sphinx_highlight.js"></script>
+<script src="../../../_static/clipboard.min.js"></script>
+<script src="../../../_static/copybutton.js"></script>
+<script src="../../../_static/translations.js"></script>
+<script src="../../../_static/design-tabs.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2020/plot-trace';</script>
+<script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'ca';
+        </script>
+<link href="../../../_static/favicon.ico" rel="shortcut icon">
+<link href="../../../about.html" rel="author" title="Quant a aquests documents">
+<link href="../../../genindex.html" rel="index" title="Índex">
+<link href="../../../search.html" rel="search" title="Cerca"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="ca" name="docsearch:language"/>
+</link></link></link></link></link></link></link></link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
+<a class="skip-link" href="#main">Skip to main content</a>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+</div>
+<header class="logo-header">
+<a class="logo" href="../../../index.html">Oriol unraveled</a>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-center-item">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-end-item">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/ca/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-end-items sidebar-primary__section">
+<div class="sidebar-end-items__item">
+</div>
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content-nav bd-content">
+<div class="bd-header-article">
+<nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+<div class="version-switcher__container dropdown">
+<button class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" type="button">
+        ca  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
+</div>
+<div class="article-navbar-search">
+<button aria-label="Cerca" class="btn btn-sm navbar-btn search-button search-button__button" data-toggle="tooltip" title="Cerca">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/ca/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</nav></div>
+<div class="bd-content" id="main">
+<div class="bd-article-container bd-content-page">
+<article class="bd-article" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="arviz-in-depth-plot-trace">
+<span id="plot-trace"></span><h1>ArviZ in depth: plot_trace<a class="headerlink" href="#arviz-in-depth-plot-trace" title="Permalink to this heading">#</a></h1>
+<img alt="" class="hidden-metadata" src="../../../_images/plot_trace_purple.png"/>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> is one of the most common plots to assess the convergence of MCMC runs, therefore, it is also one of the most used ArviZ functions. <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> has a lot of parameters that allow creating highly customizable plots, but they may not be straightforward to use. There are many reasons that can explain this convolutedness of the arguments and their format, there is no clear culprit: ArviZ has to integrate with several libraries such as xarray and matplotlib which provide amazing features and customization power, and we’d like to allow ArviZ users to access all these features. However, we also aim to keep ArviZ usage simple and with sensible defaults; <code class="docutils literal notranslate"><span class="pre">plot_xyz(idata)</span></code> should generate acceptable results in most situations.</p>
+<p>This post aims to be an extension to the API section on <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.plot_trace.html#arviz.plot_trace"><code class="docutils literal notranslate"><span class="pre">plot_trace</span></code></a>, focusing mostly on arguments where examples may be lacking and arguments that appear often in questions posted to ArviZ issues.</p>
+<p>Therefore, the most common arguments such as <code class="docutils literal notranslate"><span class="pre">var_names</span></code> will not be covered, and for arguments that I do not remeber appearing in issues or generating confusion only some examples will be shown without an in depth description.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_centered</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">"centered_eight"</span><span class="p">)</span>
+<span class="n">idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">"rugby"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-kind-argument">
+<h2>The <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument<a class="headerlink" href="#the-kind-argument" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">az.plot_trace</span></code> generates two columns. The left one calls <code class="docutils literal notranslate"><span class="pre">plot_dist</span></code> to plot KDE/Histogram of the data, and the right column can contain either the trace itself (which gives the name to the plot) or a rank plot for which two visualizations are available. Rank plots are an alternative to trace plots, see https://arxiv.org/abs/1903.08008 for more details.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">kind</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s2">"trace"</span><span class="p">,</span> <span class="s2">"rank_bars"</span><span class="p">,</span> <span class="s2">"rank_vlines"</span><span class="p">)):</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,:]);</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/oriol/venvs/arviz-dev/lib/python3.6/site-packages/ipykernel_launcher.py:4: UserWarning: This figure was using constrained_layout==True, but that is incompatible with subplots_adjust and or tight_layout: setting constrained_layout==False. 
+  after removing the cwd from sys.path.
+</pre></div>
+</div>
+<img alt="../../../_images/37782d475ce39fba11c414332db632b254e1d724597b73be11837b3fd0f30254.png" src="../../../_images/37782d475ce39fba11c414332db632b254e1d724597b73be11837b3fd0f30254.png"/>
+</div>
+</div>
+</section>
+<section id="the-divergences-argument">
+<h2>The <code class="docutils literal notranslate"><span class="pre">divergences</span></code> argument<a class="headerlink" href="#the-divergences-argument" title="Permalink to this heading">#</a></h2>
+<p>If present, divergences are indicated as a black rugplot in both columns of the trace plot. By default they are placed at the bottom of the plot, but they can be placed at the top or hidden.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/2ba522eb9ec8261e4567ab9606d23498b2af6c1209df261103a809cac2161d22.png" src="../../../_images/2ba522eb9ec8261e4567ab9606d23498b2af6c1209df261103a809cac2161d22.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">None</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/642b516c59bc459a39542ce6aeff09bd4e0674cc469fe66917218fd56e9e482d.png" src="../../../_images/642b516c59bc459a39542ce6aeff09bd4e0674cc469fe66917218fd56e9e482d.png"/>
+</div>
+</div>
+</section>
+<section id="the-rug-argument">
+<h2>The <code class="docutils literal notranslate"><span class="pre">rug</span></code> argument<a class="headerlink" href="#the-rug-argument" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">rug</span></code> adds a rug plot with the posterior samples at the bottom of the distribution plot, there are no changes in the trace plot column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mf">.4</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/471c1a05e6daea5a4fba4a2d4f4b15eff3bc8dd5a9849fcb173f001b89e3e0d5.png" src="../../../_images/471c1a05e6daea5a4fba4a2d4f4b15eff3bc8dd5a9849fcb173f001b89e3e0d5.png"/>
+</div>
+</div>
+<p>But what about having both rug and divergences at the same time? Fear not, ArviZ automatically modifies the default for divergences from <code class="docutils literal notranslate"><span class="pre">bottom</span></code> to <code class="docutils literal notranslate"><span class="pre">top</span></code> to prevent rug and divergences from overlapping:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/dc89715fc4ec4af945ea843c34190684815ea5a5b8bcf111eb064a517e18c443.png" src="../../../_images/dc89715fc4ec4af945ea843c34190684815ea5a5b8bcf111eb064a517e18c443.png"/>
+</div>
+</div>
+</section>
+<section id="the-lines-argument">
+<h2>The <code class="docutils literal notranslate"><span class="pre">lines</span></code> argument<a class="headerlink" href="#the-lines-argument" title="Permalink to this heading">#</a></h2>
+<p>The description about lines in <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code>’s docstring is the following:</p>
+<blockquote><p>lines : <i>list of tuple of (str, dict, array_like), optional</i></p>
+<p>
+    List of <code>(var_name, {‘coord’: selection}, [line, positions])</code> to be overplotted as vertical lines on the density and horizontal lines on the trace.</p>
+</blockquote><p>It is possible that the first thought after reading this line is similar to <em>«What is with this weird format?»</em> Well, this format is actually the stardard way ArviZ uses to iterate over <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> objects because it contains all the info about the variable and the selected coordinates as well as the values themselves. The main helper function that handles this is <code class="docutils literal notranslate"><span class="pre">arviz.plots.plot_utils.xarray_var_iter</span></code>.</p>
+<p>This section will be a little different from the other ones, and will focus on boosting <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> capabilities with internal ArviZ functions. You may want to skip to the section altogether of go straigh to the end.</p>
+<p>Let’s see what <code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> does with a simple dataset. We will create a dataset with two variables: <code class="docutils literal notranslate"><span class="pre">a</span></code> will be a 2x3 matrix and <code class="docutils literal notranslate"><span class="pre">b</span></code> will be a scalar. In addition, the dimensions of <code class="docutils literal notranslate"><span class="pre">a</span></code> will be labeled.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">({</span>
+    <span class="s2">"a"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"direction"</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))),</span>
+    <span class="s2">"b"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> 
+    <span class="s2">"pos"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">],</span>
+    <span class="s2">"direction"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:    (direction: 3, pos: 2)
+Coordinates:
+  * pos        (pos) &lt;U6 'top' 'bottom'
+  * direction  (direction) &lt;U1 'x' 'y' 'z'
+Data variables:
+    a          (pos, direction) float64 -0.5306 0.8029 0.7965 ... 0.4623 -0.128
+    b          int64 12</pre></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">arviz.plots.plot_utils</span> <span class="kn">import</span> <span class="n">xarray_var_iter</span>
+<span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a {'pos': 'top', 'direction': 'x'} -0.5306128314326483
+a {'pos': 'top', 'direction': 'y'} 0.8029249611338745
+a {'pos': 'top', 'direction': 'z'} 0.7965222104405889
+a {'pos': 'bottom', 'direction': 'x'} -1.4255055469706215
+a {'pos': 'bottom', 'direction': 'y'} 0.4622636712711883
+a {'pos': 'bottom', 'direction': 'z'} -0.12804707435886095
+b {} 12
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> has iterated over every single scalar value without loosing track of where did every value come from. We can also modify the behaviour to skip some dimensions (i.e. in ArviZ we generally iterate over data dimensions and skip <code class="docutils literal notranslate"><span class="pre">chain</span></code> and <code class="docutils literal notranslate"><span class="pre">draw</span></code> dims).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"direction"</span><span class="p">}):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a {'pos': 'top'} [-0.53061283  0.80292496  0.79652221]
+a {'pos': 'bottom'} [-1.42550555  0.46226367 -0.12804707]
+b {} 12
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we know about <code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> and what it does, we can use it to generate a list in the required format directly from xarray objects. Let’s say for example we were interested in plotting the mean as a line in the trace plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"atts"</span><span class="p">]</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="n">var_names</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))))</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/9dbccf8c17d2cec2447018e0a5b3454a38331e7e36f1b82953f0ec5b2069f4e5.png" src="../../../_images/9dbccf8c17d2cec2447018e0a5b3454a38331e7e36f1b82953f0ec5b2069f4e5.png"/>
+</div>
+</div>
+<p>And what about quantile lines? Lets plot the 10% and 90% quantile lines but only for defs variable:</p>
+<blockquote>
+<div><p>Note: This same approach can also be used with <code class="docutils literal notranslate"><span class="pre">az.hdi</span></code> skipping <code class="docutils literal notranslate"><span class="pre">hdi</span></code> dimension</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">]</span>
+<span class="n">quantile_ds</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[[</span><span class="s2">"defs"</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">((</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">quantile_ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"quantile"</span><span class="p">}))</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/17b7994cf75934f61a6cf60a1563de618596cee1a08df4326097d78b5304cd93.png" src="../../../_images/17b7994cf75934f61a6cf60a1563de618596cee1a08df4326097d78b5304cd93.png"/>
+</div>
+</div>
+</section>
+<section id="aggregation-kwargs">
+<h2>Aggregation kwargs<a class="headerlink" href="#aggregation-kwargs" title="Permalink to this heading">#</a></h2>
+<p>This section is dedicated to 5 different kwargs, closely related to each other: <code class="docutils literal notranslate"><span class="pre">compact</span></code>+<code class="docutils literal notranslate"><span class="pre">compact_prop</span></code>, <code class="docutils literal notranslate"><span class="pre">combined</span></code>+<code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">legend</span></code>. If we focus on the distribution plots of the left column, we may want to aggregate data along 2 possible dimensions, chains or variable dimension(s) – school dimension in <code class="docutils literal notranslate"><span class="pre">centered_eight</span></code> data, team dimension in <code class="docutils literal notranslate"><span class="pre">rugby</span></code> data… As aggragation or not along these 2 possible dimensions is independent, we end up with 4 possibilities.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">az.plot_trace</span></code>, the argument <code class="docutils literal notranslate"><span class="pre">combined</span></code> governs the aggregation of all chains into a single plot (has no effect in trace, only in distributions), and <code class="docutils literal notranslate"><span class="pre">compact</span></code> governs the aggregation of the variable dimension(s). In order to be able to distinguish each single line after some aggregation has taken place, a <code class="docutils literal notranslate"><span class="pre">legend</span></code> argument is also available to show the legend with the data labels. <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">compact_prop</span></code> allow customization of the aesthetics mapping.</p>
+<p>We’ll now cover all 4 possibilities to showcase all supported cases and explore related customizations.</p>
+<section id="combined-false-and-compact-false">
+<h3><code class="docutils literal notranslate"><span class="pre">combined=False</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=False</span></code><a class="headerlink" href="#combined-false-and-compact-false" title="Permalink to this heading">#</a></h3>
+<p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> is to perform no aggregation at all. In this case therefore, all subplots will have exactly one line per chain in the posterior. In this chain only setting, the default mapping is to use color to distinguish chains:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c272fd5d65a2a1222dcd0db2b85970679eed96e8f0075cf8bed000f627947f67.png" src="../../../_images/c272fd5d65a2a1222dcd0db2b85970679eed96e8f0075cf8bed000f627947f67.png"/>
+</div>
+</div>
+</section>
+<section id="combined-true-and-compact-false">
+<h3><code class="docutils literal notranslate"><span class="pre">combined=True</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=False</span></code><a class="headerlink" href="#combined-true-and-compact-false" title="Permalink to this heading">#</a></h3>
+<p>Chains are aggregated into a single quantity if possible. Therefore, distribution column will have one line per subplot due to the aggregation but the trace column will be the same as in the previous section.
+This is also a chain only setting, the default mapping is to use color to distinguish chains. However, we’ll use this example to show usage of <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to map the chain to the linewidth:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chain_prop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"linewidth"</span><span class="p">:</span> <span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)}</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
+    <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="n">chain_prop</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/9224e9e79eb0745126aa20523744579731f6493e95a6aad2cb14b45ec82ee092.png" src="../../../_images/9224e9e79eb0745126aa20523744579731f6493e95a6aad2cb14b45ec82ee092.png"/>
+</div>
+</div>
+</section>
+<section id="combined-false-and-compact-true">
+<h3><code class="docutils literal notranslate"><span class="pre">combined=False</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=True</span></code><a class="headerlink" href="#combined-false-and-compact-true" title="Permalink to this heading">#</a></h3>
+<p>You are probably tired already from scrolling down and we have only 6 teams! Imagine having a variable with a dimension of length 100 or more :scream:</p>
+<p>In these cases, it may be more convenient to analyze a compact version of the trace plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/0bc05dc66abaa489c00bc9fb46e57ba5b6496a7f18928ef90357e8b138ba60e7.png" src="../../../_images/0bc05dc66abaa489c00bc9fb46e57ba5b6496a7f18928ef90357e8b138ba60e7.png"/>
+</div>
+</div>
+<p>The first two things that jump to the eye are that ArviZ has drastically modified the default aesthetic of the plot and that the plot fits now comfortable in a single screen, bye bye scrolling :wave:</p>
+<p>We can also see that <code class="docutils literal notranslate"><span class="pre">legend=True</span></code> has included multiple legends to the figure. The <code class="docutils literal notranslate"><span class="pre">chain</span></code> legend is always included in the top right trace plot, and the plots in the distribution column contain a legend if necessary.</p>
+</section>
+<section id="combined-true-and-compact-true">
+<h3><code class="docutils literal notranslate"><span class="pre">combined=True</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=True</span></code><a class="headerlink" href="#combined-true-and-compact-true" title="Permalink to this heading">#</a></h3>
+<p>To reduce even more the clutter of lines in the trace plot, we can also combine chains. Moreover, the <code class="docutils literal notranslate"><span class="pre">linestyle</span> <span class="pre">-&gt;</span> <span class="pre">chain</span></code> mapping can be distracting, especially if we don’t care too much about distinguishing the chains between them. Like we did before, we will use <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to control this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"ls"</span><span class="p">:</span> <span class="s2">"-"</span><span class="p">},</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/5c7c5ba7b645f419ac1f58da4d64844b3f905e3e2bff11be5ab24aa139c195dc.png" src="../../../_images/5c7c5ba7b645f419ac1f58da4d64844b3f905e3e2bff11be5ab24aa139c195dc.png"/>
+</div>
+</div>
+<p>Finally, we will explore alternative usage options for <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">compact_prop</span></code>. In the two previous examples we have used a 2 element tuple where the second position of the tuple contained the properties to use. Another alternative is to pass a string present in <code class="docutils literal notranslate"><span class="pre">plt.rcParams["axes.prop_cycle"]</span></code>, which in our case is <code class="docutils literal notranslate"><span class="pre">color</span></code> only.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
+    <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> 
+    <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="s2">"color"</span><span class="p">,</span> 
+    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/8a7da9985ac4bfc4e6c6d78fb7a5b50b555c9fb38da1539ddbc78b58274a1508.png" src="../../../_images/8a7da9985ac4bfc4e6c6d78fb7a5b50b555c9fb38da1539ddbc78b58274a1508.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="summing-it-all-up">
+<h2>Summing it all up<a class="headerlink" href="#summing-it-all-up" title="Permalink to this heading">#</a></h2>
+<p>Now that we have covered most arguments, let’s put everything to practice. Try to generate a trace plot following the instructions below:</p>
+<ul class="simple">
+<li><p>Show variables <code class="docutils literal notranslate"><span class="pre">home</span></code>, <code class="docutils literal notranslate"><span class="pre">defs</span></code> and <code class="docutils literal notranslate"><span class="pre">atts</span></code> showing only <code class="docutils literal notranslate"><span class="pre">Scotland,</span> <span class="pre">Ireland,</span> <span class="pre">Italy,</span> <span class="pre">Wales</span></code> coordinates.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">defs</span></code> variable, plot lines showing the 70% HDI.</p></li>
+<li><p>Map chains to the following colors: <code class="docutils literal notranslate"><span class="pre">'C0',</span> <span class="pre">'C1',</span> <span class="pre">'C2',</span> <span class="pre">'C3',</span> <span class="pre">"xkcd:purple</span> <span class="pre">blue"</span></code></p></li>
+<li><p>Map team dimension to both linestyle (solid and dashed) and linewidth</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"team"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Scotland"</span><span class="p">,</span> <span class="s2">"Ireland"</span><span class="p">,</span> <span class="s2">"Italy"</span><span class="p">,</span> <span class="s2">"Wales"</span><span class="p">]}</span>
+<span class="n">quantile_ds</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">hdi</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"defs"</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">quantile_ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"hdi"</span><span class="p">,</span> <span class="s2">"team"</span><span class="p">}))</span>
+<span class="n">chain_prop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C0'</span><span class="p">,</span> <span class="s1">'C1'</span><span class="p">,</span> <span class="s1">'C2'</span><span class="p">,</span> <span class="s1">'C3'</span><span class="p">,</span> <span class="s2">"xkcd:purple blue"</span><span class="p">]}</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
+    <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">,</span> <span class="s2">"atts"</span><span class="p">],</span> 
+    <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="n">chain_prop</span><span class="p">,</span> 
+    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"ls"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">)},</span>
+    <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">,</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="../../../_images/84ef2a4b1dde430e5e275d4778076d439038f9a41722a5f920b3b726aff71c88.png" src="../../../_images/84ef2a4b1dde430e5e275d4778076d439038f9a41722a5f920b3b726aff71c88.png"/>
+</div>
+</div>
+<p>Package versions used to generate this post:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy  1.19.0
+arviz  0.9.0
+xarray 0.15.1
+last updated: Mon Jun 29 2020 
+
+CPython 3.6.9
+IPython 7.15.0
+watermark 2.0.2
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils"/>
+<p>Comments are not enabled for the blog, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://github.com/arviz-devs/arviz/issues">ArviZ Issues</a> or <a class="reference external" href="https://discourse.pymc.io/">PyMC Discourse</a></p>
+</section>
+</section>
+</article>
+<footer class="bd-footer-article">
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+<div class="ablog__postcard">
+<h5>
+<i class="fa-regular fa-calendar-days"></i>
+  20 June 2020
+  
+</h5>
+<ul>
+<li id="ablog-sidebar-item author ablog__author">
+<span>
+<i class="fa-solid fa-user-pen"></i>
+</span>
+<label class="sr-only">Autor</label>
+<a href="../../author/oriol-abril-pla.html">Oriol Abril Pla</a>
+</li>
+<li id="ablog-sidebar-item category ablog__category">
+<span>
+<i class="fa-regular fa-folder-open"></i>
+</span>
+<label class="sr-only">Categoria</label>
+<a href="../../category/arviz.html">arviz</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/matplotlib.html">matplotlib</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/python.html">python</a>
+</li>
+<li id="ablog-sidebar-item tags ablog__tags">
+<span>
+<i class="fa-solid fa-tags"></i>
+</span>
+<label class="sr-only">Etiquetes</label>
+<a href="../../tag/visualization.html">visualization</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="toc-item">
+<div class="tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+</div>
+<nav class="page-toc" id="bd-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#the-kind-argument">
+   The
+   <code class="docutils literal notranslate">
+<span class="pre">
+     kind
+    </span>
+</code>
+   argument
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#the-divergences-argument">
+   The
+   <code class="docutils literal notranslate">
+<span class="pre">
+     divergences
+    </span>
+</code>
+   argument
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#the-rug-argument">
+   The
+   <code class="docutils literal notranslate">
+<span class="pre">
+     rug
+    </span>
+</code>
+   argument
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#the-lines-argument">
+   The
+   <code class="docutils literal notranslate">
+<span class="pre">
+     lines
+    </span>
+</code>
+   argument
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#aggregation-kwargs">
+   Aggregation kwargs
+  </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#combined-false-and-compact-false">
+<code class="docutils literal notranslate">
+<span class="pre">
+       combined=False
+      </span>
+</code>
+     and
+     <code class="docutils literal notranslate">
+<span class="pre">
+       compact=False
+      </span>
+</code>
+</a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#combined-true-and-compact-false">
+<code class="docutils literal notranslate">
+<span class="pre">
+       combined=True
+      </span>
+</code>
+     and
+     <code class="docutils literal notranslate">
+<span class="pre">
+       compact=False
+      </span>
+</code>
+</a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#combined-false-and-compact-true">
+<code class="docutils literal notranslate">
+<span class="pre">
+       combined=False
+      </span>
+</code>
+     and
+     <code class="docutils literal notranslate">
+<span class="pre">
+       compact=True
+      </span>
+</code>
+</a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#combined-true-and-compact-true">
+<code class="docutils literal notranslate">
+<span class="pre">
+       combined=True
+      </span>
+</code>
+     and
+     <code class="docutils literal notranslate">
+<span class="pre">
+       compact=True
+      </span>
+</code>
+</a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#summing-it-all-up">
+   Summing it all up
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="toc-item">
+<div id="searchbox"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner"></div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//trafic-oriolabrilpla.cat/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script src="../../../_static/js/intro.js"></script>
+<div class="footer-notes">
+<ul class="footer-list">
+<li>© Oriol Abril Pla |
+      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+</li>
+<li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+</ul>
+</div>
+</body>
+</html>
