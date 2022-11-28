@@ -2,8 +2,7 @@
 
 I'm a physicist/engineer converted into a computational statistician.
 I love statistical data analysis, programming and data visualization.
-I am a core contributor of
-[ArviZ](https://www.arviz.org) a project for exploratory
+I am a core contributor of {doc}`ArviZ <arviz_org:index>` a project for exploratory
 analysis of Bayesian models. In addition to probabilistic
 modeling, I also enjoy teaching and technical writing.
 

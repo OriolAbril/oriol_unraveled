@@ -22,7 +22,7 @@ jobs:
       run: python -m pip install -r sphinx_source/requirements.txt
     - name: Build documentation
       run: |
-        export WEBSITE_LANGUAGE={{ matrix.language }}
+        export WEBSITE_LANGUAGE=${{ matrix.language }}
         python -m sphinx sphinx_source website -b html -D language=${{ matrix.language}}
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
