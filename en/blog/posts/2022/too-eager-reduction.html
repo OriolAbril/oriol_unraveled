@@ -1,0 +1,1120 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="Some dimensionality devils" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://oriolabrilpla.cat/blog/posts/2022/too-eager-reduction.html" property="og:url"/>
+<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="This blog post is a loosely connected collection of potentially bad practices that I have come accross while answering questions on discourse and reading the PyMC examples collection or similar blo..." property="og:description"/>
+<meta content="https://oriolabrilpla.cat/_images/evil_kermit_posterior_mean.jpeg" property="og:image"/>
+<meta content="" property="og:image:alt"/>
+<meta content="This blog post is a loosely connected collection of potentially bad practices that I have come accross while answering questions on discourse and reading the PyMC examples collection or similar blo..." name="description"/>
+<title>Some dimensionality devils — Oriol unraveled</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css">
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+<script src="../../../_static/jquery.js"></script>
+<script src="../../../_static/underscore.js"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/sphinx_highlight.js"></script>
+<script src="../../../_static/clipboard.min.js"></script>
+<script src="../../../_static/copybutton.js"></script>
+<script src="../../../_static/design-tabs.js"></script>
+<script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2022/too-eager-reduction';</script>
+<script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        </script>
+<link href="../../../_static/favicon.ico" rel="shortcut icon">
+<link href="../../../about.html" rel="author" title="About these documents">
+<link href="../../../genindex.html" rel="index" title="Index">
+<link href="../../../search.html" rel="search" title="Search"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="en" name="docsearch:language"/>
+</link></link></link></link></link></link></link></link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
+<a class="skip-link" href="#main">Skip to main content</a>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+</div>
+<header class="logo-header">
+<a class="logo" href="../../../index.html">Oriol unraveled</a>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-center-item">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-end-item">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-end-items sidebar-primary__section">
+<div class="sidebar-end-items__item">
+</div>
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content-nav bd-content">
+<div class="bd-header-article">
+<nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+<div class="version-switcher__container dropdown">
+<button class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" type="button">
+        en  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
+</div>
+<div class="article-navbar-search">
+<button aria-label="Search" class="btn btn-sm navbar-btn search-button search-button__button" data-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</nav></div>
+<div class="bd-content" id="main">
+<div class="bd-article-container bd-content-page">
+<article class="bd-article" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="some-dimensionality-devils">
+<span id="dimensionality-devils"></span><h1>Some dimensionality devils<a class="headerlink" href="#some-dimensionality-devils" title="Permalink to this heading">#</a></h1>
+<img alt="" class="hidden-metadata" src="../../../_images/evil_kermit_posterior_mean.jpeg"/>
+<p>This blog post is a loosely connected collection of potentially bad practices that I have come accross while answering questions on discourse and reading the <a class="reference external" href="https://docs.pymc.io/projects/examples/en/latest/">PyMC examples collection</a> or similar blog posts and case studies. They are not necessarily the worst or most dangerous practices, they might not even be the most common ones! The main relation between the cases covered here is that they are related to my work and so it is much more easy for me to notice them and to remember them.</p>
+<p>In fact, all examples are related to “dimensionality” but not necessarly using the exact same definition for the term!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/ticker_api.html#module-matplotlib.ticker" title="matplotlib.ticker"><span class="nn">matplotlib.ticker</span></a> <span class="k">as</span> <span class="nn">mtick</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/lines_api.html#module-matplotlib.lines" title="matplotlib.lines"><span class="nn">matplotlib.lines</span></a> <span class="k">as</span> <span class="nn">mlines</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">pymc</span> <span class="k">as</span> <span class="nn">pm</span>
+
+<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.size"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">13</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="simulated-data-generation">
+<h2>Simulated data generation<a class="headerlink" href="#simulated-data-generation" title="Permalink to this heading">#</a></h2>
+<p>I initialize three distributions to use in the examples below. I will use 2d distributions with different shape but the same marginal means <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">3)</span></code> and standard deviations <code class="docutils literal notranslate"><span class="pre">(0.4,</span> <span class="pre">0.3)</span></code>. 2d is clearly not high dimensional and so the effects might not be of the same magnitude as what you will encounter in your real models, but it is much more convenient for visualization purposes and already serves to illustrate my points.</p>
+<p>To give it a feel of “MCMC output” I will generate 4000 samples per distribution in a 4 “chains” and 1000 “draws” shape. This also allows loading the data as <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> and taking advantage of ArviZ functions.</p>
+<p>For the purposes of the blog post, only the shape of the data is relevant, so the data generation is hidden inside the toggle button below and only the plots are visible by default.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_chains</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">n_draws</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_chains</span><span class="p">,</span> <span class="n">n_draws</span><span class="p">))</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">.1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_chains</span><span class="p">,</span> <span class="n">n_draws</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">mean_std_normalize</span><span class="p">(</span><span class="n">ary</span><span class="p">):</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(((</span><span class="n">ary</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.3</span><span class="p">]))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">mean_std_normalize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">mean_std_normalize</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">mean_std_normalize</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="n">idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">},</span> 
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"var"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"shot"</span><span class="p">,</span> <span class="s2">"distance"</span><span class="p">]},</span> 
+    <span class="n">dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"var"</span><span class="p">],</span> <span class="s2">"b"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"var"</span><span class="p">],</span> <span class="s2">"c"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"var"</span><span class="p">]}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:  (chain: 4, draw: 1000, var: 2)
+Coordinates:
+  * chain    (chain) int64 0 1 2 3
+  * draw     (draw) int64 0 1 2 3 4 5 6 7 8 ... 992 993 994 995 996 997 998 999
+  * var      (var) &lt;U8 'shot' 'distance'
+Data variables:
+    a        (chain, draw, var) float64 2.46 3.125 2.06 ... 2.654 1.717 2.911
+    b        (chain, draw, var) float64 2.326 3.023 2.107 ... 3.093 1.792 2.799
+    c        (chain, draw, var) float64 1.598 2.569 2.118 ... 3.292 2.007 2.62
+Attributes:
+    created_at:     2022-05-18T22:35:53.739557
+    arviz_version:  0.13.0.dev0</pre></div></div>
+</div>
+<p>You can now see the draws of all 3 distributions in the 2d plane to see their shape. The distributions are all 2d representing a joint posterior with variables <code class="docutils literal notranslate"><span class="pre">shot</span></code> and <code class="docutils literal notranslate"><span class="pre">distance</span></code> and I have named the distributions <code class="docutils literal notranslate"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c</span></code> to distinguish them throughout the blog post.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpl_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"subplot_kw"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"aspect"</span><span class="p">:</span> <span class="s2">"equal"</span><span class="p">}}</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">mpl_kwargs</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/9d17f9cb499284a59b6bd85f20d85d570e17074b1ada7ed6e3368d8a3df6f9d2.png" src="../../../_images/9d17f9cb499284a59b6bd85f20d85d570e17074b1ada7ed6e3368d8a3df6f9d2.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">mpl_kwargs</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/56912eb03791f4c167091da8ce5391a10dab7af89689369bd7eb83af721ff41d.png" src="../../../_images/56912eb03791f4c167091da8ce5391a10dab7af89689369bd7eb83af721ff41d.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"c"</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">mpl_kwargs</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/150cfb52bb995c885f3c20d3275bb0f443bc5f52f6bad8db352d3a9834585bbf.png" src="../../../_images/150cfb52bb995c885f3c20d3275bb0f443bc5f52f6bad8db352d3a9834585bbf.png"/>
+</div>
+</div>
+<p>You can also see their marginal distributions compared below. Both <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> have the exact same marginal distributions, all normal, whereas the marginal distribution for <code class="docutils literal notranslate"><span class="pre">b</span></code> is also the same for the <code class="docutils literal notranslate"><span class="pre">shot</span></code> variable but not for the <code class="docutils literal notranslate"><span class="pre">distance</span></code> one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labeller</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">mix_labellers</span><span class="p">((</span><span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">NoVarLabeller</span><span class="p">,</span> <span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">DimCoordLabeller</span><span class="p">))</span>
+<span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_density</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">post</span><span class="p">[[</span><span class="s2">"a"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s2">"x"</span><span class="p">),</span> <span class="n">post</span><span class="p">[[</span><span class="s2">"b"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="s2">"x"</span><span class="p">),</span> <span class="n">post</span><span class="p">[[</span><span class="s2">"c"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)],</span> 
+    <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">"C0"</span><span class="p">,</span> <span class="s2">"C1"</span><span class="p">,</span> <span class="s2">"C2"</span><span class="p">],</span>
+    <span class="n">data_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span>
+    <span class="n">labeller</span><span class="o">=</span><span class="n">labeller</span><span class="p">()</span>  <span class="c1"># remember to always pass an initialized labeller</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/67f266c6c574cf0064e226ccb055d904c1b6d2dbb0be70f5be37fcc91fec3537.png" src="../../../_images/67f266c6c574cf0064e226ccb055d904c1b6d2dbb0be70f5be37fcc91fec3537.png"/>
+</div>
+</div>
+<p>Last but not least, I also double check the normalization has worked:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stats"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mean</th>
+<th>sd</th>
+<th>hdi_3%</th>
+<th>hdi_97%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>a[shot]</th>
+<td>2.0</td>
+<td>0.4</td>
+<td>1.268</td>
+<td>2.755</td>
+</tr>
+<tr>
+<th>a[distance]</th>
+<td>3.0</td>
+<td>0.3</td>
+<td>2.449</td>
+<td>3.576</td>
+</tr>
+<tr>
+<th>b[shot]</th>
+<td>2.0</td>
+<td>0.4</td>
+<td>1.271</td>
+<td>2.775</td>
+</tr>
+<tr>
+<th>b[distance]</th>
+<td>3.0</td>
+<td>0.3</td>
+<td>2.647</td>
+<td>3.554</td>
+</tr>
+<tr>
+<th>c[shot]</th>
+<td>2.0</td>
+<td>0.4</td>
+<td>1.236</td>
+<td>2.723</td>
+</tr>
+<tr>
+<th>c[distance]</th>
+<td>3.0</td>
+<td>0.3</td>
+<td>2.433</td>
+<td>3.555</td>
+</tr>
+</tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="premature-aggregation">
+<h2>Premature aggregation<a class="headerlink" href="#premature-aggregation" title="Permalink to this heading">#</a></h2>
+<p>Now let’s get to work! It is very tempting to take the means and go with it instead of using the whole posterior, working with high dimensional arrays can be annoying or even borderline impossible unless we recurr to nested on nested loops. For the data generation to work we had to add these <code class="docutils literal notranslate"><span class="pre">[...,</span> <span class="pre">i]</span></code> clauses for example and it is also very common to need to reshape the data or use <code class="docutils literal notranslate"><span class="pre">[None,</span> <span class="pre">:]</span></code> for broadcasting to work.</p>
+<p>And in some cases, doing that won’t make any difference. If you were calculating the mean of a linear regression for example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mu = \alpha + \beta x \\
+\text{E}[\mu] = \text{E}[\alpha + \beta x] = \text{E}[\alpha] + \text{E}[\beta] x
+\end{split}\]</div>
+<p>Still, very often (I might even say more often than not) this is not the case. Sometimes even with a single variable the result of the <em>posterior pushforward</em> operations followed by the mean is not the same as the result of first taking the mean and then doing the pushforward operations.</p>
+<p>Note: I call <em>posterior pushforward</em> operations to deterministic operations on posterior variables as opposed to sampling from the posterior predictive which should never be done with the means alone.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="s2">"mean"</span>
+<span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+<span class="k">if</span> <span class="n">summary</span> <span class="o">==</span> <span class="s2">"mean"</span><span class="p">:</span>
+    <span class="n">post_summary</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">post_summary</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the blogpost I use only the <code class="docutils literal notranslate"><span class="pre">mean</span></code> as summary, to see how things look for the median you’ll need to
+rerun the notebook (you can download it or run it online clicking on the badges at the top of the notebook).</p>
+<blockquote>
+<div><p>Important: If you use the median as summary, there can be differences between aggregating before or after pushforward computation even for linear operations. Linearity of expectations is a property of the expectation (mean) function, not of the .5 quantile function!</p>
+</div></blockquote>
+<section id="pushforward-computation-examples">
+<h3>Pushforward computation examples<a class="headerlink" href="#pushforward-computation-examples" title="Permalink to this heading">#</a></h3>
+<p>In this section I will go over some pushforward computation examples. I’ll take a function that depends on two variables and apply it to each of the 3 distributions we generated. First I’ll compute the result using the <code class="docutils literal notranslate"><span class="pre">post_summary</span></code> with the already averaged data and then compare it to doing the operation first and averaging later.</p>
+<p>I will generate the same plot for each combination of function and distribution. That plot will have the following elements:</p>
+<ul class="simple">
+<li><p>Two vertical lines, indicating the result we get averaging before and after operating</p></li>
+<li><p>A box with two quantities annotated: the relative error (as a percentage) and the ratio between the difference of results and the Monte Carlo standard error (MCSE) of the result</p></li>
+<li><p>A histogram with the result of (block-wise) averaging after and pushforward computation and dividing all the 2000 samples into 80 blocks.</p></li>
+</ul>
+<p>The vertical lines can probably be considered the key element of the plot, but they don’t really give any information without the context provided by the other elements too. You can click to see the plotting code, but it is hidden by default as it is not necessary to follow the blog post.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.einops</span> <span class="kn">import</span> <span class="n">raw_reduce</span>
+
+<span class="k">def</span> <span class="nf">plot_func_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+
+    <span class="n">aux</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+    <span class="n">post_after</span> <span class="o">=</span> <span class="n">pushforward_func</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">summary</span> <span class="o">==</span> <span class="s2">"mean"</span><span class="p">:</span>
+        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+    <span class="n">aux</span> <span class="o">=</span> <span class="n">post_summary</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+    <span class="n">summary_before</span> <span class="o">=</span> <span class="n">pushforward_func</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">difference</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">summary_after</span> <span class="o">-</span> <span class="n">summary_before</span><span class="p">)</span>
+    <span class="n">relative_difference</span> <span class="o">=</span> <span class="p">(</span><span class="n">difference</span> <span class="o">/</span> <span class="n">summary_after</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">difference_mcse_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">difference</span> <span class="o">/</span> <span class="n">az</span><span class="o">.</span><span class="n">mcse</span><span class="p">(</span><span class="n">post_after</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">summary</span><span class="p">)[</span><span class="n">var_name</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    
+
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span>
+        <span class="n">raw_reduce</span><span class="p">(</span><span class="n">post_after</span><span class="p">,</span> <span class="s2">"(d1 d2)=draw -&gt; d2"</span><span class="p">,</span> <span class="n">summary</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">d2</span><span class="o">=</span><span class="s2">"draw"</span><span class="p">),</span> 
+        <span class="n">hdi_prob</span><span class="o">=</span><span class="s2">"hide"</span><span class="p">,</span> 
+        <span class="n">point_estimate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+        <span class="n">kind</span><span class="o">=</span><span class="s2">"hist"</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">summary_after</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"after: </span><span class="si">{</span><span class="n">summary_after</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">summary_before</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"before: </span><span class="si">{</span><span class="n">summary_before</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> taken:"</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">)</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">"round"</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.7</span><span class="p">),</span> <span class="n">ec</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.62</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Relative</span><span class="se">\n</span><span class="s2">difference:</span><span class="se">\n</span><span class="si">{</span><span class="n">relative_difference</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.62</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Difference/mcse:</span><span class="se">\n</span><span class="si">{</span><span class="n">difference_mcse_ratio</span><span class="si">:</span><span class="s2">.2g</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable: </span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>The expectancy of a sum is always the sum of expectancies, and we see that indeed the difference is of the order of floating point accuracy now that we are using the mean (but again, it won’t be if you rerun this using the median as summary):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
+    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/767edeab8196838ae475bdcea943fdcb53d12306434095343b08e5dbc5cf2b2a.png" src="../../../_images/767edeab8196838ae475bdcea943fdcb53d12306434095343b08e5dbc5cf2b2a.png"/>
+</div>
+</div>
+<p>The second example is a product between our two variables. This is no longer a linear operation and we can see noticeable differences in the result of distribution <code class="docutils literal notranslate"><span class="pre">a</span></code>. However, the dashed orange line is still only 3.7 MCSE units away from the real average and inside the region of the histogram. That means that it is still a credible value for the mean of the product.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
+    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/e1d02a86fd36c53304cffc640176b524a282723cad2ef01edc95784504bc0c6f.png" src="../../../_images/e1d02a86fd36c53304cffc640176b524a282723cad2ef01edc95784504bc0c6f.png"/>
+</div>
+</div>
+<p>The 3rd example is a division between the two variables. Here we see that the dashed orange line lies always outside the histogram range and over 9 MCSE units away from the real average. These values are no longer credible as the mean of the quotient!</p>
+<p>If we plotted the distribution of quotient values, the dashed orange line would most probably still be on a high probability region, after all the relative difference is not too big. However, plausible <strong>values</strong> of the quotient and plausible <strong>means</strong> of the quotient are very different concepts that should not be confused.</p>
+<p>I am currently working on MCSE for arbitrary quantities and arbitrary summary statistics and on some recommendations related to its use. Hopefully I’ll be able to write more on this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="o">/</span><span class="n">x</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
+    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b6af5a6fbff9eedb6698511930b4cd5ec257c5361183555f0946195fa7b971c7.png" src="../../../_images/b6af5a6fbff9eedb6698511930b4cd5ec257c5361183555f0946195fa7b971c7.png"/>
+</div>
+</div>
+<p>Moreover, we can always find pathological cases:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
+    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/3945a5fae34960e4acfd5848afab60c97ce34715103253110bbd721881a37764.png" src="../../../_images/3945a5fae34960e4acfd5848afab60c97ce34715103253110bbd721881a37764.png"/>
+</div>
+</div>
+</section>
+<section id="golf-putting-example">
+<h3>Golf putting example<a class="headerlink" href="#golf-putting-example" title="Permalink to this heading">#</a></h3>
+<p>I will also use the code from the <a class="reference external" href="https://docs.pymc.io/projects/examples/en/latest/case_studies/putting_workflow.html">golf putting case study</a> (from PyMC examples because it already uses xarray). To illustrate two more points.</p>
+<p>The first is that averaging before operating is also dangerous when having a single variable: <span class="math notranslate nohighlight">\(E[f(x)] \neq f(E[x])\)</span> (except for <a class="reference external" href="https://en.wikipedia.org/wiki/Expected_value#Properties">linear functions</a> as we have seen).</p>
+<p>And the second is that the “badness” of averaging before operating depends as we have seen on the distribution, on the function and can also depend on other constant inputs of the function. In this case, the effect of averaging before gets worse as we compute the pushforward operation on larger distances (we are modeling probabilities of making the putt as a function of the distance).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.stats</span> <span class="kn">import</span> <span class="n">XrContinuousRV</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="k">as</span> <span class="nn">st</span>
+
+<span class="n">BALL_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.68</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
+<span class="n">CUP_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.25</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
+<span class="n">OVERSHOT</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">DISTANCE_TOLERANCE</span> <span class="o">=</span> <span class="mf">3.0</span>
+
+<span class="k">def</span> <span class="nf">forward_angle_model</span><span class="p">(</span><span class="n">variances_of_shot</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">norm_dist</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">variances_of_shot</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">norm_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">forward_distance_angle_model</span><span class="p">(</span><span class="n">variance_of_shot</span><span class="p">,</span> <span class="n">variance_of_distance</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">angle_prob</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance_of_shot</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">distance_prob_one</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">DISTANCE_TOLERANCE</span> <span class="o">-</span> <span class="n">OVERSHOT</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">t</span> <span class="o">+</span> <span class="n">OVERSHOT</span><span class="p">)</span> <span class="o">*</span> <span class="n">variance_of_distance</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">distance_prob_two</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">OVERSHOT</span> <span class="o">/</span> <span class="p">((</span><span class="n">t</span> <span class="o">+</span> <span class="n">OVERSHOT</span><span class="p">)</span> <span class="o">*</span> <span class="n">variance_of_distance</span><span class="p">))</span>
+    <span class="n">distance_prob</span> <span class="o">=</span> <span class="n">distance_prob_one</span> <span class="o">-</span> <span class="n">distance_prob_two</span>
+
+    <span class="k">return</span> <span class="n">angle_prob</span> <span class="o">*</span> <span class="n">distance_prob</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plotting code collapsed below:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_golf_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">"distance"</span><span class="p">],</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"distance"</span><span class="p">:</span> <span class="n">t</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">pushforward_func</span> <span class="o">==</span> <span class="s2">"angle"</span><span class="p">:</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+        <span class="n">post_after</span> <span class="o">=</span> <span class="n">forward_angle_model</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">post_summary</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+        <span class="n">summary_before</span> <span class="o">=</span> <span class="n">forward_angle_model</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+        <span class="n">post_after</span> <span class="o">=</span> <span class="n">forward_distance_angle_model</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">aux</span> <span class="o">=</span> <span class="n">post_summary</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+        <span class="n">summary_before</span> <span class="o">=</span> <span class="n">forward_distance_angle_model</span><span class="p">(</span>
+            <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="n">t</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">summary</span> <span class="o">==</span> <span class="s2">"mean"</span><span class="p">:</span>
+        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">summary_after</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"after"</span><span class="p">)</span>
+    <span class="n">summary_before</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"before"</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Mean taken:"</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Probability of</span><span class="se">\n</span><span class="s2">making the putt"</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable: </span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">ax_</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">summary_after</span> <span class="o">-</span> <span class="n">summary_before</span><span class="p">)</span> <span class="o">/</span> <span class="n">summary_after</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mtick</span><span class="o">.</span><span class="n">PercentFormatter</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Relative difference"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
+    <span class="n">plot_golf_comparison</span><span class="p">(</span><span class="s2">"angle"</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/a2eb9700ea83eab4864a073d772659c1a6e656363ea17552ff5cf82cf493b2c9.png" src="../../../_images/a2eb9700ea83eab4864a073d772659c1a6e656363ea17552ff5cf82cf493b2c9.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
+    <span class="n">plot_golf_comparison</span><span class="p">(</span><span class="s2">"distance_angle"</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/4ebf0eac2305cbe1e389486c0cf2e34059cc1f10b15445548e192a2ac58e6666.png" src="../../../_images/4ebf0eac2305cbe1e389486c0cf2e34059cc1f10b15445548e192a2ac58e6666.png"/>
+</div>
+</div>
+</section>
+<section id="a-possible-solution">
+<h3>A possible solution<a class="headerlink" href="#a-possible-solution" title="Permalink to this heading">#</a></h3>
+<p>I know the fact that all posterior samples should be used is not a secret in any sense, it is mostly the challenge of working comfortably with them that motivates computing summary statistics earlier than one should. The Bayesian workflow paper (Gelman et al 2020) mentions this as one of the open challenges in using Bayesian workflow in practice:</p>
+<blockquote>
+<div><p>Probabilistic programming ultimately has the potential to allow random variables to manipulated like any other data objects, with uncertainty implicit in all the plots and calculations, but much more work needs to be done to turn this possibility into reality, going beyond point and interval estimation so that we can make full use of the models we fit.</p>
+</div></blockquote>
+<p>And while it is true it can still be challenging, batching operations is becoming increasingly simple and performant in Python, Julia or R and label based multidimensional arrays are also becoming more popular and applicable to a wide set of domains and tasks. I find that working with label based arrays and indexing operations is much more clear (both to others and to future me).</p>
+<p>You can use <a class="reference external" href="https://python.arviz.org">ArviZ</a> which builds on top of <a class="reference external" href="https://docs.xarray.dev/en/stable/">xarray</a> and <a class="reference external" href="https://einstats.python.arviz.org">xarray-einstats</a> to make all these computations while preserving the chain and draw dimensions in order to average later. The xarray ecosystem is developing and maturing quickly, you can already take advantage of automatic alignment and broadcasting for general python or math operations, for linear algebra, statistical operations like evaluation of pdf/cdf… or drawing from a specified distribution, fast fourier transforms…</p>
+<p>As you’ll have seen, this is what I am using in this post because I am the most comfortable working with Python and xarray, but the posterior R package recently introduced an <a class="reference external" href="https://mc-stan.org/posterior/articles/rvar.html">rvar</a> type with similar properties for example, and similar work is also happening in the Julia ecosystem.</p>
+</section>
+</section>
+<section id="univariate-priors">
+<h2>Univariate priors<a class="headerlink" href="#univariate-priors" title="Permalink to this heading">#</a></h2>
+<p>I recently collaborated a little to a <a class="reference external" href="https://arxiv.org/abs/2112.01380">paper on prior elicitation</a>, where the current state and future research possibilities are discussed. One of the challenges mentioned is that most of the work so far has been done on eliciting the univariate marginal prior distributions. But what we really need to elicit are multivariate prior distributions because it is the joint prior what afects the model and the sampling.</p>
+<p>This section won’t have (yet) a possible solution section at the end :sweat_smile:. I realize that univariate priors are the default and that we need to develop better tools before this can actually change in practice. But I think it is still good to be aware of its limitations. I will use an extreme example to show some of its limitations. Hopefully this will motivate more thorough prior and prior predictive checks.</p>
+<p>I will use the <a class="reference external" href="https://docs.pymc.io/projects/examples/en/latest/pymc3_howto/updating_priors.html">updating priors</a> notebook in the PyMC examples collection. It is a very popular example, there are often questions on discourse about adapting it to the specific situations of new users; and for good reason. It promises the philosophal stone of Bayesian statistics: using an old posterior as prior when we get new data so we can update our beliefs after seeing this new data and get an updated posterior. Again, this is very tempting, maybe even more so than premature averaging. But again, this is usually a bad idea, and more often than not a terrible one.</p>
+<p>Let’s see why.</p>
+<p>In case you haven’t gone through the linked notebook, the idea is the following:</p>
+<ol class="arabic simple">
+<li><p>Fit the model on the available data</p></li>
+<li><p>Convert the posterior obtained into a prior using a KDE approximation</p></li>
+<li><p>Get new data and fit the model using the generated prior</p></li>
+<li><p>Repeat 2-3 every time new data becomes available</p></li>
+</ol>
+<p>Here is the function used to take care of step 2:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_posterior</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
+    <span class="n">smin</span><span class="p">,</span> <span class="n">smax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">samples</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">smax</span> <span class="o">-</span> <span class="n">smin</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">smin</span><span class="p">,</span> <span class="n">smax</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">gaussian_kde</span><span class="p">(</span><span class="n">samples</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># what was never sampled should have a small probability but not 0,</span>
+    <span class="c1"># so we'll extend the domain and use linear approximation of density on it</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">width</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">width</span><span class="p">]])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">pm</span><span class="o">.</span><span class="n">Interpolated</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As usual, the devil lies in the details, there are two issues to take into account.</p>
+<p>First and foremost, <em>this generates univariate priors</em>. The fit generated a <em>joint posterior</em> and variables will probably not be independent between them. Therefore, any prior generated as a product of univariate distributions won’t generally be able to represent the posterior.</p>
+<p>Secondly and not so relevant, the KDE is also an approximation which might not be very accurate, especially when it comes to the tails. This <code class="docutils literal notranslate"><span class="pre">from_posterior</span></code> already contains a handmade correction to account for the tails being longer than the observed data, which is somewhat sensible but it also is clearly different from the actual tails we’d expect our distributions to have.</p>
+<p>(This extension of the tails is done with the two <code class="docutils literal notranslate"><span class="pre">concatenate</span></code> lines, you can try comenting them if you download the notebook. If you do, you’ll see better prior checks, but you will also be constraining all prior and posterior samples to have values between the minimum of the maximum in the distribution used to interpolate)</p>
+<p>The bad news is that there really isn’t anything you can do about this. There are some 2d KDE approximations available, but that will generally not be enough either to represent the posterior (as it will be more than 2d) and they are even less reliable than 1d KDEs.</p>
+<p>We can use prior sampling to get an idea of the differences between the posteriors and the priors generated by this method by using our 3 simulated cases as posteriors.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">contour_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"colors"</span><span class="p">:</span> <span class="s2">"k"</span><span class="p">},</span>
+        <span class="n">contourf_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="n">hdi_probs</span><span class="o">=</span><span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.8</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"scatter"</span><span class="p">,</span> <span class="s2">"kde"</span><span class="p">]</span> <span class="k">if</span> <span class="n">scatter</span> <span class="k">else</span> <span class="s2">"kde"</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span>
+        <span class="n">idata_prior</span><span class="p">,</span> 
+        <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_shot"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_distance"</span><span class="p">],</span> 
+        <span class="n">group</span><span class="o">=</span><span class="s2">"prior"</span><span class="p">,</span> 
+        <span class="n">marginals</span><span class="o">=</span><span class="n">scatter</span><span class="p">,</span>
+        <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">kde_kwargs</span><span class="o">=</span><span class="n">kws</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+    <span class="p">);</span>
+    <span class="n">kws</span><span class="p">[</span><span class="s2">"contour_kwargs"</span><span class="p">][</span><span class="s2">"colors"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"r"</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span>
+        <span class="n">idata</span><span class="p">,</span> 
+        <span class="n">var_names</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"var"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"shot"</span><span class="p">,</span> <span class="s2">"distance"</span><span class="p">]},</span>
+        <span class="n">kind</span><span class="o">=</span><span class="s2">"kde"</span><span class="p">,</span> <span class="n">kde_kwargs</span><span class="o">=</span><span class="n">kws</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">scatter</span> <span class="k">else</span> <span class="n">axes</span>
+    <span class="p">);</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">scatter</span><span class="p">:</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"KDE approximation"</span><span class="p">),</span>
+            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Original posterior"</span><span class="p">),</span>
+        <span class="p">])</span>
+    <span class="k">return</span> <span class="n">axes</span>
+
+<span class="k">def</span> <span class="nf">plot_priors</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Instantiate figure and grid</span>
+    <span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">heights</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">,</span>
+        <span class="n">hspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
+        <span class="n">width_ratios</span><span class="o">=</span><span class="n">widths</span><span class="p">,</span>
+        <span class="n">height_ratios</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Set up main plot</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Set up top KDE</span>
+    <span class="n">ax_hist_x</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax_hist_x</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="c1"># Set up right KDE</span>
+    <span class="n">ax_hist_y</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax_hist_y</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">idata_prior</span><span class="o">.</span><span class="n">prior</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_shot"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">idata_prior</span><span class="o">.</span><span class="n">prior</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_distance"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+
+    <span class="k">for</span> <span class="n">val</span><span class="p">,</span> <span class="n">ax_</span><span class="p">,</span> <span class="n">rotate</span> <span class="ow">in</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">ax_hist_x</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">ax_hist_y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)):</span>
+        <span class="n">az</span><span class="o">.</span><span class="n">plot_dist</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">rotated</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+
+    <span class="c1"># Personalize axes</span>
+    <span class="n">ax_hist_x</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax_hist_y</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="n">ax_zoom</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax_return</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">ax_hist_x</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_hist_y</span><span class="p">,</span> <span class="n">ax_zoom</span><span class="p">]])</span>
+    
+    <span class="n">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_return</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_zoom</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax_return</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
+    <span class="n">a_shot</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"a_shot"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="n">a_distance</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"a_distance"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    
+    <span class="n">a_prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/oriol/Public/pymc/pymc/distributions/continuous.py:3704: RuntimeWarning: divide by zero encountered in double_scalars
+  np.where(np.abs(pdf[index]) &lt;= 1e-8, np.zeros(index.shape), (p - cdf[index]) / pdf[index]),
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">plot_priors</span><span class="p">(</span><span class="n">a_prior</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/53f80a0db3c1a7d8693b65b3923b986597e30983ad3100d5790b71ede0f6fadc.png" src="../../../_images/53f80a0db3c1a7d8693b65b3923b986597e30983ad3100d5790b71ede0f6fadc.png"/>
+</div>
+</div>
+<p>The figure on the left shows both the 2d distribution and the two marginals, and the one on the right shows only the 2d distribution zoomed in. All 2d KDEs (here and in coming posts) have 4 contour lines with the probability inside each line being <code class="docutils literal notranslate"><span class="pre">[.2,</span> <span class="pre">.4,</span> <span class="pre">.6,</span> <span class="pre">.8]</span></code> in order to allow proper comparison.</p>
+<p>The figure on the left shows the problematic with the KDE approximation and the tail extension. The combination of the high probability central region with the low probability but not negligible tails generates this + looking shape. It is possible to have values outside this cross, and in this generation there is one on the lower right quadrant, but the probability of a draw being on the tail of the distribution is very low so the probability of this happening twice even for the two independent distributions is extremely low. We can see however how this tail expansion has no effect on the KDE lines, not even for the one that contains 80% of the probability, so even if their values are a bit too extreme, their probability is very low and generally not a source of worry.</p>
+<p>The figure on the right shows clearly how our prior even if generated from interpolating our original (red) distribution is unable to retrieve the dependency between the two variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
+    <span class="n">b_shot</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"b_shot"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="n">b_distance</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"b_distance"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    
+    <span class="n">b_prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/oriol/Public/pymc/pymc/distributions/continuous.py:3704: RuntimeWarning: divide by zero encountered in double_scalars
+  np.where(np.abs(pdf[index]) &lt;= 1e-8, np.zeros(index.shape), (p - cdf[index]) / pdf[index]),
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">plot_priors</span><span class="p">(</span><span class="n">b_prior</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/e173dd4a27ad789002ef9fcd0ec6f6c63f35b93695183f418468ba1cb021eb3e.png" src="../../../_images/e173dd4a27ad789002ef9fcd0ec6f6c63f35b93695183f418468ba1cb021eb3e.png"/>
+</div>
+</div>
+<p>Here again, we see the same effects as we saw for distribution <code class="docutils literal notranslate"><span class="pre">a</span></code>. Even a bit more exagerated. Now the marginal distribution on the <code class="docutils literal notranslate"><span class="pre">distance</span></code> variable is not symettric, so the tail extension fares worse than before.</p>
+<p>The shape of the dependency between variables is also more complicated now than it was in distribution <code class="docutils literal notranslate"><span class="pre">a</span></code>, so the isodensity regions differ even more from the original (red) distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
+    <span class="n">c_shot</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"c_shot"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"c"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="n">c_distance</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"c_distance"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"c"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    
+    <span class="n">c_prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/oriol/Public/pymc/pymc/distributions/continuous.py:3704: RuntimeWarning: divide by zero encountered in double_scalars
+  np.where(np.abs(pdf[index]) &lt;= 1e-8, np.zeros(index.shape), (p - cdf[index]) / pdf[index]),
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">plot_priors</span><span class="p">(</span><span class="n">c_prior</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b9c69bc9d88ae17628cb6cdadea0b5189b989b01e30bb705dccc0519b16fb48e.png" src="../../../_images/b9c69bc9d88ae17628cb6cdadea0b5189b989b01e30bb705dccc0519b16fb48e.png"/>
+</div>
+</div>
+<p>The two variables in <code class="docutils literal notranslate"><span class="pre">c</span></code> are independent, so here the only source of error will be the KDE approximation and tail expansion. We see that indeed the shape of the posterior is now right, but the size is not exactly the same. Like in all other examples, the tails are overpopulated due to the tail extension.</p>
+<p>Again, hopefully I’ll be able to write about tools for multidimensional prior elicitation at some point :see_no_evil:.</p>
+<p>Package versions used to generate this post:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w -p xarray_einstats
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Last updated: Thu May 19 2022
+
+Python implementation: CPython
+Python version       : 3.9.10
+IPython version      : 8.3.0
+
+xarray_einstats: 0.3.0.dev0
+
+scipy     : 1.7.3
+pymc      : 4.0.0b6
+matplotlib: 3.5.1
+arviz     : 0.13.0.dev0
+numpy     : 1.21.5
+xarray    : 2022.3.0
+
+Watermark: 2.3.0
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils"/>
+<p>Comments are not enabled for this post, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://discourse.mc-stan.org/">Stan Discourse</a> or <a class="reference external" href="https://discourse.pymc.io/">PyMC Discourse</a>. Feel free to tag me at <code class="docutils literal notranslate"><span class="pre">@OriolAbril</span></code></p>
+</section>
+</section>
+</article>
+<footer class="bd-footer-article">
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+<div class="ablog__postcard">
+<h5>
+<i class="fa-regular fa-calendar-days"></i>
+  25 May 2022
+  
+</h5>
+<ul>
+<li id="ablog-sidebar-item author ablog__author">
+<span>
+<i class="fa-solid fa-user-pen"></i>
+</span>
+<label class="sr-only">Author</label>
+<a href="../../author/oriol-abril-pla.html">Oriol Abril Pla</a>
+</li>
+<li id="ablog-sidebar-item category ablog__category">
+<span>
+<i class="fa-regular fa-folder-open"></i>
+</span>
+<label class="sr-only">Category</label>
+<a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/arviz.html">arviz</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray.html">xarray</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/pymc.html">pymc</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
+</li>
+<li id="ablog-sidebar-item tags ablog__tags">
+<span>
+<i class="fa-solid fa-tags"></i>
+</span>
+<label class="sr-only">Tags</label>
+<a href="../../tag/recommendation.html">recommendation</a>
+<a href="../../tag/rant.html">rant</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="toc-item">
+<div class="tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+</div>
+<nav class="page-toc" id="bd-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#simulated-data-generation">
+   Simulated data generation
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#premature-aggregation">
+   Premature aggregation
+  </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#pushforward-computation-examples">
+     Pushforward computation examples
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#golf-putting-example">
+     Golf putting example
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#a-possible-solution">
+     A possible solution
+    </a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#univariate-priors">
+   Univariate priors
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="toc-item">
+<div id="searchbox"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner"></div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//trafic-oriolabrilpla.cat/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script src="../../../_static/js/intro.js"></script>
+<div class="footer-notes">
+<ul class="footer-list">
+<li>© Oriol Abril Pla |
+      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+</li>
+<li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+</ul>
+</div>
+</body>
+</html>

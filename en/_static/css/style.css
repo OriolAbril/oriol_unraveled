@@ -5,6 +5,36 @@ html[data-theme="light"] {
     --pst-color-secondary-highlight: #994000;
 }
 
+.taxonomy-index {
+  display: grid;
+  grid-column-gap: 2em;
+  grid-template-columns: repeat(2, 1fr);
+  font-size: 0.9em;
+  list-style: none;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 650px) {
+  .taxonomy-index {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+.taxonomy-index a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.25em 0;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid #444444;
+}
+
 .bd-header-article .navbar-nav > p.sidebar-header-items__title {
   display: none;
 }
@@ -121,7 +151,7 @@ header.logo-header {
   border-style: solid;
   border-color: #ffffff;
   border-width: 5px !important;
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 2.25rem;
   font-weight: 900;
   letter-spacing: 0.075em;
@@ -199,7 +229,7 @@ label.sidebar-toggle {
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 959px) {
   .article-navbar-icon-links {
     display: none;
   }
@@ -329,7 +359,7 @@ ul.blog-pre-title, .ablog__postcard > ul {
   transition: opacity 1s ease, transform 1s ease;
   position: relative;
   text-align: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 4rem);
 }
 
 #homepage-intro h1 {
@@ -338,6 +368,7 @@ ul.blog-pre-title, .ablog__postcard > ul {
   color: white;
   margin: 0 0 2rem 0;
   text-transform: uppercase;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 900;
   letter-spacing: 0.075em;
 }
@@ -386,4 +417,23 @@ ul.blog-pre-title, .ablog__postcard > ul {
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
+}
+
+a.animate img {
+  -moz-transition: -moz-transform 0.2s ease-out;
+  -webkit-transition: -webkit-transform 0.2s ease-out;
+  -ms-transition: -ms-transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+
+.ko-fi-blue {
+  background-color: #00b9febb !important;
+}
+
+.buymeacoffee-orange {
+  background-color: #ff6937bb !important;
+}
+
+.liberapay-yellow {
+  background-color: #f6c915bb !important;
 }

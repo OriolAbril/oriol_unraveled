@@ -1,0 +1,1599 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="CmdStanPy and ArviZ integration" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://oriolabrilpla.cat/blog/posts/2022/einstats-hmm-cmdstanpy.html" property="og:url"/>
+<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="This blog post is an adaptation of the Tagging Basketball Events with HMM in Stan case study. It will not cover any new topics or analysis and assumes you have at least skimmed the original case st..." property="og:description"/>
+<meta content="https://oriolabrilpla.cat/_images/hmm_drive.png" property="og:image"/>
+<meta content="" property="og:image:alt"/>
+<meta content="This blog post is an adaptation of the Tagging Basketball Events with HMM in Stan case study. It will not cover any new topics or analysis and assumes you have at least skimmed the original case st..." name="description"/>
+<title>CmdStanPy and ArviZ integration — Oriol unraveled</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css">
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+<script src="../../../_static/jquery.js"></script>
+<script src="../../../_static/underscore.js"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/sphinx_highlight.js"></script>
+<script src="../../../_static/clipboard.min.js"></script>
+<script src="../../../_static/copybutton.js"></script>
+<script src="../../../_static/design-tabs.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2022/einstats-hmm-cmdstanpy';</script>
+<script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        </script>
+<link href="../../../_static/favicon.ico" rel="shortcut icon">
+<link href="../../../about.html" rel="author" title="About these documents">
+<link href="../../../genindex.html" rel="index" title="Index">
+<link href="../../../search.html" rel="search" title="Search"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="en" name="docsearch:language"/>
+</link></link></link></link></link></link></link></link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
+<a class="skip-link" href="#main">Skip to main content</a>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+</div>
+<header class="logo-header">
+<a class="logo" href="../../../index.html">Oriol unraveled</a>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-center-item">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-end-item">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-end-items sidebar-primary__section">
+<div class="sidebar-end-items__item">
+</div>
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content-nav bd-content">
+<div class="bd-header-article">
+<nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+<div class="version-switcher__container dropdown">
+<button class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" type="button">
+        en  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
+</div>
+<div class="article-navbar-search">
+<button aria-label="Search" class="btn btn-sm navbar-btn search-button search-button__button" data-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</nav></div>
+<div class="bd-content" id="main">
+<div class="bd-article-container bd-content-page">
+<article class="bd-article" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="cmdstanpy-and-arviz-integration">
+<span id="arviz-cmdstanpy"></span><h1>CmdStanPy and ArviZ integration<a class="headerlink" href="#cmdstanpy-and-arviz-integration" title="Permalink to this heading">#</a></h1>
+<img alt="" class="hidden-metadata" src="../../../_images/hmm_drive.png"/>
+<p>This blog post is an adaptation of the <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html">Tagging Basketball Events with HMM in Stan</a> case study. It will not cover any new topics or analysis and assumes you have at least skimmed the original case study.</p>
+<p>So what is this post about? I will use cmdstanpy+ArviZ integration to show the potential of using labeled arrays when doing exploratory analysis of Bayesian models. I will use <a class="reference external" href="https://xarray.dev/">xarray</a>’s automatic broadcasting and alignment of arrays and the <code class="docutils literal notranslate"><span class="pre">stats</span></code> module of <a class="reference external" href="https://einstats.python.arviz.org">xarray-einstats</a> for posterior predictive sampling.</p>
+<p>Each section maps to an example on the original case study: simple HMM example, tagging drive events and defensive assignment. All sections follow the same structure.</p>
+<p>The beginning is as concise as possible to avoid duplication: the data needed for the model is read, the model is compiled and sampled. If you are interested you’ll be able to read the stan code of the model clicking on the “Show Output” buttons. We then move to the target of this blog post: conversion of the cmdstanpy fit to ArviZ <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> and postprocessing with <a class="reference external" href="https://xarray.dev/">xarray</a> and <a class="reference external" href="https://einstats.python.arviz.org">xarray-einstats</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cmdstanpy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="simple-hmm-example">
+<h2>Simple HMM example<a class="headerlink" href="#simple-hmm-example" title="Permalink to this heading">#</a></h2>
+<p>Link to <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html#simple-hmm-example">this same section</a> in the original Stan case study.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hmm_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/hmm_example.csv"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Click the button below to see the Stan code:</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"stan_codes/hmm_example.stan"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>// simple hmm example (1 output; 2 states)
+data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; K;
+  real y[N];
+}
+
+parameters {
+  simplex[K] theta[K];
+  // real mu[K];
+  positive_ordered[K] mu;
+}
+
+model {
+  // priors
+  target+= normal_lpdf(mu[1] | 3, 1);
+  target+= normal_lpdf(mu[2] | 10, 1);
+  // forward algorithm
+  {
+  real acc[K];
+  real gamma[N, K];
+  for (k in 1:K)
+    gamma[1, k] = normal_lpdf(y[1] | mu[k], 1);
+  for (t in 2:N) {
+    for (k in 1:K) {
+      for (j in 1:K)
+        acc[j] = gamma[t-1, j] + log(theta[j, k]) + normal_lpdf(y[t] | mu[k], 1);
+      gamma[t, k] = log_sum_exp(acc);
+    }
+  }
+  target += log_sum_exp(gamma[N]);
+  }
+}
+
+generated quantities {
+  int&lt;lower=1,upper=K&gt; z_star[N];
+  real log_p_z_star;
+  {
+    int back_ptr[N, K];
+    real best_logp[N, K];
+    for (k in 1:K)
+      best_logp[1, k] = normal_lpdf(y[1] | mu[k], 1);
+    for (t in 2:N) {
+      for (k in 1:K) {
+        best_logp[t, k] = negative_infinity();
+        for (j in 1:K) {
+          real logp;
+          logp = best_logp[t-1, j] + log(theta[j, k]) + normal_lpdf(y[t] | mu[k], 1);
+          if (logp &gt; best_logp[t, k]) {
+            back_ptr[t, k] = j;
+            best_logp[t, k] = logp;
+          }
+        }
+      }
+    }
+    log_p_z_star = max(best_logp[N]);
+    for (k in 1:K)
+      if (best_logp[N, k] == log_p_z_star)
+        z_star[N] = k;
+    for (t in 1:(N - 1))
+      z_star[N - t] = back_ptr[N - t + 1, z_star[N - t + 1]];
+  }
+}
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">cmdstanpy</span><span class="o">.</span><span class="n">CmdStanModel</span><span class="p">(</span><span class="n">stan_file</span><span class="o">=</span><span class="s2">"stan_codes/hmm_example.stan"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:found newer exe file, not recompiling
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stan_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hmm_data</span><span class="p">),</span> <span class="n">K</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">hmm_data</span><span class="p">[</span><span class="s2">"y"</span><span class="p">])</span>
+<span class="n">hmm_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">stan_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:CmdStan start processing
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1d4f91f53cac4714a17b24ccdf3c7b9b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f30cb7650b504cb482e5ccb6b2b518f8", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "893b7b786d3d48209a2f7a788f7707ed", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "71348b32f6784a39a011908db3a0d839", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                                                                                                                                                                                                                                
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:CmdStan done processing.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="conversion-to-inferencedata">
+<h3>Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code><a class="headerlink" href="#conversion-to-inferencedata" title="Permalink to this heading">#</a></h3>
+<p>To convert a CmdStanPy fit to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>, only the <code class="docutils literal notranslate"><span class="pre">CmdStanMCMC</span></code> object is needed. However, to make the most out of ArviZ and xarray features, the dimensions of each variable should also be provided.</p>
+<p>Optionally, you can also give coordinate values to some of the dimensions. The dimensions without coordinate values provided are initialized with integers starting from 0 as their coordinate values.</p>
+<p>Dimensions are provided as a dictionary whose keys are variable names and whose values are a list with the dimension names.</p>
+<p>Coordinates are provided as a dictionary whose keys are now dimension names, and whose values are coordinate values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_cmdstanpy</span><span class="p">(</span>
+    <span class="n">hmm_fit</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"theta"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"origin_state"</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">],</span> <span class="s2">"mu"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"state"</span><span class="p">],</span> <span class="s2">"z_star"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">]},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"origin_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">idata</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>Inference data with groups:
+	&gt; posterior
+	&gt; sample_stats</pre></div></div>
+</div>
+<p>We have now created an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> object with two groups, the <code class="docutils literal notranslate"><span class="pre">posterior</span></code> (shown below) contains all posterior samples, and the <code class="docutils literal notranslate"><span class="pre">sample_stats</span></code> one contains sampler information like the log probability, which samples are divergent or the treedepth.</p>
+<p>Each group is an <a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/data-structures.html#dataset">xarray.Dataset</a>. As you can see, <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>s have dimensions, coordinates, data variables and attributes. When printed (either as text or as html repr) each element has its own section with the relevant information.</p>
+<p>The dimensions section lists all the dimensions and their lenghts. There we can quickly see that we have 2 states, and have sampled 1000 draws in 4 independent chains…</p>
+<p>The coordinates section lists information in the following order: coordinate name, dimension name, type of coordinate values and coordinate values. Moreover, in the beginning there can be an <code class="docutils literal notranslate"><span class="pre">*</span></code> which indicates it is an indexing coordinate. With indexing coordinates, you can use <code class="docutils literal notranslate"><span class="pre">.sel</span></code> method on either <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> or <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> to select a subset of the data using coordinate values.</p>
+<p>The data variables lists: variables name, dimensions, type and values. Each variable, stored as a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> object, is independent of the others. They can have any of the dimensions of the <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> and in any order.</p>
+<p>The attributes section lists <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> level attributes. By default, ArviZ adds some attributes to give an idea of how the data was generated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:       (chain: 4, draw: 1000, origin_state: 2, end_state: 2,
+                   state: 2, time: 100)
+Coordinates:
+  * chain         (chain) int64 0 1 2 3
+  * draw          (draw) int64 0 1 2 3 4 5 6 7 ... 993 994 995 996 997 998 999
+  * origin_state  (origin_state) int64 1 2
+  * end_state     (end_state) int64 1 2
+  * state         (state) int64 1 2
+  * time          (time) int64 0 1 2 3 4 5 6 7 8 ... 91 92 93 94 95 96 97 98 99
+Data variables:
+    theta         (chain, draw, origin_state, end_state) float64 0.537 ... 0....
+    mu            (chain, draw, state) float64 3.335 8.763 2.639 ... 3.078 8.938
+    z_star        (chain, draw, time) float64 1.0 2.0 2.0 2.0 ... 2.0 2.0 2.0
+    log_p_z_star  (chain, draw) float64 -166.1 -166.9 -166.3 ... -167.1 -166.0
+Attributes:
+    created_at:                 2022-04-24T22:54:42.066604
+    arviz_version:              0.12.0
+    inference_library:          cmdstanpy
+    inference_library_version:  1.0.1</pre></div></div>
+</div>
+</section>
+<section id="diagnostics">
+<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">arviz.summary</span></code> gives an overview of the fit with both summary statistics and diagnostics.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">,</span> <span class="s2">"mu"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mean</th>
+<th>sd</th>
+<th>hdi_3%</th>
+<th>hdi_97%</th>
+<th>mcse_mean</th>
+<th>mcse_sd</th>
+<th>ess_bulk</th>
+<th>ess_tail</th>
+<th>r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>theta[1, 1]</th>
+<td>0.668</td>
+<td>0.100</td>
+<td>0.479</td>
+<td>0.846</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>3107.0</td>
+<td>2035.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>theta[1, 2]</th>
+<td>0.332</td>
+<td>0.100</td>
+<td>0.154</td>
+<td>0.521</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>3107.0</td>
+<td>2035.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>theta[2, 1]</th>
+<td>0.073</td>
+<td>0.029</td>
+<td>0.024</td>
+<td>0.126</td>
+<td>0.001</td>
+<td>0.000</td>
+<td>2718.0</td>
+<td>1969.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>theta[2, 2]</th>
+<td>0.927</td>
+<td>0.029</td>
+<td>0.874</td>
+<td>0.976</td>
+<td>0.001</td>
+<td>0.000</td>
+<td>2718.0</td>
+<td>1969.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>mu[1]</th>
+<td>3.016</td>
+<td>0.221</td>
+<td>2.613</td>
+<td>3.432</td>
+<td>0.005</td>
+<td>0.003</td>
+<td>2012.0</td>
+<td>2147.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>mu[2]</th>
+<td>8.828</td>
+<td>0.111</td>
+<td>8.611</td>
+<td>9.032</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>4296.0</td>
+<td>3005.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can customize the appearance of the summary with the <code class="docutils literal notranslate"><span class="pre">labeller</span></code> argument. The <code class="docutils literal notranslate"><span class="pre">arviz.labels</span></code> module includes some common labeller classes. The default is showing only variable name and coordinate values. We will now use the <code class="docutils literal notranslate"><span class="pre">DimCoordLabeller</span></code> to show also the dimension name:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">,</span> <span class="s2">"mu"</span><span class="p">],</span> <span class="n">labeller</span><span class="o">=</span><span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">DimCoordLabeller</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mean</th>
+<th>sd</th>
+<th>hdi_3%</th>
+<th>hdi_97%</th>
+<th>mcse_mean</th>
+<th>mcse_sd</th>
+<th>ess_bulk</th>
+<th>ess_tail</th>
+<th>r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>theta[origin_state: 1, end_state: 1]</th>
+<td>0.668</td>
+<td>0.100</td>
+<td>0.479</td>
+<td>0.846</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>3107.0</td>
+<td>2035.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>theta[origin_state: 1, end_state: 2]</th>
+<td>0.332</td>
+<td>0.100</td>
+<td>0.154</td>
+<td>0.521</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>3107.0</td>
+<td>2035.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>theta[origin_state: 2, end_state: 1]</th>
+<td>0.073</td>
+<td>0.029</td>
+<td>0.024</td>
+<td>0.126</td>
+<td>0.001</td>
+<td>0.000</td>
+<td>2718.0</td>
+<td>1969.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>theta[origin_state: 2, end_state: 2]</th>
+<td>0.927</td>
+<td>0.029</td>
+<td>0.874</td>
+<td>0.976</td>
+<td>0.001</td>
+<td>0.000</td>
+<td>2718.0</td>
+<td>1969.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>mu[state: 1]</th>
+<td>3.016</td>
+<td>0.221</td>
+<td>2.613</td>
+<td>3.432</td>
+<td>0.005</td>
+<td>0.003</td>
+<td>2012.0</td>
+<td>2147.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>mu[state: 2]</th>
+<td>8.828</td>
+<td>0.111</td>
+<td>8.611</td>
+<td>9.032</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>4296.0</td>
+<td>3005.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div></div></div>
+</div>
+<p>Further guidance on sorting and customizing ArviZ labels can be found in the <a class="reference external" href="https://python.arviz.org/en/latest/user_guide/label_guide.html">ArviZ label guide</a></p>
+</section>
+<section id="posterior-predictive-sampling">
+<h3>Posterior predictive sampling<a class="headerlink" href="#posterior-predictive-sampling" title="Permalink to this heading">#</a></h3>
+<p>Following the case study, we will perform posterior predictive sampling in Python instead of in the <code class="docutils literal notranslate"><span class="pre">generated_quantities</span></code> block of Stan. We will use <a class="reference external" href="https://einstats.python.arviz.org/en/latest/">xarray-einstats</a> to generate the random samples from xarray objects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.stats</span> <span class="kn">import</span> <span class="n">XrContinuousRV</span>
+<span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a>
+
+<span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+
+<span class="n">psi_seq</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s2">"mu"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s2">"z_star"</span><span class="p">])</span>
+<span class="c1"># the conversion to dataset is for dislpay reasons only</span>
+<span class="n">psi_seq</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"psi_seq"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:  (chain: 4, draw: 1000, time: 100)
+Coordinates:
+  * chain    (chain) int64 0 1 2 3
+  * draw     (draw) int64 0 1 2 3 4 5 6 7 8 ... 992 993 994 995 996 997 998 999
+    state    (chain, draw, time) int64 1 2 2 2 2 2 2 2 2 2 ... 2 2 2 2 2 2 2 2 2
+  * time     (time) int64 0 1 2 3 4 5 6 7 8 9 ... 90 91 92 93 94 95 96 97 98 99
+Data variables:
+    psi_seq  (chain, draw, time) float64 3.335 8.763 8.763 ... 8.938 8.938 8.938</pre></div></div>
+</div>
+<p>When we do <code class="docutils literal notranslate"><span class="pre">.sel(state=DataArray)</span></code> we are telling xarray to use the values in the provided <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> as labels with which to index the <code class="docutils literal notranslate"><span class="pre">state</span></code> dimension. xarray takes care of aligning and broadcasting the dimensions for the indexing to work and generates the desired 3d array with chain, draw and time dimensions.</p>
+<p>With the means that correspond to each posterior predictive sample, we need to generate random draws from a normal with mean <code class="docutils literal notranslate"><span class="pre">mu</span></code> and standard deviation <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+xarray-einstats provides the <a class="reference external" href="https://einstats.python.arviz.org/en/latest/tutorials/stats_tutorial.html#probability-distributions">XrContinuousRV</a> class to wrap SciPy distributions and have them take <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s as inputs.</p>
+<p>We can then generate the distribution and generate the random samples with the <code class="docutils literal notranslate"><span class="pre">rvs</span></code> method like we would do with SciPy. The <code class="docutils literal notranslate"><span class="pre">to_dataset</span></code> method is called so we can then add the data as a new group to our <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">posterior_predictive</span><span class="o">=</span><span class="n">XrContinuousRV</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">psi_seq</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">idata</span><span class="p">)</span>
+<span class="n">idata</span><span class="o">.</span><span class="n">posterior_predictive</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inference data with groups:
+	&gt; posterior
+	&gt; posterior_predictive
+	&gt; sample_stats
+</pre></div>
+</div>
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:  (chain: 4, draw: 1000, time: 100)
+Coordinates:
+  * chain    (chain) int64 0 1 2 3
+  * draw     (draw) int64 0 1 2 3 4 5 6 7 8 ... 992 993 994 995 996 997 998 999
+    state    (chain, draw, time) int64 1 2 2 2 2 2 2 2 2 2 ... 2 2 2 2 2 2 2 2 2
+  * time     (time) int64 0 1 2 3 4 5 6 7 8 9 ... 90 91 92 93 94 95 96 97 98 99
+Data variables:
+    y        (chain, draw, time) float64 3.875 9.168 8.93 ... 8.58 7.509 8.855</pre></div></div>
+</div>
+<p>Before plotting we will use the <a class="reference external" href="https://python.arviz.org/en/latest/api/generated/arviz.extract_dataset.html">extract_dataset</a> function to get a random subset of 100 samples. Plotting the 4000 samples we have available would be excessive and not add any information to the plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pp_subset</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">extract_dataset</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"posterior_predictive"</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hmm_data</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Observed vs Predicted Output"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Observation Value"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Time"</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pp_subset</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#ff668890"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#ff668890"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Predicted"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/114177c4d5c36f9e70eeb814a5588334a69118757e578f6082145c11b6833143.png" src="../../../_images/114177c4d5c36f9e70eeb814a5588334a69118757e578f6082145c11b6833143.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="tagging-drive-events">
+<h2>Tagging Drive Events<a class="headerlink" href="#tagging-drive-events" title="Permalink to this heading">#</a></h2>
+<p>Link to <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html#tagging-drive-events">this same section</a> in the original Stan case study.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/evt140_0021500411.csv"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stan_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s2">"lavine_speed_smooth"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"lavine_dist"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"stan_codes/drive_1.stan"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>// drive model (normal dist)
+data {
+  int&lt;lower=1&gt; K;               // number of states (1 = none, 2 = drive)
+  int&lt;lower=1&gt; N;               // length of process
+  real u[N];                    // 1/speed
+  real v[N];                    // hoop distance
+  matrix&lt;lower=0&gt;[K,K] alpha;   // transit prior
+  real&lt;lower=0&gt; tau;            // sd u
+  real&lt;lower=0&gt; rho;            // sd v
+}
+parameters {
+  simplex[K] theta[K];          // transit probs
+  // enforce an ordering: phi[1] &lt;= phi[2] 
+  ordered[K] phi;      // emission parameter for 1/speed
+  ordered[K] lambda;   // emission parameter for hoop dist
+}
+model {
+  // priors
+  for (k in 1:K)
+    target += dirichlet_lpdf(theta[k] | alpha[k,]');
+  target+= normal_lpdf(phi[1] | 0, 1);
+  target+= normal_lpdf(phi[2] | 3, 1);
+  target+= normal_lpdf(lambda[1] | 0, 1);
+  target+= normal_lpdf(lambda[2] | 3, 1);
+  // forward algorithm
+  {
+    real acc[K];
+    real gamma[N,K];
+    for (k in 1:K)
+      gamma[1,k] = normal_lpdf(u[1] | phi[k], tau) + normal_lpdf(v[1] | lambda[k], rho);
+    for (t in 2:N) {
+      for (k in 1:K) {
+        for (j in 1:K)
+          acc[j] = gamma[t-1,j] + log(theta[j,k]) + normal_lpdf(u[t] | phi[k], tau) + normal_lpdf(v[t] | lambda[k], rho);
+        gamma[t,k] = log_sum_exp(acc);
+      }
+    }
+    target+= log_sum_exp(gamma[N]);
+  }
+}
+
+generated quantities {
+  int&lt;lower=1,upper=K&gt; z_star[N];
+  real log_p_z_star;
+  // Viterbi algorithm
+  {
+    int back_ptr[N,K];
+    real best_logp[N,K];
+    for (k in 1:K)
+      best_logp[1,K] = normal_lpdf(u[1] | phi[k], tau) + normal_lpdf(v[1] | lambda[k], rho);
+    for (t in 2:N) {
+      for (k in 1:K) {
+        best_logp[t,k] = negative_infinity();
+        for (j in 1:K) {
+          real logp;
+          logp = best_logp[t-1,j] + log(theta[j,k]) + normal_lpdf(u[t] | phi[k], tau) + normal_lpdf(v[t] | lambda[k], rho);
+          if (logp &gt; best_logp[t,k]) {
+            back_ptr[t,k] = j;
+            best_logp[t,k] = logp;
+          }
+        }
+      }
+    }
+    log_p_z_star = max(best_logp[N]);
+    for (k in 1:K)
+      if (best_logp[N,k] == log_p_z_star)
+        z_star[N] = k;
+    for (t in 1:(N - 1))
+      z_star[N - t] = back_ptr[N - t + 1, z_star[N - t + 1]];
+  }
+}
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">cmdstanpy</span><span class="o">.</span><span class="n">CmdStanModel</span><span class="p">(</span><span class="n">stan_file</span><span class="o">=</span><span class="s2">"stan_codes/drive_1.stan"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:found newer exe file, not recompiling
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">drive_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">stan_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:CmdStan start processing
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "17fc499b07044d3c88bfebdc99d391f0", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "bacf683804e84422b40ee427a3385f1d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "0289452a1b7f42a8959ead09c88abfae", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "80d94cd8aa6a4b3895d142ac959d5714", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                                                                                                                                                                                                                                
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:CmdStan done processing.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h3>Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>In this example we also use the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> argument to add some data to the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> group. This can be useful to have the observations also as xarray objects and ease postprocessing operations, or to share the model and InferenceData file for collaborators to reproduce the fit or work with the results directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">drive_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_cmdstanpy</span><span class="p">(</span>
+    <span class="n">drive_fit</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"theta"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"origin_state"</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">],</span> 
+        <span class="s2">"alpha"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"origin_state"</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">],</span> 
+        <span class="s2">"phi"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"state"</span><span class="p">],</span> 
+        <span class="s2">"lambda"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"state"</span><span class="p">],</span> 
+        <span class="s2">"z_star"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">],</span>
+        <span class="s2">"v"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">],</span>
+        <span class="s2">"u"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">stan_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">,</span> <span class="s2">"alpha"</span><span class="p">}},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"origin_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">drive_idata</span><span class="o">.</span><span class="n">posterior</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:       (chain: 4, draw: 1000, origin_state: 2, end_state: 2,
+                   state: 2, time: 416)
+Coordinates:
+  * chain         (chain) int64 0 1 2 3
+  * draw          (draw) int64 0 1 2 3 4 5 6 7 ... 993 994 995 996 997 998 999
+  * origin_state  (origin_state) int64 1 2
+  * end_state     (end_state) int64 1 2
+  * state         (state) int64 1 2
+  * time          (time) int64 0 1 2 3 4 5 6 7 ... 409 410 411 412 413 414 415
+Data variables:
+    theta         (chain, draw, origin_state, end_state) float64 0.9664 ... 0...
+    phi           (chain, draw, state) float64 -2.379 -0.7464 ... -2.332 -0.7441
+    lambda        (chain, draw, state) float64 2.421 3.542 2.425 ... 2.423 3.534
+    z_star        (chain, draw, time) float64 2.0 2.0 2.0 2.0 ... 2.0 2.0 2.0
+    log_p_z_star  (chain, draw) float64 -6.908e+03 -6.904e+03 ... -6.905e+03
+Attributes:
+    created_at:                 2022-04-24T23:29:53.782668
+    arviz_version:              0.12.0
+    inference_library:          cmdstanpy
+    inference_library_version:  1.0.1</pre></div></div>
+</div>
+</section>
+<section id="id2">
+<h3>Posterior predictive sampling<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>We use again the same functions as before, with only a small difference, we now use <code class="docutils literal notranslate"><span class="pre">.sel</span></code> on a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> with the two variables of interest instead of a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>. As you can see, everything works the same.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">post</span> <span class="o">=</span> <span class="n">drive_idata</span><span class="o">.</span><span class="n">posterior</span>
+
+<span class="n">ds_seq</span> <span class="o">=</span> <span class="n">post</span><span class="p">[[</span><span class="s2">"phi"</span><span class="p">,</span> <span class="s2">"lambda"</span><span class="p">]]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s2">"z_star"</span><span class="p">])</span>
+<span class="n">phi_hat</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">ds_seq</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">],</span> <span class="mf">.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+<span class="n">lambda_hat</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">ds_seq</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">],</span> <span class="mf">.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+
+<span class="n">drive_idata</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">({</span><span class="s2">"phi"</span><span class="p">:</span> <span class="n">phi_hat</span><span class="p">,</span> <span class="s2">"lambda"</span><span class="p">:</span> <span class="n">lambda_hat</span><span class="p">})</span>
+<span class="p">)</span>
+<span class="n">drive_idata</span><span class="o">.</span><span class="n">posterior_predictive</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:  (chain: 4, draw: 1000, time: 416)
+Coordinates:
+  * chain    (chain) int64 0 1 2 3
+  * draw     (draw) int64 0 1 2 3 4 5 6 7 8 ... 992 993 994 995 996 997 998 999
+    state    (chain, draw, time) int64 2 2 2 2 2 2 2 2 2 2 ... 2 2 2 2 2 2 2 2 2
+  * time     (time) int64 0 1 2 3 4 5 6 7 8 ... 408 409 410 411 412 413 414 415
+Data variables:
+    phi      (chain, draw, time) float64 -0.7508 -0.904 ... -0.6576 -0.8262
+    lambda   (chain, draw, time) float64 3.422 3.491 3.549 ... 3.443 3.603 3.345</pre></div></div>
+</div>
+<p>We end reproducing the plot in the original case study to show that the posterior predictive samples do indeed look the same.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pp_subset</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">extract_dataset</span><span class="p">(</span><span class="n">drive_idata</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"posterior_predictive"</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">obs_data</span> <span class="o">=</span> <span class="n">drive_idata</span><span class="o">.</span><span class="n">observed_data</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">obs_data</span><span class="p">[</span><span class="s2">"v"</span><span class="p">],</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Distance from hoop (log scale)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Distance from hoop"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Time (25Hz)"</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pp_subset</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#ff668890"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#ff668890"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Predicted"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'upper left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">"medium"</span><span class="p">);</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">obs_data</span><span class="p">[</span><span class="s2">"u"</span><span class="p">],</span> <span class="s2">"k-"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Smooth speed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Speed (log scale)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Time (25Hz)"</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pp_subset</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#ff668890"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#ff668890"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Predicted"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'upper left'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">"medium"</span><span class="p">);</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">"z_star"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">)),</span> <span class="s2">"k-"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Hidden states"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"State"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Time (25Hz)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Drive"</span><span class="p">,</span> <span class="s2">"None"</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="s2">"medium"</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/3e199e6285b2a6f1a1f01b402d5ca09d9084f1b5b00fc13211758b526e88f459.png" src="../../../_images/3e199e6285b2a6f1a1f01b402d5ca09d9084f1b5b00fc13211758b526e88f459.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="defensive-assignment">
+<h2>Defensive assignment<a class="headerlink" href="#defensive-assignment" title="Permalink to this heading">#</a></h2>
+<p>Link to <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html#defensive-assignment">this same section</a> in the original Stan case study.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">"data/defense_example.nc"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;xarray.Dataset&gt;
+Dimensions:  (coord: 2, time: 20, player: 5)
+Coordinates:
+  * coord    (coord) object 'x' 'y'
+  * time     (time) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+  * player   (player) int64 0 1 2 3 4
+Data variables:
+    N        int64 ...
+    K        int64 ...
+    tau      float64 ...
+    h        (coord) float64 ...
+    b        (time, coord) float64 ...
+    o        (player, time, coord) float64 ...
+    d        (time, coord) float64 ...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stan_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">v</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"stan_codes/defense_0a.stan"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>// defensive model 0.a (lambda fixed)
+data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; K;
+  real&lt;lower=0&gt; tau;
+  real lambda[3];
+  vector[2] h;
+  vector[2] b[N];  // array of size N containing vectors of size 2
+  vector[2] d[N];
+  vector[2] o[K,N];   // array of size K,N containing vectors of size 2
+}
+
+parameters {
+  simplex[K] theta[K];
+}
+
+model {
+  // forward algorithm
+  {
+  real acc[K];
+  real gamma[N, K];
+  for (k in 1:K)
+    gamma[1, k] = normal_lpdf(d[1] |  o[k,1]*lambda[1] + h*lambda[2] + b[1]*lambda[3], tau);
+  for (t in 2:N) {
+    for (k in 1:K) {
+      for (j in 1:K)
+        acc[j] = gamma[t-1, j] + log(theta[j, k])
+          + normal_lpdf(d[t] |  o[k,t]*lambda[1] + h*lambda[2] + b[t]*lambda[3], tau);
+      gamma[t, k] = log_sum_exp(acc);
+    }
+  }
+  target += log_sum_exp(gamma[N]);
+  }
+}
+
+generated quantities {
+  int&lt;lower=1,upper=K&gt; z_star[N];
+  real log_p_z_star;
+  {
+    int back_ptr[N, K];
+    real best_logp[N, K];
+    for (k in 1:K)
+      best_logp[1, k] = normal_lpdf(d[1] |  o[k,1]*lambda[1] + h*lambda[2] + b[1]*lambda[3], tau);
+    for (t in 2:N) {
+      for (k in 1:K) {
+        best_logp[t, k] = negative_infinity();
+        for (j in 1:K) {
+          real logp;
+          logp = best_logp[t-1, j] + log(theta[j, k])
+            + normal_lpdf(d[t] |  o[k,t]*lambda[1] + h*lambda[2] + b[t]*lambda[3], tau);
+          if (logp &gt; best_logp[t, k]) {
+            back_ptr[t, k] = j;
+            best_logp[t, k] = logp;
+          }
+        }
+      }
+    }
+    log_p_z_star = max(best_logp[N]);
+    for (k in 1:K)
+      if (best_logp[N, k] == log_p_z_star)
+        z_star[N] = k;
+    for (t in 1:(N - 1))
+      z_star[N - t] = back_ptr[N - t + 1, z_star[N - t + 1]];
+  }
+}
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">cmdstanpy</span><span class="o">.</span><span class="n">CmdStanModel</span><span class="p">(</span><span class="n">stan_file</span><span class="o">=</span><span class="s2">"stan_codes/defense_0a.stan"</span><span class="p">)</span>
+<span class="n">defense0a_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">stan_data</span><span class="p">,</span> <span class="s2">"lambda"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:found newer exe file, not recompiling
+INFO:cmdstanpy:CmdStan start processing
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c9b20520895345ada4b40bb5ebe426ea", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "2dc40b08350a4baeb2c845546e032657", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7ccd6c14456d446985d4f25159eb1294", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "6ad2b6fbc8614fed97169cb0459a15f4", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                                                                                                                                                                                                                                
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:CmdStan done processing.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example we already have the data as an xarray object, so we won’t use the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> group. If you still wanted to include it, it might be easier to use <code class="docutils literal notranslate"><span class="pre">.add_groups</span></code> with the already existing <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> like we did with the posterior predictive samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">defense0a_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_cmdstanpy</span><span class="p">(</span>
+    <span class="n">defense0a_fit</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"theta"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"origin_state"</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">],</span> 
+        <span class="s2">"z_star"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"origin_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">defense0a_idata</span><span class="o">.</span><span class="n">posterior</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:       (chain: 4, draw: 1000, origin_state: 5, end_state: 5, time: 20)
+Coordinates:
+  * chain         (chain) int64 0 1 2 3
+  * draw          (draw) int64 0 1 2 3 4 5 6 7 ... 993 994 995 996 997 998 999
+  * origin_state  (origin_state) int64 1 2 3 4 5
+  * end_state     (end_state) int64 1 2 3 4 5
+  * time          (time) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+Data variables:
+    theta         (chain, draw, origin_state, end_state) float64 0.5028 ... 0...
+    z_star        (chain, draw, time) float64 5.0 5.0 5.0 5.0 ... 2.0 2.0 2.0
+    log_p_z_star  (chain, draw) float64 -3.639e+04 -3.64e+04 ... -3.64e+04
+Attributes:
+    created_at:                 2022-04-24T22:36:39.407969
+    arviz_version:              0.12.0
+    inference_library:          cmdstanpy
+    inference_library_version:  1.0.1</pre></div></div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"stan_codes/defense_0b.stan"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>// defensive model 0.b (lambda as parameter)
+data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; K;
+  real&lt;lower=0&gt; tau;
+  vector[3] alpha;
+  vector[2] h;
+  vector[2] b[N];  // array of size N containing vectors of size 2
+  vector[2] d[N];
+  vector[2] o[K,N];   // array of size K,N containing vectors of size 2
+}
+
+parameters {
+  simplex[K] theta[K];
+  simplex[3] lambda;
+}
+
+model {
+  // priors
+  target+= dirichlet_lpdf(lambda | alpha);
+  // forward algorithm
+  {
+  real acc[K];
+  real gamma[N, K];
+  for (k in 1:K)
+    gamma[1, k] = normal_lpdf(d[1] |  o[k,1]*lambda[1] + h*lambda[2] + b[1]*lambda[3], tau);
+  for (t in 2:N) {
+    for (k in 1:K) {
+      for (j in 1:K)
+        acc[j] = gamma[t-1, j] + log(theta[j, k])
+          + normal_lpdf(d[t] |  o[k,t]*lambda[1] + h*lambda[2] + b[t]*lambda[3], tau);
+      gamma[t, k] = log_sum_exp(acc);
+    }
+  }
+  target += log_sum_exp(gamma[N]);
+  }
+}
+
+generated quantities {
+  int&lt;lower=1,upper=K&gt; z_star[N];
+  real log_p_z_star;
+  {
+    int back_ptr[N, K];
+    real best_logp[N, K];
+    for (k in 1:K)
+      best_logp[1, k] = normal_lpdf(d[1] |  o[k,1]*lambda[1] + h*lambda[2] + b[1]*lambda[3], tau);
+    for (t in 2:N) {
+      for (k in 1:K) {
+        best_logp[t, k] = negative_infinity();
+        for (j in 1:K) {
+          real logp;
+          logp = best_logp[t-1, j] + log(theta[j, k])
+            + normal_lpdf(d[t] |  o[k,t]*lambda[1] + h*lambda[2] + b[t]*lambda[3], tau);
+          if (logp &gt; best_logp[t, k]) {
+            back_ptr[t, k] = j;
+            best_logp[t, k] = logp;
+          }
+        }
+      }
+    }
+    log_p_z_star = max(best_logp[N]);
+    for (k in 1:K)
+      if (best_logp[N, k] == log_p_z_star)
+        z_star[N] = k;
+    for (t in 1:(N - 1))
+      z_star[N - t] = back_ptr[N - t + 1, z_star[N - t + 1]];
+  }
+}
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">cmdstanpy</span><span class="o">.</span><span class="n">CmdStanModel</span><span class="p">(</span><span class="n">stan_file</span><span class="o">=</span><span class="s2">"stan_codes/defense_0b.stan"</span><span class="p">)</span>
+<span class="n">defense0b_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">stan_data</span><span class="p">,</span> <span class="s2">"alpha"</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:found newer exe file, not recompiling
+INFO:cmdstanpy:CmdStan start processing
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "55ad0024e1d14bb18b5ee74445eefb27", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "fb86145cff0f4c8bbb1b202b92fb7b89", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f426ef76162841ddb32ca19010e7997e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "dd116640fe89476eb39903a7bb8332be", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                                                                                                                                                                                                                                                                                                                
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:cmdstanpy:CmdStan done processing.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here I have chosen <code class="docutils literal notranslate"><span class="pre">param</span></code> as dimension name for <code class="docutils literal notranslate"><span class="pre">lambda</span></code> because each component multiplies a different provided variable, and used <code class="docutils literal notranslate"><span class="pre">o,</span> <span class="pre">h,</span> <span class="pre">b</span></code> as coordinate names to match the variable names in the data block, but they could be <code class="docutils literal notranslate"><span class="pre">offensive</span> <span class="pre">player,</span> <span class="pre">hoop,</span> <span class="pre">ball</span></code> as well, there is no need to restrict oneself to one character coordinate values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">defense0b_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_cmdstanpy</span><span class="p">(</span>
+    <span class="n">defense0b_fit</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"theta"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"origin_state"</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">],</span>
+        <span class="s2">"lambda"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"param"</span><span class="p">],</span>
+        <span class="s2">"z_star"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"origin_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"end_state"</span><span class="p">:</span> <span class="n">states</span><span class="p">,</span> <span class="s2">"param"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"o"</span><span class="p">,</span> <span class="s2">"h"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">]}</span>
+<span class="p">)</span>
+<span class="n">defense0b_idata</span><span class="o">.</span><span class="n">posterior</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:       (chain: 4, draw: 1000, origin_state: 5, end_state: 5,
+                   param: 3, time: 20)
+Coordinates:
+  * chain         (chain) int64 0 1 2 3
+  * draw          (draw) int64 0 1 2 3 4 5 6 7 ... 993 994 995 996 997 998 999
+  * origin_state  (origin_state) int64 1 2 3 4 5
+  * end_state     (end_state) int64 1 2 3 4 5
+  * param         (param) &lt;U1 'o' 'h' 'b'
+  * time          (time) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+Data variables:
+    theta         (chain, draw, origin_state, end_state) float64 0.5198 ... 0...
+    lambda        (chain, draw, param) float64 0.5897 0.4103 ... 0.0001586
+    z_star        (chain, draw, time) float64 5.0 1.0 1.0 1.0 ... 2.0 2.0 2.0
+    log_p_z_star  (chain, draw) float64 -1.251e+04 -1.251e+04 ... -1.251e+04
+Attributes:
+    created_at:                 2022-04-24T22:37:09.720963
+    arviz_version:              0.12.0
+    inference_library:          cmdstanpy
+    inference_library_version:  1.0.1</pre></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lambda0b</span> <span class="o">=</span> <span class="n">defense0b_idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">]</span>
+
+<span class="n">mu0a</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"o"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"h"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">mu0b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">"o"</span><span class="p">]</span> <span class="o">*</span> <span class="n">lambda0b</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="s2">"o"</span><span class="p">)</span> 
+    <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"h"</span><span class="p">]</span> <span class="o">*</span> <span class="n">lambda0b</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="s2">"h"</span><span class="p">)</span> 
+    <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span> <span class="o">*</span> <span class="n">lambda0b</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="s2">"b"</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">mu0b</span></code> is now a 5d array. Thanks to xarray automatic alignment and broadcasting capabilities we have calculated its values for all players, all time steps and all samples at once:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># conversion to dataset is only for display reasons</span>
+<span class="n">mu0b</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"mu0b"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre>&lt;xarray.Dataset&gt;
+Dimensions:  (coord: 2, time: 20, player: 5, chain: 4, draw: 1000)
+Coordinates:
+  * coord    (coord) object 'x' 'y'
+  * time     (time) int64 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+  * player   (player) int64 0 1 2 3 4
+  * chain    (chain) int64 0 1 2 3
+  * draw     (draw) int64 0 1 2 3 4 5 6 7 8 ... 992 993 994 995 996 997 998 999
+    param    &lt;U1 'b'
+Data variables:
+    mu0b     (player, time, coord, chain, draw) float64 -0.5923 ... -0.8203</pre></div></div>
+</div>
+<p>This doesn’t make any difference in this case, because we are multiplying the components of <code class="docutils literal notranslate"><span class="pre">lambda</span></code> by quantities that are not random variables, so we will get the same result averaging on <code class="docutils literal notranslate"><span class="pre">lambda</span></code> before operating or averaging on <code class="docutils literal notranslate"><span class="pre">mu</span></code> after operating.</p>
+<p>However, in many cases we need to operate with all the draws of each random variable. xarray makes it straightforward to work with all the samples and average only once we have the quantity of interest.</p>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://python.arviz.org/en/latest/getting_started/WorkingWithInferenceData.html">Working with InferenceData</a> page in the ArviZ docs</p></li>
+</ul>
+<p>Package versions used to generate this post:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w -p xarray_einstats
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Last updated: Mon Apr 25 2022
+
+Python implementation: CPython
+Python version       : 3.9.10
+IPython version      : 8.0.1
+
+xarray_einstats: 0.3.0.dev0
+
+xarray    : 2022.3.0
+matplotlib: 3.5.1
+arviz     : 0.12.0
+pandas    : 1.4.2
+cmdstanpy : 1.0.1
+numpy     : 1.21.5
+
+Watermark: 2.3.0
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils"/>
+<p>Comments are not enabled for this post, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://discourse.mc-stan.org/">Stan Discourse</a>. Feel free to tag me at <a class="reference external" href="https://discourse.mc-stan.org/u/oriolabril/summary">@OriolAbril</a></p>
+</section>
+</section>
+</article>
+<footer class="bd-footer-article">
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+<div class="ablog__postcard">
+<h5>
+<i class="fa-regular fa-calendar-days"></i>
+  25 April 2022
+  
+</h5>
+<ul>
+<li id="ablog-sidebar-item author ablog__author">
+<span>
+<i class="fa-solid fa-user-pen"></i>
+</span>
+<label class="sr-only">Author</label>
+<a href="../../author/oriol-abril-pla.html">Oriol Abril Pla</a>
+</li>
+<li id="ablog-sidebar-item category ablog__category">
+<span>
+<i class="fa-regular fa-folder-open"></i>
+</span>
+<label class="sr-only">Category</label>
+<a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/arviz.html">arviz</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray.html">xarray</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/stan.html">stan</a>
+</li>
+<li id="ablog-sidebar-item tags ablog__tags">
+<span>
+<i class="fa-solid fa-tags"></i>
+</span>
+<label class="sr-only">Tags</label>
+<a href="../../tag/posterior-predictive.html">posterior predictive</a>
+<a href="../../tag/arviz-converters.html">arviz converters</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="toc-item">
+<div class="tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+</div>
+<nav class="page-toc" id="bd-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#simple-hmm-example">
+   Simple HMM example
+  </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#conversion-to-inferencedata">
+     Conversion to
+     <code class="docutils literal notranslate">
+<span class="pre">
+       InferenceData
+      </span>
+</code>
+</a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#diagnostics">
+     Diagnostics
+    </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#posterior-predictive-sampling">
+     Posterior predictive sampling
+    </a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#tagging-drive-events">
+   Tagging Drive Events
+  </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#id1">
+     Conversion to
+     <code class="docutils literal notranslate">
+<span class="pre">
+       InferenceData
+      </span>
+</code>
+</a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#id2">
+     Posterior predictive sampling
+    </a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#defensive-assignment">
+   Defensive assignment
+  </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#further-reading">
+   Further reading
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="toc-item">
+<div id="searchbox"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner"></div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//trafic-oriolabrilpla.cat/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script src="../../../_static/js/intro.js"></script>
+<div class="footer-notes">
+<ul class="footer-list">
+<li>© Oriol Abril Pla |
+      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+</li>
+<li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+</ul>
+</div>
+</body>
+</html>

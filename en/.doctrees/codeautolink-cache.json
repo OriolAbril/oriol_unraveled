@@ -3,9 +3,7 @@
   "about": [],
   "blog": [],
   "blog/category": [],
-  "blog/tag": [],
-  "index": [],
-  "posts/2019/2019-06-21-loo-cv-transformed-data": [
+  "blog/posts/2019/loo-cv-transformed-data": [
     {
       "source": "import pystan\nimport pandas as pd\nimport numpy as np\nimport arviz as az\nimport matplotlib.pyplot as plt",
       "names": [
@@ -32,10 +30,10 @@
         }
       ],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "loo-cv-on-transformed-data",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d"
+          "LOO-CV on transformed data"
         ]
       },
       "doc_lineno": 30002
@@ -44,10 +42,10 @@
       "source": "az.style.use(\"arviz-darkgrid\")",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "loo-cv-on-transformed-data",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d"
+          "LOO-CV on transformed data"
         ]
       },
       "doc_lineno": 40002
@@ -56,10 +54,10 @@
       "source": "mu = 2\nsigma = 1\nlogy = np.random.normal(loc=mu, scale=sigma, size=30)\ny = np.exp(logy) # y will then be distributed as lognormal\ndata = {'N': len(y), 'y': y, 'logy': logy}",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -67,13 +65,13 @@
       "doc_lineno": 70002
     },
     {
-      "source": "#collapse\nlognormal_code = \"\"\"\ndata {\n  int<lower=0> N;\n  vector[N] y;\n}\n\nparameters {\n  real mu;\n  real<lower=0> sigma;\n}\n\nmodel {\n    y ~ lognormal(mu, sigma);\n}\n\ngenerated quantities {\n    vector[N] log_lik;\n    vector[N] y_hat;\n\n    for (i in 1:N) {\n        log_lik[i] = lognormal_lpdf(y[i] | mu, sigma);\n        y_hat[i] = lognormal_rng(mu, sigma);\n    }\n}\n\n\"\"\"",
+      "source": "lognormal_code = \"\"\"\ndata {\n  int<lower=0> N;\n  vector[N] y;\n}\n\nparameters {\n  real mu;\n  real<lower=0> sigma;\n}\n\nmodel {\n    y ~ lognormal(mu, sigma);\n}\n\ngenerated quantities {\n    vector[N] log_lik;\n    vector[N] y_hat;\n\n    for (i in 1:N) {\n        log_lik[i] = lognormal_lpdf(y[i] | mu, sigma);\n        y_hat[i] = lognormal_rng(mu, sigma);\n    }\n}\n\n\"\"\"",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -84,10 +82,10 @@
       "source": "sm_lognormal = pystan.StanModel(model_code=lognormal_code)\nfit_lognormal = sm_lognormal.sampling(data=data, iter=1000, chains=4)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -98,10 +96,10 @@
       "source": "idata_lognormal = az.from_pystan(\n    posterior=fit_lognormal,\n    posterior_predictive='y_hat',\n    observed_data=['y'],\n    log_likelihood={'y': 'log_lik'},\n)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -109,13 +107,13 @@
       "doc_lineno": 100002
     },
     {
-      "source": "#collapse\nnormal_on_log_code = \"\"\"\ndata {\n  int<lower=0> N;\n  vector[N] logy;\n}\n\nparameters {\n  real mu;\n  real<lower=0> sigma;\n}\n\nmodel {\n    logy ~ normal(mu, sigma);\n}\n\ngenerated quantities {\n    vector[N] log_lik;\n    vector[N] logy_hat;\n\n    for (i in 1:N) {\n        log_lik[i] = normal_lpdf(logy[i] | mu, sigma);\n        logy_hat[i] = normal_rng(mu, sigma);\n    }\n}\n\"\"\"",
+      "source": "normal_on_log_code = \"\"\"\ndata {\n  int<lower=0> N;\n  vector[N] logy;\n}\n\nparameters {\n  real mu;\n  real<lower=0> sigma;\n}\n\nmodel {\n    logy ~ normal(mu, sigma);\n}\n\ngenerated quantities {\n    vector[N] log_lik;\n    vector[N] logy_hat;\n\n    for (i in 1:N) {\n        log_lik[i] = normal_lpdf(logy[i] | mu, sigma);\n        logy_hat[i] = normal_rng(mu, sigma);\n    }\n}\n\"\"\"",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -126,10 +124,10 @@
       "source": "sm_normal = pystan.StanModel(model_code=normal_on_log_code)\nfit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -140,10 +138,10 @@
       "source": "idata_normal = az.from_pystan(\n    posterior=fit_normal,\n    posterior_predictive='logy_hat',\n    observed_data=['logy'],\n    log_likelihood={'logy': 'log_lik'},\n)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -154,10 +152,10 @@
       "source": "az.summary(idata_lognormal)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -168,10 +166,10 @@
       "source": "az.summary(idata_normal)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -182,10 +180,10 @@
       "source": "az.plot_ess(idata_normal, kind=\"quantile\", color=\"k\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "model-definition-and-execution",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Model definition and execution"
         ]
@@ -196,10 +194,10 @@
       "source": "az.plot_density([idata_lognormal, idata_normal], data_labels=[\"Lognormal likelihood\", \"Normal likelihood\"]);",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "posterior-validation",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Posterior validation"
         ]
@@ -210,10 +208,10 @@
       "source": "az.loo(idata_lognormal)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "calculate-loo-cv",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Calculate LOO-CV"
         ]
@@ -224,10 +222,10 @@
       "source": "az.loo(idata_normal)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "calculate-loo-cv",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Calculate LOO-CV"
         ]
@@ -238,10 +236,10 @@
       "source": "z = logy\nidata_normal.log_likelihood[\"y\"] = -z+idata_normal.log_likelihood.logy",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "calculate-loo-cv",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Calculate LOO-CV"
         ]
@@ -252,10 +250,10 @@
       "source": "az.loo(idata_normal, var_name=\"y\")",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "calculate-loo-cv",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Mathematical derivation and validation example",
           "Calculate LOO-CV"
         ]
@@ -266,10 +264,10 @@
       "source": "df = pd.read_excel(\"indicator breast female incidence.xlsx\").set_index(\"Breast Female Incidence\").dropna(thresh=20).T\ndf.to_csv(\"indicator_breast_female_incidence.csv\")\n",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -279,10 +277,10 @@
       "source": "df = pd.read_csv(\"data/indicator_breast_female_incidence.csv\", index_col=0)\ndf.plot(figsize=(9,5.5));",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -292,23 +290,23 @@
       "source": "y_data = df.Finland\nz1_data = np.log(y_data)\nz2_data = np.sqrt(y_data)\nx_data = df.index/100 # rescale to set both to a similar scale\ndict_y = {\"N\": len(x_data), \"y\": y_data, \"x\": x_data}\ndict_z1 = {\"N\": len(x_data), \"y\": z1_data, \"x\": x_data}\ndict_z2 = {\"N\": len(x_data), \"y\": z2_data, \"x\": x_data}\ncoords = {\"year\": x_data}\ndims = {\"y\": [\"year\"], \"log_likelihood\": [\"year\"]}",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
       "doc_lineno": 340002
     },
     {
-      "source": "#collapse\nlr_code = \"\"\"\ndata {\n  int<lower=0> N;\n  vector[N] x;\n  vector[N] y;\n}\n\nparameters {\n  real b0;\n  real b1;\n  real<lower=0> sigma_e;\n}\n\nmodel {\n  b0 ~ normal(0, 20);\n  b1 ~ normal(0, 20);\n  for (i in 1:N) {\n    y[i] ~ normal(b0 + b1 * x[i], sigma_e);\n  }\n\n}\n\ngenerated quantities {\n    vector[N] log_lik;\n    vector[N] y_hat;\n    for (i in 1:N) {\n        log_lik[i] = normal_lpdf(y[i] | b0 + b1 * x[i], sigma_e);\n        y_hat[i] = normal_rng(b0 + b1 * x[i], sigma_e);\n    }\n}\n\"\"\"",
+      "source": "lr_code = \"\"\"\ndata {\n  int<lower=0> N;\n  vector[N] x;\n  vector[N] y;\n}\n\nparameters {\n  real b0;\n  real b1;\n  real<lower=0> sigma_e;\n}\n\nmodel {\n  b0 ~ normal(0, 20);\n  b1 ~ normal(0, 20);\n  for (i in 1:N) {\n    y[i] ~ normal(b0 + b1 * x[i], sigma_e);\n  }\n\n}\n\ngenerated quantities {\n    vector[N] log_lik;\n    vector[N] y_hat;\n    for (i in 1:N) {\n        log_lik[i] = normal_lpdf(y[i] | b0 + b1 * x[i], sigma_e);\n        y_hat[i] = normal_rng(b0 + b1 * x[i], sigma_e);\n    }\n}\n\"\"\"",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -318,10 +316,10 @@
       "source": "sm_lr = pystan.StanModel(model_code=lr_code)\ncontrol = {\"max_treedepth\": 15}",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -331,10 +329,10 @@
       "source": "fit_y = sm_lr.sampling(data=dict_y, iter=1500, chains=6, control=control)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -344,10 +342,10 @@
       "source": "fit_z1 = sm_lr.sampling(data=dict_z1, iter=1500, chains=6, control=control)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -357,10 +355,10 @@
       "source": "fit_z2 = sm_lr.sampling(data=dict_z2, iter=1500, chains=6, control=control)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -370,10 +368,10 @@
       "source": "idata_y = az.from_pystan(\n    posterior=fit_y,\n    posterior_predictive='y_hat',\n    observed_data=['y'],\n    log_likelihood={'y': 'log_lik'},\n    coords=coords,\n    dims=dims,\n)\nidata_y.posterior = idata_y.posterior.rename({\"b0\": \"a0\", \"b1\": \"a1\"})",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -383,10 +381,10 @@
       "source": "idata_z1 = az.from_pystan(\n    posterior=fit_z1,\n    posterior_predictive='y_hat',\n    observed_data=['y'],\n    log_likelihood={'z1': 'log_lik'},\n    coords=coords,\n    dims=dims,\n)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -396,10 +394,10 @@
       "source": "idata_z2 = az.from_pystan(\n    posterior=fit_z2,\n    posterior_predictive='y_hat',\n    observed_data=['y'],\n    log_likelihood={'z2': 'log_lik'},\n    coords=coords,\n    dims=dims,\n)\nidata_z2.posterior = idata_z2.posterior.rename({\"b0\": \"c0\", \"b1\": \"c1\"})",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -409,10 +407,10 @@
       "source": "idata_z1.log_likelihood[\"y\"] = -z1_data.values+idata_z1.log_likelihood.z1",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -422,10 +420,10 @@
       "source": "idata_z2.log_likelihood[\"y\"] = -np.log(2*z2_data.values)+idata_z2.log_likelihood.z2",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -435,10 +433,10 @@
       "source": "az.loo(idata_y)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -448,10 +446,10 @@
       "source": "print(\"LOO before Jacobian transformation: {:.2f}\".format(az.loo(idata_z1, var_name=\"z1\").loo))\nprint(az.loo(idata_z1, var_name=\"y\"))",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
@@ -461,17 +459,17 @@
       "source": "print(\"LOO before Jacobian transformation: {:.2f}\".format(az.loo(idata_z2, var_name=\"z2\").loo))\nprint(az.loo(idata_z2, var_name=\"y\"))",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-06-21-loo-cv-transformed-data",
+        "document": "blog/posts/2019/loo-cv-transformed-data",
         "ref_id": "real-example",
         "headings": [
-          "\u201cLOO-CV on transformed data\u201d",
+          "LOO-CV on transformed data",
           "Real example"
         ]
       },
       "doc_lineno": 500002
     }
   ],
-  "posts/2019/2019-07-31-loo-pit-tutorial": [
+  "blog/posts/2019/loo-pit-tutorial": [
     {
       "source": "import pymc3 as pm\nimport numpy as np\nimport arviz as az \nimport matplotlib.pyplot as plt\nimport theano.tensor as tt\n\nimport scipy.stats as stats\n\nnp.random.seed(7)",
       "names": [
@@ -521,10 +519,10 @@
         }
       ],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "data-generation",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Data generation"
         ]
       },
@@ -534,10 +532,10 @@
       "source": "az.style.use('arviz-darkgrid')",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "data-generation",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Data generation"
         ]
       },
@@ -547,10 +545,10 @@
       "source": "def plot_ppc_loopit(idata, title):\n    fig = plt.figure(figsize=(12,9))\n    ax_ppc = fig.add_subplot(211)\n    ax1 = fig.add_subplot(223); ax2 = fig.add_subplot(224)\n    az.plot_ppc(idata, ax=ax_ppc);\n    for ax, ecdf in zip([ax1, ax2], (False, True)):\n        az.plot_loo_pit(idata, y=\"obs\", ecdf=ecdf, ax=ax);\n    ax_ppc.set_title(title)\n    ax_ppc.set_xlabel(\"\")\n    return np.array([ax_ppc, ax1, ax2])",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "data-generation",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Data generation"
         ]
       },
@@ -560,10 +558,10 @@
       "source": "N_obs = 170\nmu_normal = -2\nsd_normal = 3\ndata_normal = np.random.normal(loc=mu_normal, scale=sd_normal, size=N_obs)\na0_lr, a1_lr = 5, -2.3\nsd_lr = 1.4\ndata_x_regression = np.linspace(0, 10, N_obs)\ndata_y_regression = np.random.normal(loc=a1_lr*data_x_regression+a0_lr, scale=sd_lr)",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "data-generation",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Data generation"
         ]
       },
@@ -573,10 +571,10 @@
       "source": "coords_normal = {\"obs\": [\"observation\"], \"log_likelihood\": [\"observation\"]}\ndims_normal = {\"observation\": range(N_obs)}\ncoords_regression = {\"y\": [\"time\"], \"log_likelihood\": [\"time\"]}\ndims_regression = {\"time\": data_x_regression}",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "data-generation",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Data generation"
         ]
       },
@@ -586,10 +584,10 @@
       "source": "fig, axes = plt.subplots(1, 2, figsize=(11,5))\ntextsize = plt.rcParams[\"axes.labelsize\"]\naz.plot_dist(data_normal, rug=True, ax=axes[0], rug_kwargs={\"space\": 0}, textsize=textsize);\naxes[1].plot(data_x_regression, data_y_regression, \".\");\naxes[1].tick_params(labelsize=textsize)\naxes[0].set_title(\"Gaussian random variable draws\")\naxes[1].set_title(\"Data for linear regression\")\nfig.tight_layout()",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "data-generation",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Data generation"
         ]
       },
@@ -599,10 +597,10 @@
       "source": "with pm.Model() as model:\n    # Define priors\n    mu = pm.Normal(\"mu\", mu=0, sd=10)\n    sd = pm.HalfNormal(\"sd\", sd=10)\n    \n    # Define likelihood\n    likelihood = pm.Normal(\"obs\", mu=mu, sd=sd, observed=data_normal)\n    \n    # Inference!\n    trace = pm.sample() # draw posterior samples using NUTS sampling\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n\n    idata_normal = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_normal,\n        dims=dims_normal,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "unidimensional-gaussian-variable",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable"
         ]
       },
@@ -612,10 +610,10 @@
       "source": "plot_ppc_loopit(idata_normal, \"Gaussian: Calibrated model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "unidimensional-gaussian-variable",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable"
         ]
       },
@@ -625,10 +623,10 @@
       "source": "with pm.Model() as model:\n    mu = pm.Normal(\"mu\", mu=0, sd=10)\n    \n    likelihood = pm.Normal(\"obs\", mu=mu, sd=1.5 * sd_normal, observed=data_normal)\n    \n    trace = pm.sample()\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n    \n    idata_normal_overdispersed = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_normal,\n        dims=dims_normal,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "overdispersion-signs",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable",
           "Overdispersion signs"
         ]
@@ -639,10 +637,10 @@
       "source": "plot_ppc_loopit(idata_normal_overdispersed, \"Gaussian: Overdispersed model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "overdispersion-signs",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable",
           "Overdispersion signs"
         ]
@@ -653,10 +651,10 @@
       "source": "with pm.Model() as model:\n    mu = pm.Normal(\"mu\", mu=0, sd=10)\n    \n    likelihood = pm.Normal(\"obs\", mu=mu, sd=.75 * sd_normal, observed=data_normal)\n    \n    trace = pm.sample()\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n    \n    idata_normal_underdispersed = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_normal,\n        dims=dims_normal,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "underdispersion-signs",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable",
           "Underdispersion signs"
         ]
@@ -667,10 +665,10 @@
       "source": "plot_ppc_loopit(idata_normal_underdispersed, \"Gaussian: Underdispersed model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "underdispersion-signs",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable",
           "Underdispersion signs"
         ]
@@ -681,10 +679,10 @@
       "source": "with pm.Model() as model:\n    sd = pm.HalfNormal(\"sd\", sd=10)\n    \n    likelihood = pm.Normal(\"obs\", mu=mu_normal - sd_normal / 2, sd=sd, observed=data_normal)\n    \n    trace = pm.sample()\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n    \n    idata_normal_bias = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_normal,\n        dims=dims_normal,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "bias-signs",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable",
           "Bias signs"
         ]
@@ -695,10 +693,10 @@
       "source": "plot_ppc_loopit(idata_normal_bias, \"Gaussian: Biased model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "bias-signs",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Unidimensional Gaussian variable",
           "Bias signs"
         ]
@@ -709,10 +707,10 @@
       "source": "with pm.Model() as model:\n    sigma = pm.HalfNormal('sigma', sd=10)\n    a0 = pm.Normal(\"a0\", mu=0, sd=20)\n    a1 = pm.Normal(\"a1\", mu=0, sd=20)\n    \n    likelihood = pm.Normal('obs', mu=a0 + a1 * data_x_regression, sd=sigma, observed=data_y_regression)\n    \n    trace = pm.sample()\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n    \n    idata_lr = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_regression,\n        dims=dims_regression,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -722,10 +720,10 @@
       "source": "plot_ppc_loopit(idata_lr, \"Linear Regression: Calibrated model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -735,10 +733,10 @@
       "source": "with pm.Model() as model:\n    sigma = pm.HalfNormal('sigma', sd=10)\n    a1 = pm.Normal(\"a1\", mu=0, sd=20)\n\n    likelihood = pm.Normal('obs', mu=a0_lr + 2 + a1 * data_x_regression, sd=sigma, observed=data_y_regression)\n\n    trace = pm.sample()\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n    \n    idata_lr_bias = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_regression,\n        dims=dims_regression,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -748,10 +746,10 @@
       "source": "plot_ppc_loopit(idata_lr_bias, \"Linear Regression: Biased model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -761,10 +759,10 @@
       "source": "with pm.Model() as model:\n    a1 = pm.Normal(\"a1\", mu=0, sd=20)\n    \n    likelihood = pm.Normal(\n        'obs', mu=a0_lr + 2 + a1 * data_x_regression, sd=1.5 * sd_lr, observed=data_y_regression\n    )\n    \n    # Inference!\n    trace = pm.sample() # draw posterior samples using NUTS sampling\n    prior = pm.sample_prior_predictive()\n    posterior_predictive = pm.sample_posterior_predictive(trace)\n    \n    idata_lr_bias_overdispersed = az.from_pymc3(\n        trace=trace,\n        prior=prior,\n        posterior_predictive=posterior_predictive,\n        coords=coords_regression,\n        dims=dims_regression,\n    )",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -774,10 +772,10 @@
       "source": "plot_ppc_loopit(idata_lr_bias_overdispersed, \"Linear Regression: Biased and oversidpersed model\");",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -787,10 +785,10 @@
       "source": "pp_samples = idata_lr_bias_overdispersed.posterior_predictive.obs\nobs_samples = idata_lr_bias_overdispersed.observed_data.obs\npp_means = pp_samples.mean(dim=(\"chain\", \"draw\"))\npp_stds = pp_samples.std(dim=(\"chain\", \"draw\"))\nidata_lr_bias_overdispersed.posterior_predictive[\"obs_rescaled\"] = (pp_samples - pp_means) / pp_stds\nidata_lr_bias_overdispersed.observed_data[\"obs_rescaled\"] = (obs_samples - pp_means) / pp_stds",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
@@ -800,188 +798,19 @@
       "source": "fig, axes = plt.subplots(3, 2, figsize=(12,13), constrained_layout=True)\nfor i, var in enumerate((\"obs\", \"obs_rescaled\")):\n    for j, ecdf in enumerate((False, True)):\n        az.plot_loo_pit(idata_lr_bias_overdispersed, y=var, ecdf=ecdf, ax=axes[j, i]);\naz.plot_ppc(idata_lr_bias_overdispersed, ax=axes[2]);\nfig.suptitle(\"Linear Regression: Rescaling effect\\nBiased and overdispersed model\", fontsize=16);",
       "names": [],
       "example": {
-        "document": "posts/2019/2019-07-31-loo-pit-tutorial",
+        "document": "blog/posts/2019/loo-pit-tutorial",
         "ref_id": "linear-regression",
         "headings": [
-          "\u201cLOO-PIT tutorial\u201d",
+          "LOO-PIT tutorial",
           "Linear regression"
         ]
       },
       "doc_lineno": 440002
     }
   ],
-  "posts/2020/2020-06-19-rcParams": [
+  "blog/posts/2020/plot-trace": [
     {
-      "source": "import arviz as az\nimport matplotlib.pyplot as plt\n\nidata = az.load_arviz_data(\"centered_eight\")",
-      "names": [
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot"
-          ],
-          "code_str": "matplotlib.pyplot",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "import_target",
-          "resolved_location": "matplotlib.pyplot"
-        },
-        {
-          "import_components": [
-            "arviz",
-            "load_arviz_data"
-          ],
-          "code_str": "az.load_arviz_data",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "arviz.load_arviz_data"
-        }
-      ],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "introduction",
-        "headings": [
-          "Introduction"
-        ]
-      },
-      "doc_lineno": 40002
-    },
-    {
-      "source": "import arviz as az\nprint(az.rcparams.get_arviz_rcfile())",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "arvizrc-file",
-        "headings": [
-          "Customizing ArviZ",
-          "arvizrc file"
-        ]
-      },
-      "doc_lineno": 70002
-    },
-    {
-      "source": "az.rcParams[\"data.load\"] = \"eager\"",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "dynamic-rc-settings",
-        "headings": [
-          "Customizing ArviZ",
-          "Dynamic rc settings"
-        ]
-      },
-      "doc_lineno": 120002
-    },
-    {
-      "source": "rc = {\n    \"data.load\": \"lazy\",\n    \"plot.max_subplots\": 30,\n    \"stats.ic_scale\": \"negative_log\",\n    \"plot.matplotlib.constrained_layout\": False\n}\naz.rcParams.update(rc)",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "dynamic-rc-settings",
-        "headings": [
-          "Customizing ArviZ",
-          "Dynamic rc settings"
-        ]
-      },
-      "doc_lineno": 140002
-    },
-    {
-      "source": "_, axes = plt.subplots(1,3, figsize=(15,4))\n\naz.plot_posterior(idata, var_names=\"mu\", ax=axes[0])\n\nwith az.rc_context({\"plot.point_estimate\": \"mode\", \"stats.hdi_prob\": 0.7}):\n    az.plot_posterior(idata, var_names=\"mu\", ax=axes[1])\n\naz.plot_posterior(idata, var_names=\"mu\", ax=axes[2]);",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "rc-context",
-        "headings": [
-          "Customizing ArviZ",
-          "rc_context"
-        ]
-      },
-      "doc_lineno": 160002
-    },
-    {
-      "source": "az.load_arviz_data().keys()",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "data",
-        "headings": [
-          "ArviZ default settings",
-          "Data"
-        ]
-      },
-      "doc_lineno": 200002
-    },
-    {
-      "source": "#collapse\nfor metagroup, groups in az.rcParams[\"data.metagroups\"].items():\n    print(f\"{metagroup}:\\n    {groups}\\n\")",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "data",
-        "headings": [
-          "ArviZ default settings",
-          "Data"
-        ]
-      },
-      "doc_lineno": 270002
-    },
-    {
-      "source": "az.rcParams[\"data.metagroups\"][\"sampled\"] = (\n    'posterior', 'posterior_predictive', 'sample_stats', 'log_likelihood', 'prior', 'prior_predictive'\n)\nshifted_idata = idata.map(lambda x: x-7, groups=\"sampled\")",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "data",
-        "headings": [
-          "ArviZ default settings",
-          "Data"
-        ]
-      },
-      "doc_lineno": 290002
-    },
-    {
-      "source": "with az.rc_context({\"plot.max_subplots\": 3}):\n    az.plot_posterior(idata);",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "general",
-        "headings": [
-          "ArviZ default settings",
-          "Plot",
-          "General"
-        ]
-      },
-      "doc_lineno": 360002
-    },
-    {
-      "source": "with az.rc_context({\"plot.bokeh.layout.order\": \"2column\"}):\n    az.plot_ess(idata, backend=\"bokeh\")",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "bokeh",
-        "headings": [
-          "ArviZ default settings",
-          "Plot",
-          "Bokeh"
-        ]
-      },
-      "doc_lineno": 430002
-    },
-    {
-      "source": "#hide_input\n%load_ext watermark\n%watermark -n -u -v -iv -w",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-06-19-rcParams",
-        "ref_id": "stats",
-        "headings": [
-          "ArviZ default settings",
-          "Stats"
-        ]
-      },
-      "doc_lineno": 610002
-    }
-  ],
-  "posts/2020/2020-06-20-plot-trace": [
-    {
-      "source": "import arviz as az\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport xarray as xr\n\n# html render is not correctly rendered in blog, \n# comment the line below if in jupyter\nxr.set_options(display_style=\"text\")  \n\nrng = np.random.default_rng()",
+      "source": "import arviz as az\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport xarray as xr\n\nrng = np.random.default_rng()",
       "names": [
         {
           "import_components": [
@@ -1016,33 +845,22 @@
         },
         {
           "import_components": [
-            "xarray",
-            "set_options"
-          ],
-          "code_str": "xr.set_options",
-          "lineno": 8,
-          "end_lineno": 8,
-          "context": "none",
-          "resolved_location": "xarray.set_options"
-        },
-        {
-          "import_components": [
             "numpy",
             "random",
             "default_rng"
           ],
           "code_str": "np.random.default_rng",
-          "lineno": 10,
-          "end_lineno": 10,
+          "lineno": 6,
+          "end_lineno": 6,
           "context": "none",
           "resolved_location": "numpy.random.default_rng"
         }
       ],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "introduction",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Introduction"
         ]
       },
@@ -1052,10 +870,10 @@
       "source": "az.style.use(\"arviz-darkgrid\")",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "introduction",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Introduction"
         ]
       },
@@ -1065,10 +883,10 @@
       "source": "idata_centered = az.load_arviz_data(\"centered_eight\")\nidata = az.load_arviz_data(\"rugby\")",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "introduction",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Introduction"
         ]
       },
@@ -1078,10 +896,10 @@
       "source": "fig, axes = plt.subplots(3,2, figsize=(12,6))\nfor i, kind in enumerate((\"trace\", \"rank_bars\", \"rank_vlines\")):\n    az.plot_trace(idata, var_names=\"home\", kind=kind, ax=axes[i,:]);\nfig.tight_layout()",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-kind-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The kind argument"
         ]
       },
@@ -1091,10 +909,10 @@
       "source": "az.plot_trace(idata_centered, var_names=\"tau\");",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-divergences-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The divergences argument"
         ]
       },
@@ -1104,10 +922,10 @@
       "source": "az.plot_trace(idata_centered, var_names=\"tau\", divergences=None);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-divergences-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The divergences argument"
         ]
       },
@@ -1117,10 +935,10 @@
       "source": "ax = az.plot_trace(idata, var_names=\"home\", rug=True, rug_kwargs={\"alpha\": .4})",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-rug-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The rug argument"
         ]
       },
@@ -1130,10 +948,10 @@
       "source": "az.plot_trace(idata_centered, var_names=\"mu\", rug=True);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-rug-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The rug argument"
         ]
       },
@@ -1143,10 +961,10 @@
       "source": "ds = xr.Dataset({\n    \"a\": ((\"pos\", \"direction\"), rng.normal(size=(2,3))),\n    \"b\": 12, \n    \"pos\": [\"top\", \"bottom\"],\n    \"direction\": [\"x\", \"y\", \"z\"]\n})\nds",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-lines-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The lines argument"
         ]
       },
@@ -1156,10 +974,10 @@
       "source": "from arviz.plots.plot_utils import xarray_var_iter\nfor var_name, sel, values in xarray_var_iter(ds):\n    print(var_name, sel, values)",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-lines-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The lines argument"
         ]
       },
@@ -1169,10 +987,10 @@
       "source": "for var_name, sel, values in xarray_var_iter(ds, skip_dims={\"direction\"}):\n    print(var_name, sel, values)",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-lines-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The lines argument"
         ]
       },
@@ -1182,10 +1000,10 @@
       "source": "var_names = [\"home\", \"atts\"]\nlines = list(xarray_var_iter(idata.posterior[var_names].mean(dim=(\"chain\", \"draw\"))))\naz.plot_trace(idata, var_names=var_names, lines=lines);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-lines-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The lines argument"
         ]
       },
@@ -1195,10 +1013,10 @@
       "source": "var_names = [\"home\", \"defs\"]\nquantile_ds = idata.posterior[[\"defs\"]].quantile((.1, .9), dim=(\"chain\", \"draw\"))\nlines = list(xarray_var_iter(quantile_ds, skip_dims={\"quantile\"}))\naz.plot_trace(idata, var_names=var_names, lines=lines);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "the-lines-argument",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "The lines argument"
         ]
       },
@@ -1208,10 +1026,10 @@
       "source": "az.plot_trace(idata, var_names=[\"home\", \"defs\"], legend=True);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "combined-false-and-compact-false",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Aggregation kwargs",
           "combined=False and compact=False"
         ]
@@ -1222,10 +1040,10 @@
       "source": "chain_prop = {\"linewidth\": (.5, 1, 2, 3)}\naz.plot_trace(\n    idata, var_names=[\"home\", \"defs\"], combined=True, chain_prop=chain_prop, compact=False, legend=True\n);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "combined-true-and-compact-false",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Aggregation kwargs",
           "combined=True and compact=False"
         ]
@@ -1236,10 +1054,10 @@
       "source": "az.plot_trace(idata, var_names=[\"home\", \"defs\"], combined=False, compact=True, legend=True);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "combined-false-and-compact-true",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Aggregation kwargs",
           "combined=False and compact=True"
         ]
@@ -1250,10 +1068,10 @@
       "source": "az.plot_trace(idata, var_names=[\"home\", \"defs\"], combined=True, chain_prop={\"ls\": \"-\"}, compact=True);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "combined-true-and-compact-true",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Aggregation kwargs",
           "combined=True and compact=True"
         ]
@@ -1264,10 +1082,10 @@
       "source": "az.plot_trace(\n    idata, var_names=[\"home\", \"defs\"], \n    combined=True, chain_prop=\"color\", \n    compact=True, compact_prop={\"lw\": np.linspace(.5, 3, 6)}\n);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "combined-true-and-compact-true",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Aggregation kwargs",
           "combined=True and compact=True"
         ]
@@ -1275,33 +1093,33 @@
       "doc_lineno": 390002
     },
     {
-      "source": "#collapse\ncoords = {\"team\": [\"Scotland\", \"Ireland\", \"Italy\", \"Wales\"]}\nquantile_ds = az.hdi(idata, var_names=\"defs\", coords=coords, hdi_prob=.7)\nlines = list(xarray_var_iter(quantile_ds, skip_dims={\"hdi\", \"team\"}))\nchain_prop = {\"color\": ['C0', 'C1', 'C2', 'C3', \"xkcd:purple blue\"]}\naz.plot_trace(\n    idata, var_names=[\"home\", \"defs\", \"atts\"], \n    combined=True, chain_prop=chain_prop, \n    compact=True, compact_prop={\"lw\": np.linspace(.5, 3, 6), \"ls\": (\"-\", \"--\")},\n    lines=lines,\n    coords=coords\n);",
+      "source": "coords = {\"team\": [\"Scotland\", \"Ireland\", \"Italy\", \"Wales\"]}\nquantile_ds = az.hdi(idata, var_names=\"defs\", coords=coords, hdi_prob=.7)\nlines = list(xarray_var_iter(quantile_ds, skip_dims={\"hdi\", \"team\"}))\nchain_prop = {\"color\": ['C0', 'C1', 'C2', 'C3', \"xkcd:purple blue\"]}\naz.plot_trace(\n    idata, var_names=[\"home\", \"defs\", \"atts\"], \n    combined=True, chain_prop=chain_prop, \n    compact=True, compact_prop={\"lw\": np.linspace(.5, 3, 6), \"ls\": (\"-\", \"--\")},\n    lines=lines,\n    coords=coords\n);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "summing-it-all-up",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Summing it all up"
         ]
       },
       "doc_lineno": 410002
     },
     {
-      "source": "#hide_input\n%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-06-20-plot-trace",
+        "document": "blog/posts/2020/plot-trace",
         "ref_id": "summing-it-all-up",
         "headings": [
-          "\u201cArviZ in depth: plot_trace\u201d",
+          "ArviZ in depth: plot_trace",
           "Summing it all up"
         ]
       },
       "doc_lineno": 430002
     }
   ],
-  "posts/2020/2020-09-22-pymc3-arviz": [
+  "blog/posts/2020/pymc3-arviz": [
     {
       "source": "import arviz as az\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\nimport pymc3 as pm\nimport theano.tensor as tt\n\nrng = np.random.default_rng()",
       "names": [
@@ -1340,252 +1158,232 @@
         }
       ],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "pymc3-with-labeled-coords-and-dims",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d"
+          "PyMC3 with labeled coords and dims"
         ]
       },
       "doc_lineno": 30002
     },
     {
-      "source": "#hide\n# use text display to keep blog fast and responsive, \n# do not execute this cell when running the code\nimport xarray as xr\nxr.set_options(display_style=\"text\");",
-      "names": [
-        {
-          "import_components": [
-            "xarray"
-          ],
-          "code_str": "xarray",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "import_target",
-          "resolved_location": "xarray"
-        },
-        {
-          "import_components": [
-            "xarray",
-            "set_options"
-          ],
-          "code_str": "xr.set_options",
-          "lineno": 5,
-          "end_lineno": 5,
-          "context": "none",
-          "resolved_location": "xarray.set_options"
-        }
-      ],
+      "source": "az.style.use(\"arviz-darkgrid\")",
+      "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "pymc3-with-labeled-coords-and-dims",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d"
+          "PyMC3 with labeled coords and dims"
         ]
       },
       "doc_lineno": 40002
     },
     {
-      "source": "az.style.use(\"arviz-darkgrid\")",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
-        "ref_id": "pymc3-with-labeled-coords-and-dims",
-        "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d"
-        ]
-      },
-      "doc_lineno": 50002
-    },
-    {
       "source": "df_rugby = pd.read_csv(pm.get_data('rugby.csv'), index_col=0)\nhome_idx, teams = pd.factorize(df_rugby[\"home_team\"], sort=True)\naway_idx, _ = pd.factorize(df_rugby[\"away_team\"], sort=True)",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "st-example-rugby-analytics",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
+          "1st example: rugby analytics"
+        ]
+      },
+      "doc_lineno": 100002
+    },
+    {
+      "source": "coords = {\n    \"team\": teams,\n    \"match\": np.arange(60),\n    \"field\": [\"home\", \"away\"],\n}\nwith pm.Model(coords=coords) as rugby_model:\n    # global model parameters\n    home = pm.Flat('home')\n    sd_att = pm.HalfStudentT('sd_att', nu=3, sigma=2.5)\n    sd_def = pm.HalfStudentT('sd_def', nu=3, sigma=2.5)\n    intercept = pm.Flat('intercept')\n\n    # team-specific model parameters\n    atts_star = pm.Normal(\"atts_star\", mu=0, sigma=sd_att, dims=\"team\")\n    defs_star = pm.Normal(\"defs_star\", mu=0, sigma=sd_def, dims=\"team\")\n\n    atts = pm.Deterministic('atts', atts_star - tt.mean(atts_star), dims=\"team\")\n    defs = pm.Deterministic('defs', defs_star - tt.mean(defs_star), dims=\"team\")\n    home_theta = tt.exp(intercept + home + atts[home_idx] + defs[away_idx])\n    away_theta = tt.exp(intercept + atts[away_idx] + defs[home_idx])\n\n    # likelihood of observed data\n    points = pm.Poisson(\n        'home_points', \n        mu=tt.stack((home_theta, away_theta)).T, \n        observed=df_rugby[[\"home_score\", \"away_score\"]],\n        dims=(\"match\", \"field\")\n    )\n    rugby_trace = pm.sample(1000, tune=1000, cores=4)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/pymc3-arviz",
+        "ref_id": "st-example-rugby-analytics",
+        "headings": [
+          "PyMC3 with labeled coords and dims",
           "1st example: rugby analytics"
         ]
       },
       "doc_lineno": 110002
     },
     {
-      "source": "coords = {\n    \"team\": teams,\n    \"match\": np.arange(60),\n    \"field\": [\"home\", \"away\"],\n}\nwith pm.Model(coords=coords) as rugby_model:\n    # global model parameters\n    home = pm.Flat('home')\n    sd_att = pm.HalfStudentT('sd_att', nu=3, sigma=2.5)\n    sd_def = pm.HalfStudentT('sd_def', nu=3, sigma=2.5)\n    intercept = pm.Flat('intercept')\n\n    # team-specific model parameters\n    atts_star = pm.Normal(\"atts_star\", mu=0, sigma=sd_att, dims=\"team\")\n    defs_star = pm.Normal(\"defs_star\", mu=0, sigma=sd_def, dims=\"team\")\n\n    atts = pm.Deterministic('atts', atts_star - tt.mean(atts_star), dims=\"team\")\n    defs = pm.Deterministic('defs', defs_star - tt.mean(defs_star), dims=\"team\")\n    home_theta = tt.exp(intercept + home + atts[home_idx] + defs[away_idx])\n    away_theta = tt.exp(intercept + atts[away_idx] + defs[home_idx])\n\n    # likelihood of observed data\n    points = pm.Poisson(\n        'home_points', \n        mu=tt.stack((home_theta, away_theta)).T, \n        observed=df_rugby[[\"home_score\", \"away_score\"]],\n        dims=(\"match\", \"field\")\n    )\n    rugby_trace = pm.sample(1000, tune=1000, cores=4)",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
-        "ref_id": "st-example-rugby-analytics",
-        "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
-          "1st example: rugby analytics"
-        ]
-      },
-      "doc_lineno": 120002
-    },
-    {
       "source": "print(rugby_trace)\nprint(rugby_trace[\"atts\"])",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "st-example-rugby-analytics",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "1st example: rugby analytics"
         ]
       },
-      "doc_lineno": 140002
+      "doc_lineno": 130002
     },
     {
       "source": "rugby_idata = az.from_pymc3(rugby_trace, model=rugby_model)\nrugby_idata",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "st-example-rugby-analytics",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "1st example: rugby analytics"
         ]
       },
-      "doc_lineno": 170002
+      "doc_lineno": 160002
     },
     {
-      "source": "#collapse\nsrrs2 = pd.read_csv(pm.get_data(\"srrs2.dat\"))\nsrrs2.columns = srrs2.columns.map(str.strip)\nsrrs_mn = srrs2[srrs2.state == \"MN\"].copy()\n\nsrrs_mn[\"fips\"] = srrs_mn.stfips * 1000 + srrs_mn.cntyfips\ncty = pd.read_csv(pm.get_data(\"cty.dat\"))\ncty_mn = cty[cty.st == \"MN\"].copy()\ncty_mn[\"fips\"] = 1000 * cty_mn.stfips + cty_mn.ctfips\n\nsrrs_mn = srrs_mn.merge(cty_mn[[\"fips\", \"Uppm\"]], on=\"fips\")\nsrrs_mn = srrs_mn.drop_duplicates(subset=\"idnum\")\nu = np.log(srrs_mn.Uppm).unique()\n\nn = len(srrs_mn)\nsrrs_mn.county = srrs_mn.county.map(str.strip)\nsrrs_mn[\"county_code\"], mn_counties = pd.factorize(srrs_mn.county)\nsrrs_mn[\"log_radon\"] = np.log(srrs_mn.activity + 0.1)",
+      "source": "srrs2 = pd.read_csv(pm.get_data(\"srrs2.dat\"))\nsrrs2.columns = srrs2.columns.map(str.strip)\nsrrs_mn = srrs2[srrs2.state == \"MN\"].copy()\n\nsrrs_mn[\"fips\"] = srrs_mn.stfips * 1000 + srrs_mn.cntyfips\ncty = pd.read_csv(pm.get_data(\"cty.dat\"))\ncty_mn = cty[cty.st == \"MN\"].copy()\ncty_mn[\"fips\"] = 1000 * cty_mn.stfips + cty_mn.ctfips\n\nsrrs_mn = srrs_mn.merge(cty_mn[[\"fips\", \"Uppm\"]], on=\"fips\")\nsrrs_mn = srrs_mn.drop_duplicates(subset=\"idnum\")\nu = np.log(srrs_mn.Uppm).unique()\n\nn = len(srrs_mn)\nsrrs_mn.county = srrs_mn.county.map(str.strip)\nsrrs_mn[\"county_code\"], mn_counties = pd.factorize(srrs_mn.county)\nsrrs_mn[\"log_radon\"] = np.log(srrs_mn.activity + 0.1)",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "nd-example-radon-multilevel-model",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "2nd example: radon multilevel model"
         ]
       },
-      "doc_lineno": 190002
+      "doc_lineno": 180002
     },
     {
       "source": "coords = {\n    \"Level\": [\"Basement\", \"Floor\"], \n    \"obs_id\": np.arange(n),\n    \"County\": mn_counties,\n    \"param\": [\"a\", \"b\"],\n    \"param_bis\": [\"a\", \"b\"],\n}",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "nd-example-radon-multilevel-model",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "2nd example: radon multilevel model"
         ]
       },
-      "doc_lineno": 210002
+      "doc_lineno": 200002
     },
     {
       "source": "with pm.Model(coords=coords) as radon_model:\n    floor_idx = pm.Data(\"floor_idx\", srrs_mn.floor, dims=\"obs_id\")\n    county_idx = pm.Data(\"county_idx\", srrs_mn.county_code, dims=\"obs_id\")",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "nd-example-radon-multilevel-model",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "2nd example: radon multilevel model"
         ]
       },
-      "doc_lineno": 230002
+      "doc_lineno": 220002
     },
     {
       "source": "with radon_model:\n    sd_dist = pm.Exponential.dist(0.5)\n    a = pm.Normal(\"a\", mu=0.0, sigma=5.0)\n    b = pm.Normal(\"b\", mu=0.0, sigma=1.0)\n    z = pm.Normal(\"z\", 0.0, 1.0, dims=(\"param\", \"County\"))\n    \n    chol, corr, stds = pm.LKJCholeskyCov(\n        \"chol\", n=2, eta=2.0, sd_dist=sd_dist, compute_corr=True\n    )",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "nd-example-radon-multilevel-model",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "2nd example: radon multilevel model"
         ]
       },
-      "doc_lineno": 250002
+      "doc_lineno": 240002
     },
     {
       "source": "with radon_model:\n    ab_county = pm.Deterministic(\"ab_county\", tt.dot(chol, z).T, dims=(\"County\", \"param\"))\n    theta = a + ab_county[county_idx, 0] + (b + ab_county[county_idx, 1]) * floor_idx\n\n    sigma = pm.Exponential(\"sigma\", 1.0)\n    y = pm.Normal(\"y\", theta, sigma=sigma, observed=srrs_mn.log_radon, dims=\"obs_id\")",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "nd-example-radon-multilevel-model",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "2nd example: radon multilevel model"
         ]
       },
-      "doc_lineno": 270002
+      "doc_lineno": 260002
     },
     {
       "source": "with radon_model:\n    radon_idata = pm.sample(\n        2000, tune=2000, target_accept=0.99, random_seed=75625, return_inferencedata=True,\n        idata_kwargs={\"dims\": {\"chol_stds\": [\"param\"], \"chol_corr\": [\"param\", \"param_bis\"]}}\n    )",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "nd-example-radon-multilevel-model",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "2nd example: radon multilevel model"
         ]
       },
-      "doc_lineno": 290002
+      "doc_lineno": 280002
     },
     {
       "source": "#collapse\na_ = 2\nb_ = -0.4\nx_ = np.linspace(0, 10, 31)\nyear_ = np.arange(2021-len(x_), 2021)\ny_ = a_ + b_ * x_ + rng.normal(size=len(x_))\n\nfig, ax = plt.subplots()\nax.plot(x_, y_, \"o-\")\nax.text(\n    0.93, 0.9, r\"$y_i = a + bx_i + \\mathcal{N}(0,1)$\", ha='right', va='top', transform=ax.transAxes, fontsize=18\n)\n\nax.set_xticks(x_[::3])\nax.set_xticklabels(year_[::3])\nax.set_yticks([])\nax.set_xlabel(\"Year\")\nax.set_ylabel(\"Quantity of interest\");",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "there-is-life-outside-the-posterior",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
+          "There is life outside the posterior"
+        ]
+      },
+      "doc_lineno": 310002
+    },
+    {
+      "source": "coords = {\"year\": year_}\nwith pm.Model(coords=coords) as linreg_model:\n    x = pm.Data(\"x\", x_, dims=\"year\")\n    \n    a = pm.Normal(\"a\", 0, 3)\n    b = pm.Normal(\"b\", 0, 2)\n    sigma = pm.HalfNormal(\"sigma\", 2)\n    \n    y = pm.Normal(\"y\", a + b * x, sigma, observed=y_, dims=\"year\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/pymc3-arviz",
+        "ref_id": "there-is-life-outside-the-posterior",
+        "headings": [
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior"
         ]
       },
       "doc_lineno": 320002
     },
     {
-      "source": "coords = {\"year\": year_}\nwith pm.Model(coords=coords) as linreg_model:\n    x = pm.Data(\"x\", x_, dims=\"year\")\n    \n    a = pm.Normal(\"a\", 0, 3)\n    b = pm.Normal(\"b\", 0, 2)\n    sigma = pm.HalfNormal(\"sigma\", 2)\n    \n    y = pm.Normal(\"y\", a + b * x, sigma, observed=y_, dims=\"year\")",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
-        "ref_id": "there-is-life-outside-the-posterior",
-        "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
-          "There is life outside the posterior"
-        ]
-      },
-      "doc_lineno": 330002
-    },
-    {
       "source": "with linreg_model:\n    prior = pm.sample_prior_predictive(700)\n    linreg_idata = az.from_pymc3(prior=prior)\nlinreg_idata",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "priors",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Priors"
         ]
       },
-      "doc_lineno": 360002
+      "doc_lineno": 350002
     },
     {
       "source": "az.plot_ppc(linreg_idata, group=\"prior\");",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "priors",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Priors"
         ]
       },
-      "doc_lineno": 380002
+      "doc_lineno": 370002
     },
     {
       "source": "with linreg_model:\n    idata_aux = pm.sample(return_inferencedata=True)\nlinreg_idata.extend(idata_aux)",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "posterior",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior"
+        ]
+      },
+      "doc_lineno": 390002
+    },
+    {
+      "source": "linreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/pymc3-arviz",
+        "ref_id": "posterior",
+        "headings": [
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Posterior"
         ]
@@ -1593,13 +1391,13 @@
       "doc_lineno": 400002
     },
     {
-      "source": "linreg_idata",
+      "source": "az.plot_pair(linreg_idata);",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "posterior",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Posterior"
         ]
@@ -1607,27 +1405,27 @@
       "doc_lineno": 410002
     },
     {
-      "source": "az.plot_pair(linreg_idata);",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
-        "ref_id": "posterior",
-        "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
-          "There is life outside the posterior",
-          "Posterior"
-        ]
-      },
-      "doc_lineno": 420002
-    },
-    {
       "source": "with linreg_model:\n    post_pred = pm.sample_posterior_predictive(linreg_idata)\n    idata_aux = az.from_pymc3(posterior_predictive=post_pred)\nlinreg_idata.extend(idata_aux)",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "posterior-predictive",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior predictive"
+        ]
+      },
+      "doc_lineno": 430002
+    },
+    {
+      "source": "linreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/pymc3-arviz",
+        "ref_id": "posterior-predictive",
+        "headings": [
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Posterior predictive"
         ]
@@ -1635,41 +1433,41 @@
       "doc_lineno": 440002
     },
     {
-      "source": "linreg_idata",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
-        "ref_id": "posterior-predictive",
-        "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
-          "There is life outside the posterior",
-          "Posterior predictive"
-        ]
-      },
-      "doc_lineno": 450002
-    },
-    {
       "source": "az.plot_loo_pit(linreg_idata, y=\"y\");",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "posterior-predictive",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Posterior predictive"
         ]
       },
-      "doc_lineno": 470002
+      "doc_lineno": 460002
     },
     {
       "source": "with linreg_model:\n    pm.set_data({\"x\": x_[-1] + x_[1:3]})\n    predictions = pm.sample_posterior_predictive(linreg_idata)\n    az.from_pymc3_predictions(\n        predictions, coords={\"year\": [2021, 2022]}, idata_orig=linreg_idata, inplace=True\n    )",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "predictions",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Predictions"
+        ]
+      },
+      "doc_lineno": 490002
+    },
+    {
+      "source": "linreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/pymc3-arviz",
+        "ref_id": "predictions",
+        "headings": [
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Predictions"
         ]
@@ -1677,13 +1475,13 @@
       "doc_lineno": 500002
     },
     {
-      "source": "linreg_idata",
+      "source": "az.plot_posterior(linreg_idata, group=\"predictions\");",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "predictions",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "There is life outside the posterior",
           "Predictions"
         ]
@@ -1691,45 +1489,31 @@
       "doc_lineno": 510002
     },
     {
-      "source": "az.plot_posterior(linreg_idata, group=\"predictions\");",
-      "names": [],
-      "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
-        "ref_id": "predictions",
-        "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
-          "There is life outside the posterior",
-          "Predictions"
-        ]
-      },
-      "doc_lineno": 520002
-    },
-    {
-      "source": "#hide\nimport matplotlib\nplt.rcParams.update(matplotlib.rcParamsDefault)",
+      "source": "import matplotlib\nplt.rcParams.update(matplotlib.rcParamsDefault)",
       "names": [
         {
           "import_components": [
             "matplotlib"
           ],
           "code_str": "matplotlib",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 1,
+          "end_lineno": 1,
           "context": "import_target",
           "resolved_location": "matplotlib"
         }
       ],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "extra-generating-the-post-image",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "Extra: generating the post image"
         ]
       },
-      "doc_lineno": 540002
+      "doc_lineno": 530002
     },
     {
-      "source": "#collapse\nfrom mpl_toolkits.mplot3d import Axes3D\n\npoints = np.array([\n    [-1, -1, -1],\n    [1, -1, -1 ],\n    [1, 1, -1],\n    [-1, 1, -1],\n    [-1, -1, 1],\n    [1, -1, 1 ],\n    [1, 1, 1],\n    [-1, 1, 1]\n])\n\nfig = plt.figure(dpi=300)\nax = fig.add_axes([0, .05, 1, .8], projection='3d')\nside = 3 \nr = side * np.array([-1,1])\none_2d = side * np.ones((1,1))\none_1d = side * np.ones(1)\nX, Y = np.meshgrid(r, r)\n\n################\n###  theta   ###\n################\nax.plot_surface(X,Y,one_2d, color=\"C0\", zorder=1)\nax.plot_surface(X,-one_2d,Y, color=\"C0\", zorder=1)\nax.plot_surface(one_2d,X,Y, color=\"C0\", zorder=1)\nax.text2D(0.3, 0.14, r\"$\\theta$\", transform=ax.transAxes)\n\n# school dim\nschool_grid = np.linspace(-1, 1, 8) * side\nschool_one = np.ones_like(school_grid) * side * 1.1\nschools = np.array([\"Choate\", \"Deerfield\", \"Phillips Andover\", \"Phillips Exeter\", \n                    \"Hotchkiss\", \"Lawrenceville\", \"St. Paul's\", \"Mt. Hermon\"])\nax.plot(school_grid, school_one, school_one, marker=\"|\", color=\"k\")\nfor school, pos in zip(schools, school_grid):\n    ax.text(pos, side*1.1, side*1.15, f\"{school}\", zdir=\"y\", clip_on=False)\n    \n# chain dim\nchain_grid = np.linspace(-1, 1, 6) * side\nchain_one = np.ones_like(chain_grid) * side * 1.1\nax.plot(-chain_one, chain_grid, chain_one, marker=\"|\", color=\"k\")\nfor chain, pos in enumerate(chain_grid):\n    ax.text(-side*1.1, pos, side*1.15, f\"{chain}\", zdir=\"y\", va=\"bottom\", ha=\"center\")\nax.text(-side*1.3, 0, side*1.3, \"Chain\", zdir=(1, 1, .2), va=\"bottom\", ha=\"center\")\n    \n# draw dim\ndraw_grid = np.linspace(-1, 1, 50) * side\ndraw_one = np.ones_like(draw_grid) * side * 1.1\ndraws = np.arange(0, 50, 10)\nax.plot(-draw_one, -draw_one, draw_grid, marker=\"_\", color=\"k\")\nfor draw, pos in zip(draws, draw_grid[draws]):\n    ax.text(-side*1.1, -side*1.15, pos, f\"{draw}\", zdir=None, ha=\"right\")\nax.text2D(0.12, 0.4, \"Draw\", transform=ax.transAxes, rotation=\"vertical\")\n\n################\n###   tau    ###\n################\nax.plot_surface(4+one_2d,X,Y, color=\"C1\", zorder=1)\nax.text2D(0.525, 0.1, r\"$\\tau$\", transform=ax.transAxes)\n\n\n################\n###    mu    ###\n################\nax.plot_surface(8+one_2d,X,Y, color=\"C2\", zorder=1)\nax.text2D(0.66, 0.08, r\"$\\mu$\", transform=ax.transAxes)\n\n\n################\n###  grids   ###\n################\ngrid = np.linspace(-1, 1, 10) * side\ngrid_one = np.ones(10)\nlw = .3; alpha = .7\nfor chain_pos in chain_grid:\n    ax.plot(grid, grid_one * chain_pos, grid_one * side, color=\"k\", alpha=alpha, zorder=3, lw=lw)\n    ax.plot(grid_one * side, grid_one * chain_pos, grid, color=\"k\", alpha=alpha, zorder=5, lw=lw)\n    ax.plot(grid_one * side + 4, grid_one * chain_pos, grid, color=\"k\", alpha=alpha, zorder=6, lw=lw)\n    ax.plot(grid_one * side + 8, grid_one * chain_pos, grid, color=\"k\", alpha=alpha, zorder=7, lw=lw)\nfor draw_pos in draw_grid:\n    ax.plot(grid, -grid_one * side, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=4, lw=lw)\n    ax.plot(grid_one * side, grid, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=5, lw=lw)\n    ax.plot(grid_one * side + 4, grid, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=6, lw=lw)\n    ax.plot(grid_one * side + 8, grid, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=7, lw=lw)\nfor school_pos in school_grid:\n    ax.plot(grid_one * school_pos, grid, grid_one * side,  color=\"k\", alpha=alpha, zorder=4, lw=lw)\n    ax.plot(grid_one * school_pos, -grid_one * side, grid, color=\"k\", alpha=alpha, zorder=4, lw=lw)\n\nax.axis(\"off\");\nax.view_init(azim=-69)\n#fig.savefig(\"labeled_arys.png\", dpi=300)",
+      "source": "from mpl_toolkits.mplot3d import Axes3D\n\npoints = np.array([\n    [-1, -1, -1],\n    [1, -1, -1 ],\n    [1, 1, -1],\n    [-1, 1, -1],\n    [-1, -1, 1],\n    [1, -1, 1 ],\n    [1, 1, 1],\n    [-1, 1, 1]\n])\n\nfig = plt.figure(dpi=300)\nax = fig.add_axes([0, .05, 1, .8], projection='3d')\nside = 3 \nr = side * np.array([-1,1])\none_2d = side * np.ones((1,1))\none_1d = side * np.ones(1)\nX, Y = np.meshgrid(r, r)\n\n################\n###  theta   ###\n################\nax.plot_surface(X,Y,one_2d, color=\"C0\", zorder=1)\nax.plot_surface(X,-one_2d,Y, color=\"C0\", zorder=1)\nax.plot_surface(one_2d,X,Y, color=\"C0\", zorder=1)\nax.text2D(0.3, 0.14, r\"$\\theta$\", transform=ax.transAxes)\n\n# school dim\nschool_grid = np.linspace(-1, 1, 8) * side\nschool_one = np.ones_like(school_grid) * side * 1.1\nschools = np.array([\"Choate\", \"Deerfield\", \"Phillips Andover\", \"Phillips Exeter\", \n                    \"Hotchkiss\", \"Lawrenceville\", \"St. Paul's\", \"Mt. Hermon\"])\nax.plot(school_grid, school_one, school_one, marker=\"|\", color=\"k\")\nfor school, pos in zip(schools, school_grid):\n    ax.text(pos, side*1.1, side*1.15, f\"{school}\", zdir=\"y\", clip_on=False)\n    \n# chain dim\nchain_grid = np.linspace(-1, 1, 6) * side\nchain_one = np.ones_like(chain_grid) * side * 1.1\nax.plot(-chain_one, chain_grid, chain_one, marker=\"|\", color=\"k\")\nfor chain, pos in enumerate(chain_grid):\n    ax.text(-side*1.1, pos, side*1.15, f\"{chain}\", zdir=\"y\", va=\"bottom\", ha=\"center\")\nax.text(-side*1.3, 0, side*1.3, \"Chain\", zdir=(1, 1, .2), va=\"bottom\", ha=\"center\")\n    \n# draw dim\ndraw_grid = np.linspace(-1, 1, 50) * side\ndraw_one = np.ones_like(draw_grid) * side * 1.1\ndraws = np.arange(0, 50, 10)\nax.plot(-draw_one, -draw_one, draw_grid, marker=\"_\", color=\"k\")\nfor draw, pos in zip(draws, draw_grid[draws]):\n    ax.text(-side*1.1, -side*1.15, pos, f\"{draw}\", zdir=None, ha=\"right\")\nax.text2D(0.12, 0.4, \"Draw\", transform=ax.transAxes, rotation=\"vertical\")\n\n################\n###   tau    ###\n################\nax.plot_surface(4+one_2d,X,Y, color=\"C1\", zorder=1)\nax.text2D(0.525, 0.1, r\"$\\tau$\", transform=ax.transAxes)\n\n\n################\n###    mu    ###\n################\nax.plot_surface(8+one_2d,X,Y, color=\"C2\", zorder=1)\nax.text2D(0.66, 0.08, r\"$\\mu$\", transform=ax.transAxes)\n\n\n################\n###  grids   ###\n################\ngrid = np.linspace(-1, 1, 10) * side\ngrid_one = np.ones(10)\nlw = .3; alpha = .7\nfor chain_pos in chain_grid:\n    ax.plot(grid, grid_one * chain_pos, grid_one * side, color=\"k\", alpha=alpha, zorder=3, lw=lw)\n    ax.plot(grid_one * side, grid_one * chain_pos, grid, color=\"k\", alpha=alpha, zorder=5, lw=lw)\n    ax.plot(grid_one * side + 4, grid_one * chain_pos, grid, color=\"k\", alpha=alpha, zorder=6, lw=lw)\n    ax.plot(grid_one * side + 8, grid_one * chain_pos, grid, color=\"k\", alpha=alpha, zorder=7, lw=lw)\nfor draw_pos in draw_grid:\n    ax.plot(grid, -grid_one * side, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=4, lw=lw)\n    ax.plot(grid_one * side, grid, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=5, lw=lw)\n    ax.plot(grid_one * side + 4, grid, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=6, lw=lw)\n    ax.plot(grid_one * side + 8, grid, grid_one * draw_pos,  color=\"k\", alpha=alpha, zorder=7, lw=lw)\nfor school_pos in school_grid:\n    ax.plot(grid_one * school_pos, grid, grid_one * side,  color=\"k\", alpha=alpha, zorder=4, lw=lw)\n    ax.plot(grid_one * school_pos, -grid_one * side, grid, color=\"k\", alpha=alpha, zorder=4, lw=lw)\n\nax.axis(\"off\");\nax.view_init(azim=-69)\n#fig.savefig(\"labeled_arys.png\", dpi=300)",
       "names": [
         {
           "import_components": [
@@ -1737,38 +1521,207 @@
             "mplot3d"
           ],
           "code_str": "mpl_toolkits.mplot3d",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 1,
+          "end_lineno": 1,
           "context": "import_from",
           "resolved_location": "mpl_toolkits.mplot3d"
         }
       ],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "extra-generating-the-post-image",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "Extra: generating the post image"
         ]
       },
-      "doc_lineno": 550002
+      "doc_lineno": 540002
     },
     {
-      "source": "#hide_input\n%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w",
       "names": [],
       "example": {
-        "document": "posts/2020/2020-09-22-pymc3-arviz",
+        "document": "blog/posts/2020/pymc3-arviz",
         "ref_id": "extra-generating-the-post-image",
         "headings": [
-          "\u201cPyMC3 with labeled coords and dims\u201d",
+          "PyMC3 with labeled coords and dims",
           "Extra: generating the post image"
         ]
       },
-      "doc_lineno": 570002
+      "doc_lineno": 560002
     }
   ],
-  "posts/2020/setting_up_blog": [],
-  "posts/2022/2022-04-25-einstats-hmm-cmdstanpy": [
+  "blog/posts/2020/rcParams": [
+    {
+      "source": "import arviz as az\nimport matplotlib.pyplot as plt\n\nidata = az.load_arviz_data(\"centered_eight\")",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot"
+          ],
+          "code_str": "matplotlib.pyplot",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "import_target",
+          "resolved_location": "matplotlib.pyplot"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "load_arviz_data"
+          ],
+          "code_str": "az.load_arviz_data",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "arviz.load_arviz_data"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "introduction",
+        "headings": [
+          "Introduction"
+        ]
+      },
+      "doc_lineno": 40002
+    },
+    {
+      "source": "import arviz as az\nprint(az.rcparams.get_arviz_rcfile())",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "arvizrc-file",
+        "headings": [
+          "Customizing ArviZ",
+          "arvizrc file"
+        ]
+      },
+      "doc_lineno": 70002
+    },
+    {
+      "source": "az.rcParams[\"data.load\"] = \"eager\"",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "dynamic-rc-settings",
+        "headings": [
+          "Customizing ArviZ",
+          "Dynamic rc settings"
+        ]
+      },
+      "doc_lineno": 120002
+    },
+    {
+      "source": "rc = {\n    \"data.load\": \"lazy\",\n    \"plot.max_subplots\": 30,\n    \"stats.ic_scale\": \"negative_log\",\n    \"plot.matplotlib.constrained_layout\": False\n}\naz.rcParams.update(rc)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "dynamic-rc-settings",
+        "headings": [
+          "Customizing ArviZ",
+          "Dynamic rc settings"
+        ]
+      },
+      "doc_lineno": 140002
+    },
+    {
+      "source": "_, axes = plt.subplots(1,3, figsize=(15,4))\n\naz.plot_posterior(idata, var_names=\"mu\", ax=axes[0])\n\nwith az.rc_context({\"plot.point_estimate\": \"mode\", \"stats.hdi_prob\": 0.7}):\n    az.plot_posterior(idata, var_names=\"mu\", ax=axes[1])\n\naz.plot_posterior(idata, var_names=\"mu\", ax=axes[2]);",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "rc-context",
+        "headings": [
+          "Customizing ArviZ",
+          "rc_context"
+        ]
+      },
+      "doc_lineno": 160002
+    },
+    {
+      "source": "az.load_arviz_data().keys()",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "data",
+        "headings": [
+          "ArviZ default settings",
+          "Data"
+        ]
+      },
+      "doc_lineno": 200002
+    },
+    {
+      "source": "for metagroup, groups in az.rcParams[\"data.metagroups\"].items():\n    print(f\"{metagroup}:\\n    {groups}\\n\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "data",
+        "headings": [
+          "ArviZ default settings",
+          "Data"
+        ]
+      },
+      "doc_lineno": 270002
+    },
+    {
+      "source": "az.rcParams[\"data.metagroups\"][\"sampled\"] = (\n    'posterior', 'posterior_predictive', 'sample_stats', 'log_likelihood', 'prior', 'prior_predictive'\n)\nshifted_idata = idata.map(lambda x: x-7, groups=\"sampled\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "data",
+        "headings": [
+          "ArviZ default settings",
+          "Data"
+        ]
+      },
+      "doc_lineno": 290002
+    },
+    {
+      "source": "with az.rc_context({\"plot.max_subplots\": 3}):\n    az.plot_posterior(idata);",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "general",
+        "headings": [
+          "ArviZ default settings",
+          "Plot",
+          "General"
+        ]
+      },
+      "doc_lineno": 360002
+    },
+    {
+      "source": "with az.rc_context({\"plot.bokeh.layout.order\": \"2column\"}):\n    az.plot_ess(idata, backend=\"bokeh\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "bokeh",
+        "headings": [
+          "ArviZ default settings",
+          "Plot",
+          "Bokeh"
+        ]
+      },
+      "doc_lineno": 430002
+    },
+    {
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2020/rcParams",
+        "ref_id": "stats",
+        "headings": [
+          "ArviZ default settings",
+          "Stats"
+        ]
+      },
+      "doc_lineno": 610002
+    }
+  ],
+  "blog/posts/2020/setting_up_blog": [],
+  "blog/posts/2022/einstats-hmm-cmdstanpy": [
     {
       "source": "import cmdstanpy\nimport pandas as pd\nimport arviz as az\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport xarray as xr",
       "names": [
@@ -1805,7 +1758,7 @@
         }
       ],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "cmdstanpy-and-arviz-integration",
         "headings": [
           "CmdStanPy and ArviZ integration"
@@ -1814,10 +1767,10 @@
       "doc_lineno": 30002
     },
     {
-      "source": "#hide\n# use text display to keep blog fast and responsive, \n# do not execute this cell when running the code\nxr.set_options(display_style=\"text\");",
+      "source": "az.style.use(\"arviz-darkgrid\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "cmdstanpy-and-arviz-integration",
         "headings": [
           "CmdStanPy and ArviZ integration"
@@ -1826,35 +1779,36 @@
       "doc_lineno": 40002
     },
     {
-      "source": "az.style.use(\"arviz-darkgrid\")",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
-        "ref_id": "cmdstanpy-and-arviz-integration",
-        "headings": [
-          "CmdStanPy and ArviZ integration"
-        ]
-      },
-      "doc_lineno": 50002
-    },
-    {
       "source": "hmm_data = pd.read_csv(\"data/hmm_example.csv\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "simple-hmm-example",
         "headings": [
           "CmdStanPy and ArviZ integration",
           "Simple HMM example"
         ]
       },
-      "doc_lineno": 70002
+      "doc_lineno": 60002
     },
     {
-      "source": "#collapse-output\nwith open(\"stan_codes/hmm_example.stan\", \"r\") as f:\n    print(f.read())",
+      "source": "with open(\"stan_codes/hmm_example.stan\", \"r\") as f:\n    print(f.read())",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
+        "ref_id": "simple-hmm-example",
+        "headings": [
+          "CmdStanPy and ArviZ integration",
+          "Simple HMM example"
+        ]
+      },
+      "doc_lineno": 80002
+    },
+    {
+      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/hmm_example.stan\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "simple-hmm-example",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1864,10 +1818,10 @@
       "doc_lineno": 90002
     },
     {
-      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/hmm_example.stan\")",
+      "source": "stan_data = dict(N = len(hmm_data), K = 2, y = hmm_data[\"y\"])\nhmm_fit = model.sample(data = stan_data)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "simple-hmm-example",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1877,23 +1831,10 @@
       "doc_lineno": 100002
     },
     {
-      "source": "stan_data = dict(N = len(hmm_data), K = 2, y = hmm_data[\"y\"])\nhmm_fit = model.sample(data = stan_data)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
-        "ref_id": "simple-hmm-example",
-        "headings": [
-          "CmdStanPy and ArviZ integration",
-          "Simple HMM example"
-        ]
-      },
-      "doc_lineno": 110002
-    },
-    {
       "source": "states = [1, 2]\nidata = az.from_cmdstanpy(\n    hmm_fit,\n    dims={\"theta\": [\"origin_state\", \"end_state\"], \"mu\": [\"state\"], \"z_star\": [\"time\"]},\n    coords={\"state\": states, \"origin_state\": states, \"end_state\": states}\n)\nidata",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "conversion-to-inferencedata",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1901,13 +1842,13 @@
           "Conversion to InferenceData"
         ]
       },
-      "doc_lineno": 130002
+      "doc_lineno": 120002
     },
     {
       "source": "idata.posterior",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "conversion-to-inferencedata",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1915,13 +1856,13 @@
           "Conversion to InferenceData"
         ]
       },
-      "doc_lineno": 150002
+      "doc_lineno": 140002
     },
     {
       "source": "az.summary(idata, var_names=[\"theta\", \"mu\"])",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "diagnostics",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1929,13 +1870,13 @@
           "Diagnostics"
         ]
       },
-      "doc_lineno": 170002
+      "doc_lineno": 160002
     },
     {
       "source": "az.summary(idata, var_names=[\"theta\", \"mu\"], labeller=az.labels.DimCoordLabeller())",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "diagnostics",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1943,7 +1884,7 @@
           "Diagnostics"
         ]
       },
-      "doc_lineno": 190002
+      "doc_lineno": 180002
     },
     {
       "source": "from xarray_einstats.stats import XrContinuousRV\nfrom scipy.stats import norm\n\npost = idata.posterior\n\npsi_seq = post[\"mu\"].sel(state=post[\"z_star\"])\n# the conversion to dataset is for dislpay reasons only\npsi_seq.to_dataset(name=\"psi_seq\")",
@@ -1973,7 +1914,7 @@
         }
       ],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "posterior-predictive-sampling",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1981,13 +1922,13 @@
           "Posterior predictive sampling"
         ]
       },
-      "doc_lineno": 220002
+      "doc_lineno": 210002
     },
     {
       "source": "idata.add_groups(posterior_predictive=XrContinuousRV(norm, psi_seq, 1).rvs().to_dataset(name=\"y\"))\nprint(idata)\nidata.posterior_predictive",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "posterior-predictive-sampling",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -1995,13 +1936,13 @@
           "Posterior predictive sampling"
         ]
       },
-      "doc_lineno": 240002
+      "doc_lineno": 230002
     },
     {
       "source": "pp_subset = az.extract_dataset(idata, group=\"posterior_predictive\", num_samples=100)\n\n_, ax = plt.subplots()\nax.plot(hmm_data[\"y\"], \"k-\", zorder=3, label=\"Observed\")\nax.set_title(\"Observed vs Predicted Output\")\nax.set_ylabel(\"Observation Value\")\nax.set_xlabel(\"Time\")\n\nax.plot(pp_subset[\"y\"], color=\"#ff668890\", alpha=.2)\nax.plot([], [], color=\"#ff668890\", label=\"Predicted\")\nax.legend();",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "posterior-predictive-sampling",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2009,13 +1950,26 @@
           "Posterior predictive sampling"
         ]
       },
-      "doc_lineno": 260002
+      "doc_lineno": 250002
     },
     {
       "source": "df = pd.read_csv(\"data/evt140_0021500411.csv\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
+        "ref_id": "tagging-drive-events",
+        "headings": [
+          "CmdStanPy and ArviZ integration",
+          "Tagging Drive Events"
+        ]
+      },
+      "doc_lineno": 270002
+    },
+    {
+      "source": "stan_data = dict(\n    N = len(df),\n    K = 2,\n    u = np.log(1/df[\"lavine_speed_smooth\"].values),\n    v = np.log(df[\"lavine_dist\"].values),\n    alpha = np.array([[4,2],[2,4]]),\n    tau = 0.1,\n    rho = 0.1\n)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "tagging-drive-events",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2025,10 +1979,10 @@
       "doc_lineno": 280002
     },
     {
-      "source": "stan_data = dict(\n    N = len(df),\n    K = 2,\n    u = np.log(1/df[\"lavine_speed_smooth\"].values),\n    v = np.log(df[\"lavine_dist\"].values),\n    alpha = np.array([[4,2],[2,4]]),\n    tau = 0.1,\n    rho = 0.1\n)",
+      "source": "with open(\"stan_codes/drive_1.stan\", \"r\") as f:\n    print(f.read())",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "tagging-drive-events",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2038,10 +1992,10 @@
       "doc_lineno": 290002
     },
     {
-      "source": "#collapse-output\nwith open(\"stan_codes/drive_1.stan\", \"r\") as f:\n    print(f.read())",
+      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/drive_1.stan\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "tagging-drive-events",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2051,10 +2005,10 @@
       "doc_lineno": 300002
     },
     {
-      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/drive_1.stan\")",
+      "source": "drive_fit = model.sample(data = stan_data)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "tagging-drive-events",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2064,23 +2018,10 @@
       "doc_lineno": 310002
     },
     {
-      "source": "drive_fit = model.sample(data = stan_data)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
-        "ref_id": "tagging-drive-events",
-        "headings": [
-          "CmdStanPy and ArviZ integration",
-          "Tagging Drive Events"
-        ]
-      },
-      "doc_lineno": 320002
-    },
-    {
       "source": "states = [1, 2]\ndrive_idata = az.from_cmdstanpy(\n    drive_fit,\n    dims={\n        \"theta\": [\"origin_state\", \"end_state\"], \n        \"alpha\": [\"origin_state\", \"end_state\"], \n        \"phi\": [\"state\"], \n        \"lambda\": [\"state\"], \n        \"z_star\": [\"time\"],\n        \"v\": [\"time\"],\n        \"u\": [\"time\"],\n    },\n    observed_data={k: v for k, v in stan_data.items() if k in {\"u\", \"v\", \"alpha\"}},\n    coords={\"state\": states, \"origin_state\": states, \"end_state\": states}\n)\ndrive_idata.posterior",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "id1",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2088,13 +2029,13 @@
           "Conversion to InferenceData"
         ]
       },
-      "doc_lineno": 340002
+      "doc_lineno": 330002
     },
     {
       "source": "post = drive_idata.posterior\n\nds_seq = post[[\"phi\", \"lambda\"]].sel(state=post[\"z_star\"])\nphi_hat = XrContinuousRV(norm, ds_seq[\"phi\"], .1).rvs()\nlambda_hat = XrContinuousRV(norm, ds_seq[\"lambda\"], .1).rvs()\n\ndrive_idata.add_groups(\n    posterior_predictive=xr.Dataset({\"phi\": phi_hat, \"lambda\": lambda_hat})\n)\ndrive_idata.posterior_predictive",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "id2",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2102,13 +2043,13 @@
           "Posterior predictive sampling"
         ]
       },
-      "doc_lineno": 360002
+      "doc_lineno": 350002
     },
     {
       "source": "pp_subset = az.extract_dataset(drive_idata, group=\"posterior_predictive\", num_samples=100)\nobs_data = drive_idata.observed_data\n\n_, axes = plt.subplots(3, 1)\nax = axes[0]\nax.plot(obs_data[\"v\"], \"k-\", zorder=3, label=\"Observed\")\nax.set_title(\"Distance from hoop (log scale)\")\nax.set_ylabel(\"Distance from hoop\")\nax.set_xlabel(\"Time (25Hz)\")\n\nax.plot(pp_subset[\"lambda\"], color=\"#ff668890\")\nax.plot([], [], color=\"#ff668890\", label=\"Predicted\")\nax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=\"medium\");\n\nax = axes[1]\nax.plot(obs_data[\"u\"], \"k-\", zorder=3, label=\"Observed\")\nax.set_title(\"Smooth speed\")\nax.set_ylabel(\"Speed (log scale)\")\nax.set_xlabel(\"Time (25Hz)\")\n\nax.plot(pp_subset[\"phi\"], color=\"#ff668890\")\nax.plot([], [], color=\"#ff668890\", label=\"Predicted\")\nax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=\"medium\");\n\nax = axes[2]\nax.plot(post[\"z_star\"].mean((\"chain\", \"draw\")), \"k-\")\nax.set_title(\"Hidden states\")\nax.set_ylabel(\"State\")\nax.set_xlabel(\"Time (25Hz)\")\nax.set_ylim((.5, 2.5))\nax.set_yticks([1, 2], labels=[\"Drive\", \"None\"], size=\"medium\");",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "id2",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2116,13 +2057,26 @@
           "Posterior predictive sampling"
         ]
       },
-      "doc_lineno": 380002
+      "doc_lineno": 370002
     },
     {
       "source": "ds = xr.open_dataset(\"data/defense_example.nc\")\nprint(ds)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
+        "ref_id": "defensive-assignment",
+        "headings": [
+          "CmdStanPy and ArviZ integration",
+          "Defensive assignment"
+        ]
+      },
+      "doc_lineno": 390002
+    },
+    {
+      "source": "stan_data = {k: v.item() if v.size == 1 else v.values for k, v in ds.items()}",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2132,10 +2086,10 @@
       "doc_lineno": 400002
     },
     {
-      "source": "stan_data = {k: v.item() if v.size == 1 else v.values for k, v in ds.items()}",
+      "source": "with open(\"stan_codes/defense_0a.stan\", \"r\") as f:\n    print(f.read())",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2145,10 +2099,10 @@
       "doc_lineno": 410002
     },
     {
-      "source": "#collapse-output\nwith open(\"stan_codes/defense_0a.stan\", \"r\") as f:\n    print(f.read())",
+      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/defense_0a.stan\")\ndefense0a_fit = model.sample(data = {**stan_data, \"lambda\": [1/3, 1/3, 1/3]})",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2158,23 +2112,23 @@
       "doc_lineno": 420002
     },
     {
-      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/defense_0a.stan\")\ndefense0a_fit = model.sample(data = {**stan_data, \"lambda\": [1/3, 1/3, 1/3]})",
+      "source": "states = [1, 2, 3, 4, 5]\ndefense0a_idata = az.from_cmdstanpy(\n    defense0a_fit,\n    dims={\n        \"theta\": [\"origin_state\", \"end_state\"], \n        \"z_star\": [\"time\"],\n    },\n    coords={\"state\": states, \"origin_state\": states, \"end_state\": states}\n)\ndefense0a_idata.posterior",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
           "Defensive assignment"
         ]
       },
-      "doc_lineno": 430002
+      "doc_lineno": 440002
     },
     {
-      "source": "states = [1, 2, 3, 4, 5]\ndefense0a_idata = az.from_cmdstanpy(\n    defense0a_fit,\n    dims={\n        \"theta\": [\"origin_state\", \"end_state\"], \n        \"z_star\": [\"time\"],\n    },\n    coords={\"state\": states, \"origin_state\": states, \"end_state\": states}\n)\ndefense0a_idata.posterior",
+      "source": "with open(\"stan_codes/defense_0b.stan\", \"r\") as f:\n    print(f.read())",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2184,10 +2138,10 @@
       "doc_lineno": 450002
     },
     {
-      "source": "#collapse-output\nwith open(\"stan_codes/defense_0b.stan\", \"r\") as f:\n    print(f.read())",
+      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/defense_0b.stan\")\ndefense0b_fit = model.sample(data = {**stan_data, \"alpha\": [3., 3., 3.]})",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2197,23 +2151,23 @@
       "doc_lineno": 460002
     },
     {
-      "source": "model = cmdstanpy.CmdStanModel(stan_file=\"stan_codes/defense_0b.stan\")\ndefense0b_fit = model.sample(data = {**stan_data, \"alpha\": [3., 3., 3.]})",
+      "source": "states = [1, 2, 3, 4, 5]\ndefense0b_idata = az.from_cmdstanpy(\n    defense0b_fit,\n    dims={\n        \"theta\": [\"origin_state\", \"end_state\"],\n        \"lambda\": [\"param\"],\n        \"z_star\": [\"time\"],\n    },\n    coords={\"state\": states, \"origin_state\": states, \"end_state\": states, \"param\": [\"o\", \"h\", \"b\"]}\n)\ndefense0b_idata.posterior",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
           "Defensive assignment"
         ]
       },
-      "doc_lineno": 470002
+      "doc_lineno": 480002
     },
     {
-      "source": "states = [1, 2, 3, 4, 5]\ndefense0b_idata = az.from_cmdstanpy(\n    defense0b_fit,\n    dims={\n        \"theta\": [\"origin_state\", \"end_state\"],\n        \"lambda\": [\"param\"],\n        \"z_star\": [\"time\"],\n    },\n    coords={\"state\": states, \"origin_state\": states, \"end_state\": states, \"param\": [\"o\", \"h\", \"b\"]}\n)\ndefense0b_idata.posterior",
+      "source": "lambda0b = defense0b_idata.posterior[\"lambda\"]\n\nmu0a = ds[\"o\"] / 3 + ds[\"h\"] / 3 + ds[\"b\"] / 3\nmu0b = (\n    ds[\"o\"] * lambda0b.sel(param=\"o\") \n    + ds[\"h\"] * lambda0b.sel(param=\"h\") \n    + ds[\"b\"] * lambda0b.sel(param=\"b\")\n)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
@@ -2223,46 +2177,404 @@
       "doc_lineno": 490002
     },
     {
-      "source": "lambda0b = defense0b_idata.posterior[\"lambda\"]\n\nmu0a = ds[\"o\"] / 3 + ds[\"h\"] / 3 + ds[\"b\"] / 3\nmu0b = (\n    ds[\"o\"] * lambda0b.sel(param=\"o\") \n    + ds[\"h\"] * lambda0b.sel(param=\"h\") \n    + ds[\"b\"] * lambda0b.sel(param=\"b\")\n)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
-        "ref_id": "defensive-assignment",
-        "headings": [
-          "CmdStanPy and ArviZ integration",
-          "Defensive assignment"
-        ]
-      },
-      "doc_lineno": 500002
-    },
-    {
       "source": "# conversion to dataset is only for display reasons\nmu0b.to_dataset(name=\"mu0b\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "defensive-assignment",
         "headings": [
           "CmdStanPy and ArviZ integration",
           "Defensive assignment"
         ]
       },
-      "doc_lineno": 520002
+      "doc_lineno": 510002
     },
     {
-      "source": "#hide_input\n%load_ext watermark\n%watermark -n -u -v -iv -w -p xarray_einstats",
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w -p xarray_einstats",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-04-25-einstats-hmm-cmdstanpy",
+        "document": "blog/posts/2022/einstats-hmm-cmdstanpy",
         "ref_id": "further-reading",
         "headings": [
           "CmdStanPy and ArviZ integration",
           "Further reading"
         ]
       },
-      "doc_lineno": 560002
+      "doc_lineno": 550002
     }
   ],
-  "posts/2022/2022-05-25-too-eager-reduction": [
+  "blog/posts/2022/pymc-arviz": [
+    {
+      "source": "import arviz as az\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\nimport pymc as pm\nimport aesara.tensor as at\n\nrng = np.random.default_rng()",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot"
+          ],
+          "code_str": "matplotlib.pyplot",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "import_target",
+          "resolved_location": "matplotlib.pyplot"
+        },
+        {
+          "import_components": [
+            "numpy"
+          ],
+          "code_str": "numpy",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "import_target",
+          "resolved_location": "numpy"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "random",
+            "default_rng"
+          ],
+          "code_str": "np.random.default_rng",
+          "lineno": 8,
+          "end_lineno": 8,
+          "context": "none",
+          "resolved_location": "numpy.random.default_rng"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "pymc-4-0-with-labeled-coords-and-dims",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims"
+        ]
+      },
+      "doc_lineno": 20002
+    },
+    {
+      "source": "az.style.use(\"arviz-darkgrid\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "pymc-4-0-with-labeled-coords-and-dims",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims"
+        ]
+      },
+      "doc_lineno": 30002
+    },
+    {
+      "source": "df_rugby = pd.read_csv(pm.get_data('rugby.csv'), index_col=0)\nhome_idx, teams = pd.factorize(df_rugby[\"home_team\"], sort=True)\naway_idx, _ = pd.factorize(df_rugby[\"away_team\"], sort=True)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "st-example-rugby-analytics",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "1st example: rugby analytics"
+        ]
+      },
+      "doc_lineno": 90002
+    },
+    {
+      "source": "coords = {\n    \"team\": teams,\n    \"match\": np.arange(60),\n    \"field\": [\"home\", \"away\"],\n}\nwith pm.Model(coords=coords) as rugby_model:\n    # global model parameters\n    home = pm.Flat('home')\n    sd_att = pm.HalfStudentT('sd_att', nu=3, sigma=2.5)\n    sd_def = pm.HalfStudentT('sd_def', nu=3, sigma=2.5)\n    intercept = pm.Flat('intercept')\n\n    # team-specific model parameters\n    atts_star = pm.Normal(\"atts_star\", mu=0, sigma=sd_att, dims=\"team\")\n    defs_star = pm.Normal(\"defs_star\", mu=0, sigma=sd_def, dims=\"team\")\n\n    atts = pm.Deterministic('atts', atts_star - at.mean(atts_star), dims=\"team\")\n    defs = pm.Deterministic('defs', defs_star - at.mean(defs_star), dims=\"team\")\n    home_theta = at.exp(intercept + home + atts[home_idx] + defs[away_idx])\n    away_theta = at.exp(intercept + atts[away_idx] + defs[home_idx])\n\n    # likelihood of observed data\n    pm.Poisson(\n        'points', \n        mu=at.stack((home_theta, away_theta)).T, \n        observed=df_rugby[[\"home_score\", \"away_score\"]],\n        dims=(\"match\", \"field\")\n    )\n    rugby_idata = pm.sample(1000, tune=1000, cores=4)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "st-example-rugby-analytics",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "1st example: rugby analytics"
+        ]
+      },
+      "doc_lineno": 100002
+    },
+    {
+      "source": "print(type(rugby_idata))",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "st-example-rugby-analytics",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "1st example: rugby analytics"
+        ]
+      },
+      "doc_lineno": 120002
+    },
+    {
+      "source": "srrs2 = pd.read_csv(pm.get_data(\"srrs2.dat\"))\nsrrs2.columns = srrs2.columns.map(str.strip)\nsrrs_mn = srrs2[srrs2.state == \"MN\"].copy()\n\nsrrs_mn[\"fips\"] = srrs_mn.stfips * 1000 + srrs_mn.cntyfips\ncty = pd.read_csv(pm.get_data(\"cty.dat\"))\ncty_mn = cty[cty.st == \"MN\"].copy()\ncty_mn[\"fips\"] = 1000 * cty_mn.stfips + cty_mn.ctfips\n\nsrrs_mn = srrs_mn.merge(cty_mn[[\"fips\", \"Uppm\"]], on=\"fips\")\nsrrs_mn = srrs_mn.drop_duplicates(subset=\"idnum\")\nu = np.log(srrs_mn.Uppm).unique()\n\nn = len(srrs_mn)\nsrrs_mn.county = srrs_mn.county.map(str.strip)\nsrrs_mn[\"county_code\"], mn_counties = pd.factorize(srrs_mn.county)\nsrrs_mn[\"log_radon\"] = np.log(srrs_mn.activity + 0.1)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "nd-example-radon-multilevel-model",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "2nd example: radon multilevel model"
+        ]
+      },
+      "doc_lineno": 140002
+    },
+    {
+      "source": "coords = {\n    \"level\": [\"basement\", \"floor\"], \n    \"county\": mn_counties,\n    \"param\": [\"a\", \"b\"],\n    \"param2\": [\"a\", \"b\"],\n}",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "nd-example-radon-multilevel-model",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "2nd example: radon multilevel model"
+        ]
+      },
+      "doc_lineno": 160002
+    },
+    {
+      "source": "with pm.Model(coords=coords) as radon_model:\n    floor_idx = pm.ConstantData(\"floor_idx\", srrs_mn.floor, dims=\"obs_id\")\n    county_idx = pm.ConstantData(\"county_idx\", srrs_mn.county_code, dims=\"obs_id\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "nd-example-radon-multilevel-model",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "2nd example: radon multilevel model"
+        ]
+      },
+      "doc_lineno": 180002
+    },
+    {
+      "source": "with radon_model:\n    sd_dist = pm.Exponential.dist(0.5)\n    a = pm.Normal(\"a\", mu=0.0, sigma=5.0)\n    b = pm.Normal(\"b\", mu=0.0, sigma=1.0)\n    z = pm.Normal(\"z\", 0.0, 1.0, dims=(\"param\", \"county\"))\n    \n    chol, corr, stds = pm.LKJCholeskyCov(\n        \"chol\", n=2, eta=2.0, sd_dist=sd_dist, compute_corr=True\n    )",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "nd-example-radon-multilevel-model",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "2nd example: radon multilevel model"
+        ]
+      },
+      "doc_lineno": 200002
+    },
+    {
+      "source": "with radon_model:\n    ab_county = pm.Deterministic(\"ab_county\", at.dot(chol, z).T, dims=(\"county\", \"param\"))\n    theta = a + ab_county[county_idx, 0] + (b + ab_county[county_idx, 1]) * floor_idx\n\n    sigma = pm.Exponential(\"sigma\", 1.0)\n    pm.Normal(\"y\", theta, sigma=sigma, observed=srrs_mn.log_radon, dims=\"obs_id\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "nd-example-radon-multilevel-model",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "2nd example: radon multilevel model"
+        ]
+      },
+      "doc_lineno": 220002
+    },
+    {
+      "source": "with radon_model:\n    radon_idata = pm.sample(\n        2000, tune=2000, target_accept=0.99, random_seed=75625,\n        idata_kwargs={\"dims\": {\"chol_stds\": [\"param\"], \"chol_corr\": [\"param\", \"param2\"]}}\n    )",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "nd-example-radon-multilevel-model",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "2nd example: radon multilevel model"
+        ]
+      },
+      "doc_lineno": 240002
+    },
+    {
+      "source": "a_true = 2\nb_true = -0.4\nx = np.linspace(0, 10, 31)\nyear = np.arange(2022-len(x), 2022)\ny = a_true + b_true * x + rng.normal(size=len(x))\n\nfig, ax = plt.subplots()\nax.plot(x, y, \"o-\")\nax.text(\n    0.93, 0.9, r\"$y_i = a + bx_i + \\mathcal{N}(0,1)$\", ha='right', va='top', transform=ax.transAxes, fontsize=18\n)\n\nax.set_xticks(x[::3])\nax.set_xticklabels(year[::3])\nax.set_yticks([])\nax.set_xlabel(\"Year\")\nax.set_ylabel(\"Quantity of interest\");",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "there-is-life-outside-the-posterior",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior"
+        ]
+      },
+      "doc_lineno": 270002
+    },
+    {
+      "source": "with pm.Model() as linreg_model:\n    # use x_ to avoid overwriting x previously defined as np.ndarray\n    x_ = pm.MutableData(\"x\", x, dims=\"year\", coords={\"year\": year})\n    \n    a = pm.Normal(\"a\", 0, 3)\n    b = pm.Normal(\"b\", 0, 2)\n    sigma = pm.HalfNormal(\"sigma\", 2)\n    \n    pm.Normal(\"y\", a + b * x_, sigma, observed=y, dims=\"year\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "there-is-life-outside-the-posterior",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior"
+        ]
+      },
+      "doc_lineno": 280002
+    },
+    {
+      "source": "with linreg_model:\n    linreg_idata = pm.sample_prior_predictive(700)\n\nlinreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "priors",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Priors"
+        ]
+      },
+      "doc_lineno": 310002
+    },
+    {
+      "source": "az.plot_ppc(linreg_idata, group=\"prior\");",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "priors",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Priors"
+        ]
+      },
+      "doc_lineno": 330002
+    },
+    {
+      "source": "with linreg_model:\n    idata_aux = pm.sample()\nlinreg_idata.extend(idata_aux)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "posterior",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior"
+        ]
+      },
+      "doc_lineno": 350002
+    },
+    {
+      "source": "linreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "posterior",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior"
+        ]
+      },
+      "doc_lineno": 360002
+    },
+    {
+      "source": "az.plot_pair(linreg_idata);",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "posterior",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior"
+        ]
+      },
+      "doc_lineno": 370002
+    },
+    {
+      "source": "with linreg_model:\n    pm.sample_posterior_predictive(linreg_idata, extend_inferencedata=True)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "posterior-predictive",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior predictive"
+        ]
+      },
+      "doc_lineno": 390002
+    },
+    {
+      "source": "linreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "posterior-predictive",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior predictive"
+        ]
+      },
+      "doc_lineno": 400002
+    },
+    {
+      "source": "az.plot_loo_pit(linreg_idata, y=\"y\");",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "posterior-predictive",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Posterior predictive"
+        ]
+      },
+      "doc_lineno": 420002
+    },
+    {
+      "source": "with linreg_model:\n    pm.set_data({\"x\": x[-1] + x[1:3]}, coords={\"year\": [2022, 2023]})\n    pm.sample_posterior_predictive(linreg_idata, predictions=True, extend_inferencedata=True)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "predictions",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Predictions"
+        ]
+      },
+      "doc_lineno": 450002
+    },
+    {
+      "source": "linreg_idata",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "predictions",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Predictions"
+        ]
+      },
+      "doc_lineno": 460002
+    },
+    {
+      "source": "az.plot_posterior(linreg_idata, group=\"predictions\");",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "predictions",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Predictions"
+        ]
+      },
+      "doc_lineno": 470002
+    },
+    {
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/pymc-arviz",
+        "ref_id": "predictions",
+        "headings": [
+          "PyMC 4.0 with labeled coords and dims",
+          "There is life outside the posterior",
+          "Predictions"
+        ]
+      },
+      "doc_lineno": 490002
+    }
+  ],
+  "blog/posts/2022/too-eager-reduction": [
     {
       "source": "import numpy as np\nimport arviz as az\nimport matplotlib.pyplot as plt\nimport matplotlib.ticker as mtick\nimport matplotlib.lines as mlines\nimport xarray as xr\nimport pymc as pm\n\nrng = np.random.default_rng(5)\naz.style.use(\"arviz-darkgrid\")\nplt.rcParams[\"font.size\"] = 13",
       "names": [
@@ -2333,7 +2645,7 @@
         }
       ],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "some-dimensionality-devils",
         "headings": [
           "Some dimensionality devils"
@@ -2342,22 +2654,23 @@
       "doc_lineno": 30002
     },
     {
-      "source": "#hide\n# use text display to keep blog fast and responsive, \n# do not execute this cell when running the code\nxr.set_options(display_style=\"text\");",
+      "source": "n_chains = 4\nn_draws = 1000\n\na = rng.multivariate_normal([0., 0.], np.array([[1, 0.85], [0.85, 1]]), size=(n_chains, n_draws))\n\nb = np.empty_like(a)\nb[..., 0] = a[..., 0] + a[..., 1]\nb[..., 1] = a[..., 0] - a[..., 1]\nb[..., 1] += .1*(2*b[..., 0])**2\n\nc = rng.multivariate_normal([0., 0.], np.array([[1., 0.], [0., 1.]]), size=(n_chains, n_draws))\n\ndef mean_std_normalize(ary):\n    shape = ary.shape\n    assert shape[-1] == 2\n    axis = tuple(range(len(shape)-1))\n    mean = ary.mean(axis=axis)\n    std = ary.std(axis=axis)\n    return (((ary - mean) / std) * np.array([.4, .3])) + np.array([2, 3])\n\na = mean_std_normalize(a)\nb = mean_std_normalize(b)\nc = mean_std_normalize(c)\n\nidata = az.from_dict(\n    {\"a\": a, \"b\": b, \"c\": c}, \n    coords={\"var\": [\"shot\", \"distance\"]}, \n    dims={\"a\": [\"var\"], \"b\": [\"var\"], \"c\": [\"var\"]}\n)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
-        "ref_id": "some-dimensionality-devils",
+        "document": "blog/posts/2022/too-eager-reduction",
+        "ref_id": "simulated-data-generation",
         "headings": [
-          "Some dimensionality devils"
+          "Some dimensionality devils",
+          "Simulated data generation"
         ]
       },
-      "doc_lineno": 40002
+      "doc_lineno": 60002
     },
     {
-      "source": "#collapse-hide\nn_chains = 4\nn_draws = 1000\n\na = rng.multivariate_normal([0., 0.], np.array([[1, 0.85], [0.85, 1]]), size=(n_chains, n_draws))\n\nb = np.empty_like(a)\nb[..., 0] = a[..., 0] + a[..., 1]\nb[..., 1] = a[..., 0] - a[..., 1]\nb[..., 1] += .1*(2*b[..., 0])**2\n\nc = rng.multivariate_normal([0., 0.], np.array([[1., 0.], [0., 1.]]), size=(n_chains, n_draws))\n\ndef mean_std_normalize(ary):\n    shape = ary.shape\n    assert shape[-1] == 2\n    axis = tuple(range(len(shape)-1))\n    mean = ary.mean(axis=axis)\n    std = ary.std(axis=axis)\n    return (((ary - mean) / std) * np.array([.4, .3])) + np.array([2, 3])\n\na = mean_std_normalize(a)\nb = mean_std_normalize(b)\nc = mean_std_normalize(c)\n\nidata = az.from_dict(\n    {\"a\": a, \"b\": b, \"c\": c}, \n    coords={\"var\": [\"shot\", \"distance\"]}, \n    dims={\"a\": [\"var\"], \"b\": [\"var\"], \"c\": [\"var\"]}\n)",
+      "source": "idata.posterior",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "simulated-data-generation",
         "headings": [
           "Some dimensionality devils",
@@ -2367,23 +2680,23 @@
       "doc_lineno": 70002
     },
     {
-      "source": "idata.posterior",
+      "source": "mpl_kwargs = {\"subplot_kw\": {\"aspect\": \"equal\"}}\naxes = az.plot_pair(idata, var_names=\"a\", point_estimate=\"mean\", backend_kwargs=mpl_kwargs);",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "simulated-data-generation",
         "headings": [
           "Some dimensionality devils",
           "Simulated data generation"
         ]
       },
-      "doc_lineno": 80002
+      "doc_lineno": 90002
     },
     {
-      "source": "mpl_kwargs = {\"subplot_kw\": {\"aspect\": \"equal\"}}\naxes = az.plot_pair(idata, var_names=\"a\", point_estimate=\"mean\", backend_kwargs=mpl_kwargs);",
+      "source": "az.plot_pair(idata, var_names=\"b\", point_estimate=\"mean\", backend_kwargs=mpl_kwargs);",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "simulated-data-generation",
         "headings": [
           "Some dimensionality devils",
@@ -2393,10 +2706,10 @@
       "doc_lineno": 100002
     },
     {
-      "source": "az.plot_pair(idata, var_names=\"b\", point_estimate=\"mean\", backend_kwargs=mpl_kwargs);",
+      "source": "az.plot_pair(idata, var_names=\"c\", point_estimate=\"mean\", backend_kwargs=mpl_kwargs);",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "simulated-data-generation",
         "headings": [
           "Some dimensionality devils",
@@ -2406,62 +2719,49 @@
       "doc_lineno": 110002
     },
     {
-      "source": "az.plot_pair(idata, var_names=\"c\", point_estimate=\"mean\", backend_kwargs=mpl_kwargs);",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
-        "ref_id": "simulated-data-generation",
-        "headings": [
-          "Some dimensionality devils",
-          "Simulated data generation"
-        ]
-      },
-      "doc_lineno": 120002
-    },
-    {
       "source": "labeller = az.labels.mix_labellers((az.labels.NoVarLabeller, az.labels.DimCoordLabeller))\npost = idata.posterior\n\nax = az.plot_density(\n    [post[[\"a\"]].rename(a=\"x\"), post[[\"b\"]].rename(b=\"x\"), post[[\"c\"]].rename(c=\"x\")], \n    colors=[\"C0\", \"C1\", \"C2\"],\n    data_labels=[\"a\", \"b\", \"c\"],\n    labeller=labeller()  # remember to always pass an initialized labeller\n);\n",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "simulated-data-generation",
         "headings": [
           "Some dimensionality devils",
           "Simulated data generation"
         ]
       },
-      "doc_lineno": 140002
+      "doc_lineno": 130002
     },
     {
       "source": "az.summary(idata, kind=\"stats\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "simulated-data-generation",
         "headings": [
           "Some dimensionality devils",
           "Simulated data generation"
         ]
       },
-      "doc_lineno": 160002
+      "doc_lineno": 150002
     },
     {
       "source": "summary = \"mean\"\npost = idata.posterior\nif summary == \"mean\":\n    post_summary = post.mean((\"chain\", \"draw\"))\nelse:\n    post_summary = post.median((\"chain\", \"draw\"))",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "premature-aggregation",
         "headings": [
           "Some dimensionality devils",
           "Premature aggregation"
         ]
       },
-      "doc_lineno": 180002
+      "doc_lineno": 170002
     },
     {
-      "source": "#collapse-hide\nfrom xarray_einstats.einops import raw_reduce\n\ndef plot_func_comparison(pushforward_func, var_name, ax=None, **kwargs):\n    if ax is None:\n        _, ax = plt.subplots()\n\n\n    aux = post[var_name]\n    post_after = pushforward_func(aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), **kwargs)\n    if summary == \"mean\":\n        summary_after = post_after.mean((\"chain\", \"draw\"))\n    else:\n        summary_after = post_after.median((\"chain\", \"draw\"))\n    aux = post_summary[var_name]\n    summary_before = pushforward_func(aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), **kwargs)\n    difference = np.abs(summary_after - summary_before)\n    relative_difference = (difference / summary_after * 100).item()\n    difference_mcse_ratio = (difference / az.mcse(post_after, method=summary)[var_name]).item()\n    \n\n    az.plot_posterior(\n        raw_reduce(post_after, \"(d1 d2)=draw -> d2\", summary, d2=20).rename(d2=\"draw\"), \n        hdi_prob=\"hide\", \n        point_estimate=None, \n        kind=\"hist\",\n        ax=ax\n    )\n    ax.axvline(summary_after, color=\"C0\", label=f\"after: {summary_after.item():.3g}\")\n    ax.axvline(summary_before, ls=\"--\", color=\"C1\", label=f\"before: {summary_before.item():.3g}\")\n    ax.legend(title=f\"{summary.capitalize()} taken:\", loc=\"upper right\")\n    bbox = dict(boxstyle=\"round\", fc=(1., 1, 1, .7), ec=\"none\")\n    ax.text(0.62, 0.5, f\"Relative\\ndifference:\\n{relative_difference:.3g}%\", transform=ax.transAxes, bbox=bbox)\n    ax.text(0.62, 0.35, f\"Difference/mcse:\\n{difference_mcse_ratio:.2g}\", transform=ax.transAxes, bbox=bbox)\n    ax.set_title(f\"Variable: {var_name}\")",
+      "source": "from xarray_einstats.einops import raw_reduce\n\ndef plot_func_comparison(pushforward_func, var_name, ax=None, **kwargs):\n    if ax is None:\n        _, ax = plt.subplots()\n\n\n    aux = post[var_name]\n    post_after = pushforward_func(aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), **kwargs)\n    if summary == \"mean\":\n        summary_after = post_after.mean((\"chain\", \"draw\"))\n    else:\n        summary_after = post_after.median((\"chain\", \"draw\"))\n    aux = post_summary[var_name]\n    summary_before = pushforward_func(aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), **kwargs)\n    difference = np.abs(summary_after - summary_before)\n    relative_difference = (difference / summary_after * 100).item()\n    difference_mcse_ratio = (difference / az.mcse(post_after, method=summary)[var_name]).item()\n    \n\n    az.plot_posterior(\n        raw_reduce(post_after, \"(d1 d2)=draw -> d2\", summary, d2=20).rename(d2=\"draw\"), \n        hdi_prob=\"hide\", \n        point_estimate=None, \n        kind=\"hist\",\n        ax=ax\n    )\n    ax.axvline(summary_after, color=\"C0\", label=f\"after: {summary_after.item():.3g}\")\n    ax.axvline(summary_before, ls=\"--\", color=\"C1\", label=f\"before: {summary_before.item():.3g}\")\n    ax.legend(title=f\"{summary.capitalize()} taken:\", loc=\"upper right\")\n    bbox = dict(boxstyle=\"round\", fc=(1., 1, 1, .7), ec=\"none\")\n    ax.text(0.62, 0.5, f\"Relative\\ndifference:\\n{relative_difference:.3g}%\", transform=ax.transAxes, bbox=bbox)\n    ax.text(0.62, 0.35, f\"Difference/mcse:\\n{difference_mcse_ratio:.2g}\", transform=ax.transAxes, bbox=bbox)\n    ax.set_title(f\"Variable: {var_name}\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "pushforward-computation-examples",
         "headings": [
           "Some dimensionality devils",
@@ -2469,13 +2769,13 @@
           "Pushforward computation examples"
         ]
       },
-      "doc_lineno": 210002
+      "doc_lineno": 200002
     },
     {
       "source": "fun = lambda x, y: x+y\n\n_, axes = plt.subplots(1, 3, figsize=(14, 4))\nfor i, var_name in enumerate(\"abc\"):\n    plot_func_comparison(fun, var_name, ax=axes[i])",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "pushforward-computation-examples",
         "headings": [
           "Some dimensionality devils",
@@ -2483,13 +2783,13 @@
           "Pushforward computation examples"
         ]
       },
-      "doc_lineno": 230002
+      "doc_lineno": 220002
     },
     {
       "source": "fun = lambda x, y: x*y\n\n_, axes = plt.subplots(1, 3, figsize=(14, 4))\nfor i, var_name in enumerate(\"abc\"):\n    plot_func_comparison(fun, var_name, ax=axes[i])",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "pushforward-computation-examples",
         "headings": [
           "Some dimensionality devils",
@@ -2497,13 +2797,13 @@
           "Pushforward computation examples"
         ]
       },
-      "doc_lineno": 250002
+      "doc_lineno": 240002
     },
     {
       "source": "fun = lambda x, y: y/x\n\n_, axes = plt.subplots(1, 3, figsize=(14, 4))\nfor i, var_name in enumerate(\"abc\"):\n    plot_func_comparison(fun, var_name, ax=axes[i])",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "pushforward-computation-examples",
         "headings": [
           "Some dimensionality devils",
@@ -2511,13 +2811,13 @@
           "Pushforward computation examples"
         ]
       },
-      "doc_lineno": 270002
+      "doc_lineno": 260002
     },
     {
       "source": "fun = lambda x, y: np.sqrt((x-2)**2 + (y-3)**2)\n\n_, axes = plt.subplots(1, 3, figsize=(14, 4))\nfor i, var_name in enumerate(\"abc\"):\n    plot_func_comparison(fun, var_name, ax=axes[i])",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "pushforward-computation-examples",
         "headings": [
           "Some dimensionality devils",
@@ -2525,7 +2825,7 @@
           "Pushforward computation examples"
         ]
       },
-      "doc_lineno": 290002
+      "doc_lineno": 280002
     },
     {
       "source": "from xarray_einstats.stats import XrContinuousRV\nimport scipy.stats as st\n\nBALL_RADIUS = (1.68 / 2) / 12\nCUP_RADIUS = (4.25 / 2) / 12\nOVERSHOT = 1.0\nDISTANCE_TOLERANCE = 3.0\n\ndef forward_angle_model(variances_of_shot, t):\n    norm_dist = XrContinuousRV(st.norm, 0, variances_of_shot)\n    return 2 * norm_dist.cdf(np.arcsin((CUP_RADIUS - BALL_RADIUS) / t)) - 1\n\ndef forward_distance_angle_model(variance_of_shot, variance_of_distance, t):\n    rv = XrContinuousRV(st.norm, 0, 1)\n    angle_prob = 2 * rv.cdf(np.arcsin((CUP_RADIUS - BALL_RADIUS) / t) / variance_of_shot) - 1\n\n    distance_prob_one = rv.cdf(\n        (DISTANCE_TOLERANCE - OVERSHOT) / ((t + OVERSHOT) * variance_of_distance)\n    )\n    distance_prob_two = rv.cdf(-OVERSHOT / ((t + OVERSHOT) * variance_of_distance))\n    distance_prob = distance_prob_one - distance_prob_two\n\n    return angle_prob * distance_prob",
@@ -2567,7 +2867,7 @@
         }
       ],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "golf-putting-example",
         "headings": [
           "Some dimensionality devils",
@@ -2575,13 +2875,27 @@
           "Golf putting example"
         ]
       },
-      "doc_lineno": 310002
+      "doc_lineno": 300002
     },
     {
-      "source": "#collapse-hide\ndef plot_golf_comparison(pushforward_func, var_name, t, ax=None):\n    if ax is None:\n        _, ax = plt.subplots(1, 2, figsize=(12, 4))\n\n    if isinstance(t, np.ndarray):\n        t = xr.DataArray(t, dims=[\"distance\"], coords={\"distance\": t})\n\n    if pushforward_func == \"angle\":\n        aux = post[var_name]\n        post_after = forward_angle_model(aux.sel(var=\"shot\"), t)\n        aux = post_summary[var_name]\n        summary_before = forward_angle_model(aux.sel(var=\"shot\"), t)\n    else:\n        aux = post[var_name]\n        post_after = forward_distance_angle_model(aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), t)\n        aux = post_summary[var_name]\n        summary_before = forward_distance_angle_model(\n            aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), t\n        )\n    if summary == \"mean\":\n        summary_after = post_after.mean((\"chain\", \"draw\"))\n    else:\n        summary_after = post_after.median((\"chain\", \"draw\"))\n\n    ax_ = ax[0]\n    summary_after.plot.line(marker=\".\", ls=\"none\", color=\"C0\", ax=ax_, label=\"after\")\n    summary_before.plot.line(marker=\".\", color=\"C1\", ls=\"none\", ax=ax_, label=\"before\")\n    ax_.legend(title=\"Mean taken:\")\n    ax_.set_ylabel(\"Probability of\\nmaking the putt\")\n    ax_.set_title(f\"Variable: {var_name}\")\n\n    ax_ = ax[1]\n    (np.abs(summary_after - summary_before) / summary_after * 100).plot.line(marker=\".\", color=\"C0\", ls=\"none\", ax=ax_)\n    ax_.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=1))\n    ax_.set_title(\"Relative difference\")",
+      "source": "def plot_golf_comparison(pushforward_func, var_name, t, ax=None):\n    if ax is None:\n        _, ax = plt.subplots(1, 2, figsize=(12, 4))\n\n    if isinstance(t, np.ndarray):\n        t = xr.DataArray(t, dims=[\"distance\"], coords={\"distance\": t})\n\n    if pushforward_func == \"angle\":\n        aux = post[var_name]\n        post_after = forward_angle_model(aux.sel(var=\"shot\"), t)\n        aux = post_summary[var_name]\n        summary_before = forward_angle_model(aux.sel(var=\"shot\"), t)\n    else:\n        aux = post[var_name]\n        post_after = forward_distance_angle_model(aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), t)\n        aux = post_summary[var_name]\n        summary_before = forward_distance_angle_model(\n            aux.sel(var=\"shot\"), aux.sel(var=\"distance\"), t\n        )\n    if summary == \"mean\":\n        summary_after = post_after.mean((\"chain\", \"draw\"))\n    else:\n        summary_after = post_after.median((\"chain\", \"draw\"))\n\n    ax_ = ax[0]\n    summary_after.plot.line(marker=\".\", ls=\"none\", color=\"C0\", ax=ax_, label=\"after\")\n    summary_before.plot.line(marker=\".\", color=\"C1\", ls=\"none\", ax=ax_, label=\"before\")\n    ax_.legend(title=\"Mean taken:\")\n    ax_.set_ylabel(\"Probability of\\nmaking the putt\")\n    ax_.set_title(f\"Variable: {var_name}\")\n\n    ax_ = ax[1]\n    (np.abs(summary_after - summary_before) / summary_after * 100).plot.line(marker=\".\", color=\"C0\", ls=\"none\", ax=ax_)\n    ax_.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=1))\n    ax_.set_title(\"Relative difference\")",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
+        "ref_id": "golf-putting-example",
+        "headings": [
+          "Some dimensionality devils",
+          "Premature aggregation",
+          "Golf putting example"
+        ]
+      },
+      "doc_lineno": 320002
+    },
+    {
+      "source": "_, axes = plt.subplots(3, 2, figsize=(13, 8), constrained_layout=True)\nt = np.geomspace(.2, 8)\n\nfor i, var_name in enumerate(\"abc\"):\n    plot_golf_comparison(\"angle\", var_name, t=t, ax=axes[i, :])",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "golf-putting-example",
         "headings": [
           "Some dimensionality devils",
@@ -2592,10 +2906,10 @@
       "doc_lineno": 330002
     },
     {
-      "source": "_, axes = plt.subplots(3, 2, figsize=(13, 8), constrained_layout=True)\nt = np.geomspace(.2, 8)\n\nfor i, var_name in enumerate(\"abc\"):\n    plot_golf_comparison(\"angle\", var_name, t=t, ax=axes[i, :])",
+      "source": "_, axes = plt.subplots(3, 2, figsize=(13, 8), constrained_layout=True)\n\nfor i, var_name in enumerate(\"abc\"):\n    plot_golf_comparison(\"distance_angle\", var_name, t=t, ax=axes[i, :])",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "golf-putting-example",
         "headings": [
           "Some dimensionality devils",
@@ -2606,37 +2920,36 @@
       "doc_lineno": 340002
     },
     {
-      "source": "_, axes = plt.subplots(3, 2, figsize=(13, 8), constrained_layout=True)\n\nfor i, var_name in enumerate(\"abc\"):\n    plot_golf_comparison(\"distance_angle\", var_name, t=t, ax=axes[i, :])",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
-        "ref_id": "golf-putting-example",
-        "headings": [
-          "Some dimensionality devils",
-          "Premature aggregation",
-          "Golf putting example"
-        ]
-      },
-      "doc_lineno": 350002
-    },
-    {
       "source": "def from_posterior(var_name, samples):\n    smin, smax = np.min(samples), np.max(samples)\n    width = smax - smin\n    x = np.linspace(smin, smax, 100)\n    y = st.gaussian_kde(samples)(x)\n\n    # what was never sampled should have a small probability but not 0,\n    # so we'll extend the domain and use linear approximation of density on it\n    x = np.concatenate([[x[0] - 3 * width], x, [x[-1] + 3 * width]])\n    y = np.concatenate([[0], y, [0]])\n    return pm.Interpolated(var_name, x, y)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "univariate-priors",
         "headings": [
           "Some dimensionality devils",
           "Univariate priors"
         ]
       },
-      "doc_lineno": 390002
+      "doc_lineno": 380002
     },
     {
-      "source": "#collapse-hide\ndef plot_prior_comparison(idata_prior, var_name, scatter=True, ax=None):\n    kws = dict(\n        contour_kwargs={\"colors\": \"k\"},\n        contourf_kwargs={\"alpha\": 0},\n        hdi_probs=[.2, .4, .6, .8]\n    )\n    kind = [\"scatter\", \"kde\"] if scatter else \"kde\"\n    axes = az.plot_pair(\n        idata_prior, \n        var_names=[f\"{var_name}_shot\", f\"{var_name}_distance\"], \n        group=\"prior\", \n        marginals=scatter,\n        kind=kind, kde_kwargs=kws,\n        ax=ax\n    );\n    kws[\"contour_kwargs\"][\"colors\"] = \"r\"\n    az.plot_pair(\n        idata, \n        var_names=var_name, coords={\"var\": [\"shot\", \"distance\"]},\n        kind=\"kde\", kde_kwargs=kws,\n        ax=axes[1,0] if scatter else axes\n    );\n    if not scatter:\n        axes.legend(handles=[\n            mlines.Line2D([], [], color=\"k\", label=\"KDE approximation\"),\n            mlines.Line2D([], [], color=\"r\", label=\"Original posterior\"),\n        ])\n    return axes\n\ndef plot_priors(idata_prior, var_name, figsize=None):\n    # Instantiate figure and grid\n    widths = [6, 1, 6]\n    heights = [1.4, 6]\n    fig = plt.figure(figsize=figsize, constrained_layout=True)\n    grid = plt.GridSpec(\n        2,\n        3,\n        hspace=0.1,\n        wspace=0.1,\n        figure=fig,\n        width_ratios=widths,\n        height_ratios=heights,\n    )\n    # Set up main plot\n    ax = fig.add_subplot(grid[1, 0])\n    # Set up top KDE\n    ax_hist_x = fig.add_subplot(grid[0, 0], sharex=ax)\n    ax_hist_x.set_yticks([])\n    # Set up right KDE\n    ax_hist_y = fig.add_subplot(grid[1, 1], sharey=ax)\n    ax_hist_y.set_xticks([])\n    \n    x = idata_prior.prior[f\"{var_name}_shot\"].values.flatten()\n    y = idata_prior.prior[f\"{var_name}_distance\"].values.flatten()\n    \n\n    for val, ax_, rotate in ((x, ax_hist_x, False), (y, ax_hist_y, True)):\n        az.plot_dist(val, rotated=rotate, ax=ax_)\n\n    # Personalize axes\n    ax_hist_x.tick_params(labelleft=False, labelbottom=False)\n    ax_hist_y.tick_params(labelleft=False, labelbottom=False)\n    \n    ax_zoom = fig.add_subplot(grid[1, -1])\n    ax_return = np.array([[ax_hist_x, None, None], [ax, ax_hist_y, ax_zoom]])\n    \n    plot_prior_comparison(idata_prior, var_name, scatter=True, ax=ax_return[:, :-1])\n    plot_prior_comparison(idata_prior, var_name, scatter=False, ax=ax_zoom)\n    return ax_return",
+      "source": "def plot_prior_comparison(idata_prior, var_name, scatter=True, ax=None):\n    kws = dict(\n        contour_kwargs={\"colors\": \"k\"},\n        contourf_kwargs={\"alpha\": 0},\n        hdi_probs=[.2, .4, .6, .8]\n    )\n    kind = [\"scatter\", \"kde\"] if scatter else \"kde\"\n    axes = az.plot_pair(\n        idata_prior, \n        var_names=[f\"{var_name}_shot\", f\"{var_name}_distance\"], \n        group=\"prior\", \n        marginals=scatter,\n        kind=kind, kde_kwargs=kws,\n        ax=ax\n    );\n    kws[\"contour_kwargs\"][\"colors\"] = \"r\"\n    az.plot_pair(\n        idata, \n        var_names=var_name, coords={\"var\": [\"shot\", \"distance\"]},\n        kind=\"kde\", kde_kwargs=kws,\n        ax=axes[1,0] if scatter else axes\n    );\n    if not scatter:\n        axes.legend(handles=[\n            mlines.Line2D([], [], color=\"k\", label=\"KDE approximation\"),\n            mlines.Line2D([], [], color=\"r\", label=\"Original posterior\"),\n        ])\n    return axes\n\ndef plot_priors(idata_prior, var_name, figsize=None):\n    # Instantiate figure and grid\n    widths = [6, 1, 6]\n    heights = [1.4, 6]\n    fig = plt.figure(figsize=figsize, constrained_layout=True)\n    grid = plt.GridSpec(\n        2,\n        3,\n        hspace=0.1,\n        wspace=0.1,\n        figure=fig,\n        width_ratios=widths,\n        height_ratios=heights,\n    )\n    # Set up main plot\n    ax = fig.add_subplot(grid[1, 0])\n    # Set up top KDE\n    ax_hist_x = fig.add_subplot(grid[0, 0], sharex=ax)\n    ax_hist_x.set_yticks([])\n    # Set up right KDE\n    ax_hist_y = fig.add_subplot(grid[1, 1], sharey=ax)\n    ax_hist_y.set_xticks([])\n    \n    x = idata_prior.prior[f\"{var_name}_shot\"].values.flatten()\n    y = idata_prior.prior[f\"{var_name}_distance\"].values.flatten()\n    \n\n    for val, ax_, rotate in ((x, ax_hist_x, False), (y, ax_hist_y, True)):\n        az.plot_dist(val, rotated=rotate, ax=ax_)\n\n    # Personalize axes\n    ax_hist_x.tick_params(labelleft=False, labelbottom=False)\n    ax_hist_y.tick_params(labelleft=False, labelbottom=False)\n    \n    ax_zoom = fig.add_subplot(grid[1, -1])\n    ax_return = np.array([[ax_hist_x, None, None], [ax, ax_hist_y, ax_zoom]])\n    \n    plot_prior_comparison(idata_prior, var_name, scatter=True, ax=ax_return[:, :-1])\n    plot_prior_comparison(idata_prior, var_name, scatter=False, ax=ax_zoom)\n    return ax_return",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
+        "ref_id": "univariate-priors",
+        "headings": [
+          "Some dimensionality devils",
+          "Univariate priors"
+        ]
+      },
+      "doc_lineno": 400002
+    },
+    {
+      "source": "with pm.Model():\n    a_shot = from_posterior(\"a_shot\", post[\"a\"].sel(var=\"shot\").values.flatten())\n    a_distance = from_posterior(\"a_distance\", post[\"a\"].sel(var=\"distance\").values.flatten())\n    \n    a_prior = pm.sample_prior_predictive(2000)",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "univariate-priors",
         "headings": [
           "Some dimensionality devils",
@@ -2646,10 +2959,10 @@
       "doc_lineno": 410002
     },
     {
-      "source": "with pm.Model():\n    a_shot = from_posterior(\"a_shot\", post[\"a\"].sel(var=\"shot\").values.flatten())\n    a_distance = from_posterior(\"a_distance\", post[\"a\"].sel(var=\"distance\").values.flatten())\n    \n    a_prior = pm.sample_prior_predictive(2000)",
+      "source": "axes = plot_priors(a_prior, \"a\", figsize=(14, 5))\nax = axes[-1, -1]\nax.set_xlim((.5, 3.5))\nax.set_ylim((1.5, 4.5));",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "univariate-priors",
         "headings": [
           "Some dimensionality devils",
@@ -2659,23 +2972,23 @@
       "doc_lineno": 420002
     },
     {
-      "source": "axes = plot_priors(a_prior, \"a\", figsize=(14, 5))\nax = axes[-1, -1]\nax.set_xlim((.5, 3.5))\nax.set_ylim((1.5, 4.5));",
+      "source": "with pm.Model():\n    b_shot = from_posterior(\"b_shot\", post[\"b\"].sel(var=\"shot\").values.flatten())\n    b_distance = from_posterior(\"b_distance\", post[\"b\"].sel(var=\"distance\").values.flatten())\n    \n    b_prior = pm.sample_prior_predictive(2000)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "univariate-priors",
         "headings": [
           "Some dimensionality devils",
           "Univariate priors"
         ]
       },
-      "doc_lineno": 430002
+      "doc_lineno": 440002
     },
     {
-      "source": "with pm.Model():\n    b_shot = from_posterior(\"b_shot\", post[\"b\"].sel(var=\"shot\").values.flatten())\n    b_distance = from_posterior(\"b_distance\", post[\"b\"].sel(var=\"distance\").values.flatten())\n    \n    b_prior = pm.sample_prior_predictive(2000)",
+      "source": "axes = plot_priors(b_prior, \"b\", figsize=(14, 5))\nax = axes[-1, -1]\nax.set_xlim((0, 4))\nax.set_ylim((.5, 5));",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "univariate-priors",
         "headings": [
           "Some dimensionality devils",
@@ -2685,461 +2998,47 @@
       "doc_lineno": 450002
     },
     {
-      "source": "axes = plot_priors(b_prior, \"b\", figsize=(14, 5))\nax = axes[-1, -1]\nax.set_xlim((0, 4))\nax.set_ylim((.5, 5));",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
-        "ref_id": "univariate-priors",
-        "headings": [
-          "Some dimensionality devils",
-          "Univariate priors"
-        ]
-      },
-      "doc_lineno": 460002
-    },
-    {
       "source": "with pm.Model():\n    c_shot = from_posterior(\"c_shot\", post[\"c\"].sel(var=\"shot\").values.flatten())\n    c_distance = from_posterior(\"c_distance\", post[\"c\"].sel(var=\"distance\").values.flatten())\n    \n    c_prior = pm.sample_prior_predictive(2000)",
       "names": [],
       "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
+        "document": "blog/posts/2022/too-eager-reduction",
         "ref_id": "univariate-priors",
         "headings": [
           "Some dimensionality devils",
           "Univariate priors"
-        ]
-      },
-      "doc_lineno": 480002
-    },
-    {
-      "source": "axes = plot_priors(c_prior, \"c\", figsize=(14, 5))\nax = axes[-1, -1]\nax.set_xlim((0.5, 3.5))\nax.set_ylim((1.5, 4.5));",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
-        "ref_id": "univariate-priors",
-        "headings": [
-          "Some dimensionality devils",
-          "Univariate priors"
-        ]
-      },
-      "doc_lineno": 490002
-    },
-    {
-      "source": "#hide_input\n%load_ext watermark\n%watermark -n -u -v -iv -w -p xarray_einstats",
-      "names": [],
-      "example": {
-        "document": "posts/2022/2022-05-25-too-eager-reduction",
-        "ref_id": "univariate-priors",
-        "headings": [
-          "Some dimensionality devils",
-          "Univariate priors"
-        ]
-      },
-      "doc_lineno": 520002
-    }
-  ],
-  "posts/2022/pymc-arviz": [
-    {
-      "source": "import arviz as az\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\nimport pymc as pm\nimport aesara.tensor as at\n\nrng = np.random.default_rng()",
-      "names": [
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot"
-          ],
-          "code_str": "matplotlib.pyplot",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "import_target",
-          "resolved_location": "matplotlib.pyplot"
-        },
-        {
-          "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "random",
-            "default_rng"
-          ],
-          "code_str": "np.random.default_rng",
-          "lineno": 8,
-          "end_lineno": 8,
-          "context": "none",
-          "resolved_location": "numpy.random.default_rng"
-        }
-      ],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "pymc-4-0-with-labeled-coords-and-dims",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims"
-        ]
-      },
-      "doc_lineno": 20002
-    },
-    {
-      "source": "#hide\n# use text display to keep blog fast and responsive, \n# do not execute this cell when running the code\nimport xarray as xr\nxr.set_options(display_style=\"text\");",
-      "names": [
-        {
-          "import_components": [
-            "xarray"
-          ],
-          "code_str": "xarray",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "import_target",
-          "resolved_location": "xarray"
-        },
-        {
-          "import_components": [
-            "xarray",
-            "set_options"
-          ],
-          "code_str": "xr.set_options",
-          "lineno": 5,
-          "end_lineno": 5,
-          "context": "none",
-          "resolved_location": "xarray.set_options"
-        }
-      ],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "pymc-4-0-with-labeled-coords-and-dims",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims"
-        ]
-      },
-      "doc_lineno": 30002
-    },
-    {
-      "source": "az.style.use(\"arviz-darkgrid\")",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "pymc-4-0-with-labeled-coords-and-dims",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims"
-        ]
-      },
-      "doc_lineno": 40002
-    },
-    {
-      "source": "df_rugby = pd.read_csv(pm.get_data('rugby.csv'), index_col=0)\nhome_idx, teams = pd.factorize(df_rugby[\"home_team\"], sort=True)\naway_idx, _ = pd.factorize(df_rugby[\"away_team\"], sort=True)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "st-example-rugby-analytics",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "1st example: rugby analytics"
-        ]
-      },
-      "doc_lineno": 100002
-    },
-    {
-      "source": "coords = {\n    \"team\": teams,\n    \"match\": np.arange(60),\n    \"field\": [\"home\", \"away\"],\n}\nwith pm.Model(coords=coords) as rugby_model:\n    # global model parameters\n    home = pm.Flat('home')\n    sd_att = pm.HalfStudentT('sd_att', nu=3, sigma=2.5)\n    sd_def = pm.HalfStudentT('sd_def', nu=3, sigma=2.5)\n    intercept = pm.Flat('intercept')\n\n    # team-specific model parameters\n    atts_star = pm.Normal(\"atts_star\", mu=0, sigma=sd_att, dims=\"team\")\n    defs_star = pm.Normal(\"defs_star\", mu=0, sigma=sd_def, dims=\"team\")\n\n    atts = pm.Deterministic('atts', atts_star - at.mean(atts_star), dims=\"team\")\n    defs = pm.Deterministic('defs', defs_star - at.mean(defs_star), dims=\"team\")\n    home_theta = at.exp(intercept + home + atts[home_idx] + defs[away_idx])\n    away_theta = at.exp(intercept + atts[away_idx] + defs[home_idx])\n\n    # likelihood of observed data\n    pm.Poisson(\n        'points', \n        mu=at.stack((home_theta, away_theta)).T, \n        observed=df_rugby[[\"home_score\", \"away_score\"]],\n        dims=(\"match\", \"field\")\n    )\n    rugby_idata = pm.sample(1000, tune=1000, cores=4)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "st-example-rugby-analytics",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "1st example: rugby analytics"
-        ]
-      },
-      "doc_lineno": 110002
-    },
-    {
-      "source": "print(type(rugby_idata))",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "st-example-rugby-analytics",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "1st example: rugby analytics"
-        ]
-      },
-      "doc_lineno": 130002
-    },
-    {
-      "source": "#collapse\nsrrs2 = pd.read_csv(pm.get_data(\"srrs2.dat\"))\nsrrs2.columns = srrs2.columns.map(str.strip)\nsrrs_mn = srrs2[srrs2.state == \"MN\"].copy()\n\nsrrs_mn[\"fips\"] = srrs_mn.stfips * 1000 + srrs_mn.cntyfips\ncty = pd.read_csv(pm.get_data(\"cty.dat\"))\ncty_mn = cty[cty.st == \"MN\"].copy()\ncty_mn[\"fips\"] = 1000 * cty_mn.stfips + cty_mn.ctfips\n\nsrrs_mn = srrs_mn.merge(cty_mn[[\"fips\", \"Uppm\"]], on=\"fips\")\nsrrs_mn = srrs_mn.drop_duplicates(subset=\"idnum\")\nu = np.log(srrs_mn.Uppm).unique()\n\nn = len(srrs_mn)\nsrrs_mn.county = srrs_mn.county.map(str.strip)\nsrrs_mn[\"county_code\"], mn_counties = pd.factorize(srrs_mn.county)\nsrrs_mn[\"log_radon\"] = np.log(srrs_mn.activity + 0.1)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "nd-example-radon-multilevel-model",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "2nd example: radon multilevel model"
-        ]
-      },
-      "doc_lineno": 150002
-    },
-    {
-      "source": "coords = {\n    \"level\": [\"basement\", \"floor\"], \n    \"county\": mn_counties,\n    \"param\": [\"a\", \"b\"],\n    \"param2\": [\"a\", \"b\"],\n}",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "nd-example-radon-multilevel-model",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "2nd example: radon multilevel model"
-        ]
-      },
-      "doc_lineno": 170002
-    },
-    {
-      "source": "with pm.Model(coords=coords) as radon_model:\n    floor_idx = pm.ConstantData(\"floor_idx\", srrs_mn.floor, dims=\"obs_id\")\n    county_idx = pm.ConstantData(\"county_idx\", srrs_mn.county_code, dims=\"obs_id\")",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "nd-example-radon-multilevel-model",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "2nd example: radon multilevel model"
-        ]
-      },
-      "doc_lineno": 190002
-    },
-    {
-      "source": "with radon_model:\n    sd_dist = pm.Exponential.dist(0.5)\n    a = pm.Normal(\"a\", mu=0.0, sigma=5.0)\n    b = pm.Normal(\"b\", mu=0.0, sigma=1.0)\n    z = pm.Normal(\"z\", 0.0, 1.0, dims=(\"param\", \"county\"))\n    \n    chol, corr, stds = pm.LKJCholeskyCov(\n        \"chol\", n=2, eta=2.0, sd_dist=sd_dist, compute_corr=True\n    )",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "nd-example-radon-multilevel-model",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "2nd example: radon multilevel model"
-        ]
-      },
-      "doc_lineno": 210002
-    },
-    {
-      "source": "with radon_model:\n    ab_county = pm.Deterministic(\"ab_county\", at.dot(chol, z).T, dims=(\"county\", \"param\"))\n    theta = a + ab_county[county_idx, 0] + (b + ab_county[county_idx, 1]) * floor_idx\n\n    sigma = pm.Exponential(\"sigma\", 1.0)\n    pm.Normal(\"y\", theta, sigma=sigma, observed=srrs_mn.log_radon, dims=\"obs_id\")",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "nd-example-radon-multilevel-model",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "2nd example: radon multilevel model"
-        ]
-      },
-      "doc_lineno": 230002
-    },
-    {
-      "source": "with radon_model:\n    radon_idata = pm.sample(\n        2000, tune=2000, target_accept=0.99, random_seed=75625,\n        idata_kwargs={\"dims\": {\"chol_stds\": [\"param\"], \"chol_corr\": [\"param\", \"param2\"]}}\n    )",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "nd-example-radon-multilevel-model",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "2nd example: radon multilevel model"
-        ]
-      },
-      "doc_lineno": 250002
-    },
-    {
-      "source": "#collapse\na_true = 2\nb_true = -0.4\nx = np.linspace(0, 10, 31)\nyear = np.arange(2022-len(x), 2022)\ny = a_true + b_true * x + rng.normal(size=len(x))\n\nfig, ax = plt.subplots()\nax.plot(x, y, \"o-\")\nax.text(\n    0.93, 0.9, r\"$y_i = a + bx_i + \\mathcal{N}(0,1)$\", ha='right', va='top', transform=ax.transAxes, fontsize=18\n)\n\nax.set_xticks(x[::3])\nax.set_xticklabels(year[::3])\nax.set_yticks([])\nax.set_xlabel(\"Year\")\nax.set_ylabel(\"Quantity of interest\");",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "there-is-life-outside-the-posterior",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior"
-        ]
-      },
-      "doc_lineno": 280002
-    },
-    {
-      "source": "with pm.Model() as linreg_model:\n    # use x_ to avoid overwriting x previously defined as np.ndarray\n    x_ = pm.MutableData(\"x\", x, dims=\"year\", coords={\"year\": year})\n    \n    a = pm.Normal(\"a\", 0, 3)\n    b = pm.Normal(\"b\", 0, 2)\n    sigma = pm.HalfNormal(\"sigma\", 2)\n    \n    pm.Normal(\"y\", a + b * x_, sigma, observed=y, dims=\"year\")",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "there-is-life-outside-the-posterior",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior"
-        ]
-      },
-      "doc_lineno": 290002
-    },
-    {
-      "source": "with linreg_model:\n    linreg_idata = pm.sample_prior_predictive(700)\n\nlinreg_idata",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "priors",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Priors"
-        ]
-      },
-      "doc_lineno": 320002
-    },
-    {
-      "source": "az.plot_ppc(linreg_idata, group=\"prior\");",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "priors",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Priors"
-        ]
-      },
-      "doc_lineno": 340002
-    },
-    {
-      "source": "with linreg_model:\n    idata_aux = pm.sample()\nlinreg_idata.extend(idata_aux)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "posterior",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Posterior"
-        ]
-      },
-      "doc_lineno": 360002
-    },
-    {
-      "source": "linreg_idata",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "posterior",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Posterior"
-        ]
-      },
-      "doc_lineno": 370002
-    },
-    {
-      "source": "az.plot_pair(linreg_idata);",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "posterior",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Posterior"
-        ]
-      },
-      "doc_lineno": 380002
-    },
-    {
-      "source": "with linreg_model:\n    pm.sample_posterior_predictive(linreg_idata, extend_inferencedata=True)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "posterior-predictive",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Posterior predictive"
-        ]
-      },
-      "doc_lineno": 400002
-    },
-    {
-      "source": "linreg_idata",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "posterior-predictive",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Posterior predictive"
-        ]
-      },
-      "doc_lineno": 410002
-    },
-    {
-      "source": "az.plot_loo_pit(linreg_idata, y=\"y\");",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "posterior-predictive",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Posterior predictive"
-        ]
-      },
-      "doc_lineno": 430002
-    },
-    {
-      "source": "with linreg_model:\n    pm.set_data({\"x\": x[-1] + x[1:3]}, coords={\"year\": [2022, 2023]})\n    pm.sample_posterior_predictive(linreg_idata, predictions=True, extend_inferencedata=True)",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "predictions",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Predictions"
-        ]
-      },
-      "doc_lineno": 460002
-    },
-    {
-      "source": "linreg_idata",
-      "names": [],
-      "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "predictions",
-        "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Predictions"
         ]
       },
       "doc_lineno": 470002
     },
     {
-      "source": "az.plot_posterior(linreg_idata, group=\"predictions\");",
+      "source": "axes = plot_priors(c_prior, \"c\", figsize=(14, 5))\nax = axes[-1, -1]\nax.set_xlim((0.5, 3.5))\nax.set_ylim((1.5, 4.5));",
       "names": [],
       "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "predictions",
+        "document": "blog/posts/2022/too-eager-reduction",
+        "ref_id": "univariate-priors",
         "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Predictions"
+          "Some dimensionality devils",
+          "Univariate priors"
         ]
       },
       "doc_lineno": 480002
     },
     {
-      "source": "#hide_input\n%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w -p xarray_einstats",
       "names": [],
       "example": {
-        "document": "posts/2022/pymc-arviz",
-        "ref_id": "predictions",
+        "document": "blog/posts/2022/too-eager-reduction",
+        "ref_id": "univariate-priors",
         "headings": [
-          "PyMC 4.0 with labeled coords and dims",
-          "There is life outside the posterior",
-          "Predictions"
+          "Some dimensionality devils",
+          "Univariate priors"
         ]
       },
-      "doc_lineno": 500002
+      "doc_lineno": 510002
     }
-  ]
+  ],
+  "blog/tag": [],
+  "index": [],
+  "partials/donations": [],
+  "projects": []
 }

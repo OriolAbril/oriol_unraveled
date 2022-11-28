@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="ArviZ customization with rcParams" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://oriolabrilpla.cat/blog/posts/2020/rcParams.html" property="og:url"/>
+<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="About: ArviZ not only builds on top of matplotlib’s rcParams but also adds its own rcParams instance to handle specific settings. This post will only graze matplotlib’s rcParams, which are already ..." property="og:description"/>
+<meta content="https://oriolabrilpla.cat/_images/rc_context.png" property="og:image"/>
+<meta content="" property="og:image:alt"/>
+<meta content="About: ArviZ not only builds on top of matplotlib’s rcParams but also adds its own rcParams instance to handle specific settings. This post will only graze matplotlib’s rcParams, which are already ..." name="description"/>
+<title>ArviZ customization with rcParams — Oriol unraveled</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css">
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+<script src="../../../_static/jquery.js"></script>
+<script src="../../../_static/underscore.js"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/sphinx_highlight.js"></script>
+<script src="../../../_static/clipboard.min.js"></script>
+<script src="../../../_static/copybutton.js"></script>
+<script src="../../../_static/design-tabs.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2020/rcParams';</script>
+<script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        </script>
+<link href="../../../_static/favicon.ico" rel="shortcut icon">
+<link href="../../../about.html" rel="author" title="About these documents">
+<link href="../../../genindex.html" rel="index" title="Index">
+<link href="../../../search.html" rel="search" title="Search"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="en" name="docsearch:language"/>
+</link></link></link></link></link></link></link></link></link></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
+<a class="skip-link" href="#main">Skip to main content</a>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+</div>
+<header class="logo-header">
+<a class="logo" href="../../../index.html">Oriol unraveled</a>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-center-item">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="sidebar-header-items__end">
+<div class="navbar-end-item">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebar-end-items sidebar-primary__section">
+<div class="sidebar-end-items__item">
+</div>
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="bd-content-nav bd-content">
+<div class="bd-header-article">
+<nav class="navbar navbar-expand-lg" id="navbar-main">
+<label class="sidebar-toggle primary-toggle" for="__primary">
+<span class="fa-solid fa-bars"></span>
+</label>
+<div class="article-navbar-text-links">
+<nav class="navbar-nav">
+<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
+        Site Navigation
+    </p>
+<ul class="navbar-nav" id="navbar-main-elements">
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../projects.html">
+                        Projects
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../about.html">
+                        About me
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../../blog.html">
+                        Blog
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../tag.html">
+                        Tags
+                      </a>
+</li>
+<li class="nav-item">
+<a class="nav-link nav-internal" href="../../category.html">
+                        Categories
+                      </a>
+</li>
+</ul>
+</nav>
+</div>
+<div class="article-navbar-version-switcher">
+<div class="version-switcher__container dropdown">
+<button class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown" type="button">
+        en  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
+</div>
+<div class="article-navbar-search">
+<button aria-label="Search" class="btn btn-sm navbar-btn search-button search-button__button" data-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+<div class="article-navbar-icon-links">
+<ul aria-label="Icon Links" class="navbar-nav" id="navbar-icon-links">
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span>
+<label class="sr-only">GitHub</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span>
+<label class="sr-only">Twitter</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span>
+<label class="sr-only">Mastodon</label></a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span>
+<label class="sr-only">Atom Feed</label></a>
+</li>
+</ul>
+</div>
+<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<span class="fa-solid fa-outdent"></span>
+</label>
+</nav></div>
+<div class="bd-content" id="main">
+<div class="bd-article-container bd-content-page">
+<article class="bd-article" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="arviz-customization-with-rcparams">
+<span id="arviz-rcparams"></span><h1>ArviZ customization with rcParams<a class="headerlink" href="#arviz-customization-with-rcparams" title="Permalink to this heading">#</a></h1>
+<img alt="" class="hidden-metadata" src="../../../_images/rc_context.png"/>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="about">
+<h1>About<a class="headerlink" href="#about" title="Permalink to this heading">#</a></h1>
+<p>ArviZ not only builds on top of matplotlib’s <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> but also adds its own rcParams instance to handle specific settings. This post will only graze matplotlib’s rcParams, which are already detailed in <a class="reference external" href="https://matplotlib.org/1.4.1/users/customizing.html">matplotlib’s docs</a>; it will dive into specific ArviZ rcParams.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
+<p>Paraphrasing the description on rcParams in the documentation of matplotlib:</p>
+<blockquote>
+<div><p>ArviZ uses arvizrc configuration files to customize all kinds of properties, which we call rcParams. You can control the defaults of many properties in ArviZ: data loading mode (lazy or eager), automatically showing generated plots, the default information criteria and so on.</p>
+</div></blockquote>
+<p>There are several ways of modifying <code class="docutils literal notranslate"><span class="pre">arviz.rcParams</span></code> instance, each of them targeted to specific needs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">idata</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.load_arviz_data.html#arviz.load_arviz_data" title="arviz.load_arviz_data"><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span></a><span class="p">(</span><span class="s2">"centered_eight"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="customizing-arviz">
+<h1>Customizing ArviZ<a class="headerlink" href="#customizing-arviz" title="Permalink to this heading">#</a></h1>
+<section id="arvizrc-file">
+<h2>arvizrc file<a class="headerlink" href="#arvizrc-file" title="Permalink to this heading">#</a></h2>
+<p>To define default values on a per user or per project basis, <code class="docutils literal notranslate"><span class="pre">arvizrc</span></code> file should be used. When imported, ArviZ search for an <code class="docutils literal notranslate"><span class="pre">arvizrc</span></code> file in several locations sorted below by priority:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">$PWD/arvizrc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$ARVIZ_DATA/arvizrc</span></code></p></li>
+<li><p>On Linux,</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME/arviz/arvizrc</span></code> (if <code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code>
+is defined)</p></li>
+<li><p>or <code class="docutils literal notranslate"><span class="pre">$HOME/.config/arviz/arvizrc</span></code> (if <code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code>
+is not defined)</p></li>
+</ul>
+</li>
+<li><p>On other platforms,</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">$HOME/.arviz/arvizrc</span></code> if <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> is defined</p></li>
+</ul>
+</li>
+</ul>
+<p>Once one of these files is found, ArviZ stops looking and loads its configuration. If none of them are present, the values hardcoded in ArviZ codebase are used. The file used to set the default values in ArviZ can be obtained with the following command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">rcparams</span><span class="o">.</span><span class="n">get_arviz_rcfile</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>None
+</pre></div>
+</div>
+</div>
+</div>
+<p>ArviZ has loaded a file used to set defaults on a per user basis. Unless I use a different rc file in the current directory or modify <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> as explained above, this configuration will be automatically used every time ArviZ is imported.</p>
+<p>This can be really useful to define the favourite backend or information criterion, written once in the rc file and ArviZ automatically uses the desired values.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You should not rely on ArviZ defaults being always the same.</p>
+</div>
+<p>ArviZ strives to encourage best practices and therefore will change the default values whenever a new algorithm is developed to achieve this goal. If you rely on a specific value, you should either use an <code class="docutils literal notranslate"><span class="pre">arvizrc</span></code> template or set the defaults at the beggining of every script/notebook.</p>
+</section>
+<section id="dynamic-rc-settings">
+<h2>Dynamic rc settings<a class="headerlink" href="#dynamic-rc-settings" title="Permalink to this heading">#</a></h2>
+<p>To set default values on a per file or per project basis, <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> can also be modified dynamically, either overwritting a specific key:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"data.load"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"eager"</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> is the instance to be modified, exactly like in matplotlib. Careful with capitalization!</p>
+<p>Another option is to define a dictionary with several new defaults and update rcParams all at once.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"data.load"</span><span class="p">:</span> <span class="s2">"lazy"</span><span class="p">,</span>
+    <span class="s2">"plot.max_subplots"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s2">"stats.ic_scale"</span><span class="p">:</span> <span class="s2">"negative_log"</span><span class="p">,</span>
+    <span class="s2">"plot.matplotlib.constrained_layout"</span><span class="p">:</span> <span class="kc">False</span>
+<span class="p">}</span>
+<span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rc-context">
+<h2>rc_context<a class="headerlink" href="#rc-context" title="Permalink to this heading">#</a></h2>
+<p>And last but not least, to temporarily use a different set of defaults, ArviZ also has a <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rc_context.html#arviz.rc_context"><code class="docutils literal notranslate"><span class="pre">rc_context</span></code></a> function. Its main difference and advantage is that it is a context manager, therefore, all code executed inside the context will use the defaults defined by <code class="docutils literal notranslate"><span class="pre">rc_context</span></code> but once we exit the context, everything goes back to normal. Let’s generate 3 posterior plots with the same command to show this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.point_estimate"</span><span class="p">:</span> <span class="s2">"mode"</span><span class="p">,</span> <span class="s2">"stats.hdi_prob"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}):</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c709019b9ddd325f93747d7b3ccb0dc600ff8c37a33dee942ff1383461681184.png" src="../../../_images/c709019b9ddd325f93747d7b3ccb0dc600ff8c37a33dee942ff1383461681184.png"/>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="arviz-default-settings">
+<h1>ArviZ default settings<a class="headerlink" href="#arviz-default-settings" title="Permalink to this heading">#</a></h1>
+<p>This section will describe ArviZ rcParams as version 0.8.3 (see <a class="reference external" href="https://github.com/arviz-devs/arviz/blob/master/arvizrc.template">GitHub</a> for an up to date version).</p>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The rcParams in this section are related to the <a class="reference external" href="https://arviz-devs.github.io/arviz/api.html#data">data</a> module in ArviZ, that is, they are either related to <code class="docutils literal notranslate"><span class="pre">from_xyz</span></code> converter functions or to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> class.</p>
+<p><strong>data.http_protocol</strong> : <em>{https, http}</em></p>
+<p>Only the first two example datasets <code class="docutils literal notranslate"><span class="pre">centered_eight</span></code> and <code class="docutils literal notranslate"><span class="pre">non_centered_eight</span></code> come as part of ArviZ. All the others are downloaded from figshare the first time and stored locally to help reloading them the next time. We can get the names of the data available by not passing any argument to <code class="docutils literal notranslate"><span class="pre">az.load_arviz_data</span></code> (you can also get the description of each of them with <code class="docutils literal notranslate"><span class="pre">az.list_datasets</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys(['centered_eight', 'non_centered_eight', 'radon', 'rugby', 'regression1d', 'regression10d', 'classification1d', 'classification10d'])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Thus, the first time you call <code class="docutils literal notranslate"><span class="pre">az.load_arviz_data("radon")</span></code>, ArviZ downloads the dataset using <code class="docutils literal notranslate"><span class="pre">data.http_protocol</span></code>. The default is set to <code class="docutils literal notranslate"><span class="pre">https</span></code> but if needed, it can be modified to <code class="docutils literal notranslate"><span class="pre">http</span></code>. Notice how there is no fallback, if downloading with <code class="docutils literal notranslate"><span class="pre">https</span></code> fails, there is no second try with <code class="docutils literal notranslate"><span class="pre">http</span></code>, an error is risen. To use <code class="docutils literal notranslate"><span class="pre">http</span></code> you have to set the rcParam explicitly.</p>
+<p><strong>data.index_origin</strong> : <em>{0, 1}</em></p>
+<p>ArviZ integration with Stan and Julia who use 1 based indexing motivate this rcParam. This rcParam is still at an early stage and its implementation is bound to vary, therefore it has no detailed description.</p>
+<p><strong>data.load</strong> : <em>{lazy, eager}</em></p>
+<p>Even when not using Dask, xarray’s default is to load data lazily into memory when reading from disk. ArviZ’s <code class="docutils literal notranslate"><span class="pre">from_netcdf</span></code> also uses the same default. That is, ArviZ functions that read data from disk <code class="docutils literal notranslate"><span class="pre">from_netcdf</span></code> and <code class="docutils literal notranslate"><span class="pre">load_arviz_data</span></code> do not load the data into memory unless <code class="docutils literal notranslate"><span class="pre">data.load</span></code> rcParam is set to <code class="docutils literal notranslate"><span class="pre">eager</span></code>.</p>
+<p>Most use cases not only do not require loading data into memory but will also benefit from lazy loading. However, there is one clear exception: when too many files are lazily opened at the same time, xarray ends up crashing with extremely cryptic error messages, these cases require setting data loading to eager mode. One example of such situation is generating ArviZ documentation, we therefore set <code class="docutils literal notranslate"><span class="pre">data.load</span></code> to <code class="docutils literal notranslate"><span class="pre">eager</span></code> in sphinx configuration file.</p>
+<p><strong>data.metagroups</strong> : <em>mapping of {str : list of str}</em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not overwrite <code class="docutils literal notranslate"><span class="pre">data.metagroups</span></code> as things may break, to add custom metagroups add new keys to the dictionary as shown below</p>
+</div>
+<p>One of the current projects in ArviZ is to extend the capabilities of <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>. One of the limitations was not allowing its functions and methods to be applied to several groups at the same time. Starting with ArviZ 0.8.0, <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.InferenceData.html#arviz.InferenceData"><code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> methods</a> take arguments <code class="docutils literal notranslate"><span class="pre">groups</span></code> and <code class="docutils literal notranslate"><span class="pre">filter_groups</span></code> to overcome this limitation. These two combined arguments have the same capabilities as <code class="docutils literal notranslate"><span class="pre">var_names</span></code>+<code class="docutils literal notranslate"><span class="pre">filter_vars</span></code> in plotting functions: exact matching, like and regex matching like pandas and support for ArviZ <code class="docutils literal notranslate"><span class="pre">~</span></code> negation prefix and one extra feature: metagroups. So what are metagroups? Let’s see</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">metagroup</span><span class="p">,</span> <span class="n">groups</span> <span class="ow">in</span> <span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"data.metagroups"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">metagroup</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">    </span><span class="si">{</span><span class="n">groups</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>posterior_groups:
+    ('posterior', 'posterior_predictive', 'sample_stats', 'log_likelihood')
+
+prior_groups:
+    ('prior', 'prior_predictive', 'sample_stats_prior')
+
+posterior_groups_warmup:
+    ('_warmup_posterior', '_warmup_posterior_predictive', '_warmup_sample_stats')
+
+latent_vars:
+    ('posterior', 'prior')
+
+observed_vars:
+    ('posterior_predictive', 'observed_data', 'prior_predictive')
+</pre></div>
+</div>
+</div>
+</div>
+<p>Imagine the data you passed to the model was rescaled, after converting to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> you have to rescale the data again to its original values, but not only the observations, posterior and prior predictive values too!</p>
+<p>Having to apply the rescaling manually to each of the three groups is tedious at best, and creating a variable called <code class="docutils literal notranslate"><span class="pre">observed_vars</span></code> storing a list with these 3 groups is problematic – when doing prior checks there is no <code class="docutils literal notranslate"><span class="pre">posterior_predictive</span></code> group, it’s a highway towards errors at every turn. Metagroups are similar to the variable approach but it’s already there and it applies the function only to present groups. Let’s add a new metagroup and use it to shift our data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"data.metagroups"</span><span class="p">][</span><span class="s2">"sampled"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">'posterior'</span><span class="p">,</span> <span class="s1">'posterior_predictive'</span><span class="p">,</span> <span class="s1">'sample_stats'</span><span class="p">,</span> <span class="s1">'log_likelihood'</span><span class="p">,</span> <span class="s1">'prior'</span><span class="p">,</span> <span class="s1">'prior_predictive'</span>
+<span class="p">)</span>
+<span class="n">shifted_idata</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="s2">"sampled"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>data.save_warmup</strong> : <em>bool</em></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, converter functions will store warmup iterations in the corresponding groups by default.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">data.save_warmup</span></code> does not affect <code class="docutils literal notranslate"><span class="pre">from_netcdf</span></code>, all groups are always loaded from file</p>
+</div>
+</section>
+<hr class="docutils"/>
+<section id="plot">
+<h2>Plot<a class="headerlink" href="#plot" title="Permalink to this heading">#</a></h2>
+<section id="general">
+<h3>General<a class="headerlink" href="#general" title="Permalink to this heading">#</a></h3>
+<p><strong>plot.backend</strong> : <em>{matplotlib, bokeh}</em></p>
+<p>Default plotting backend.</p>
+<p><strong>plot.max_subplots</strong> : int</p>
+<p>Maximum number of subplots in a single figure. Adding too many subplots into a figure can be really slow, to the point that it looks like everthing has crashed without any error message. When there are more variables to plot than <code class="docutils literal notranslate"><span class="pre">max_subplots</span></code> allowed, ArviZ sends a warning and plots at most <code class="docutils literal notranslate"><span class="pre">max_suplots</span></code>. See for yourselves:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.max_subplots"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}):</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/oriol/venvs/arviz-dev/lib/python3.6/site-packages/arviz/plots/plot_utils.py:563: UserWarning: rcParams['plot.max_subplots'] (3) is smaller than the number of variables to plot (10) in plot_posterior, generating only 3 plots
+  UserWarning,
+</pre></div>
+</div>
+<img alt="../../../_images/4c49bd804a703b226a71a26686210f5d57812df5b4a256e24c062c15346c674a.png" src="../../../_images/4c49bd804a703b226a71a26686210f5d57812df5b4a256e24c062c15346c674a.png"/>
+</div>
+</div>
+<p><strong>plot.point_estimate</strong> : <em>{mean, median, model, None}</em></p>
+<p>Default point estimate to include in plots like <code class="docutils literal notranslate"><span class="pre">plot_posterior</span></code> or <code class="docutils literal notranslate"><span class="pre">plot_density</span></code>.</p>
+</section>
+<section id="bokeh">
+<h3>Bokeh<a class="headerlink" href="#bokeh" title="Permalink to this heading">#</a></h3>
+<p><strong>plot.bokeh.bounds_x_range</strong>, <strong>plot.bokeh.bounds_y_range</strong> : <em>auto, None or tuple of (float, float), default auto</em></p>
+<p><strong>plot.bokeh.figure.dpi</strong> : <em>int, default 60</em></p>
+<p><strong>plot.bokeh.figure.height</strong>, <strong>plot.bokeh.figure.width</strong> : <em>int, default 500</em></p>
+<p><strong>plot.bokeh.layout.order</strong> : <em>str, default default</em></p>
+<p>Select subplot structure for bokeh. One of <code class="docutils literal notranslate"><span class="pre">default</span></code>, <code class="docutils literal notranslate"><span class="pre">column</span></code>, <code class="docutils literal notranslate"><span class="pre">row</span></code>, <code class="docutils literal notranslate"><span class="pre">square</span></code>, <code class="docutils literal notranslate"><span class="pre">square_trimmed</span></code> or <code class="docutils literal notranslate"><span class="pre">Ncolumn</span></code> (<code class="docutils literal notranslate"><span class="pre">Nrow</span></code>) where N is an integer number of columns (rows), here is one example to generate a subplot grid with 2 columns and the necessary rows to fit all variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.bokeh.layout.order"</span><span class="p">:</span> <span class="s2">"2column"</span><span class="p">}):</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"bokeh"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>plot.bokeh.layout.sizing_mode</strong> : <em>{fixed, stretch_width, stretch_height, stretch_both, scale_width, scale_height, scale_both}</em></p>
+<p><strong>plot.bokeh.layout.toolbar_location</strong> : <em>{above, below, left, right, None}</em></p>
+<p>Location for toolbar on bokeh layouts. <code class="docutils literal notranslate"><span class="pre">None</span></code> will hide the toolbar.</p>
+<p><strong>plot.bokeh.marker</strong> : <em>str, default Cross</em></p>
+<p>Default marker for bokeh plots. See <a class="reference external" href="https://docs.bokeh.org/en/latest/docs/reference/models/markers.html">bokeh reference on markers</a> for more details.</p>
+<p><strong>plot.bokeh.output_backend</strong> : <em>{webgl, canvas, svg}</em></p>
+<p><strong>plot.bokeh.show</strong> : <em>bool, default True</em></p>
+<p>Show bokeh plot before returning in ArviZ function.</p>
+<p><strong>plot.bokeh.tools</strong> : <em>str, default reset,pan,box_zoom,wheel_zoom,lasso_select,undo,save,hove</em></p>
+<p>Default tools in bokeh plots. More details on <a class="reference external" href="https://docs.bokeh.org/en/latest/docs/user_guide/tools.html">Configuring Plot Tools docs</a></p>
+</section>
+<section id="matplotlib">
+<h3>Matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this heading">#</a></h3>
+<p>Matplotlib already has its own <a class="reference external" href="https://matplotlib.org/3.2.1/tutorials/introductory/customizing.html#a-sample-matplotlibrc-file"><code class="docutils literal notranslate"><span class="pre">rcParams</span></code></a>, which are actually the inspiration for ArviZ rcParams. Therefore, this section is minimalistic.</p>
+<p><strong>plot.matplotlib.show</strong> : <em>bool, default False</em></p>
+<p>Call <code class="docutils literal notranslate"><span class="pre">plt.show</span></code> from within ArviZ plotting functions. This generally makes no difference in jupyter like environments, but it can be useful for instance in the IPython terminal when we don’t want to customize the plots genereted by ArviZ by changing titles or labels.</p>
+</section>
+</section>
+<hr class="docutils"/>
+<section id="stats">
+<h2>Stats<a class="headerlink" href="#stats" title="Permalink to this heading">#</a></h2>
+<p><strong>stats.hdi_prob</strong> : <em>float</em></p>
+<p>Default probability of the calculated HDI intervals.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This probability is completely arbitrary. ArviZ using 0.94 instead of the more common 0.95 aims to emphasize this arbitrary choice.</p>
+</div>
+<p><strong>stats.information_criterion</strong> : <em>{loo, waic}</em></p>
+<p>Default information criterion used by <code class="docutils literal notranslate"><span class="pre">compare</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_elpd</span></code></p>
+<p><strong>stats.ic_pointwise</strong> : <em>bool, default False</em></p>
+<p>Return pointwise values when calling <code class="docutils literal notranslate"><span class="pre">loo</span></code> or <code class="docutils literal notranslate"><span class="pre">waic</span></code>. Pointwise values are an intermediate result and therefore setting <code class="docutils literal notranslate"><span class="pre">ic_pointwise</span></code> to true does not require extra computation.</p>
+<p><strong>stats.ic_scale</strong> : <em>{log, deviance, negative_log}</em></p>
+<p>Default information criterion scale. See docs on <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.loo.html#arviz.loo"><code class="docutils literal notranslate"><span class="pre">loo</span></code></a> or <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.waic.html#arviz.waic"><code class="docutils literal notranslate"><span class="pre">waic</span></code></a> for more detail.</p>
+<hr class="docutils"/>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Is there any extra rcParam you’d like to see in ArviZ? Check out <a class="reference external" href="https://github.com/arviz-devs/arviz/issues/792">arviz-devs/arviz#792</a>, it’s more than possible you’ll be able to add it yourself!</p>
+</div>
+<p>Package versions used to generate this post:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>arviz 0.9.0
+last updated: Mon Jun 29 2020 
+
+CPython 3.6.9
+IPython 7.15.0
+watermark 2.0.2
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils"/>
+<p>Comments are not enabled for the blog, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://github.com/arviz-devs/arviz/issues">ArviZ Issues</a>.</p>
+</section>
+</section>
+</article>
+<footer class="bd-footer-article">
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc">
+<div class="toc-item">
+<div class="ablog__postcard">
+<h5>
+<i class="fa-regular fa-calendar-days"></i>
+  16 June 2020
+  
+</h5>
+<ul>
+<li id="ablog-sidebar-item author ablog__author">
+<span>
+<i class="fa-solid fa-user-pen"></i>
+</span>
+<label class="sr-only">Author</label>
+<a href="../../author/oriol-abril-pla.html">Oriol Abril Pla</a>
+</li>
+<li id="ablog-sidebar-item category ablog__category">
+<span>
+<i class="fa-regular fa-folder-open"></i>
+</span>
+<label class="sr-only">Category</label>
+<a href="../../category/arviz.html">arviz</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/python.html">python</a>
+</li>
+<li id="ablog-sidebar-item tags ablog__tags">
+<span>
+<i class="fa-solid fa-tags"></i>
+</span>
+<label class="sr-only">Tags</label>
+<a href="../../tag/customization.html">customization</a>
+<a href="../../tag/rcparams.html">rcparams</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="toc-item">
+<div class="tocsection onthispage">
+<i class="fa-solid fa-list"></i> On this page
+</div>
+<nav class="page-toc" id="bd-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry">
+<a class="reference internal nav-link" href="#">
+   ArviZ customization with rcParams
+  </a>
+</li>
+<li class="toc-h1 nav-item toc-entry">
+<a class="reference internal nav-link" href="#about">
+   About
+  </a>
+</li>
+<li class="toc-h1 nav-item toc-entry">
+<a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+</li>
+<li class="toc-h1 nav-item toc-entry">
+<a class="reference internal nav-link" href="#customizing-arviz">
+   Customizing ArviZ
+  </a>
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#arvizrc-file">
+     arvizrc file
+    </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#dynamic-rc-settings">
+     Dynamic rc settings
+    </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#rc-context">
+     rc_context
+    </a>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry">
+<a class="reference internal nav-link" href="#arviz-default-settings">
+   ArviZ default settings
+  </a>
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#data">
+     Data
+    </a>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#plot">
+     Plot
+    </a>
+<ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#general">
+       General
+      </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#bokeh">
+       Bokeh
+      </a>
+</li>
+<li class="toc-h3 nav-item toc-entry">
+<a class="reference internal nav-link" href="#matplotlib">
+       Matplotlib
+      </a>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry">
+<a class="reference internal nav-link" href="#stats">
+     Stats
+    </a>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+<div class="toc-item">
+<div id="searchbox"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner"></div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//trafic-oriolabrilpla.cat/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+<script src="../../../_static/js/intro.js"></script>
+<div class="footer-notes">
+<ul class="footer-list">
+<li>© Oriol Abril Pla |
+      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
+      <a data-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i class="fa-brands fa-twitter"></i></span><label class="sr-only">Twitter</label></a> |
+      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
+</li>
+<li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
+<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+      <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
+</ul>
+</div>
+</body>
+</html>
