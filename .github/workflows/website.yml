@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     strategy:
+      max-parallel: 1
       matrix:
         language: [en, ca]
 
