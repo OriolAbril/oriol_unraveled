@@ -1,8 +1,8 @@
 html[data-theme="light"] {
-    --pst-color-primary: #cc5500;
-    --pst-color-primary-highlight: #994000;
-    --pst-color-secondary: #cc5500;
-    --pst-color-secondary-highlight: #994000;
+    --pst-color-primary: #217F87;
+    --pst-color-primary-highlight: #217F87aa;
+    --pst-color-secondary: #217F87;
+    --pst-color-secondary-highlight: #217F87aa;
 }
 
 .taxonomy-index {
@@ -383,10 +383,15 @@ ul.blog-pre-title, .ablog__postcard > ul {
 
 #homepage-intro p {
   color: white;
-  font-size: 1.25rem;
   font-style: italic;
   margin-top: -0.25rem;
   text-align: center;
+}
+
+@media (min-width: 650px) {
+  #homepage-intro p {
+    font-size: 1.25rem;
+  }
 }
 
 #homepage-intro ul {

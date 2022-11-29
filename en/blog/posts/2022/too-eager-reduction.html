@@ -237,17 +237,17 @@
 <p>In fact, all examples are related to “dimensionality” but not necessarly using the exact same definition for the term!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/ticker_api.html#module-matplotlib.ticker" title="matplotlib.ticker"><span class="nn">matplotlib.ticker</span></a> <span class="k">as</span> <span class="nn">mtick</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/lines_api.html#module-matplotlib.lines" title="matplotlib.lines"><span class="nn">matplotlib.lines</span></a> <span class="k">as</span> <span class="nn">mlines</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">pymc</span> <span class="k">as</span> <span class="nn">pm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+import arviz as az
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+import matplotlib.lines as mlines
+import xarray as xr
+import pymc as pm
 
-<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"font.size"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">13</span>
+rng = np.random.default_rng(5)
+az.style.use("arviz-darkgrid")
+plt.rcParams["font.size"] = 13
 </pre></div>
 </div>
 </div>
@@ -264,35 +264,35 @@
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_chains</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">n_draws</span> <span class="o">=</span> <span class="mi">1000</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>n_chains = 4
+n_draws = 1000
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_chains</span><span class="p">,</span> <span class="n">n_draws</span><span class="p">))</span>
+a = rng.multivariate_normal([0., 0.], np.array([[1, 0.85], [0.85, 1]]), size=(n_chains, n_draws))
 
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">.1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+b = np.empty_like(a)
+b[..., 0] = a[..., 0] + a[..., 1]
+b[..., 1] = a[..., 0] - a[..., 1]
+b[..., 1] += .1*(2*b[..., 0])**2
 
-<span class="n">c</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_chains</span><span class="p">,</span> <span class="n">n_draws</span><span class="p">))</span>
+c = rng.multivariate_normal([0., 0.], np.array([[1., 0.], [0., 1.]]), size=(n_chains, n_draws))
 
-<span class="k">def</span> <span class="nf">mean_std_normalize</span><span class="p">(</span><span class="n">ary</span><span class="p">):</span>
-    <span class="n">shape</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">shape</span>
-    <span class="k">assert</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
-    <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-    <span class="n">std</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(((</span><span class="n">ary</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.3</span><span class="p">]))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+def mean_std_normalize(ary):
+    shape = ary.shape
+    assert shape[-1] == 2
+    axis = tuple(range(len(shape)-1))
+    mean = ary.mean(axis=axis)
+    std = ary.std(axis=axis)
+    return (((ary - mean) / std) * np.array([.4, .3])) + np.array([2, 3])
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">mean_std_normalize</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">mean_std_normalize</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">mean_std_normalize</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+a = mean_std_normalize(a)
+b = mean_std_normalize(b)
+c = mean_std_normalize(c)
 
-<span class="n">idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
-    <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">},</span> 
-    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"var"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"shot"</span><span class="p">,</span> <span class="s2">"distance"</span><span class="p">]},</span> 
-    <span class="n">dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"var"</span><span class="p">],</span> <span class="s2">"b"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"var"</span><span class="p">],</span> <span class="s2">"c"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"var"</span><span class="p">]}</span>
-<span class="p">)</span>
+idata = az.from_dict(
+    {"a": a, "b": b, "c": c}, 
+    coords={"var": ["shot", "distance"]}, 
+    dims={"a": ["var"], "b": ["var"], "c": ["var"]}
+)
 </pre></div>
 </div>
 </div>
@@ -300,7 +300,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata.posterior
 </pre></div>
 </div>
 </div>
@@ -322,8 +322,8 @@ Attributes:
 <p>You can now see the draws of all 3 distributions in the 2d plane to see their shape. The distributions are all 2d representing a joint posterior with variables <code class="docutils literal notranslate"><span class="pre">shot</span></code> and <code class="docutils literal notranslate"><span class="pre">distance</span></code> and I have named the distributions <code class="docutils literal notranslate"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c</span></code> to distinguish them throughout the blog post.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mpl_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"subplot_kw"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"aspect"</span><span class="p">:</span> <span class="s2">"equal"</span><span class="p">}}</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">mpl_kwargs</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mpl_kwargs = {"subplot_kw": {"aspect": "equal"}}
+axes = az.plot_pair(idata, var_names="a", point_estimate="mean", backend_kwargs=mpl_kwargs);
 </pre></div>
 </div>
 </div>
@@ -333,7 +333,7 @@ Attributes:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">mpl_kwargs</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_pair(idata, var_names="b", point_estimate="mean", backend_kwargs=mpl_kwargs);
 </pre></div>
 </div>
 </div>
@@ -343,7 +343,7 @@ Attributes:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"c"</span><span class="p">,</span> <span class="n">point_estimate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">mpl_kwargs</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_pair(idata, var_names="c", point_estimate="mean", backend_kwargs=mpl_kwargs);
 </pre></div>
 </div>
 </div>
@@ -354,15 +354,15 @@ Attributes:
 <p>You can also see their marginal distributions compared below. Both <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> have the exact same marginal distributions, all normal, whereas the marginal distribution for <code class="docutils literal notranslate"><span class="pre">b</span></code> is also the same for the <code class="docutils literal notranslate"><span class="pre">shot</span></code> variable but not for the <code class="docutils literal notranslate"><span class="pre">distance</span></code> one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labeller</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">mix_labellers</span><span class="p">((</span><span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">NoVarLabeller</span><span class="p">,</span> <span class="n">az</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">DimCoordLabeller</span><span class="p">))</span>
-<span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>labeller = az.labels.mix_labellers((az.labels.NoVarLabeller, az.labels.DimCoordLabeller))
+post = idata.posterior
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_density</span><span class="p">(</span>
-    <span class="p">[</span><span class="n">post</span><span class="p">[[</span><span class="s2">"a"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s2">"x"</span><span class="p">),</span> <span class="n">post</span><span class="p">[[</span><span class="s2">"b"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="s2">"x"</span><span class="p">),</span> <span class="n">post</span><span class="p">[[</span><span class="s2">"c"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)],</span> 
-    <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">"C0"</span><span class="p">,</span> <span class="s2">"C1"</span><span class="p">,</span> <span class="s2">"C2"</span><span class="p">],</span>
-    <span class="n">data_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span>
-    <span class="n">labeller</span><span class="o">=</span><span class="n">labeller</span><span class="p">()</span>  <span class="c1"># remember to always pass an initialized labeller</span>
-<span class="p">);</span>
+ax = az.plot_density(
+    [post[["a"]].rename(a="x"), post[["b"]].rename(b="x"), post[["c"]].rename(c="x")], 
+    colors=["C0", "C1", "C2"],
+    data_labels=["a", "b", "c"],
+    labeller=labeller()  # remember to always pass an initialized labeller
+);
 </pre></div>
 </div>
 </div>
@@ -373,7 +373,7 @@ Attributes:
 <p>Last but not least, I also double check the normalization has worked:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stats"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.summary(idata, kind="stats")
 </pre></div>
 </div>
 </div>
@@ -463,12 +463,12 @@ Attributes:
 <p>Note: I call <em>posterior pushforward</em> operations to deterministic operations on posterior variables as opposed to sampling from the posterior predictive which should never be done with the means alone.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="s2">"mean"</span>
-<span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
-<span class="k">if</span> <span class="n">summary</span> <span class="o">==</span> <span class="s2">"mean"</span><span class="p">:</span>
-    <span class="n">post_summary</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">post_summary</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary = "mean"
+post = idata.posterior
+if summary == "mean":
+    post_summary = post.mean(("chain", "draw"))
+else:
+    post_summary = post.median(("chain", "draw"))
 </pre></div>
 </div>
 </div>
@@ -495,40 +495,40 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.einops</span> <span class="kn">import</span> <span class="n">raw_reduce</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from xarray_einstats.einops import raw_reduce
 
-<span class="k">def</span> <span class="nf">plot_func_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+def plot_func_comparison(pushforward_func, var_name, ax=None, **kwargs):
+    if ax is None:
+        _, ax = plt.subplots()
 
 
-    <span class="n">aux</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
-    <span class="n">post_after</span> <span class="o">=</span> <span class="n">pushforward_func</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">summary</span> <span class="o">==</span> <span class="s2">"mean"</span><span class="p">:</span>
-        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
-    <span class="n">aux</span> <span class="o">=</span> <span class="n">post_summary</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
-    <span class="n">summary_before</span> <span class="o">=</span> <span class="n">pushforward_func</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">difference</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">summary_after</span> <span class="o">-</span> <span class="n">summary_before</span><span class="p">)</span>
-    <span class="n">relative_difference</span> <span class="o">=</span> <span class="p">(</span><span class="n">difference</span> <span class="o">/</span> <span class="n">summary_after</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-    <span class="n">difference_mcse_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">difference</span> <span class="o">/</span> <span class="n">az</span><span class="o">.</span><span class="n">mcse</span><span class="p">(</span><span class="n">post_after</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">summary</span><span class="p">)[</span><span class="n">var_name</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    aux = post[var_name]
+    post_after = pushforward_func(aux.sel(var="shot"), aux.sel(var="distance"), **kwargs)
+    if summary == "mean":
+        summary_after = post_after.mean(("chain", "draw"))
+    else:
+        summary_after = post_after.median(("chain", "draw"))
+    aux = post_summary[var_name]
+    summary_before = pushforward_func(aux.sel(var="shot"), aux.sel(var="distance"), **kwargs)
+    difference = np.abs(summary_after - summary_before)
+    relative_difference = (difference / summary_after * 100).item()
+    difference_mcse_ratio = (difference / az.mcse(post_after, method=summary)[var_name]).item()
     
 
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span>
-        <span class="n">raw_reduce</span><span class="p">(</span><span class="n">post_after</span><span class="p">,</span> <span class="s2">"(d1 d2)=draw -&gt; d2"</span><span class="p">,</span> <span class="n">summary</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">d2</span><span class="o">=</span><span class="s2">"draw"</span><span class="p">),</span> 
-        <span class="n">hdi_prob</span><span class="o">=</span><span class="s2">"hide"</span><span class="p">,</span> 
-        <span class="n">point_estimate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-        <span class="n">kind</span><span class="o">=</span><span class="s2">"hist"</span><span class="p">,</span>
-        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
-    <span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">summary_after</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"after: </span><span class="si">{</span><span class="n">summary_after</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">summary_before</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"before: </span><span class="si">{</span><span class="n">summary_before</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> taken:"</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">)</span>
-    <span class="n">bbox</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">"round"</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.7</span><span class="p">),</span> <span class="n">ec</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.62</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Relative</span><span class="se">\n</span><span class="s2">difference:</span><span class="se">\n</span><span class="si">{</span><span class="n">relative_difference</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.62</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Difference/mcse:</span><span class="se">\n</span><span class="si">{</span><span class="n">difference_mcse_ratio</span><span class="si">:</span><span class="s2">.2g</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable: </span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    az.plot_posterior(
+        raw_reduce(post_after, "(d1 d2)=draw -&gt; d2", summary, d2=20).rename(d2="draw"), 
+        hdi_prob="hide", 
+        point_estimate=None, 
+        kind="hist",
+        ax=ax
+    )
+    ax.axvline(summary_after, color="C0", label=f"after: {summary_after.item():.3g}")
+    ax.axvline(summary_before, ls="--", color="C1", label=f"before: {summary_before.item():.3g}")
+    ax.legend(title=f"{summary.capitalize()} taken:", loc="upper right")
+    bbox = dict(boxstyle="round", fc=(1., 1, 1, .7), ec="none")
+    ax.text(0.62, 0.5, f"Relative\ndifference:\n{relative_difference:.3g}%", transform=ax.transAxes, bbox=bbox)
+    ax.text(0.62, 0.35, f"Difference/mcse:\n{difference_mcse_ratio:.2g}", transform=ax.transAxes, bbox=bbox)
+    ax.set_title(f"Variable: {var_name}")
 </pre></div>
 </div>
 </div>
@@ -537,11 +537,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>The expectancy of a sum is always the sum of expectancies, and we see that indeed the difference is of the order of floating point accuracy now that we are using the mean (but again, it won’t be if you rerun this using the median as summary):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fun = lambda x, y: x+y
 
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
-    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+_, axes = plt.subplots(1, 3, figsize=(14, 4))
+for i, var_name in enumerate("abc"):
+    plot_func_comparison(fun, var_name, ax=axes[i])
 </pre></div>
 </div>
 </div>
@@ -552,11 +552,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>The second example is a product between our two variables. This is no longer a linear operation and we can see noticeable differences in the result of distribution <code class="docutils literal notranslate"><span class="pre">a</span></code>. However, the dashed orange line is still only 3.7 MCSE units away from the real average and inside the region of the histogram. That means that it is still a credible value for the mean of the product.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fun = lambda x, y: x*y
 
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
-    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+_, axes = plt.subplots(1, 3, figsize=(14, 4))
+for i, var_name in enumerate("abc"):
+    plot_func_comparison(fun, var_name, ax=axes[i])
 </pre></div>
 </div>
 </div>
@@ -569,11 +569,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>I am currently working on MCSE for arbitrary quantities and arbitrary summary statistics and on some recommendations related to its use. Hopefully I’ll be able to write more on this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span><span class="o">/</span><span class="n">x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fun = lambda x, y: y/x
 
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
-    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+_, axes = plt.subplots(1, 3, figsize=(14, 4))
+for i, var_name in enumerate("abc"):
+    plot_func_comparison(fun, var_name, ax=axes[i])
 </pre></div>
 </div>
 </div>
@@ -584,11 +584,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>Moreover, we can always find pathological cases:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fun = lambda x, y: np.sqrt((x-2)**2 + (y-3)**2)
 
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
-    <span class="n">plot_func_comparison</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+_, axes = plt.subplots(1, 3, figsize=(14, 4))
+for i, var_name in enumerate("abc"):
+    plot_func_comparison(fun, var_name, ax=axes[i])
 </pre></div>
 </div>
 </div>
@@ -604,29 +604,29 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>And the second is that the “badness” of averaging before operating depends as we have seen on the distribution, on the function and can also depend on other constant inputs of the function. In this case, the effect of averaging before gets worse as we compute the pushforward operation on larger distances (we are modeling probabilities of making the putt as a function of the distance).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.stats</span> <span class="kn">import</span> <span class="n">XrContinuousRV</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="k">as</span> <span class="nn">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from xarray_einstats.stats import XrContinuousRV
+import scipy.stats as st
 
-<span class="n">BALL_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.68</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
-<span class="n">CUP_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.25</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
-<span class="n">OVERSHOT</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">DISTANCE_TOLERANCE</span> <span class="o">=</span> <span class="mf">3.0</span>
+BALL_RADIUS = (1.68 / 2) / 12
+CUP_RADIUS = (4.25 / 2) / 12
+OVERSHOT = 1.0
+DISTANCE_TOLERANCE = 3.0
 
-<span class="k">def</span> <span class="nf">forward_angle_model</span><span class="p">(</span><span class="n">variances_of_shot</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="n">norm_dist</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">variances_of_shot</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">norm_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+def forward_angle_model(variances_of_shot, t):
+    norm_dist = XrContinuousRV(st.norm, 0, variances_of_shot)
+    return 2 * norm_dist.cdf(np.arcsin((CUP_RADIUS - BALL_RADIUS) / t)) - 1
 
-<span class="k">def</span> <span class="nf">forward_distance_angle_model</span><span class="p">(</span><span class="n">variance_of_shot</span><span class="p">,</span> <span class="n">variance_of_distance</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="n">rv</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">angle_prob</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance_of_shot</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+def forward_distance_angle_model(variance_of_shot, variance_of_distance, t):
+    rv = XrContinuousRV(st.norm, 0, 1)
+    angle_prob = 2 * rv.cdf(np.arcsin((CUP_RADIUS - BALL_RADIUS) / t) / variance_of_shot) - 1
 
-    <span class="n">distance_prob_one</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">DISTANCE_TOLERANCE</span> <span class="o">-</span> <span class="n">OVERSHOT</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">t</span> <span class="o">+</span> <span class="n">OVERSHOT</span><span class="p">)</span> <span class="o">*</span> <span class="n">variance_of_distance</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">distance_prob_two</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">OVERSHOT</span> <span class="o">/</span> <span class="p">((</span><span class="n">t</span> <span class="o">+</span> <span class="n">OVERSHOT</span><span class="p">)</span> <span class="o">*</span> <span class="n">variance_of_distance</span><span class="p">))</span>
-    <span class="n">distance_prob</span> <span class="o">=</span> <span class="n">distance_prob_one</span> <span class="o">-</span> <span class="n">distance_prob_two</span>
+    distance_prob_one = rv.cdf(
+        (DISTANCE_TOLERANCE - OVERSHOT) / ((t + OVERSHOT) * variance_of_distance)
+    )
+    distance_prob_two = rv.cdf(-OVERSHOT / ((t + OVERSHOT) * variance_of_distance))
+    distance_prob = distance_prob_one - distance_prob_two
 
-    <span class="k">return</span> <span class="n">angle_prob</span> <span class="o">*</span> <span class="n">distance_prob</span>
+    return angle_prob * distance_prob
 </pre></div>
 </div>
 </div>
@@ -639,41 +639,41 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_golf_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_golf_comparison(pushforward_func, var_name, t, ax=None):
+    if ax is None:
+        _, ax = plt.subplots(1, 2, figsize=(12, 4))
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">"distance"</span><span class="p">],</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"distance"</span><span class="p">:</span> <span class="n">t</span><span class="p">})</span>
+    if isinstance(t, np.ndarray):
+        t = xr.DataArray(t, dims=["distance"], coords={"distance": t})
 
-    <span class="k">if</span> <span class="n">pushforward_func</span> <span class="o">==</span> <span class="s2">"angle"</span><span class="p">:</span>
-        <span class="n">aux</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
-        <span class="n">post_after</span> <span class="o">=</span> <span class="n">forward_angle_model</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
-        <span class="n">aux</span> <span class="o">=</span> <span class="n">post_summary</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
-        <span class="n">summary_before</span> <span class="o">=</span> <span class="n">forward_angle_model</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">aux</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
-        <span class="n">post_after</span> <span class="o">=</span> <span class="n">forward_distance_angle_model</span><span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="n">t</span><span class="p">)</span>
-        <span class="n">aux</span> <span class="o">=</span> <span class="n">post_summary</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
-        <span class="n">summary_before</span> <span class="o">=</span> <span class="n">forward_distance_angle_model</span><span class="p">(</span>
-            <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">),</span> <span class="n">aux</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">),</span> <span class="n">t</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="n">summary</span> <span class="o">==</span> <span class="s2">"mean"</span><span class="p">:</span>
-        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">summary_after</span> <span class="o">=</span> <span class="n">post_after</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+    if pushforward_func == "angle":
+        aux = post[var_name]
+        post_after = forward_angle_model(aux.sel(var="shot"), t)
+        aux = post_summary[var_name]
+        summary_before = forward_angle_model(aux.sel(var="shot"), t)
+    else:
+        aux = post[var_name]
+        post_after = forward_distance_angle_model(aux.sel(var="shot"), aux.sel(var="distance"), t)
+        aux = post_summary[var_name]
+        summary_before = forward_distance_angle_model(
+            aux.sel(var="shot"), aux.sel(var="distance"), t
+        )
+    if summary == "mean":
+        summary_after = post_after.mean(("chain", "draw"))
+    else:
+        summary_after = post_after.median(("chain", "draw"))
 
-    <span class="n">ax_</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">summary_after</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"after"</span><span class="p">)</span>
-    <span class="n">summary_before</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"before"</span><span class="p">)</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Mean taken:"</span><span class="p">)</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Probability of</span><span class="se">\n</span><span class="s2">making the putt"</span><span class="p">)</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Variable: </span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    ax_ = ax[0]
+    summary_after.plot.line(marker=".", ls="none", color="C0", ax=ax_, label="after")
+    summary_before.plot.line(marker=".", color="C1", ls="none", ax=ax_, label="before")
+    ax_.legend(title="Mean taken:")
+    ax_.set_ylabel("Probability of\nmaking the putt")
+    ax_.set_title(f"Variable: {var_name}")
 
-    <span class="n">ax_</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">summary_after</span> <span class="o">-</span> <span class="n">summary_before</span><span class="p">)</span> <span class="o">/</span> <span class="n">summary_after</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mtick</span><span class="o">.</span><span class="n">PercentFormatter</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Relative difference"</span><span class="p">)</span>
+    ax_ = ax[1]
+    (np.abs(summary_after - summary_before) / summary_after * 100).plot.line(marker=".", color="C0", ls="none", ax=ax_)
+    ax_.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=1))
+    ax_.set_title("Relative difference")
 </pre></div>
 </div>
 </div>
@@ -681,11 +681,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">.2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>_, axes = plt.subplots(3, 2, figsize=(13, 8), constrained_layout=True)
+t = np.geomspace(.2, 8)
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
-    <span class="n">plot_golf_comparison</span><span class="p">(</span><span class="s2">"angle"</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+for i, var_name in enumerate("abc"):
+    plot_golf_comparison("angle", var_name, t=t, ax=axes[i, :])
 </pre></div>
 </div>
 </div>
@@ -695,10 +695,10 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>_, axes = plt.subplots(3, 2, figsize=(13, 8), constrained_layout=True)
 
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">):</span>
-    <span class="n">plot_golf_comparison</span><span class="p">(</span><span class="s2">"distance_angle"</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+for i, var_name in enumerate("abc"):
+    plot_golf_comparison("distance_angle", var_name, t=t, ax=axes[i, :])
 </pre></div>
 </div>
 </div>
@@ -734,17 +734,17 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>Here is the function used to take care of step 2:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_posterior</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
-    <span class="n">smin</span><span class="p">,</span> <span class="n">smax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">samples</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
-    <span class="n">width</span> <span class="o">=</span> <span class="n">smax</span> <span class="o">-</span> <span class="n">smin</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">smin</span><span class="p">,</span> <span class="n">smax</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">gaussian_kde</span><span class="p">(</span><span class="n">samples</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def from_posterior(var_name, samples):
+    smin, smax = np.min(samples), np.max(samples)
+    width = smax - smin
+    x = np.linspace(smin, smax, 100)
+    y = st.gaussian_kde(samples)(x)
 
-    <span class="c1"># what was never sampled should have a small probability but not 0,</span>
-    <span class="c1"># so we'll extend the domain and use linear approximation of density on it</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">width</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">width</span><span class="p">]])</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">pm</span><span class="o">.</span><span class="n">Interpolated</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    # what was never sampled should have a small probability but not 0,
+    # so we'll extend the domain and use linear approximation of density on it
+    x = np.concatenate([[x[0] - 3 * width], x, [x[-1] + 3 * width]])
+    y = np.concatenate([[0], y, [0]])
+    return pm.Interpolated(var_name, x, y)
 </pre></div>
 </div>
 </div>
@@ -762,75 +762,75 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">contour_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"colors"</span><span class="p">:</span> <span class="s2">"k"</span><span class="p">},</span>
-        <span class="n">contourf_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
-        <span class="n">hdi_probs</span><span class="o">=</span><span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.8</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"scatter"</span><span class="p">,</span> <span class="s2">"kde"</span><span class="p">]</span> <span class="k">if</span> <span class="n">scatter</span> <span class="k">else</span> <span class="s2">"kde"</span>
-    <span class="n">axes</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span>
-        <span class="n">idata_prior</span><span class="p">,</span> 
-        <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_shot"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_distance"</span><span class="p">],</span> 
-        <span class="n">group</span><span class="o">=</span><span class="s2">"prior"</span><span class="p">,</span> 
-        <span class="n">marginals</span><span class="o">=</span><span class="n">scatter</span><span class="p">,</span>
-        <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">kde_kwargs</span><span class="o">=</span><span class="n">kws</span><span class="p">,</span>
-        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
-    <span class="p">);</span>
-    <span class="n">kws</span><span class="p">[</span><span class="s2">"contour_kwargs"</span><span class="p">][</span><span class="s2">"colors"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"r"</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span>
-        <span class="n">idata</span><span class="p">,</span> 
-        <span class="n">var_names</span><span class="o">=</span><span class="n">var_name</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"var"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"shot"</span><span class="p">,</span> <span class="s2">"distance"</span><span class="p">]},</span>
-        <span class="n">kind</span><span class="o">=</span><span class="s2">"kde"</span><span class="p">,</span> <span class="n">kde_kwargs</span><span class="o">=</span><span class="n">kws</span><span class="p">,</span>
-        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">scatter</span> <span class="k">else</span> <span class="n">axes</span>
-    <span class="p">);</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">scatter</span><span class="p">:</span>
-        <span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"KDE approximation"</span><span class="p">),</span>
-            <span class="n">mlines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Original posterior"</span><span class="p">),</span>
-        <span class="p">])</span>
-    <span class="k">return</span> <span class="n">axes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_prior_comparison(idata_prior, var_name, scatter=True, ax=None):
+    kws = dict(
+        contour_kwargs={"colors": "k"},
+        contourf_kwargs={"alpha": 0},
+        hdi_probs=[.2, .4, .6, .8]
+    )
+    kind = ["scatter", "kde"] if scatter else "kde"
+    axes = az.plot_pair(
+        idata_prior, 
+        var_names=[f"{var_name}_shot", f"{var_name}_distance"], 
+        group="prior", 
+        marginals=scatter,
+        kind=kind, kde_kwargs=kws,
+        ax=ax
+    );
+    kws["contour_kwargs"]["colors"] = "r"
+    az.plot_pair(
+        idata, 
+        var_names=var_name, coords={"var": ["shot", "distance"]},
+        kind="kde", kde_kwargs=kws,
+        ax=axes[1,0] if scatter else axes
+    );
+    if not scatter:
+        axes.legend(handles=[
+            mlines.Line2D([], [], color="k", label="KDE approximation"),
+            mlines.Line2D([], [], color="r", label="Original posterior"),
+        ])
+    return axes
 
-<span class="k">def</span> <span class="nf">plot_priors</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># Instantiate figure and grid</span>
-    <span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-    <span class="n">heights</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span>
-        <span class="mi">2</span><span class="p">,</span>
-        <span class="mi">3</span><span class="p">,</span>
-        <span class="n">hspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-        <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-        <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
-        <span class="n">width_ratios</span><span class="o">=</span><span class="n">widths</span><span class="p">,</span>
-        <span class="n">height_ratios</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="c1"># Set up main plot</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="c1"># Set up top KDE</span>
-    <span class="n">ax_hist_x</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-    <span class="n">ax_hist_x</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
-    <span class="c1"># Set up right KDE</span>
-    <span class="n">ax_hist_y</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">sharey</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-    <span class="n">ax_hist_y</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+def plot_priors(idata_prior, var_name, figsize=None):
+    # Instantiate figure and grid
+    widths = [6, 1, 6]
+    heights = [1.4, 6]
+    fig = plt.figure(figsize=figsize, constrained_layout=True)
+    grid = plt.GridSpec(
+        2,
+        3,
+        hspace=0.1,
+        wspace=0.1,
+        figure=fig,
+        width_ratios=widths,
+        height_ratios=heights,
+    )
+    # Set up main plot
+    ax = fig.add_subplot(grid[1, 0])
+    # Set up top KDE
+    ax_hist_x = fig.add_subplot(grid[0, 0], sharex=ax)
+    ax_hist_x.set_yticks([])
+    # Set up right KDE
+    ax_hist_y = fig.add_subplot(grid[1, 1], sharey=ax)
+    ax_hist_y.set_xticks([])
     
-    <span class="n">x</span> <span class="o">=</span> <span class="n">idata_prior</span><span class="o">.</span><span class="n">prior</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_shot"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">idata_prior</span><span class="o">.</span><span class="n">prior</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_distance"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    x = idata_prior.prior[f"{var_name}_shot"].values.flatten()
+    y = idata_prior.prior[f"{var_name}_distance"].values.flatten()
     
 
-    <span class="k">for</span> <span class="n">val</span><span class="p">,</span> <span class="n">ax_</span><span class="p">,</span> <span class="n">rotate</span> <span class="ow">in</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">ax_hist_x</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">ax_hist_y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)):</span>
-        <span class="n">az</span><span class="o">.</span><span class="n">plot_dist</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">rotated</span><span class="o">=</span><span class="n">rotate</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_</span><span class="p">)</span>
+    for val, ax_, rotate in ((x, ax_hist_x, False), (y, ax_hist_y, True)):
+        az.plot_dist(val, rotated=rotate, ax=ax_)
 
-    <span class="c1"># Personalize axes</span>
-    <span class="n">ax_hist_x</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">ax_hist_y</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    # Personalize axes
+    ax_hist_x.tick_params(labelleft=False, labelbottom=False)
+    ax_hist_y.tick_params(labelleft=False, labelbottom=False)
     
-    <span class="n">ax_zoom</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax_return</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">ax_hist_x</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="n">ax</span><span class="p">,</span> <span class="n">ax_hist_y</span><span class="p">,</span> <span class="n">ax_zoom</span><span class="p">]])</span>
+    ax_zoom = fig.add_subplot(grid[1, -1])
+    ax_return = np.array([[ax_hist_x, None, None], [ax, ax_hist_y, ax_zoom]])
     
-    <span class="n">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_return</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_zoom</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ax_return</span>
+    plot_prior_comparison(idata_prior, var_name, scatter=True, ax=ax_return[:, :-1])
+    plot_prior_comparison(idata_prior, var_name, scatter=False, ax=ax_zoom)
+    return ax_return
 </pre></div>
 </div>
 </div>
@@ -838,11 +838,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
-    <span class="n">a_shot</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"a_shot"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-    <span class="n">a_distance</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"a_distance"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model():
+    a_shot = from_posterior("a_shot", post["a"].sel(var="shot").values.flatten())
+    a_distance = from_posterior("a_distance", post["a"].sel(var="distance").values.flatten())
     
-    <span class="n">a_prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+    a_prior = pm.sample_prior_predictive(2000)
 </pre></div>
 </div>
 </div>
@@ -855,10 +855,10 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">plot_priors</span><span class="p">(</span><span class="n">a_prior</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>axes = plot_priors(a_prior, "a", figsize=(14, 5))
+ax = axes[-1, -1]
+ax.set_xlim((.5, 3.5))
+ax.set_ylim((1.5, 4.5));
 </pre></div>
 </div>
 </div>
@@ -871,11 +871,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>The figure on the right shows clearly how our prior even if generated from interpolating our original (red) distribution is unable to retrieve the dependency between the two variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
-    <span class="n">b_shot</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"b_shot"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-    <span class="n">b_distance</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"b_distance"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model():
+    b_shot = from_posterior("b_shot", post["b"].sel(var="shot").values.flatten())
+    b_distance = from_posterior("b_distance", post["b"].sel(var="distance").values.flatten())
     
-    <span class="n">b_prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+    b_prior = pm.sample_prior_predictive(2000)
 </pre></div>
 </div>
 </div>
@@ -888,10 +888,10 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">plot_priors</span><span class="p">(</span><span class="n">b_prior</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>axes = plot_priors(b_prior, "b", figsize=(14, 5))
+ax = axes[-1, -1]
+ax.set_xlim((0, 4))
+ax.set_ylim((.5, 5));
 </pre></div>
 </div>
 </div>
@@ -903,11 +903,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>The shape of the dependency between variables is also more complicated now than it was in distribution <code class="docutils literal notranslate"><span class="pre">a</span></code>, so the isodensity regions differ even more from the original (red) distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
-    <span class="n">c_shot</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"c_shot"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"c"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"shot"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-    <span class="n">c_distance</span> <span class="o">=</span> <span class="n">from_posterior</span><span class="p">(</span><span class="s2">"c_distance"</span><span class="p">,</span> <span class="n">post</span><span class="p">[</span><span class="s2">"c"</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model():
+    c_shot = from_posterior("c_shot", post["c"].sel(var="shot").values.flatten())
+    c_distance = from_posterior("c_distance", post["c"].sel(var="distance").values.flatten())
     
-    <span class="n">c_prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+    c_prior = pm.sample_prior_predictive(2000)
 </pre></div>
 </div>
 </div>
@@ -920,10 +920,10 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">plot_priors</span><span class="p">(</span><span class="n">c_prior</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>axes = plot_priors(c_prior, "c", figsize=(14, 5))
+ax = axes[-1, -1]
+ax.set_xlim((0.5, 3.5))
+ax.set_ylim((1.5, 4.5));
 </pre></div>
 </div>
 </div>
@@ -936,8 +936,8 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>Package versions used to generate this post:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
-<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w -p xarray_einstats
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark -n -u -v -iv -w -p xarray_einstats
 </pre></div>
 </div>
 </div>
@@ -998,13 +998,6 @@ Watermark: 2.3.0
   
   
   
-  <a href="../../category/xarray.html">xarray</a>
-  
-  ,
-  
-  
-  
-  
   <a href="../../category/xarray-einstats.html">xarray-einstats</a>
   
   ,
@@ -1012,7 +1005,7 @@ Watermark: 2.3.0
   
   
   
-  <a href="../../category/pymc.html">pymc</a>
+  <a href="../../category/xarray.html">xarray</a>
   
   ,
   
@@ -1020,6 +1013,13 @@ Watermark: 2.3.0
   
   
   <a href="../../category/arviz.html">arviz</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/pymc.html">pymc</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -1047,7 +1047,7 @@ Watermark: 2.3.0
 <a class="reference internal nav-link" href="#premature-aggregation">
    Premature aggregation
   </a>
-<ul class="nav section-nav flex-column">
+<ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry">
 <a class="reference internal nav-link" href="#pushforward-computation-examples">
      Pushforward computation examples

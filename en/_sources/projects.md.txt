@@ -1,6 +1,9 @@
 (projects)=
 # Projects
 
+:::{caution} Page still in construction
+:::
+
 ## Open source community projects
 
 ### ArviZ
@@ -11,6 +14,7 @@
 
 ## Personal projects
 
+<!--
 ## Open source libraries
 Here are highlighted some open source projects I contribute to, check out my
 [GitHub profile](https://github.com/OriolAbril) for a complete list
@@ -53,3 +57,4 @@ of the projects I contribute to.
   Slides and video presentation are available at [GitHub](https://github.com/arviz-devs/arviz_misc/tree/master/stancon_2020),
   the slides are executable thanks to Binder!
   - Slides and video presentations are available in English, Catalan, French and Finnish.
+-->

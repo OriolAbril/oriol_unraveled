@@ -238,27 +238,27 @@
 <p>Therefore, the most common arguments such as <code class="docutils literal notranslate"><span class="pre">var_names</span></code> will not be covered, and for arguments that I do not remeber appearing in issues or generating confusion only some examples will be shown without an in depth description.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import arviz as az
+import matplotlib.pyplot as plt
+import numpy as np
+import xarray as xr
 
-<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+rng = np.random.default_rng()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.style.use("arviz-darkgrid")
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_centered</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">"centered_eight"</span><span class="p">)</span>
-<span class="n">idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">"rugby"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_centered = az.load_arviz_data("centered_eight")
+idata = az.load_arviz_data("rugby")
 </pre></div>
 </div>
 </div>
@@ -269,10 +269,10 @@
 <p><code class="docutils literal notranslate"><span class="pre">az.plot_trace</span></code> generates two columns. The left one calls <code class="docutils literal notranslate"><span class="pre">plot_dist</span></code> to plot KDE/Histogram of the data, and the right column can contain either the trace itself (which gives the name to the plot) or a rank plot for which two visualizations are available. Rank plots are an alternative to trace plots, see https://arxiv.org/abs/1903.08008 for more details.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">kind</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s2">"trace"</span><span class="p">,</span> <span class="s2">"rank_bars"</span><span class="p">,</span> <span class="s2">"rank_vlines"</span><span class="p">)):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,:]);</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axes = plt.subplots(3,2, figsize=(12,6))
+for i, kind in enumerate(("trace", "rank_bars", "rank_vlines")):
+    az.plot_trace(idata, var_names="home", kind=kind, ax=axes[i,:]);
+fig.tight_layout()
 </pre></div>
 </div>
 </div>
@@ -290,7 +290,7 @@
 <p>If present, divergences are indicated as a black rugplot in both columns of the trace plot. By default they are placed at the bottom of the plot, but they can be placed at the top or hidden.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(idata_centered, var_names="tau");
 </pre></div>
 </div>
 </div>
@@ -300,7 +300,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">None</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(idata_centered, var_names="tau", divergences=None);
 </pre></div>
 </div>
 </div>
@@ -314,7 +314,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">rug</span></code> adds a rug plot with the posterior samples at the bottom of the distribution plot, there are no changes in the trace plot column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mf">.4</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = az.plot_trace(idata, var_names="home", rug=True, rug_kwargs={"alpha": .4})
 </pre></div>
 </div>
 </div>
@@ -325,7 +325,7 @@
 <p>But what about having both rug and divergences at the same time? Fear not, ArviZ automatically modifies the default for divergences from <code class="docutils literal notranslate"><span class="pre">bottom</span></code> to <code class="docutils literal notranslate"><span class="pre">top</span></code> to prevent rug and divergences from overlapping:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(idata_centered, var_names="mu", rug=True);
 </pre></div>
 </div>
 </div>
@@ -345,13 +345,13 @@
 <p>Let’s see what <code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> does with a simple dataset. We will create a dataset with two variables: <code class="docutils literal notranslate"><span class="pre">a</span></code> will be a 2x3 matrix and <code class="docutils literal notranslate"><span class="pre">b</span></code> will be a scalar. In addition, the dimensions of <code class="docutils literal notranslate"><span class="pre">a</span></code> will be labeled.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">({</span>
-    <span class="s2">"a"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"direction"</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))),</span>
-    <span class="s2">"b"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> 
-    <span class="s2">"pos"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">],</span>
-    <span class="s2">"direction"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">]</span>
-<span class="p">})</span>
-<span class="n">ds</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds = xr.Dataset({
+    "a": (("pos", "direction"), rng.normal(size=(2,3))),
+    "b": 12, 
+    "pos": ["top", "bottom"],
+    "direction": ["x", "y", "z"]
+})
+ds
 </pre></div>
 </div>
 </div>
@@ -367,9 +367,9 @@ Data variables:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">arviz.plots.plot_utils</span> <span class="kn">import</span> <span class="n">xarray_var_iter</span>
-<span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from arviz.plots.plot_utils import xarray_var_iter
+for var_name, sel, values in xarray_var_iter(ds):
+    print(var_name, sel, values)
 </pre></div>
 </div>
 </div>
@@ -388,8 +388,8 @@ b {} 12
 <p><code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> has iterated over every single scalar value without loosing track of where did every value come from. We can also modify the behaviour to skip some dimensions (i.e. in ArviZ we generally iterate over data dimensions and skip <code class="docutils literal notranslate"><span class="pre">chain</span></code> and <code class="docutils literal notranslate"><span class="pre">draw</span></code> dims).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"direction"</span><span class="p">}):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">sel</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for var_name, sel, values in xarray_var_iter(ds, skip_dims={"direction"}):
+    print(var_name, sel, values)
 </pre></div>
 </div>
 </div>
@@ -404,9 +404,9 @@ b {} 12
 <p>Now that we know about <code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> and what it does, we can use it to generate a list in the required format directly from xarray objects. Let’s say for example we were interested in plotting the mean as a line in the trace plot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"atts"</span><span class="p">]</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="n">var_names</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))))</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_names = ["home", "atts"]
+lines = list(xarray_var_iter(idata.posterior[var_names].mean(dim=("chain", "draw"))))
+az.plot_trace(idata, var_names=var_names, lines=lines);
 </pre></div>
 </div>
 </div>
@@ -420,10 +420,10 @@ b {} 12
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">]</span>
-<span class="n">quantile_ds</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[[</span><span class="s2">"defs"</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">((</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">quantile_ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"quantile"</span><span class="p">}))</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>var_names = ["home", "defs"]
+quantile_ds = idata.posterior[["defs"]].quantile((.1, .9), dim=("chain", "draw"))
+lines = list(xarray_var_iter(quantile_ds, skip_dims={"quantile"}))
+az.plot_trace(idata, var_names=var_names, lines=lines);
 </pre></div>
 </div>
 </div>
@@ -442,7 +442,7 @@ b {} 12
 <p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> is to perform no aggregation at all. In this case therefore, all subplots will have exactly one line per chain in the posterior. In this chain only setting, the default mapping is to use color to distinguish chains:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(idata, var_names=["home", "defs"], legend=True);
 </pre></div>
 </div>
 </div>
@@ -457,10 +457,10 @@ b {} 12
 This is also a chain only setting, the default mapping is to use color to distinguish chains. However, we’ll use this example to show usage of <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to map the chain to the linewidth:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chain_prop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"linewidth"</span><span class="p">:</span> <span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)}</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
-    <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="n">chain_prop</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>chain_prop = {"linewidth": (.5, 1, 2, 3)}
+az.plot_trace(
+    idata, var_names=["home", "defs"], combined=True, chain_prop=chain_prop, compact=False, legend=True
+);
 </pre></div>
 </div>
 </div>
@@ -475,7 +475,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>In these cases, it may be more convenient to analyze a compact version of the trace plot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(idata, var_names=["home", "defs"], combined=False, compact=True, legend=True);
 </pre></div>
 </div>
 </div>
@@ -491,7 +491,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>To reduce even more the clutter of lines in the trace plot, we can also combine chains. Moreover, the <code class="docutils literal notranslate"><span class="pre">linestyle</span> <span class="pre">-&gt;</span> <span class="pre">chain</span></code> mapping can be distracting, especially if we don’t care too much about distinguishing the chains between them. Like we did before, we will use <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to control this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"ls"</span><span class="p">:</span> <span class="s2">"-"</span><span class="p">},</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(idata, var_names=["home", "defs"], combined=True, chain_prop={"ls": "-"}, compact=True);
 </pre></div>
 </div>
 </div>
@@ -502,11 +502,11 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>Finally, we will explore alternative usage options for <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">compact_prop</span></code>. In the two previous examples we have used a 2 element tuple where the second position of the tuple contained the properties to use. Another alternative is to pass a string present in <code class="docutils literal notranslate"><span class="pre">plt.rcParams["axes.prop_cycle"]</span></code>, which in our case is <code class="docutils literal notranslate"><span class="pre">color</span></code> only.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
-    <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> 
-    <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="s2">"color"</span><span class="p">,</span> 
-    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
-<span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_trace(
+    idata, var_names=["home", "defs"], 
+    combined=True, chain_prop="color", 
+    compact=True, compact_prop={"lw": np.linspace(.5, 3, 6)}
+);
 </pre></div>
 </div>
 </div>
@@ -532,17 +532,17 @@ This is also a chain only setting, the default mapping is to use color to distin
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"team"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Scotland"</span><span class="p">,</span> <span class="s2">"Ireland"</span><span class="p">,</span> <span class="s2">"Italy"</span><span class="p">,</span> <span class="s2">"Wales"</span><span class="p">]}</span>
-<span class="n">quantile_ds</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">hdi</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"defs"</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">quantile_ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"hdi"</span><span class="p">,</span> <span class="s2">"team"</span><span class="p">}))</span>
-<span class="n">chain_prop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C0'</span><span class="p">,</span> <span class="s1">'C1'</span><span class="p">,</span> <span class="s1">'C2'</span><span class="p">,</span> <span class="s1">'C3'</span><span class="p">,</span> <span class="s2">"xkcd:purple blue"</span><span class="p">]}</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
-    <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">,</span> <span class="s2">"atts"</span><span class="p">],</span> 
-    <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="n">chain_prop</span><span class="p">,</span> 
-    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"ls"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">)},</span>
-    <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">,</span>
-    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span>
-<span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>coords = {"team": ["Scotland", "Ireland", "Italy", "Wales"]}
+quantile_ds = az.hdi(idata, var_names="defs", coords=coords, hdi_prob=.7)
+lines = list(xarray_var_iter(quantile_ds, skip_dims={"hdi", "team"}))
+chain_prop = {"color": ['C0', 'C1', 'C2', 'C3', "xkcd:purple blue"]}
+az.plot_trace(
+    idata, var_names=["home", "defs", "atts"], 
+    combined=True, chain_prop=chain_prop, 
+    compact=True, compact_prop={"lw": np.linspace(.5, 3, 6), "ls": ("-", "--")},
+    lines=lines,
+    coords=coords
+);
 </pre></div>
 </div>
 </div>
@@ -554,8 +554,8 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>Package versions used to generate this post:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
-<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark -n -u -v -iv -w
 </pre></div>
 </div>
 </div>
@@ -608,14 +608,14 @@ watermark 2.0.2
   
   
   
-  <a href="../../category/python.html">python</a>
+  <a href="../../category/arviz.html">arviz</a>
   
   ,
   
   
   
   
-  <a href="../../category/arviz.html">arviz</a>
+  <a href="../../category/python.html">python</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -686,7 +686,7 @@ watermark 2.0.2
 <a class="reference internal nav-link" href="#aggregation-kwargs">
    Aggregation kwargs
   </a>
-<ul class="nav section-nav flex-column">
+<ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry">
 <a class="reference internal nav-link" href="#combined-false-and-compact-false">
 <code class="docutils literal notranslate">

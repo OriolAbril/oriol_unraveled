@@ -238,21 +238,21 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
-<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import arviz as az
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import pymc3 as pm
+import theano.tensor as tt
 
-<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+rng = np.random.default_rng()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.style.use("arviz-darkgrid")
 </pre></div>
 </div>
 </div>
@@ -275,44 +275,44 @@
 <p>These coordinates are passed to <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code> as a dict whose keys are dimension names and whose values are coordinate values. The dimensions can then be used when defining PyMC3 variables to indicate their shape.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rugby</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">'rugby.csv'</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">home_idx</span><span class="p">,</span> <span class="n">teams</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">df_rugby</span><span class="p">[</span><span class="s2">"home_team"</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">away_idx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">df_rugby</span><span class="p">[</span><span class="s2">"away_team"</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df_rugby = pd.read_csv(pm.get_data('rugby.csv'), index_col=0)
+home_idx, teams = pd.factorize(df_rugby["home_team"], sort=True)
+away_idx, _ = pd.factorize(df_rugby["away_team"], sort=True)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"team"</span><span class="p">:</span> <span class="n">teams</span><span class="p">,</span>
-    <span class="s2">"match"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span>
-    <span class="s2">"field"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"away"</span><span class="p">],</span>
-<span class="p">}</span>
-<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">rugby_model</span><span class="p">:</span>
-    <span class="c1"># global model parameters</span>
-    <span class="n">home</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Flat</span><span class="p">(</span><span class="s1">'home'</span><span class="p">)</span>
-    <span class="n">sd_att</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s1">'sd_att'</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-    <span class="n">sd_def</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span><span class="p">(</span><span class="s1">'sd_def'</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-    <span class="n">intercept</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Flat</span><span class="p">(</span><span class="s1">'intercept'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>coords = {
+    "team": teams,
+    "match": np.arange(60),
+    "field": ["home", "away"],
+}
+with pm.Model(coords=coords) as rugby_model:
+    # global model parameters
+    home = pm.Flat('home')
+    sd_att = pm.HalfStudentT('sd_att', nu=3, sigma=2.5)
+    sd_def = pm.HalfStudentT('sd_def', nu=3, sigma=2.5)
+    intercept = pm.Flat('intercept')
 
-    <span class="c1"># team-specific model parameters</span>
-    <span class="n">atts_star</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"atts_star"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sd_att</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
-    <span class="n">defs_star</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"defs_star"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sd_def</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+    # team-specific model parameters
+    atts_star = pm.Normal("atts_star", mu=0, sigma=sd_att, dims="team")
+    defs_star = pm.Normal("defs_star", mu=0, sigma=sd_def, dims="team")
 
-    <span class="n">atts</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">'atts'</span><span class="p">,</span> <span class="n">atts_star</span> <span class="o">-</span> <span class="n">tt</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">atts_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
-    <span class="n">defs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">'defs'</span><span class="p">,</span> <span class="n">defs_star</span> <span class="o">-</span> <span class="n">tt</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">defs_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
-    <span class="n">home_theta</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">home</span> <span class="o">+</span> <span class="n">atts</span><span class="p">[</span><span class="n">home_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">defs</span><span class="p">[</span><span class="n">away_idx</span><span class="p">])</span>
-    <span class="n">away_theta</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">atts</span><span class="p">[</span><span class="n">away_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">defs</span><span class="p">[</span><span class="n">home_idx</span><span class="p">])</span>
+    atts = pm.Deterministic('atts', atts_star - tt.mean(atts_star), dims="team")
+    defs = pm.Deterministic('defs', defs_star - tt.mean(defs_star), dims="team")
+    home_theta = tt.exp(intercept + home + atts[home_idx] + defs[away_idx])
+    away_theta = tt.exp(intercept + atts[away_idx] + defs[home_idx])
 
-    <span class="c1"># likelihood of observed data</span>
-    <span class="n">points</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span>
-        <span class="s1">'home_points'</span><span class="p">,</span> 
-        <span class="n">mu</span><span class="o">=</span><span class="n">tt</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">home_theta</span><span class="p">,</span> <span class="n">away_theta</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> 
-        <span class="n">observed</span><span class="o">=</span><span class="n">df_rugby</span><span class="p">[[</span><span class="s2">"home_score"</span><span class="p">,</span> <span class="s2">"away_score"</span><span class="p">]],</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"match"</span><span class="p">,</span> <span class="s2">"field"</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">rugby_trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    # likelihood of observed data
+    points = pm.Poisson(
+        'home_points', 
+        mu=tt.stack((home_theta, away_theta)).T, 
+        observed=df_rugby[["home_score", "away_score"]],
+        dims=("match", "field")
+    )
+    rugby_trace = pm.sample(1000, tune=1000, cores=4)
 </pre></div>
 </div>
 </div>
@@ -349,8 +349,8 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We have now defined the shapes or our variables, which is convenient and helps understanding the code, but the dimensions and coordinates are lost during sampling. <code class="docutils literal notranslate"><span class="pre">pm.MultiTrace</span></code> objects do not store the labeled coordinates of their variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rugby_trace</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rugby_trace</span><span class="p">[</span><span class="s2">"atts"</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(rugby_trace)
+print(rugby_trace["atts"])
 </pre></div>
 </div>
 </div>
@@ -371,8 +371,8 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>ArviZ is aware of the model context, and will use it to get the coords and dims automatically. If necessary however, we may also modify or add dimensions or coordinates using the <code class="docutils literal notranslate"><span class="pre">dims</span></code>/<code class="docutils literal notranslate"><span class="pre">coords</span></code> arguments of <code class="docutils literal notranslate"><span class="pre">from_pymc3</span></code>. We’ll also see an example of this afterwards.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rugby_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">rugby_trace</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">rugby_model</span><span class="p">)</span>
-<span class="n">rugby_idata</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rugby_idata = az.from_pymc3(rugby_trace, model=rugby_model)
+rugby_idata
 </pre></div>
 </div>
 </div>
@@ -395,23 +395,23 @@ The number of effective samples is smaller than 25% for some parameters.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">srrs2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">"srrs2.dat"</span><span class="p">))</span>
-<span class="n">srrs2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">srrs2</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">)</span>
-<span class="n">srrs_mn</span> <span class="o">=</span> <span class="n">srrs2</span><span class="p">[</span><span class="n">srrs2</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">"MN"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>srrs2 = pd.read_csv(pm.get_data("srrs2.dat"))
+srrs2.columns = srrs2.columns.map(str.strip)
+srrs_mn = srrs2[srrs2.state == "MN"].copy()
 
-<span class="n">srrs_mn</span><span class="p">[</span><span class="s2">"fips"</span><span class="p">]</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">stfips</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">+</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">cntyfips</span>
-<span class="n">cty</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s2">"cty.dat"</span><span class="p">))</span>
-<span class="n">cty_mn</span> <span class="o">=</span> <span class="n">cty</span><span class="p">[</span><span class="n">cty</span><span class="o">.</span><span class="n">st</span> <span class="o">==</span> <span class="s2">"MN"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">cty_mn</span><span class="p">[</span><span class="s2">"fips"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">cty_mn</span><span class="o">.</span><span class="n">stfips</span> <span class="o">+</span> <span class="n">cty_mn</span><span class="o">.</span><span class="n">ctfips</span>
+srrs_mn["fips"] = srrs_mn.stfips * 1000 + srrs_mn.cntyfips
+cty = pd.read_csv(pm.get_data("cty.dat"))
+cty_mn = cty[cty.st == "MN"].copy()
+cty_mn["fips"] = 1000 * cty_mn.stfips + cty_mn.ctfips
 
-<span class="n">srrs_mn</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cty_mn</span><span class="p">[[</span><span class="s2">"fips"</span><span class="p">,</span> <span class="s2">"Uppm"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"fips"</span><span class="p">)</span>
-<span class="n">srrs_mn</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"idnum"</span><span class="p">)</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">Uppm</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+srrs_mn = srrs_mn.merge(cty_mn[["fips", "Uppm"]], on="fips")
+srrs_mn = srrs_mn.drop_duplicates(subset="idnum")
+u = np.log(srrs_mn.Uppm).unique()
 
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">srrs_mn</span><span class="p">)</span>
-<span class="n">srrs_mn</span><span class="o">.</span><span class="n">county</span> <span class="o">=</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">county</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">)</span>
-<span class="n">srrs_mn</span><span class="p">[</span><span class="s2">"county_code"</span><span class="p">],</span> <span class="n">mn_counties</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">county</span><span class="p">)</span>
-<span class="n">srrs_mn</span><span class="p">[</span><span class="s2">"log_radon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">activity</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+n = len(srrs_mn)
+srrs_mn.county = srrs_mn.county.map(str.strip)
+srrs_mn["county_code"], mn_counties = pd.factorize(srrs_mn.county)
+srrs_mn["log_radon"] = np.log(srrs_mn.activity + 0.1)
 </pre></div>
 </div>
 </div>
@@ -427,13 +427,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"Level"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Basement"</span><span class="p">,</span> <span class="s2">"Floor"</span><span class="p">],</span> 
-    <span class="s2">"obs_id"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
-    <span class="s2">"County"</span><span class="p">:</span> <span class="n">mn_counties</span><span class="p">,</span>
-    <span class="s2">"param"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
-    <span class="s2">"param_bis"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
-<span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>coords = {
+    "Level": ["Basement", "Floor"], 
+    "obs_id": np.arange(n),
+    "County": mn_counties,
+    "param": ["a", "b"],
+    "param_bis": ["a", "b"],
+}
 </pre></div>
 </div>
 </div>
@@ -441,9 +441,9 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We’ll begin to define the model creating the indexing arrays that will implement the hierarchical model. We are using the <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> container to tell ArviZ to store the variables in the <code class="docutils literal notranslate"><span class="pre">constant_data</span></code> group. Moreover, <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> defines a theano shared variable, so its values can be modified in order to call <code class="docutils literal notranslate"><span class="pre">pm.sample_posterior_predictive</span></code> using different data. This is particularly interesting for regressions for example in order to generate predictions for the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">radon_model</span><span class="p">:</span>
-    <span class="n">floor_idx</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"floor_idx"</span><span class="p">,</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
-    <span class="n">county_idx</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"county_idx"</span><span class="p">,</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">county_code</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model(coords=coords) as radon_model:
+    floor_idx = pm.Data("floor_idx", srrs_mn.floor, dims="obs_id")
+    county_idx = pm.Data("county_idx", srrs_mn.county_code, dims="obs_id")
 </pre></div>
 </div>
 </div>
@@ -451,15 +451,15 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We’ll also use a <code class="docutils literal notranslate"><span class="pre">LKJCholeskyCov</span></code>as prior for the covariance matrix. As you can see, it has no <code class="docutils literal notranslate"><span class="pre">dims</span></code> argument. Given that we are going to use <code class="docutils literal notranslate"><span class="pre">return_inferencedata=True</span></code> here in order to get an InferenceData directly as a result of <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>, we will have to indicate the dims that correspond to these variables as <code class="docutils literal notranslate"><span class="pre">idata_kwargs</span></code>. <code class="docutils literal notranslate"><span class="pre">idata_kwargs</span></code> is used to indicate <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code> what arguments to pass to <a class="reference external" href="https://python.arviz.org/en/v0.11.3/api/generated/arviz.from_pymc3.html">az.from_pymc3</a>, which is called internally to convert the trace to InferenceData.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
-    <span class="n">sd_dist</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"z"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"param"</span><span class="p">,</span> <span class="s2">"County"</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with radon_model:
+    sd_dist = pm.Exponential.dist(0.5)
+    a = pm.Normal("a", mu=0.0, sigma=5.0)
+    b = pm.Normal("b", mu=0.0, sigma=1.0)
+    z = pm.Normal("z", 0.0, 1.0, dims=("param", "County"))
     
-    <span class="n">chol</span><span class="p">,</span> <span class="n">corr</span><span class="p">,</span> <span class="n">stds</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">LKJCholeskyCov</span><span class="p">(</span>
-        <span class="s2">"chol"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">sd_dist</span><span class="o">=</span><span class="n">sd_dist</span><span class="p">,</span> <span class="n">compute_corr</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
+    chol, corr, stds = pm.LKJCholeskyCov(
+        "chol", n=2, eta=2.0, sd_dist=sd_dist, compute_corr=True
+    )
 </pre></div>
 </div>
 </div>
@@ -467,12 +467,12 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We now will store two intermediate results as variables. However, one is wrapped inside a <code class="docutils literal notranslate"><span class="pre">pm.Deterministic</span></code> whereas the other is not. Both are equally valid. <code class="docutils literal notranslate"><span class="pre">pm.Deterministic</span></code> tells PyMC3 to store that variable in the trace. Thus <code class="docutils literal notranslate"><span class="pre">pm.Deterministic</span></code> should only be used when we actively want to store the intermediate result. In our case, we want to store <code class="docutils literal notranslate"><span class="pre">ab_county</span></code> but not <code class="docutils literal notranslate"><span class="pre">theta</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
-    <span class="n">ab_county</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s2">"ab_county"</span><span class="p">,</span> <span class="n">tt</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">chol</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"County"</span><span class="p">,</span> <span class="s2">"param"</span><span class="p">))</span>
-    <span class="n">theta</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">ab_county</span><span class="p">[</span><span class="n">county_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">ab_county</span><span class="p">[</span><span class="n">county_idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">floor_idx</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with radon_model:
+    ab_county = pm.Deterministic("ab_county", tt.dot(chol, z).T, dims=("County", "param"))
+    theta = a + ab_county[county_idx, 0] + (b + ab_county[county_idx, 1]) * floor_idx
 
-    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">"sigma"</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">srrs_mn</span><span class="o">.</span><span class="n">log_radon</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
+    sigma = pm.Exponential("sigma", 1.0)
+    y = pm.Normal("y", theta, sigma=sigma, observed=srrs_mn.log_radon, dims="obs_id")
 </pre></div>
 </div>
 </div>
@@ -480,11 +480,11 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>Finally we will call <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code> with <code class="docutils literal notranslate"><span class="pre">return_inferencedata=True</span></code> and defining the dimensions of the covariance matrix as <code class="docutils literal notranslate"><span class="pre">idata_kwargs</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
-    <span class="n">radon_idata</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
-        <span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">target_accept</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">75625</span><span class="p">,</span> <span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">idata_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"dims"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"chol_stds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"param"</span><span class="p">],</span> <span class="s2">"chol_corr"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"param"</span><span class="p">,</span> <span class="s2">"param_bis"</span><span class="p">]}}</span>
-    <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with radon_model:
+    radon_idata = pm.sample(
+        2000, tune=2000, target_accept=0.99, random_seed=75625, return_inferencedata=True,
+        idata_kwargs={"dims": {"chol_stds": ["param"], "chol_corr": ["param", "param_bis"]}}
+    )
 </pre></div>
 </div>
 </div>
@@ -525,24 +525,24 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We will start generating some simulated data (code hidden, click to expand) and defining the model. As it’s a simple linear regression we’ll only have scalar parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#collapse</span>
-<span class="n">a_</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">b_</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.4</span>
-<span class="n">x_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
-<span class="n">year_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2021</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x_</span><span class="p">),</span> <span class="mi">2021</span><span class="p">)</span>
-<span class="n">y_</span> <span class="o">=</span> <span class="n">a_</span> <span class="o">+</span> <span class="n">b_</span> <span class="o">*</span> <span class="n">x_</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#collapse
+a_ = 2
+b_ = -0.4
+x_ = np.linspace(0, 10, 31)
+year_ = np.arange(2021-len(x_), 2021)
+y_ = a_ + b_ * x_ + rng.normal(size=len(x_))
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$y_i = a + bx_i + \mathcal</span><span class="si">{N}</span><span class="s2">(0,1)$"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'right'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'top'</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span>
-<span class="p">)</span>
+fig, ax = plt.subplots()
+ax.plot(x_, y_, "o-")
+ax.text(
+    0.93, 0.9, r"$y_i = a + bx_i + \mathcal{N}(0,1)$", ha='right', va='top', transform=ax.transAxes, fontsize=18
+)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_</span><span class="p">[::</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">year_</span><span class="p">[::</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Quantity of interest"</span><span class="p">);</span>
+ax.set_xticks(x_[::3])
+ax.set_xticklabels(year_[::3])
+ax.set_yticks([])
+ax.set_xlabel("Year")
+ax.set_ylabel("Quantity of interest");
 </pre></div>
 </div>
 </div>
@@ -552,15 +552,15 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">year_</span><span class="p">}</span>
-<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">linreg_model</span><span class="p">:</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"year"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>coords = {"year": year_}
+with pm.Model(coords=coords) as linreg_model:
+    x = pm.Data("x", x_, dims="year")
     
-    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">"sigma"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    a = pm.Normal("a", 0, 3)
+    b = pm.Normal("b", 0, 2)
+    sigma = pm.HalfNormal("sigma", 2)
     
-    <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"year"</span><span class="p">)</span>
+    y = pm.Normal("y", a + b * x, sigma, observed=y_, dims="year")
 </pre></div>
 </div>
 </div>
@@ -571,10 +571,10 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We start by sampling both prior and prior predictive with <code class="docutils literal notranslate"><span class="pre">pm.sample_prior_predictive</span></code>. This will generate a dictionary whose keys are variable names and whose values are numpy arrays. We can then pass this dictionary to <code class="docutils literal notranslate"><span class="pre">az.from_pymc3</span></code> as the <code class="docutils literal notranslate"><span class="pre">prior</span></code> argument. ArviZ will then use the information in the <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code> instance to 1) split the variables between <code class="docutils literal notranslate"><span class="pre">prior</span></code> and <code class="docutils literal notranslate"><span class="pre">prior_predictive</span></code> groups, 2) fill the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> and <code class="docutils literal notranslate"><span class="pre">constant_data</span></code> groups and 3) get the <code class="docutils literal notranslate"><span class="pre">dims</span></code> and <code class="docutils literal notranslate"><span class="pre">coords</span></code> if present.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
-    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">(</span><span class="mi">700</span><span class="p">)</span>
-    <span class="n">linreg_idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">)</span>
-<span class="n">linreg_idata</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with linreg_model:
+    prior = pm.sample_prior_predictive(700)
+    linreg_idata = az.from_pymc3(prior=prior)
+linreg_idata
 </pre></div>
 </div>
 </div>
@@ -587,7 +587,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We can now use <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> to perform prior predictive checks for our model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"prior"</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_ppc(linreg_idata, group="prior");
 </pre></div>
 </div>
 </div>
@@ -601,9 +601,9 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>The next step will be computing the posterior. As we have seen, we can use <code class="docutils literal notranslate"><span class="pre">return_inferencedata</span></code> to get an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> as a result of <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In this case however, we will store it as an auxiliary variable to then use <code class="docutils literal notranslate"><span class="pre">InferenceData.extend</span></code> and add the new groups to the <code class="docutils literal notranslate"><span class="pre">linreg_idata</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
-    <span class="n">idata_aux</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">linreg_idata</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">idata_aux</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with linreg_model:
+    idata_aux = pm.sample(return_inferencedata=True)
+linreg_idata.extend(idata_aux)
 </pre></div>
 </div>
 </div>
@@ -639,7 +639,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg_idata</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>linreg_idata
 </pre></div>
 </div>
 </div>
@@ -655,7 +655,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_pair(linreg_idata);
 </pre></div>
 </div>
 </div>
@@ -669,10 +669,10 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 <p>Our third step will be to evaluate the posterior predictive at the observations so we can perform model checking with functions such as <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> or <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code>. Here again we are using the <code class="docutils literal notranslate"><span class="pre">extend</span></code> trick to keep all our data as part of the same <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>. This has two main advantages. <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code> requires both the <code class="docutils literal notranslate"><span class="pre">posterior_predictive</span></code> group, generated here and the <code class="docutils literal notranslate"><span class="pre">log_likelihood</span></code> group which was created in <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In addition, keeping all our data in a single <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> means we can store it as a netCDF and share a single file to allow reproducing the whole exploratory analysis of our model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
-    <span class="n">post_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">)</span>
-    <span class="n">idata_aux</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">posterior_predictive</span><span class="o">=</span><span class="n">post_pred</span><span class="p">)</span>
-<span class="n">linreg_idata</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">idata_aux</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with linreg_model:
+    post_pred = pm.sample_posterior_predictive(linreg_idata)
+    idata_aux = az.from_pymc3(posterior_predictive=post_pred)
+linreg_idata.extend(idata_aux)
 </pre></div>
 </div>
 </div>
@@ -698,7 +698,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg_idata</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>linreg_idata
 </pre></div>
 </div>
 </div>
@@ -716,7 +716,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 <p>We will now get to use <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code>, which as expected does not show any issues. To learn how to interpret those plots, you can read the <a class="reference internal" href="../2019/loo-pit-tutorial.html#loo-pit-tutorial"><span class="std std-ref">LOO-PIT tutorial</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_loo_pit</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_loo_pit(linreg_idata, y="y");
 </pre></div>
 </div>
 </div>
@@ -731,12 +731,12 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 <p>Here we will use <code class="docutils literal notranslate"><span class="pre">from_pymc3_predictions</span></code> instead of <code class="docutils literal notranslate"><span class="pre">from_pymc3</span></code>+<code class="docutils literal notranslate"><span class="pre">extend</span></code>. <code class="docutils literal notranslate"><span class="pre">from_pymc3_predictions</span></code> combines functionality from both of these functions and let’s the user choose how to handle predictions depending on the goal at hand: if <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> is not present, the returned object will be an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> containing only the predictions groups; if <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> is present and <code class="docutils literal notranslate"><span class="pre">inplace=False</span></code> the returned <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> will be a copy of <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> with the predictions groups added, and with <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> there is no returned object, the preditcions groups are added to <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> which is not returned.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
-    <span class="n">pm</span><span class="o">.</span><span class="n">set_data</span><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">x_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]})</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">)</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3_predictions</span><span class="p">(</span>
-        <span class="n">predictions</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">]},</span> <span class="n">idata_orig</span><span class="o">=</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with linreg_model:
+    pm.set_data({"x": x_[-1] + x_[1:3]})
+    predictions = pm.sample_posterior_predictive(linreg_idata)
+    az.from_pymc3_predictions(
+        predictions, coords={"year": [2021, 2022]}, idata_orig=linreg_idata, inplace=True
+    )
 </pre></div>
 </div>
 </div>
@@ -762,7 +762,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg_idata</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>linreg_idata
 </pre></div>
 </div>
 </div>
@@ -781,7 +781,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"predictions"</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_posterior(linreg_idata, group="predictions");
 </pre></div>
 </div>
 </div>
@@ -796,106 +796,106 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 <p>Here is the code used to generate the summary image for this post. Take a look if you want to use matplotlib to create array diagrams!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="matplotlib"><span class="nn">matplotlib</span></a>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParamsDefault</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib
+plt.rcParams.update(matplotlib.rcParamsDefault)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/toolkits/mplot3d.html#module-mpl_toolkits.mplot3d" title="mpl_toolkits.mplot3d"><span class="nn">mpl_toolkits.mplot3d</span></a> <span class="kn">import</span> <span class="n">Axes3D</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from mpl_toolkits.mplot3d import Axes3D
 
-<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">],</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="p">])</span>
+points = np.array([
+    [-1, -1, -1],
+    [1, -1, -1 ],
+    [1, 1, -1],
+    [-1, 1, -1],
+    [-1, -1, 1],
+    [1, -1, 1 ],
+    [1, 1, 1],
+    [-1, 1, 1]
+])
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
-<span class="n">side</span> <span class="o">=</span> <span class="mi">3</span> 
-<span class="n">r</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">one_2d</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">one_1d</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+fig = plt.figure(dpi=300)
+ax = fig.add_axes([0, .05, 1, .8], projection='3d')
+side = 3 
+r = side * np.array([-1,1])
+one_2d = side * np.ones((1,1))
+one_1d = side * np.ones(1)
+X, Y = np.meshgrid(r, r)
 
-<span class="c1">################</span>
-<span class="c1">###  theta   ###</span>
-<span class="c1">################</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">one_2d</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="o">-</span><span class="n">one_2d</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">one_2d</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C0"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\theta$"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+################
+###  theta   ###
+################
+ax.plot_surface(X,Y,one_2d, color="C0", zorder=1)
+ax.plot_surface(X,-one_2d,Y, color="C0", zorder=1)
+ax.plot_surface(one_2d,X,Y, color="C0", zorder=1)
+ax.text2D(0.3, 0.14, r"$\theta$", transform=ax.transAxes)
 
-<span class="c1"># school dim</span>
-<span class="n">school_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
-<span class="n">school_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">school_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span> <span class="o">*</span> <span class="mf">1.1</span>
-<span class="n">schools</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"Choate"</span><span class="p">,</span> <span class="s2">"Deerfield"</span><span class="p">,</span> <span class="s2">"Phillips Andover"</span><span class="p">,</span> <span class="s2">"Phillips Exeter"</span><span class="p">,</span> 
-                    <span class="s2">"Hotchkiss"</span><span class="p">,</span> <span class="s2">"Lawrenceville"</span><span class="p">,</span> <span class="s2">"St. Paul's"</span><span class="p">,</span> <span class="s2">"Mt. Hermon"</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">school_grid</span><span class="p">,</span> <span class="n">school_one</span><span class="p">,</span> <span class="n">school_one</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"|"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">school</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">schools</span><span class="p">,</span> <span class="n">school_grid</span><span class="p">):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.15</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">school</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+# school dim
+school_grid = np.linspace(-1, 1, 8) * side
+school_one = np.ones_like(school_grid) * side * 1.1
+schools = np.array(["Choate", "Deerfield", "Phillips Andover", "Phillips Exeter", 
+                    "Hotchkiss", "Lawrenceville", "St. Paul's", "Mt. Hermon"])
+ax.plot(school_grid, school_one, school_one, marker="|", color="k")
+for school, pos in zip(schools, school_grid):
+    ax.text(pos, side*1.1, side*1.15, f"{school}", zdir="y", clip_on=False)
     
-<span class="c1"># chain dim</span>
-<span class="n">chain_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
-<span class="n">chain_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">chain_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span> <span class="o">*</span> <span class="mf">1.1</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">chain_one</span><span class="p">,</span> <span class="n">chain_grid</span><span class="p">,</span> <span class="n">chain_one</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"|"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">chain</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chain_grid</span><span class="p">):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.15</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">chain</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">side</span><span class="o">*</span><span class="mf">1.3</span><span class="p">,</span> <span class="s2">"Chain"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">),</span> <span class="n">va</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+# chain dim
+chain_grid = np.linspace(-1, 1, 6) * side
+chain_one = np.ones_like(chain_grid) * side * 1.1
+ax.plot(-chain_one, chain_grid, chain_one, marker="|", color="k")
+for chain, pos in enumerate(chain_grid):
+    ax.text(-side*1.1, pos, side*1.15, f"{chain}", zdir="y", va="bottom", ha="center")
+ax.text(-side*1.3, 0, side*1.3, "Chain", zdir=(1, 1, .2), va="bottom", ha="center")
     
-<span class="c1"># draw dim</span>
-<span class="n">draw_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
-<span class="n">draw_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">draw_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span> <span class="o">*</span> <span class="mf">1.1</span>
-<span class="n">draws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="n">draw_one</span><span class="p">,</span> <span class="o">-</span><span class="n">draw_one</span><span class="p">,</span> <span class="n">draw_grid</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"_"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">draw</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">draws</span><span class="p">,</span> <span class="n">draw_grid</span><span class="p">[</span><span class="n">draws</span><span class="p">]):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="n">side</span><span class="o">*</span><span class="mf">1.15</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">draw</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">"Draw"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">)</span>
+# draw dim
+draw_grid = np.linspace(-1, 1, 50) * side
+draw_one = np.ones_like(draw_grid) * side * 1.1
+draws = np.arange(0, 50, 10)
+ax.plot(-draw_one, -draw_one, draw_grid, marker="_", color="k")
+for draw, pos in zip(draws, draw_grid[draws]):
+    ax.text(-side*1.1, -side*1.15, pos, f"{draw}", zdir=None, ha="right")
+ax.text2D(0.12, 0.4, "Draw", transform=ax.transAxes, rotation="vertical")
 
-<span class="c1">################</span>
-<span class="c1">###   tau    ###</span>
-<span class="c1">################</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">one_2d</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.525</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\tau$"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
-
-
-<span class="c1">################</span>
-<span class="c1">###    mu    ###</span>
-<span class="c1">################</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="mi">8</span><span class="o">+</span><span class="n">one_2d</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C2"</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text2D</span><span class="p">(</span><span class="mf">0.66</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"$\mu$"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+################
+###   tau    ###
+################
+ax.plot_surface(4+one_2d,X,Y, color="C1", zorder=1)
+ax.text2D(0.525, 0.1, r"$\tau$", transform=ax.transAxes)
 
 
-<span class="c1">################</span>
-<span class="c1">###  grids   ###</span>
-<span class="c1">################</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">side</span>
-<span class="n">grid_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">lw</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">;</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.7</span>
-<span class="k">for</span> <span class="n">chain_pos</span> <span class="ow">in</span> <span class="n">chain_grid</span><span class="p">:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">chain_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">draw_pos</span> <span class="ow">in</span> <span class="n">draw_grid</span><span class="p">:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">-</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">draw_pos</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">school_pos</span> <span class="ow">in</span> <span class="n">school_grid</span><span class="p">:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">school_pos</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">school_pos</span><span class="p">,</span> <span class="o">-</span><span class="n">grid_one</span> <span class="o">*</span> <span class="n">side</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+################
+###    mu    ###
+################
+ax.plot_surface(8+one_2d,X,Y, color="C2", zorder=1)
+ax.text2D(0.66, 0.08, r"$\mu$", transform=ax.transAxes)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">);</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=-</span><span class="mi">69</span><span class="p">)</span>
-<span class="c1">#fig.savefig("labeled_arys.png", dpi=300)</span>
+
+################
+###  grids   ###
+################
+grid = np.linspace(-1, 1, 10) * side
+grid_one = np.ones(10)
+lw = .3; alpha = .7
+for chain_pos in chain_grid:
+    ax.plot(grid, grid_one * chain_pos, grid_one * side, color="k", alpha=alpha, zorder=3, lw=lw)
+    ax.plot(grid_one * side, grid_one * chain_pos, grid, color="k", alpha=alpha, zorder=5, lw=lw)
+    ax.plot(grid_one * side + 4, grid_one * chain_pos, grid, color="k", alpha=alpha, zorder=6, lw=lw)
+    ax.plot(grid_one * side + 8, grid_one * chain_pos, grid, color="k", alpha=alpha, zorder=7, lw=lw)
+for draw_pos in draw_grid:
+    ax.plot(grid, -grid_one * side, grid_one * draw_pos,  color="k", alpha=alpha, zorder=4, lw=lw)
+    ax.plot(grid_one * side, grid, grid_one * draw_pos,  color="k", alpha=alpha, zorder=5, lw=lw)
+    ax.plot(grid_one * side + 4, grid, grid_one * draw_pos,  color="k", alpha=alpha, zorder=6, lw=lw)
+    ax.plot(grid_one * side + 8, grid, grid_one * draw_pos,  color="k", alpha=alpha, zorder=7, lw=lw)
+for school_pos in school_grid:
+    ax.plot(grid_one * school_pos, grid, grid_one * side,  color="k", alpha=alpha, zorder=4, lw=lw)
+    ax.plot(grid_one * school_pos, -grid_one * side, grid, color="k", alpha=alpha, zorder=4, lw=lw)
+
+ax.axis("off");
+ax.view_init(azim=-69)
+#fig.savefig("labeled_arys.png", dpi=300)
 </pre></div>
 </div>
 </div>
@@ -906,8 +906,8 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 <p>Package versions used to generate this post:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
-<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark -n -u -v -iv -w
 </pre></div>
 </div>
 </div>
@@ -956,14 +956,14 @@ watermark 2.0.2
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/pymc.html">pymc</a>
+<a href="../../category/xarray.html">xarray</a>
   
   ,
   
   
   
   
-  <a href="../../category/xarray.html">xarray</a>
+  <a href="../../category/arviz.html">arviz</a>
   
   ,
   
@@ -977,7 +977,7 @@ watermark 2.0.2
   
   
   
-  <a href="../../category/arviz.html">arviz</a>
+  <a href="../../category/pymc.html">pymc</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -1020,7 +1020,7 @@ watermark 2.0.2
 <a class="reference internal nav-link" href="#there-is-life-outside-the-posterior">
    There is life outside the posterior
   </a>
-<ul class="nav section-nav flex-column">
+<ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry">
 <a class="reference internal nav-link" href="#priors">
      Priors
