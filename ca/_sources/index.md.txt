@@ -26,21 +26,48 @@ Get ready for some puns and let's dive in!
 ## News
 
 ::::{grid} 1 1 2 2
-:::{grid-item}
-Some announcement I want to make here.
+:gutter: 3
 
-Read more in some other page.
+:::{grid-item-card} Webinar
+
+I will give an [online webinar](https://www.meetup.com/data-umbrella/events/289308615/)
+with [Data Umbrella](https://www.dataumbrella.org/) on how to contribute to ArviZ and to open source in general.
 :::
-:::{grid-item}
-A 2nd announcement to the page.
+:::{grid-item-card} Working session
 
-These will need to be updated manually though.
+I will participate to [PyData Global](https://global2022.pydata.org) hosting a working session
+on [interoperability within the Python Bayesian ecosystem](https://global2022.pydata.org/cfp/talk/BNUAL8/).
 :::
 ::::
 
 ## Projects
+Most of my current work is related to two community-drives open source libraries:
+ArviZ and PyMC. They are both related to Bayesian modeling, but have different
+and complementary goals.
 
-Overview of arviz and pymc
+:::::{grid} 1 1 2 2
+::::{grid-item}
+:::{div} sd-text-center sd-fs-4 sd-font-weight-bolder
+{doc}`ArviZ <arviz_org:index>`
+:::
+
+The ArviZ project provides tools for Exploratory Analysis of Bayesian Models that do not depend on the inference library nor the programming language used.
+
+That includes visualization, sampling diagnostics, model comparison, summary statistics or model checking. The ArviZ project maintains several libraries in Python and Julia.
+::::
+::::{grid-item}
+:::{div} sd-text-center sd-fs-4 sd-font-weight-bolder
+{doc}`PyMC <pymc_io:index>`
+:::
+
+PyMC is a project for probabilistic programming in Python. PyMC strives to make Bayesian modeling as simple and painless as possible, allowing users to focus on their problem rather than the methods.
+
+The PyMC project maintains the PyMC library, the flagship of the project, as well as
+extensive documentation and some smaller libraries that complement the PyMC library.
+Moreover, it also organizes many activities such as [PyMCon](https://pymcon.com/).
+::::
+:::::
+
 
 See the {ref}`projects` page for a complete list of the projects I am involved in.
 

@@ -1,3 +1,6 @@
 # Page not found
 
 Sorry, the page you asked for could not be found.
+
+You can try browsing to it from the navbar or
+using the search function with a keyword related to it.

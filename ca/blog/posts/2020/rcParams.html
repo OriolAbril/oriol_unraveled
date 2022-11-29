@@ -8,12 +8,12 @@
 <meta content="ArviZ customization with rcParams" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/blog/posts/2020/rcParams.html" property="og:url"/>
-<meta content="Oriol unraveled" property="og:site_name"/>
+<meta content="Oriol desfermat" property="og:site_name"/>
 <meta content="About: ArviZ not only builds on top of matplotlib’s rcParams but also adds its own rcParams instance to handle specific settings. This post will only graze matplotlib’s rcParams, which are already ..." property="og:description"/>
 <meta content="https://oriolabrilpla.cat/_images/rc_context.png" property="og:image"/>
 <meta content="" property="og:image:alt"/>
 <meta content="About: ArviZ not only builds on top of matplotlib’s rcParams but also adds its own rcParams instance to handle specific settings. This post will only graze matplotlib’s rcParams, which are already ..." name="description"/>
-<title>ArviZ customization with rcParams — Oriol unraveled</title>
+<title>ArviZ customization with rcParams — Oriol desfermat</title>
 <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -246,10 +246,10 @@
 <p>There are several ways of modifying <code class="docutils literal notranslate"><span class="pre">arviz.rcParams</span></code> instance, each of them targeted to specific needs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import arviz as az
+import matplotlib.pyplot as plt
 
-<span class="n">idata</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.load_arviz_data.html#arviz.load_arviz_data" title="arviz.load_arviz_data"><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span></a><span class="p">(</span><span class="s2">"centered_eight"</span><span class="p">)</span>
+idata = az.load_arviz_data("centered_eight")
 </pre></div>
 </div>
 </div>
@@ -280,8 +280,8 @@ is not defined)</p></li>
 <p>Once one of these files is found, ArviZ stops looking and loads its configuration. If none of them are present, the values hardcoded in ArviZ codebase are used. The file used to set the default values in ArviZ can be obtained with the following command:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">rcparams</span><span class="o">.</span><span class="n">get_arviz_rcfile</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import arviz as az
+print(az.rcparams.get_arviz_rcfile())
 </pre></div>
 </div>
 </div>
@@ -304,7 +304,7 @@ is not defined)</p></li>
 <p>To set default values on a per file or per project basis, <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> can also be modified dynamically, either overwritting a specific key:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"data.load"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"eager"</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.rcParams["data.load"] = "eager"
 </pre></div>
 </div>
 </div>
@@ -313,13 +313,13 @@ is not defined)</p></li>
 <p>Another option is to define a dictionary with several new defaults and update rcParams all at once.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"data.load"</span><span class="p">:</span> <span class="s2">"lazy"</span><span class="p">,</span>
-    <span class="s2">"plot.max_subplots"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-    <span class="s2">"stats.ic_scale"</span><span class="p">:</span> <span class="s2">"negative_log"</span><span class="p">,</span>
-    <span class="s2">"plot.matplotlib.constrained_layout"</span><span class="p">:</span> <span class="kc">False</span>
-<span class="p">}</span>
-<span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rc = {
+    "data.load": "lazy",
+    "plot.max_subplots": 30,
+    "stats.ic_scale": "negative_log",
+    "plot.matplotlib.constrained_layout": False
+}
+az.rcParams.update(rc)
 </pre></div>
 </div>
 </div>
@@ -330,14 +330,14 @@ is not defined)</p></li>
 <p>And last but not least, to temporarily use a different set of defaults, ArviZ also has a <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rc_context.html#arviz.rc_context"><code class="docutils literal notranslate"><span class="pre">rc_context</span></code></a> function. Its main difference and advantage is that it is a context manager, therefore, all code executed inside the context will use the defaults defined by <code class="docutils literal notranslate"><span class="pre">rc_context</span></code> but once we exit the context, everything goes back to normal. Let’s generate 3 posterior plots with the same command to show this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>_, axes = plt.subplots(1,3, figsize=(15,4))
 
-<span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+az.plot_posterior(idata, var_names="mu", ax=axes[0])
 
-<span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.point_estimate"</span><span class="p">:</span> <span class="s2">"mode"</span><span class="p">,</span> <span class="s2">"stats.hdi_prob"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+with az.rc_context({"plot.point_estimate": "mode", "stats.hdi_prob": 0.7}):
+    az.plot_posterior(idata, var_names="mu", ax=axes[1])
 
-<span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+az.plot_posterior(idata, var_names="mu", ax=axes[2]);
 </pre></div>
 </div>
 </div>
@@ -357,7 +357,7 @@ is not defined)</p></li>
 <p>Only the first two example datasets <code class="docutils literal notranslate"><span class="pre">centered_eight</span></code> and <code class="docutils literal notranslate"><span class="pre">non_centered_eight</span></code> come as part of ArviZ. All the others are downloaded from figshare the first time and stored locally to help reloading them the next time. We can get the names of the data available by not passing any argument to <code class="docutils literal notranslate"><span class="pre">az.load_arviz_data</span></code> (you can also get the description of each of them with <code class="docutils literal notranslate"><span class="pre">az.list_datasets</span></code>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.load_arviz_data().keys()
 </pre></div>
 </div>
 </div>
@@ -381,8 +381,8 @@ is not defined)</p></li>
 <p>One of the current projects in ArviZ is to extend the capabilities of <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>. One of the limitations was not allowing its functions and methods to be applied to several groups at the same time. Starting with ArviZ 0.8.0, <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.InferenceData.html#arviz.InferenceData"><code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> methods</a> take arguments <code class="docutils literal notranslate"><span class="pre">groups</span></code> and <code class="docutils literal notranslate"><span class="pre">filter_groups</span></code> to overcome this limitation. These two combined arguments have the same capabilities as <code class="docutils literal notranslate"><span class="pre">var_names</span></code>+<code class="docutils literal notranslate"><span class="pre">filter_vars</span></code> in plotting functions: exact matching, like and regex matching like pandas and support for ArviZ <code class="docutils literal notranslate"><span class="pre">~</span></code> negation prefix and one extra feature: metagroups. So what are metagroups? Let’s see</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">metagroup</span><span class="p">,</span> <span class="n">groups</span> <span class="ow">in</span> <span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"data.metagroups"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">metagroup</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">    </span><span class="si">{</span><span class="n">groups</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for metagroup, groups in az.rcParams["data.metagroups"].items():
+    print(f"{metagroup}:\n    {groups}\n")
 </pre></div>
 </div>
 </div>
@@ -409,10 +409,10 @@ observed_vars:
 <p>Having to apply the rescaling manually to each of the three groups is tedious at best, and creating a variable called <code class="docutils literal notranslate"><span class="pre">observed_vars</span></code> storing a list with these 3 groups is problematic – when doing prior checks there is no <code class="docutils literal notranslate"><span class="pre">posterior_predictive</span></code> group, it’s a highway towards errors at every turn. Metagroups are similar to the variable approach but it’s already there and it applies the function only to present groups. Let’s add a new metagroup and use it to shift our data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"data.metagroups"</span><span class="p">][</span><span class="s2">"sampled"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s1">'posterior'</span><span class="p">,</span> <span class="s1">'posterior_predictive'</span><span class="p">,</span> <span class="s1">'sample_stats'</span><span class="p">,</span> <span class="s1">'log_likelihood'</span><span class="p">,</span> <span class="s1">'prior'</span><span class="p">,</span> <span class="s1">'prior_predictive'</span>
-<span class="p">)</span>
-<span class="n">shifted_idata</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="s2">"sampled"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.rcParams["data.metagroups"]["sampled"] = (
+    'posterior', 'posterior_predictive', 'sample_stats', 'log_likelihood', 'prior', 'prior_predictive'
+)
+shifted_idata = idata.map(lambda x: x-7, groups="sampled")
 </pre></div>
 </div>
 </div>
@@ -435,8 +435,8 @@ observed_vars:
 <p>Maximum number of subplots in a single figure. Adding too many subplots into a figure can be really slow, to the point that it looks like everthing has crashed without any error message. When there are more variables to plot than <code class="docutils literal notranslate"><span class="pre">max_subplots</span></code> allowed, ArviZ sends a warning and plots at most <code class="docutils literal notranslate"><span class="pre">max_suplots</span></code>. See for yourselves:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.max_subplots"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with az.rc_context({"plot.max_subplots": 3}):
+    az.plot_posterior(idata);
 </pre></div>
 </div>
 </div>
@@ -460,8 +460,8 @@ observed_vars:
 <p>Select subplot structure for bokeh. One of <code class="docutils literal notranslate"><span class="pre">default</span></code>, <code class="docutils literal notranslate"><span class="pre">column</span></code>, <code class="docutils literal notranslate"><span class="pre">row</span></code>, <code class="docutils literal notranslate"><span class="pre">square</span></code>, <code class="docutils literal notranslate"><span class="pre">square_trimmed</span></code> or <code class="docutils literal notranslate"><span class="pre">Ncolumn</span></code> (<code class="docutils literal notranslate"><span class="pre">Nrow</span></code>) where N is an integer number of columns (rows), here is one example to generate a subplot grid with 2 columns and the necessary rows to fit all variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.bokeh.layout.order"</span><span class="p">:</span> <span class="s2">"2column"</span><span class="p">}):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"bokeh"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with az.rc_context({"plot.bokeh.layout.order": "2column"}):
+    az.plot_ess(idata, backend="bokeh")
 </pre></div>
 </div>
 </div>
@@ -507,8 +507,8 @@ observed_vars:
 <p>Package versions used to generate this post:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> watermark
-<span class="o">%</span><span class="k">watermark</span> -n -u -v -iv -w
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark -n -u -v -iv -w
 </pre></div>
 </div>
 </div>
@@ -629,7 +629,7 @@ watermark 2.0.2
 <a class="reference internal nav-link" href="#plot">
      Plot
     </a>
-<ul class="nav section-nav flex-column">
+<ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry">
 <a class="reference internal nav-link" href="#general">
        General
