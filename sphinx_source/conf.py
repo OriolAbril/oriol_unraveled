@@ -50,7 +50,7 @@ exclude_patterns = [
 
 # -- Options for extensions
 
-ogp_site_url = f"https://oriolabrilpla.cat/{language}"
+ogp_site_url = f"https://oriolabrilpla.cat/{language}/"
 ogp_use_first_image = True
 
 
