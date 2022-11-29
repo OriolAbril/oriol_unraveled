@@ -9,12 +9,11 @@ import os
 # -- Project information -----------------------------------------------------
 
 language = os.environ.get("WEBSITE_LANGUAGE", "en")
-locale_dirs = ["locales"]
+locale_dirs = ["../locales"]
 gettext_uuid = True
 gettext_compact = False
-nb_render_priority = {"gettext": ()}
 
-project = "Oriol unraveled" if language == "en" else "Oriol desfermat"
+project = "Oriol unraveled"
 author = "Oriol Abril Pla"
 copyright = f"2019, {author}"
 version = ""
@@ -82,7 +81,7 @@ post_show_prev_next = False
 post_auto_image = 1
 fontawesome_included = True
 
-notfound_urls_prefix = ""
+notfound_urls_prefix = f"/{language}/"
 
 def remove_catalogs(app):
     """

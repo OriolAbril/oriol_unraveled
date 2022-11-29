@@ -5,6 +5,7 @@
 :link: https://ko-fi.com/oriolabril
 :link-alt: Ko-Fi profile page
 :class-header: ko-fi-blue
+:class-body: list-padding
 
 Ko-Fi
 ^^^
@@ -17,6 +18,7 @@ Ko-Fi
 :link: https://liberapay.com/OriolAbril
 :link-alt: LiberaPay profile page
 :class-header: liberapay-yellow
+:class-body: list-padding
 
 LiberaPay
 ^^^
@@ -29,6 +31,7 @@ LiberaPay
 :link: https://www.buymeacoffee.com/oriolabril
 :link-alt: Buy Me a Coffee profile page
 :class-header: buymeacoffee-orange
+:class-body: list-padding
 
 Buy Me a Coffee
 ^^^
