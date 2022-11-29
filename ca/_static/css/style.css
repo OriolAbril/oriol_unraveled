@@ -349,6 +349,10 @@ ul.blog-pre-title, .ablog__postcard > ul {
   font-size: 90%;
 }
 
+.list-padding ul {
+  padding-left: calc(min(10%, 2em));
+}
+
 #homepage-intro {
   color: white;
   padding: 8rem 4rem 6rem 4rem;
