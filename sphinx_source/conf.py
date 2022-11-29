@@ -8,13 +8,18 @@ import os
 
 # -- Project information -----------------------------------------------------
 
-project = "Oriol unraveled"
+language = os.environ.get("WEBSITE_LANGUAGE", "en")
+locale_dirs = ["locales"]
+gettext_uuid = True
+gettext_compact = False
+nb_render_priority = {"gettext": ()}
+
+project = "Oriol unraveled" if language == "en" else "Oriol desfermat"
 author = "Oriol Abril Pla"
 copyright = f"2019, {author}"
 version = ""
 release = ""
 
-language = os.environ.get("WEBSITE_LANGUAGE", "en")
 
 # -- General configuration ---------------------------------------------------
 
@@ -41,7 +46,7 @@ exclude_patterns = [
     "build",
     "jupyter_execute",
     "README.md",
-    "sphinx_source/partials/*",
+    "partials/*",
 ]
 
 # -- Options for extensions
@@ -60,13 +65,14 @@ intersphinx_mapping = {
     "mpl": ("https://matplotlib.org/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pymc": ("https://www.pymc.io/projects/docs/en/stable/", None),
+    "pymc_io": ("https://www.pymc.io", None),
     "pymc-examples": ("https://www.pymc.io/projects/examples/en/latest/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
 }
 
 blog_baseurl = ogp_site_url
-blog_title = "Oriol unraveled"
+blog_title = project
 blog_path = "blog"
 blog_authors = {
     "oriol": ("Oriol Abril Pla", ogp_site_url),
@@ -132,6 +138,7 @@ html_theme_options = {
             "type": "fontawesome",
         },
     ],
+    "show_toc_level": 2,
     "secondary_sidebar_items": ["ablog/postcard", "page-toc", "searchbox"],
     "switcher": {
         "json_url": "https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json",
@@ -144,13 +151,39 @@ html_context = {
     "github_version": "main",
     "doc_path": ".",
     "default_mode": "light",
+    "language": language,
 }
+
+if language == "en":
+    html_context.update(
+        {
+            "homepage_intro": r"""
+<p>I am a software engineer, statistician and physicist in the making.<br>
+I believe in interdisciplinary collaboration and open science.<br>
+Therefore, I contribute to open source software and try to publish my research as OSS packages.</p>
+<p>My goal is to use this blog to<br>
+promote open and reproducible research practices,<br>
+share open source software and talk about my projects and experiences.</p>"""
+        }
+    )
+elif language == "ca":
+    html_context.update(
+        {
+            "homepage_intro": r"""
+<p>Sóc un programador, estadístic i físic en construcció.<br>
+Crec en la col·laboració interdisciplinar i la ciència oberta.<br>
+Per tant, contribueixo a llibreries de programari lliure i intento publicar la meva feina.</p>
+<p>El meu objectiu és utilitzar aquest blog per<br>
+promoure pràctiques de recerca obertes i reproduibles,<br>
+compartir programari lliure i parlar sobre els meus projectes i experiències.</p>"""
+        }
+    )
 
 # html_logo = "images/logo.jpg"
 html_favicon = "images/favicon.ico"
 
 html_static_path = ["images"]
 # html_css_files = ["custom.css"]
-html_title = "Oriol unraveled"
+html_title = project
 
 html_sidebars = {"**": []}

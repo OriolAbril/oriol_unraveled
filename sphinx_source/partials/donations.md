@@ -1,4 +1,6 @@
 ::::{grid} 1 3 3 3
+:gutter: 3
+
 :::{grid-item-card}
 :link: https://ko-fi.com/oriolabril
 :link-alt: Ko-Fi profile page

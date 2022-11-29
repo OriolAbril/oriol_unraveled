@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/projects.md:2 ce8cec80f23343ca889a7659948a91cf
+msgid "Projects"
+msgstr ""
+
+#: ../sphinx_source/projects.md:5 b94b0ef6f7054fd08216eb90f5b84c73
+msgid "Page still in construction"
+msgstr ""
+
+#: ../sphinx_source/projects.md:7 ee3bcbd8aa394b0ca0fdb1c51f6280c2
+msgid "Open source community projects"
+msgstr ""
+
+#: ../sphinx_source/projects.md:9 7dbe170a13c5469583bf057b3ec57b68
+msgid "ArviZ"
+msgstr ""
+
+#: ../sphinx_source/projects.md:11 20997865534e4fbf991faed45d8cdecc
+msgid "PyMC"
+msgstr ""
+
+#: ../sphinx_source/projects.md:13 926bc398450f4bb7a656e58fa03747d6
+msgid "Other"
+msgstr ""
+
+#: ../sphinx_source/projects.md:15 7a60fbdd0aba4814b5529c5777c939a6
+msgid "Personal projects"
+msgstr ""
+

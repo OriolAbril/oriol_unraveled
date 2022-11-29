@@ -1,0 +1,360 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:10003
+#: d425bf61d7cd42c9baa1fd4d89f919c7
+msgid "ArviZ in depth: plot_trace"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:20002
+#: dc8a2e3ca5084b788b276daf255f1d0d
+msgid "Introduction"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:20003
+#: ae3d36ed13d4419f89adc51574baf36c
+msgid ""
+"`plot_trace` is one of the most common plots to assess the convergence of"
+" MCMC runs, therefore, it is also one of the most used ArviZ functions. "
+"`plot_trace` has a lot of parameters that allow creating highly "
+"customizable plots, but they may not be straightforward to use. There are"
+" many reasons that can explain this convolutedness of the arguments and "
+"their format, there is no clear culprit: ArviZ has to integrate with "
+"several libraries such as xarray and matplotlib which provide amazing "
+"features and customization power, and we'd like to allow ArviZ users to "
+"access all these features. However, we also aim to keep ArviZ usage "
+"simple and with sensible defaults; `plot_xyz(idata)` should generate "
+"acceptable results in most situations."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:20005
+#: 8c5e34bd548048f0848d178b4f73c2e6
+msgid ""
+"This post aims to be an extension to the API section on "
+"[`plot_trace`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.plot_trace.html#arviz.plot_trace), "
+"focusing mostly on arguments where examples may be lacking and arguments "
+"that appear often in questions posted to ArviZ issues."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:20007
+#: 896ee2a6f9214070a186e572d8a885d4
+msgid ""
+"Therefore, the most common arguments such as `var_names` will not be "
+"covered, and for arguments that I do not remeber appearing in issues or "
+"generating confusion only some examples will be shown without an in depth"
+" description."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:60002
+#: d2c333862dcd4c3ea07534b6dcc2bd6c
+msgid "The `kind` argument"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:60003
+#: b4a4a7044acd41f48276d5a38cbc2be6
+msgid ""
+"`az.plot_trace` generates two columns. The left one calls `plot_dist` to "
+"plot KDE/Histogram of the data, and the right column can contain either "
+"the trace itself (which gives the name to the plot) or a rank plot for "
+"which two visualizations are available. Rank plots are an alternative to "
+"trace plots, see https://arxiv.org/abs/1903.08008 for more details."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:80002
+#: a5adac12fa6b4971be92588ab00ce7c6
+msgid "The `divergences` argument"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:80003
+#: 47b2e90e17a84ebda62822e7e85c6f27
+msgid ""
+"If present, divergences are indicated as a black rugplot in both columns "
+"of the trace plot. By default they are placed at the bottom of the plot, "
+"but they can be placed at the top or hidden."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:110002
+#: bc6d7ce2388e4c33997ddfce2195e966
+msgid "The `rug` argument"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:110003
+#: 294151bd4adf49c88bd4c59584ce5563
+msgid ""
+"`rug` adds a rug plot with the posterior samples at the bottom of the "
+"distribution plot, there are no changes in the trace plot column."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:130002
+#: d0f9489eb6914b84a7c9034270f838d8
+msgid ""
+"But what about having both rug and divergences at the same time? Fear "
+"not, ArviZ automatically modifies the default for divergences from "
+"`bottom` to `top` to prevent rug and divergences from overlapping:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:150002
+#: 2195cd467a8d43c29f2745bc86903099
+msgid "The `lines` argument"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:150003
+#: 03875a964d9049e4b98b202fd733f91d
+msgid "The description about lines in `plot_trace`'s docstring is the following:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:170002
+#: 275b08587cb74a419f36aa2d4b6a011f
+msgid ""
+"It is possible that the first thought after reading this line is similar "
+"to _\"What is with this weird format?\"_ Well, this format is actually "
+"the stardard way ArviZ uses to iterate over `xarray.Dataset` objects "
+"because it contains all the info about the variable and the selected "
+"coordinates as well as the values themselves. The main helper function "
+"that handles this is `arviz.plots.plot_utils.xarray_var_iter`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:180002
+#: a5b62d12968f4b6d95d6b1445c1de7d2
+msgid ""
+"This section will be a little different from the other ones, and will "
+"focus on boosting `plot_trace` capabilities with internal ArviZ "
+"functions. You may want to skip to the section altogether of go straigh "
+"to the end."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:180004
+#: 56a56575676847a79af3528f3c8eea81
+msgid ""
+"Let's see what `xarray_var_iter` does with a simple dataset. We will "
+"create a dataset with two variables: `a` will be a 2x3 matrix and `b` "
+"will be a scalar. In addition, the dimensions of `a` will be labeled."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:210002
+#: e816f9063c9c42c2ab4501503ea50fa6
+msgid ""
+"`xarray_var_iter` has iterated over every single scalar value without "
+"loosing track of where did every value come from. We can also modify the "
+"behaviour to skip some dimensions (i.e. in ArviZ we generally iterate "
+"over data dimensions and skip `chain` and `draw` dims)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:230002
+#: c033225d54dc4fc6b2a9ea48ce2654de
+msgid ""
+"Now that we know about `xarray_var_iter` and what it does, we can use it "
+"to generate a list in the required format directly from xarray objects. "
+"Let's say for example we were interested in plotting the mean as a line "
+"in the trace plot:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:250002
+#: 106302d8ea9c4b2eab1836e2de02186f
+msgid ""
+"And what about quantile lines? Lets plot the 10% and 90% quantile lines "
+"but only for defs variable:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:260002
+#: 33a03dd45e644f5b9d35a59bbfc79f7d
+msgid ""
+"Note: This same approach can also be used with `az.hdi` skipping `hdi` "
+"dimension"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:280002
+#: 5a1242c7aed8479881838ccbd0fca723
+msgid "Aggregation kwargs"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:280003
+#: b3d6d0f6e72f4e1896f74af42354f7dd
+msgid ""
+"This section is dedicated to 5 different kwargs, closely related to each "
+"other: `compact`+`compact_prop`, `combined`+`chain_prop` and `legend`. If"
+" we focus on the distribution plots of the left column, we may want to "
+"aggregate data along 2 possible dimensions, chains or variable "
+"dimension(s) -- school dimension in `centered_eight` data, team dimension"
+" in `rugby` data... As aggragation or not along these 2 possible "
+"dimensions is independent, we end up with 4 possibilities."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:280005
+#: 13d86f6a860a45b0af2b2ed8e3634704
+msgid ""
+"In `az.plot_trace`, the argument `combined` governs the aggregation of "
+"all chains into a single plot (has no effect in trace, only in "
+"distributions), and `compact` governs the aggregation of the variable "
+"dimension(s). In order to be able to distinguish each single line after "
+"some aggregation has taken place, a `legend` argument is also available "
+"to show the legend with the data labels. `chain_prop` and `compact_prop` "
+"allow customization of the aesthetics mapping."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:280007
+#: f4f561ae757b4498bc784ccd7945fc79
+msgid ""
+"We'll now cover all 4 possibilities to showcase all supported cases and "
+"explore related customizations."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:290002
+#: bdfbe2eff6c54a049acbdf56daef51e0
+msgid "`combined=False` and `compact=False`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:290003
+#: 2408656d4c484fd6a780e6a1e73d6d19
+msgid ""
+"The default behaviour of `plot_trace` is to perform no aggregation at "
+"all. In this case therefore, all subplots will have exactly one line per "
+"chain in the posterior. In this chain only setting, the default mapping "
+"is to use color to distinguish chains:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:310002
+#: f6a8150e95e84ffa90df8a92c9d333fa
+msgid "`combined=True` and `compact=False`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:310003
+#: 3c42150a52544634b3eb2d89b9d75a31
+msgid ""
+"Chains are aggregated into a single quantity if possible. Therefore, "
+"distribution column will have one line per subplot due to the aggregation"
+" but the trace column will be the same as in the previous section. This "
+"is also a chain only setting, the default mapping is to use color to "
+"distinguish chains. However, we'll use this example to show usage of "
+"`chain_prop` to map the chain to the linewidth:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:330002
+#: e1abce0043e246ef8e396bebc80ecfd9
+msgid "`combined=False` and `compact=True`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:330003
+#: e771e9f81ff242a1b6dc33faa796f18b
+msgid ""
+"You are probably tired already from scrolling down and we have only 6 "
+"teams! Imagine having a variable with a dimension of length 100 or more "
+":scream:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:330005
+#: 5a4cec1da37c47a2a7293b8034d75409
+msgid ""
+"In these cases, it may be more convenient to analyze a compact version of"
+" the trace plot:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:350002
+#: e0e650ad0fe64857b5a57a290109c20b
+msgid ""
+"The first two things that jump to the eye are that ArviZ has drastically "
+"modified the default aesthetic of the plot and that the plot fits now "
+"comfortable in a single screen, bye bye scrolling :wave:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:350004
+#: dfdd58ab0ac444d08aa1a169f27bb6d7
+msgid ""
+"We can also see that `legend=True` has included multiple legends to the "
+"figure. The `chain` legend is always included in the top right trace "
+"plot, and the plots in the distribution column contain a legend if "
+"necessary."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:360002
+#: c452c2b716234085be9b4d85f5ff4a96
+msgid "`combined=True` and `compact=True`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:360003
+#: 0694c1d714f34181b8d010a47ad15fc5
+msgid ""
+"To reduce even more the clutter of lines in the trace plot, we can also "
+"combine chains. Moreover, the `linestyle -> chain` mapping can be "
+"distracting, especially if we don't care too much about distinguishing "
+"the chains between them. Like we did before, we will use `chain_prop` to "
+"control this."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:380002
+#: a24f6ad376bc4f659bf660959505cdb1
+msgid ""
+"Finally, we will explore alternative usage options for `chain_prop` and "
+"`compact_prop`. In the two previous examples we have used a 2 element "
+"tuple where the second position of the tuple contained the properties to "
+"use. Another alternative is to pass a string present in "
+"`plt.rcParams[\"axes.prop_cycle\"]`, which in our case is `color` only."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:400002
+#: 3c50780e53f945b692d2328637a8853e
+msgid "Summing it all up"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:400003
+#: 145126143c30431fa69604e7a242d956
+msgid ""
+"Now that we have covered most arguments, let's put everything to "
+"practice. Try to generate a trace plot following the instructions below:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:400005
+#: e0da22fd2d854205b173705bc4765302
+msgid ""
+"Show variables `home`, `defs` and `atts` showing only `Scotland, Ireland,"
+" Italy, Wales` coordinates."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:400006
+#: a38c2ea00107479e9f8461786c9c9738
+msgid "For `defs` variable, plot lines showing the 70% HDI."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:400007
+#: cdfaa85459504ff3bc18af1d6febba13
+msgid ""
+"Map chains to the following colors: `'C0', 'C1', 'C2', 'C3', "
+"\"xkcd:purple blue\"`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:400008
+#: 9979835119f74b85bff799b364da803a
+msgid "Map team dimension to both linestyle (solid and dashed) and linewidth"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:420002
+#: e2cbfe284aab400ebeb292b003dda500
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/plot-trace.ipynb:440003
+#: fa4c9de83c91464cb6992aadcb4ace5d
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues) or [PyMC Discourse](https://discourse.pymc.io/)"
+msgstr ""
+

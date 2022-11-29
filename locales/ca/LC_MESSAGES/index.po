@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oriol unraveled \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-27 19:08+0100\n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,167 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: ../sphinx_source/index.md:6
+#: ../sphinx_source/index.md:6 9c8617d21a894c05a94591e8c942ab9f
 msgid "Oriol unraveled"
+msgstr "Oriol desfermat"
+
+#: ../sphinx_source/index.md:19 66b107537c4144cabbe249d48f5886ea
+msgid ""
+"A well known Catalan saying goes: \"Xerrar pels descosits\". It means "
+"that somebody talks too much. \"xerrar\" is talking and a \"descosit\" "
+"refers to pieces of fabric that have come undone or been unraveled. I "
+"generally do not talk too much, in fact I tend to talk too little unless "
+"we are talking about topics such as statistics or programming. I hope "
+"this blog can be a place to unravel concepts on statistics, open source "
+"and programming, allowing me to \"xerrar pels descosits\" in blog "
+"version."
+msgstr ""
+
+#: ../sphinx_source/index.md:21 4f004abb748048f8ac649387a0836387
+msgid "Get ready for some puns and let's dive in!"
+msgstr ""
+"Prepareu-vos per uns quants jocs de paraules i aprofundim en el "
+"programari lliure i l'estadística"
+
+#: ../sphinx_source/index.md:24 17a82bb356224658835101f04285ece5
+msgid ""
+"![A picture of me diving towards the sea bed while "
+"snorkeling.](images/theme_image.png)"
+msgstr ""
+"![Una fotografia meva capbussant-me cap al fons marí."
+"](images/theme_image.png)"
+
+#: ../sphinx_source/index.md:24 730d290924714fc2b093837f4a702989
+msgid "A picture of me diving towards the sea bed while snorkeling."
+msgstr "Una fotografia meva capbussant-me cap al fons marí."
+
+#: ../sphinx_source/index.md:26 f3f5811c4c794528acf0bdd84e064408
+msgid "News"
+msgstr "Notícies"
+
+#: ../sphinx_source/index.md:33 fe9997d0902443fc86d21848009e0576
+msgid ""
+"I will give an [online webinar](https://www.meetup.com/data-"
+"umbrella/events/289308615/) with [Data "
+"Umbrella](https://www.dataumbrella.org/) on how to contribute to ArviZ "
+"and to open source in general."
+msgstr ""
+
+#: ../sphinx_source/index.md:38 0208e182142f448fb46be6ae8d4ac0fe
+msgid ""
+"I will participate to [PyData Global](https://global2022.pydata.org) "
+"hosting a working session on [interoperability within the Python Bayesian"
+" ecosystem](https://global2022.pydata.org/cfp/talk/BNUAL8/)."
+msgstr ""
+
+#: ../sphinx_source/index.md:43 3be2da631fc243ed8b6a27c23758b796
+msgid "Projects"
+msgstr "Projectes"
+
+#: ../sphinx_source/index.md:44 a48aaf2ac824464abfabe212ffc122d4
+msgid ""
+"Most of my current work is related to two community-drives open source "
+"libraries: ArviZ and PyMC. They are both related to Bayesian modeling, "
+"but have different and complementary goals."
+msgstr ""
+"La majoria de la meva feina actual està relacionada amb dues llibreries de programari lliure liderades per la comunitat: "
+"ArviZ i PyMC. Ambues són de modelització Bayesiana, "
+"però tenen missions diferents i complementàries."
+
+#: ../sphinx_source/index.md:53 a8c71df23ad84873a1d06163fcc17d05
+msgid "{doc}`ArviZ <arviz_org:index>`"
+msgstr ""
+
+#: ../sphinx_source/index.md:56 feff744ea4544e26a3619815559b0bc6
+msgid ""
+"The ArviZ project provides tools for Exploratory Analysis of Bayesian "
+"Models that do not depend on the inference library nor the programming "
+"language used."
+msgstr ""
+
+#: ../sphinx_source/index.md:58 e434e6646d4641a6a8f09727cba76adb
+msgid ""
+"That includes visualization, sampling diagnostics, model comparison, "
+"summary statistics or model checking. The ArviZ project maintains several"
+" libraries in Python and Julia."
+msgstr ""
+
+#: ../sphinx_source/index.md:62 85ce6108259f4264a153994e74f8514c
+msgid "{doc}`PyMC <pymc_io:index>`"
+msgstr ""
+
+#: ../sphinx_source/index.md:65 a19409b9779e4c8dabe8131606b72a44
+msgid ""
+"PyMC is a project for probabilistic programming in Python. PyMC strives "
+"to make Bayesian modeling as simple and painless as possible, allowing "
+"users to focus on their problem rather than the methods."
+msgstr ""
+
+#: ../sphinx_source/index.md:67 069a3c8f67a34e18a7c09eabc4047c0e
+msgid ""
+"The PyMC project maintains the PyMC library, the flagship of the project,"
+" as well as extensive documentation and some smaller libraries that "
+"complement the PyMC library. Moreover, it also organizes many activities "
+"such as [PyMCon](https://pymcon.com/)."
+msgstr ""
+
+#: ../sphinx_source/index.md:72 fc6052c1865a410b9440210ac0d32434
+msgid ""
+"See the {ref}`projects` page for a complete list of the projects I am "
+"involved in."
+msgstr ""
+
+#: ../sphinx_source/index.md:74 221f208551fa43f89614a08b3983cfc2
+msgid "Support me"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:10 3ad9aaa33227466baeedceddb1eefbba
+msgid "Ko-Fi"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:13 c58d8ca34aa04f5e90ec026256490913
+msgid "Flexible donations, one time or recurrent"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:14
+#: ../sphinx_source/partials/donations.md:26 9390526262f845e487ffb8b3f6223b7d
+#: a172ab92d9ea4b6c8596eafc97aed98e
+msgid "Account required"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:15 48a7bfb666104d449cc08ef667d8e76d
+msgid "Debit or credit card, PayPal or Stripe available"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:22 c33fae4457f24434a42aa446c25556f5
+msgid "LiberaPay"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:25 620eac61633d496ba088de831f0243d9
+msgid "Recurrent donations only"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:27 84e72f31dc6042a89a9028770a37ce51
+msgid "Debit or credit card, PayPal or EURO bank transfer available"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:34 f04c50062deb424184d4ad987f150e25
+msgid "Buy Me a Coffee"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:37 b390ebff3ddc428cad6a4cb763ae56cd
+msgid "One time donations only (at least for now)"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:38 acb82567f8db4297841d8e4ff9cfe7bb
+msgid "No account required"
+msgstr ""
+
+#: ../sphinx_source/partials/donations.md:39 8a534f3d37e2423d98cc55b05f82fa54
+msgid "Debit or credit card"
+msgstr ""
+
+#: ../sphinx_source/index.md:79 376eeb2aa4dc47e6815118046947835e
+msgid "See {ref}`support_me` section for more ways to support my work."
 msgstr ""
 

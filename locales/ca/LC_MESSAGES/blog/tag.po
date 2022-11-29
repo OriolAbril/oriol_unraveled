@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: ../sphinx_source/blog.md:5 a209ed079e2c45e6929abf259c22d7da
-msgid "Blog"
+#: ../sphinx_source/blog/tag.md:1 85471b339d894db68f2d8eac4fa84915
+msgid "Tags"
 msgstr ""
 

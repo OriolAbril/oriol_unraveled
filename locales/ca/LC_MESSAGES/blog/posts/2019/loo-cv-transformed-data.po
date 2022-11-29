@@ -1,0 +1,326 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:10003
+#: 10aa70120102472dbb022a024b738cb7
+msgid "LOO-CV on transformed data"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:20002
+#: 6841e21ad62c4a6ba29da5e6f9e96826
+msgid ""
+"Blog post exploring whether or not LOO-CV can be used to compare models "
+"that try to explain some data $y$ with models trying to explain the same "
+"data after a transformation $z=f(y)$. Inspired by [@tiagocc "
+"question](https://discourse.mc-stan.org/t/very-simple-loo-question/9258) "
+"on Stan Forums. This post has two sections, the first one is the "
+"mathematical derivation of the equations used and their application on a "
+"validation example, and the second section is a real example. In addition"
+" to the LOO-CV usage examples and explanations, another goal of this "
+"notebook is to show and highlight the capabilities of [ArviZ](https"
+"://arviz-devs.github.io/arviz/)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:50002
+#: e209bd52dc2a4898b1b6b867bff5a7ff
+msgid "Mathematical derivation and validation example"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:50003
+#: e475c54cc1ab4605b2becb1e7bf0b526
+msgid "In the first example, we will compare two equivalent models:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:50005
+#: e9a181779667496089ee75bb57db08e3
+msgid "$y \\sim \\text{LogNormal}(\\mu, \\sigma)$"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:50006
+#: a59fe8a14a22485991cacee4558d8085
+msgid "$\\log y \\sim \\text{Normal}(\\mu, \\sigma)$"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:60002
+#: abf8efb114f447c0a95d37e34d22775f
+msgid "Model definition and execution"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:60003
+#: 058032ef81f34736a02039d3a52dc25f
+msgid "Define the data and execute the two models"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:140002
+#: fcf4d84ddf40459b842285ecaf7ddd44
+msgid ""
+"Check model convergence. Use `az.summary` to in one view that the "
+"effective sample size (ESS) is large enough and $\\hat{R}$ is close to "
+"one."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:170002
+#: 3a2bb8283ae44ed3b8992bb5461740f9
+msgid ""
+"In addition, we can plot the quantile ESS plot for one of them directly "
+"with `plot_ess`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:190002
+#: 30c62624dba140f68577986fedcdced5
+msgid "Posterior validation"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:190003
+#: 190419d5732240a5867b15592124dfcb
+msgid ""
+"Check that both models are equivalent and do indeed give the same result "
+"for both parameters."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:210002
+#: 555f695b5673480c8a3800e30e597c4b
+msgid "Calculate LOO-CV"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:210003
+#: a6ca50afed2d43309a772f74dcc2203a
+msgid ""
+"Now we get to calculate LOO-CV using Pareto Smoothed Importance Sampling "
+"as detailed in Vehtari et al., 2017. As we explained above, both models "
+"are equivalent, but one is in terms of $y$ and the other in terms of "
+"$\\log y$. Therefore, their likelihoods will be on different scales, and "
+"hence, their expected log predictive density will also be different."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:240002
+#: 709260d83ac74903b87cfdf41d5f5a9b
+msgid ""
+"We have found that as expected, the two models yield different results "
+"despite being actually the same model. This is because. LOO is estimated "
+"from the log likelihood, $\\log p(y_i\\mid\\theta^s)$, being $i$ the "
+"observation id, and $s$ the MCMC sample id. Following Vehtari et al., "
+"2017, this log likelihood is used to calculate the PSIS weights and to "
+"estimate the expected log pointwise predictive density in the following "
+"way:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:240004
+#: 75c6104e96b0486898913fbcf40daa87
+msgid ""
+"Calculate raw importance weights: $r_i^s = "
+"\\frac{1}{p(y_i\\mid\\theta^s)}$"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:240005
+#: cb16b494af484df790906d3fa662c959
+msgid ""
+"Smooth the $r_i^s$ (see original paper for details) to get the PSIS "
+"weights $w_i^s$"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:240006
+#: 6367babc512d40b3a9952ccd64a3c334
+msgid "Calculate elpd LOO as:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:240008
+#: c16d8ac0424a414d803bc145c16bce91
+msgid ""
+" \\text{elpd}_{psis-loo} = \\sum_{i=1}^n \\log \\left( \\frac{\\sum_s "
+"w_i^s p(y_i|\\theta^s)}{\\sum_s w_i^s} \\right) "
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:250002
+#: bfb512672ac740a6bfe66c14849aec09
+msgid ""
+"This will estimate the out of sample predictive fit of $y$ (where $y$ is "
+"the data of the model. Therefore, for the first model, using a LogNormal "
+"distribution, we are indeed calculating the desired quantity:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:250004
+#: f493718921834da681b6f19ff82d1346
+msgid " \\text{elpd}_{psis-loo}^{(1)} \\approx \\sum_{i=1}^n \\log p(y_i|y_{-i}) "
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:250006
+#: ea292892e8554a3498778752b1c6d5d9
+msgid "Whereas for the second model, we are calculating:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:250008
+#: ce83a652b0aa40de955a50bf1596887f
+msgid " \\text{elpd}_{psis-loo}^{(2)} \\approx \\sum_{i=1}^n \\log p(z_i|z_{-i}) "
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:250010
+#: 357664d6990d4fa6a1cadc25982d6006
+msgid ""
+"being $z_i = \\log y_i$. We actually have two different probability "
+"density functions, one over $y$ which from here on we will note $p_y(y)$,"
+" and $p_z(z)$."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:260002
+#: ee3edd59786a464dbababe003d4fff81
+msgid ""
+"In order to estimate the elpd loo for $y$ from the data in the second "
+"model, $z$, we have to describe $p_y(y)$ as a function of $z$ and "
+"$p_z(z)$. We know that $y$ and $z$ are actually related, and we can use "
+"this relation to find how would the random variable $y$ (which is "
+"actually a transformation of the random variable $z$) be distributed. "
+"This is done with the Jacobian. Therefore:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:260004
+#: 13c71ad3f20a4b39b9f1385d9ad0b4c0
+msgid ""
+"\n"
+"p_y(y|\\theta)=p_z(z|\\theta)|\\frac{dz}{dy}|=\\frac{1}{|y|}p_z(z|\\theta)=e^{-z}p_z(z|\\theta)"
+"\n"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:270002
+#: e303b7b820df40d9901e7e00d74c6c30
+msgid "In the log scale:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:270004
+#: 942d2c34986046b59c1b61c230a41f17
+msgid ""
+"\n"
+"\\log p_y(y|\\theta)=-z + \\log p_z(z|\\theta)\n"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:280002
+#: ba086e04239941bb97bb1c7e441d037a
+msgid ""
+"We apply the results to the log likelihood data of the second model (the "
+"normal on the logarithm instead of the lognormal) and check that now the "
+"result does coincide with the LOO-CV estimated by the lognormal model."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:310002
+#: 5a08a9cbae5b487cbebb758588cdcf0b
+msgid "Real example"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:310004
+#: 3afbf576e097445f9fd2b54bf180081a
+msgid ""
+"We will now use as data a subsample of a [real "
+"dataset](https://docs.google.com/spreadsheets/d/1gt1Dvi7AnQJiBb5vKaxanTis_sfd4sC4sVoswM1Fz7s/pub#)."
+" The subset has been selected using:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:310011
+#: 3b60d9cf47f44b2890abc21592315c34
+msgid "Below, the data is loaded and plotted for inspection."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:330002
+#: 83caffd1959b4aefa7003ee8d81315c8
+msgid ""
+"In order to show different examples of LOO on transformed data, we will "
+"take into account the following models:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:330004
+#: 130fa0bec51f43caa8af4d22010c2274
+msgid ""
+"\n"
+"\\begin{align}\n"
+"&y=a_1 x+a_0 \\\\\n"
+"&y=e^{b_0}e^{b_1 x}  &\\rightarrow& \\quad\\log y = z_1 = b_1 x + b_0\\\\"
+"\n"
+"&y=c_1^2 x^2 + 2 c_1 c_2 x + c_0^2  &\\rightarrow& \\quad\\sqrt{y} = z_2 "
+"= c_1 x + c_0\n"
+"\\end{align}\n"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:330012
+#: f04fb2b5a1ac40b88c23f078d317d1f8
+msgid ""
+"This models have been chosen mainly because of their simplicity. In "
+"addition, they can all be applied using the same Stan code and the data "
+"looks kind of linear. This will put the focus of the example on the loo "
+"calculation instead of on the model itself. For the online example, the "
+"data from Finland has been chosen, but feel free to download the notebook"
+" and experiment with it."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:430002
+#: 05f0b149cede42d28b5953b55b52848e
+msgid ""
+"In order to compare the out of sample predictive accuracy, we have to "
+"apply the Jacobian transformation to the 2 latter models, so that all of "
+"them are in terms of $y$."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:430004
+#: 434169d0c6e7454e8aa4f05240fb718b
+msgid ""
+"Note: we will use LOO instead of Leave Future Out algorithm even though "
+"it may be more appropriate because the Jacobian transformation to be "
+"applied is the same in both cases. Moreover, PSIS-LOO does not require "
+"refitting, and it is already implemented in ArviZ."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:440002
+#: 59df1d017c9347e38d32fd4f44711263
+msgid ""
+"The transformation to apply to the second model $z_1 = \\log y$ is the "
+"same as the previous example:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:460002
+#: ea61f3596c914a43995f4dbfd36b3e1f
+msgid "In the case of the third model, $z_2 = \\sqrt{y}$:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:460004
+#: bce198878b3347f28e99dbde01f6e851
+msgid ""
+" |\\frac{dz}{dy}| = |\\frac{1}{2\\sqrt{y}}| = \\frac{1}{2 z_2} \\quad "
+"\\rightarrow \\quad \\log |\\frac{dz}{dy}| = -\\log (2 z_2)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:510002
+#: 2a83acd7ea3840a78728d878a17c88a1
+msgid "References"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:510003
+#: a89d65ccd0cb4acbb7be90257186758e
+msgid ""
+"Vehtari, A., Gelman, A., and Gabry, J. (2017):  Practical Bayesian Model "
+"Evaluation Using Leave-One-OutCross-Validation and WAIC, _Statistics and "
+"Computing_, vol. 27(5), pp. 1413–1432."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-cv-transformed-data.ipynb:520003
+#: 8bf02ab7472b4ce0902076c3217a0fc9
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues) or [Stan Discourse](https://discourse.mc-stan.org/)"
+msgstr ""
+

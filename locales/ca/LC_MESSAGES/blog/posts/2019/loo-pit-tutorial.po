@@ -1,0 +1,430 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:10003
+#: bbdedc8c5d8342d0a005cf02a2112a9a
+msgid "LOO-PIT tutorial"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:20002
+#: 02834dbadd744ee0bad5778144af2b96
+msgid "Introduction"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:20004
+#: d2dbbc1e13224dd88156c74bf699d21e
+msgid ""
+"One of the new functionalities I added in ArviZ during my GSoC internship"
+" is Leave One Out (LOO) Probability Integral Transform (PIT) marginal "
+"posterior predictive checks. You can see [two](https://arviz-"
+"devs.github.io/arviz/examples/plot_loo_pit_ecdf.html) [examples](https"
+"://arviz-devs.github.io/arviz/examples/plot_loo_pit_overlay.html) of its "
+"usage in the example gallery and also some examples in its [API "
+"section](https://arviz-"
+"devs.github.io/arviz/generated/arviz.plot_loo_pit.html#arviz.plot_loo_pit)."
+" However, these examples are mainly related to the usage of the "
+"functionalities, not so much on the usage of LOO-PIT itself nor its "
+"interpretability."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:20006
+#: 772bb1beb9fd42fb910a48d768ab5ea3
+msgid ""
+"I feel that the LOO-PIT algorithm usage and interpretability needs a "
+"short summary with examples showing the most common issues found when "
+"checking models with LOO-PIT. This tutorial will tackle this issue: how "
+"can LOO-PIT be used for model checking and what does it tell us in a "
+"practical manner, so we can see firsthand how wrongly specified models "
+"cause LOO-PIT values to differ from a uniform distribution. I have "
+"included a short description on what is the algorithm doing, however, for"
+" a detailed explanation, see:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:20008
+#: 8dda8f5cf89848caa1c42515e5d8ed6e
+msgid ""
+"Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., and "
+"Rubin, D. B. (2013). Bayesian Data Analysis. Chapman & Hall/CRC Press, "
+"London, third edition. (p. 152-153)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:30002
+#: cbb59bd93169411a81df8ca25443e086
+msgid ""
+"We will use LOO-PIT checks along with non-marginal posterior predictive "
+"checks as implemented in ArviZ. This will allow to see some differences "
+"between the two kinds of posterior predictive checks as well as to "
+"provide some intuition to cases where one may be best and cases where "
+"both are needed."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:40002
+#: d6d00ab7144c4a98800568ba9164c874
+msgid ""
+"Here, we will experiment with LOO-PIT using two different models. First "
+"an estimation of the mean and standard deviation of a 1D Gaussian Random "
+"Variable, and then a 1D linear regression. Afterwards, we will see how to"
+" use LOO-PIT checks with multivariate data using as example a "
+"multivariate linear regression."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:50002
+#: 4ef4a07af2774638a7704dc7ba851b76
+msgid "Background"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:50004
+#: b4164f243f7947ada133bccaf5d99d16
+msgid ""
+"One of the pilars of Bayesian Statistics is working with the posterior "
+"distribution of the parameters instead of using point estimates and "
+"errors or confidence intervals. We all know how to obtain this posterior "
+"given the likelihood, the prior and the , $p(\\theta \\mid y) = p(y \\mid"
+" \\theta) p(\\theta) / p(y)$. In addition, in many cases we are also "
+"interested in **the probability of future observations given the observed"
+" data** according to our model. This is called posterior predictive, "
+"which is calculated integrating out $\\theta$:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:50006
+#: 72919e3f9853461f85c5962a718ad662
+msgid " p(y^* | y) = \\int p(y^*|\\theta) p(\\theta|y) d\\theta"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:50008
+#: 751a9d6823b049aaa9805f15cdb3077a
+msgid ""
+"where $y^*$ is the possible unobserved data and $y$ is the observed data."
+" Therefore, if our model is correct, the observed data and the posterior "
+"predictive follow the same probability density function (pdf). In order "
+"to check if this holds, it is common to perform posterior predictive "
+"checks comparing the posterior predictive to the observed data. This can "
+"be done directly, comparing the kernel density estimates (KDE) of the "
+"observed data and posterior predictive samples, etc. A KDEs is nothing "
+"else than an estimation of the pdf of a random variable given a finite "
+"number of samples from this random variable."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:50010
+#: d05b056d1ad341d29487c3a41bfe4466
+msgid ""
+"Another alternative it to perform LOO-PIT checks, which are a kind of "
+"marginal posterior predictive checks. Marginal because we compare each "
+"observation only with the corresponding posterior predictive samples "
+"instead of combining all observations and all posterior predictive "
+"samples. As the name indicates, it combines two different concepts, "
+"Leave-One-Out Cross-Validation and Probability Integral Transform."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:60002
+#: d04e63f42d38474ea731fa19bd399467
+msgid "Probability Integral Transform"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:60004
+#: a040984d785144cdb4551ba57b1cbf43
+msgid ""
+"Probability Integral Transform stands for the fact that given a random "
+"variable $X$, **the random variable $Y = F_X(X) = P(x \\leq X)$ is a "
+"uniform random variable if the transformation $F_X$ is the Cumulative "
+"Density Function** (CDF) of the original random variable $X$."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:60006
+#: e80fd61d800b4c1d8db1a0fecc804ede
+msgid ""
+"If instead of $F_X$ we have $n$ samples from $X$, $\\{x_1, \\dots, "
+"x_n\\}$, we can use them to estimate $\\hat{F_X}$ and apply it to future "
+"$X$ samples ${x^*}$. In this case, $\\hat{F_X}(x^*)$ will be "
+"approximately a uniform random variable, converging to an exact uniform "
+"variable as $n$ tends to infinity."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:60008
+#: d84b14e0e2a34c4ba3bec79de78f8047
+msgid ""
+"The mathematical demonstration can be found on wikipedia itself just "
+"googling it. However here, instead of reproducing it I will try to "
+"outline the intuition behind this fact. One way to imagine it is with "
+"posterior samples from an MCMC run. If we have enough samples, the "
+"probability of a new sample falling between the two smallest values will "
+"be the same than the probability of a new sample falling inside the two "
+"values closest to the median."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:60010
+#: 27e33316e91b414b8bddd3ed6e3214d1
+msgid ""
+"This is because around the probability around the smallest values will be"
+" lower, but they will be further apart, whereas the probability around "
+"the median will be larger but they will be extremely close. These two "
+"effect compensate each other and the probability is indeed the same. "
+"Thus, the probability is constant independently of the square the new "
+"sample would fall in, which is only compatible with a uniform "
+"distribution."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:70002
+#: 28cbd7911e864003814f4a6cc3dc0c28
+msgid "Leave-One-Out Cross-Validation"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:70004
+#: fe20272d424d4c07aaa6e8d79ffb6e8f
+msgid ""
+"Cross-Validation is one way to try to solve the problem with all the "
+"*future data* I have been mentioning so far. We do not have this future "
+"data, so how are we supposed to make calculations with it? Cross-"
+"Validation solves this problem by dividing the observed data in $K$ "
+"subsets, excluding one subset from the data used to fit the model (so it "
+"is data unknown to the model, aka future data) and then using this "
+"excluded subset as future data. In general, to get better results, this "
+"process is preformed $K$ times, excluding one different subset every "
+"time."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:70006
+#: 94732e74e9004032a688a541b0930d02
+msgid ""
+"LOO-CV is one particular case where the number of subsets is equal to the"
+" number of observations so that each iteration only one observation is "
+"excluded. That is, we **fit the model one time per observation excluding "
+"only this one observation**."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:80002
+#: fd1c4fcec722484988873f29743e3c34
+msgid "LOO-PIT"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:80004
+#: f311ed2553e34dad8d9a58087f41a818
+msgid ""
+"LOO-PIT checks consist on checking the PIT using LOO-CV. That is, fit the"
+" model on all data but observation $y_i$ (we will refer to this leave one"
+" out subset as $y_{-i}$), use this model to estimate the cumulative "
+"density function of the posterior predictive and calculate the PIT, "
+"$P(y_i < y^* \\mid y_{-i}) = \\int_{-\\infty}^{y_i} p(y^* \\mid y_{-i}) "
+"dy^*$, of each observation. Then, the KDE of all LOO-PIT values is "
+"estimated to see whether or not it is compatible with the LOO-PIT values "
+"being draws from a uniform variable."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:90002
+#: d83ab7fe55c94db4ac3f145fd805b5b3
+msgid "Data generation"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:150002
+#: d196abef3387483d8a87867f7f6bbb0d
+msgid ""
+"We will now plot the two datsets generated, to give graphical an idea of "
+"the data we are working with."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:170002
+#: 679e6f0e7b154063a66e36aec74871d4
+msgid "Unidimensional Gaussian variable"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:170003
+#: bd62bf0975ed4be1ae9d10498b80391e
+msgid ""
+"We will start with a model that correctly fits with the data, to show how"
+" should both checks look like. Afterwards, we will see cases were these "
+"checks deviate from this ideal case and give some hints on how to "
+"interpret these deviations."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:200002
+#: 2044fc62813f41a99f587ccb9a9d6cd4
+msgid ""
+"To begin with, it can be seen that **the observed KDE is similar to the "
+"overlayed posterior predictive KDEs**. The **same happens with the LOO-"
+"PIT values**; the LOO-PIT KDE is similar to the overlayed uniform KDEs. "
+"Thus, in this first example, similar information can be obteined from "
+"their interpretation."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:210002
+#: 10b084d7b8f6462195188835808f0e4c
+msgid "Overdispersion signs"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:210003
+#: 32b00900343a4fd98ee932e7d4c886c7
+msgid ""
+"We will now move to one common mismatch between the model and the "
+"observed data. We will perform the same fit as the previous example but "
+"fixing the standard deviation of the normal random variable. This is "
+"actually not an unrealistic case, as in many cases where the instrument "
+"used to measure gives error data in addition to the measure, this error "
+"is used to fix the standard deviation."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:210005
+#: 04b03fc5355a4c82bb3d9604650adfc5
+msgid ""
+"These two examples show how the LOO-PIT looks like for overdispersed "
+"models (i.e. the error is assumed to be larger than what it actually is) "
+"and for underdispersed models (i.e. the error is assumed to be smaller "
+"than what it really is)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:240002
+#: 0be70538e23a4d0bae2fa81e7950f279
+msgid ""
+"In this example of **overdispersed model**, we can see that the posterior"
+" predictive checks show that the **observed KDE is narrower than most of "
+"the posterior predictive KDEs** and narrower than the mean KDE of the "
+"posterior predictive samples. However, there are still some posterior "
+"predictive samples whose KDEs are similar to the observed KDE. In the "
+"LOO-PIT check though, there is no room for confursion. **The LOO-PIT KDE "
+"is not uniform between 0 and 1**, its range is much quite more limited "
+"than the uniform counterparts. Moreover, the difference between the "
+"Empirical Cumulative Density Function (ECDF) and the ideal uniform CDF "
+"lays outside the envelope most of the time."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:250002
+#: 9facac8a887a4cc8abd16b31fbecbfe1
+msgid "Underdispersion signs"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:280002
+#: 7509ad5bd4184426887b679a8a254367
+msgid ""
+"Here, the differences are similar to the overdispersed case, modifying "
+"overdispersed by underdispersed and inverting the shapes."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:290002
+#: 2b8d4d8775ba448e952b3a96368e74c3
+msgid "Bias signs"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:290004
+#: aabeb96ade974a389d494645fbcbc208
+msgid ""
+"In addition, LOO-PIT checks also show signs of model bias, as shown in "
+"the following example:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:320002
+#: ff069f2ac58c4a9893aba5eaed574f31
+msgid ""
+"It is important to note though, that the LOO-PIT itself already indicates"
+" the problem with the model:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:320003
+#: 81d1af68a2334c6d998f5f7fd80054c3
+msgid ""
+"a convex KDE shape (inverted-U shape or range smaller than 0-1) or an N "
+"in the ECDF difference plot is a sign of an overdispersed model"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:320004
+#: 64c91657778c48498a81173a14435a26
+msgid ""
+"a concave KDE shape (U shape) or an inverted-N ECDF difference is a sign "
+"of underdispersion"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:320005
+#: 0e383e763eb54d7f8685618df45e25d5
+msgid ""
+"an asymmetrical KDE (range may also be reduced instead of 0-1) or ECDF "
+"difference is a sign for model bias"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:320007
+#: 82cfc86eea2b49beb30026245cf62343
+msgid ""
+"In general though, we will probably find a combination of all these cases"
+" and it may not be straigthforward to interpretate what is wrong with the"
+" model using LOO-PIT or posterior predictive KDE checks."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:330002
+#: 9163e55ae35044c68e95344ef9581836
+msgid "Linear regression"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:330003
+#: db1301e118604374ae8b455441e35af0
+msgid ""
+"In the case of a linear regression, the posterior predictive checks "
+"direclty do not give us much information, because each datapoint is "
+"centered at a different location, so combining them to create a single "
+"KDE won't yield useful results.  It is important to note though, that "
+"this is not an issue inherent to the posterior predictive checks, and "
+"could be solved by rescaling each observation by substracting the mean "
+"and divide by the standard deviation along every observation from the "
+"posterior predictive. We will also include an example of this kind of "
+"transformation in the last example, but there should not be much to worry"
+" about as this improvement is on the ArviZ roadmap."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:360002
+#: df15563d79bd4c24ba6ef17764eb45aa
+msgid "Now let's see how does introducing some small bias modifies the results."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:390002
+#: 7246a8941bda4f63b71a74c81e0c20ef
+msgid ""
+"Now the LOO-PIT check is clearly showing signs of bias in the model, "
+"whereas due to the lack of rescaling, no bias is seen in the posterior "
+"predictive checks."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:400002
+#: 8393b1feea05420393e4d86079d84628
+msgid ""
+"Finally, let's combine some bias with overdispersion, to see how is LOO-"
+"PIT modified. Moreover, we will rescale the posterior predictive data to "
+"see how would rescaling affect the posterior predictive checks."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:450002
+#: d9fc3670548c449082437374da64b2c3
+#, python-format
+msgid ""
+"As you can see, the posterior predictive check for `obs_rescaled` does "
+"indicate overdispersion and bias of the posterior predictive samples, "
+"whereas the one for `obs` does not, following what we were seeing "
+"previously. The LOO-PIT checks do not change one bit however. This is "
+"actually a property of the LOO-PIT algorithm. As it is comparing the "
+"marginal distributions of the posterior predictive and the observed data "
+"using the MCMC samples, any _monotonous_ transformation will not modify "
+"its value because it won't modify the order between the samples. "
+"Therefore, if the observed data is larger than 36% of the posterior "
+"predictive samples, the rescaling we have done does not modify this fact."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2019/loo-pit-tutorial.ipynb:460003
+#: 07e3f1bc82044e1b977b39a32543c183
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues) or [PyMC3 Discourse](https://discourse.pymc.io/)"
+msgstr ""
+

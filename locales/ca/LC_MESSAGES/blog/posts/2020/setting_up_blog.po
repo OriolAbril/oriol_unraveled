@@ -1,0 +1,438 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:5
+#: 284a4d1dbb184f95a356a2f8d0de8050
+msgid "Creating a blog"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:20
+#: 1adacd5caa684e9c82b9a69ac140659d
+msgid ""
+"These days, there are countless blogging alternatives covering an "
+"extremely wide range of needs, from writing everything in `.docx` format "
+"to customizing every minor nit with CSS and HTML. It is not difficult to "
+"get lost in this sea of blogging alternatives and end up being unable to "
+"choose one of the alternatives and set the blog up. I already "
+"experimented with [a blog](https://oriolabril.github.io/gsoc2019_blog/) "
+"during my Google Summer of Code internship and I have now started this "
+"new blog. Thus, being this my second blog, I am far from an expert in "
+"blogging platforms."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:29
+#: e24fd30de3d049aaba324e2481f247d9
+msgid ""
+"I cannot write a complete guide for prospective bloggers, however, I "
+"still feel like writing about how I created and configured this blog can "
+"be useful to anyone who is considering creating a blog somewhat similar "
+"to this one. As you may have guessed already from other pages in the "
+"blog, I highly value understanding what I do and being able to modify (or"
+" at least see) its inner workings."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:35
+#: f49d6052f18a4201ab588e1e6d2bdde0
+msgid ""
+"The first section is an overview of the technologies and libraries used "
+"in this blog. Afterwards there are 3 sections covering the base of "
+"blogging: writing the content, building the blog and hosting it. These "
+"cover the base elements needed to get the blog running. Eventually, there"
+" is one section on more advanced configuration and on the features I "
+"value the most."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:41
+#: b9448e940a854d58a7ff5700c9235c14
+msgid "Overview"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:42
+#: 60afb73b1ac74ba79a9cef36be691eec
+msgid ""
+"The content for this blog is written using either jupyter notebooks, "
+"markdown or docx files. Posts are then converted thanks to "
+"[fastpages](https://fastpages.fast.ai/) to markdown and html files that "
+"[Jekyll](https://jekyllrb.com/) can use to build the static website. "
+"Every time a new commit is pushed to GitHub, [GitHub "
+"Actions](https://github.com/features/actions) are used to automatically "
+"build the website and push it to the `gh-pages` branch. The website "
+"stored in the `gh-pages` branch is then hosted on [GitHub "
+"pages](https://pages.github.com/). Here is the diagram of the workflow "
+"from the fastpages website:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:53
+#: 56590b1a1c9a44039f99c429d0e7c538
+msgid "![](https://fastpages.fast.ai/images/diagram.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:55
+#: 985f126685534d6bbe48f4845988e8db
+msgid "Writing content"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:56
+#: 72fdfd987f4a44b98d9ca525d17a22bd
+msgid ""
+"Writing the content using Markdown is one of the most common alternatives"
+" for writing blog posts. Writing in Markdown has many advantages and "
+"produces files which are readable both rendered and without rendering. To"
+" write code tutorials however, they are not too convenient as we need to "
+"manually execute each cell and add the output of the code to the post."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:62
+#: f8c6b1201f7644ec8d949e2fc6f7738c
+msgid ""
+"If we use Jupyter notebooks instead, we can keep the code, its output and"
+" the explanations in the same _executable_ file. This is really "
+"convenient as I can easily rerun the notebooks whenever there has been a "
+"significant change in the libraries used and keep the tutorials up to "
+"date. The main drawback of writing posts in Jupyter notebooks is having "
+"to convert the notebooks to markdown or html so the post can be added to "
+"the blog. I am taking advantage of fastpages to both take care of the "
+"conversion and to automate the process."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:70
+#: 1fc9f12eae884cb88db4e3b0621e763a
+msgid ""
+"Eventually, I only have to write my posts in either markdown or Jupyter "
+"notebook files and push them to GitHub. This is crucial to me as it makes"
+" creating new posts be only about writing! I don't have to take care "
+"about conversion."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:75
+#: 69cb7cb0dad646d6a321492cea2f6ea8
+msgid "Building the blog"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:76
+#: bf3bd0cd20174d2bb3507cf021466cf3
+msgid ""
+"This blog is built using Jekyll, an open source static website generator."
+" Roughly speaking, it takes a configuration file and the website content "
+"as markdown or html files and generates a static website where the theme "
+"has been filled with the content, pages and blog posts. The configuration"
+" file, `_config.yml` contains information such as the theme or the "
+"markdown parser to be used."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:83
+#: e50264030ca24229a9789bdf3ef6acdb
+msgid ""
+"fastpages uses the default Jekyll theme: "
+"[minima](https://github.com/jekyll/minima). Even though minima has many "
+"features and everything works straight away with fastpages, I wanted to "
+"use a different theme, to give another look to the website and make it "
+"more attractive to readers. I therefore tried changing the theme "
+"specified in `_config.yml` for several new themes I found more visually "
+"attractive. I found [basically basic](https://mmistakes.github.io/jekyll-"
+"theme-basically-basic/) (see screenshots below) and "
+"[massively](https://iwiedenm.github.io/jekyll-theme-massively/) to work "
+"quite well right out of the box. Most of the themes did not work at all "
+"due to incompatibilities with fastpages. After comparing both themes for "
+"a while, I decided to go with massively. I therefore tweaked the theme to"
+" fix the minor incompatibilities it presented with fastpages. This is "
+"still a work in progress, not everything that works with fastpages+minima"
+" works with massively yet."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:102
+#: 3bb8aa3fc766478192daf5d7fdd2e97c
+msgid ""
+"![Initial layout of the blog homepage, the snorkeling image takes all the"
+" screen](../post_images/bb_home.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:102
+#: 2dee5ac00b93498ab388dfd047f8bc49
+msgid ""
+"Initial layout of the blog homepage, the snorkeling image takes all the "
+"screen"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:105
+#: 6090c504466e41a0bcb0f0c74485cd27
+msgid ""
+"![Initial layout of the blog page, posts are listed in a single column, "
+"with no excerpt nor image](../post_images/bb_posts.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:105
+#: e96384a0936e4e89a106b12d61e8f15d
+msgid ""
+"Initial layout of the blog page, posts are listed in a single column, "
+"with no excerpt nor image"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:108
+#: 7e5d973439014a97ad92167c62b16b45
+msgid ""
+"Some of the tweaks will be detailed in the last two sections of the post,"
+" but most of them will not be covered here. If you are interested in any "
+"of the two themes and their compatibility with fastpages please reach out"
+" in an [issue](https://github.com/OriolAbril/oriol_unraveled/issues), or "
+"what's nearly the same (thanks [utterances](https://utteranc.es/)), "
+"comment below."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:114
+#: 3a1100ff47f24ba09d8f7376acbbf9f8
+msgid "Hosting a static website"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:115
+#: 3b34431ad51b41c4a1f71958a9258b7e
+msgid ""
+"As explained in the overview, this website is hosted by GitHub pages. "
+"Even though this was initially the one that seemed more difficult to me, "
+"I actually found this step simpler than the other two. Basically GitHub "
+"Pages takes care of everything."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:120
+#: 265246a3484b40d78bf520c75375c85e
+msgid ""
+"The main friction I encountered while using GitHub pages was the "
+"`.nojekyll` file. There are two main ways of interacting with GitHub "
+"pages. The first alternative is to push to `gh-pages` a directory "
+"containing a `_config.yml` file with the Jekyll configuration and the "
+"content in Markdown and HTML format. GitHub then builds the site for you "
+"using Jekyll. The second alternative is to build the site and push the "
+"result to `gh-pages` branch together with a `.nojekyll` file. The "
+"`.nojekyll` file tells GitHub to not build the site with Jekyll and host "
+"directly the contents of the branch instead."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:130
+#: 5853b8efa1124bd29a9dacfcb00fa066
+msgid ""
+"In this particular case, we are using GitHub Actions from fastpages to "
+"convert the posts and build the site using Jekyll, so we are actually "
+"using the second alternative. Luckily, thanks to fastpages, these two "
+"alternatives do not affect the writing process at all."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:135
+#: 19487eb9834f41d992895dbcf295144a
+msgid "The best of many worlds"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:136
+#: c2f61bf4314d4da79939ee18c213b986
+msgid ""
+"So far we have described how to create and maintain a plain blog, the "
+"main difference with forking the minima theme and writing a blog in "
+"markdown is the ability to write posts in Jupyter notebooks. I would like"
+" this blog to be more than that. This blog combines features from "
+"fastpages, massively and basically basic. My aim was to hand pick the "
+"features of each source that were a better fit to my idea and needs for "
+"this website."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:143
+#: b416b66ded66483eaded57e0a5f3300b
+msgid ""
+"The blog is mobile friendly thanks to the massively theme plus some extra"
+" tweaks from Basically Basic theme. I also borrowed the text size scaling"
+" from Basically Basic, now whatever the screen size, the text should "
+"always be readable."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:148
+#: e0790d5b9802423e893420864d3b6f4e
+msgid ""
+"I customized the favicon too. As you can see, it is neither the one of "
+"fastpages nor of massively theme. It is a custom image of a MATLAB-style "
+"waterfall plot of a 2d group MOM prior. You can see the regular scale "
+"image used to generate the favicon below, more details on what is a group"
+" MOM prior will come in a future post. This was actually simpler than I "
+"expected, there are converters online to generate favicons from regular "
+"images, and then saving the favicon as `images/favicon.ico` is enough for"
+" everything to work."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:157
+#: 01ee81db0adb4f76b1d2127e5451345f
+msgid ""
+"![3d waterfall-type plot of a MOM prior which has a volcan-like "
+"shape](../post_images/gmom_pdf_arrow.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:157
+#: ab7adf62d49349d3acb7ed88468bff2b
+msgid "3d waterfall-type plot of a MOM prior which has a volcan-like shape"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:159
+#: c1c4f43f57024601977cec2c0988ac41
+msgid ""
+"fastpages also has support for many other awesome features such as google"
+" analytics, comments or SEO tag management. For now, I decided to use "
+"google analytics and comments powered by utterances but remove the SEO "
+"related code. I may add it again at some point after I better understand "
+"how they work."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:165
+#: dd6748f2be1246fe9451e8489e560333
+msgid "Notebook shields"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:166
+#: aad5a2bc09bd4f28b451790e4e6fc7ca
+msgid ""
+"Many of my posts will be tutorials written as Jupyter notebooks. Being "
+"able to include the content from ipynb files to the blog is awesome, but "
+"why stop here? fastpages allows to add 3 shields (shown below) to "
+"notebook posts so that the notebook can be opened in GitHub, Google Colab"
+" or [Binder](https://mybinder.org/). Binder! :heart:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:178
+#: c4e72cab26554037affb48278734352b
+msgid ""
+"Binder generates a container where the notebook can be executed "
+"interactively without requiring any local installation. This allows "
+"readers to run the code included in the tutorial while they read it with "
+"little to no effort, just click on the binder shield. Binder cannot work "
+"straight out of the box however, to create the container it needs to know"
+" what should be installed. I have used an `environment.yml` to install "
+"the required Python libraries with Conda and a `JuliaProject.toml` for "
+"the Julia libraries. I may add also some R dependencies too. Guidance on "
+"specifying requirements for Binder can be found in its "
+"[docs](https://mybinder.readthedocs.io/en/latest/using.html)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:189
+#: eb153b2315a24a8eb21cf695d9a29c65
+msgid "Tag Archive"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:190
+#: ef9e5115b2364362a5cf4f688e5391cd
+msgid ""
+"The tag archive, similarly to the index of a reference book can be an "
+"invaluable help to readers in navigating the website and finding posts "
+"relevant to their interests. fastpages already includes a tag archive "
+"page unlike the massively theme, however, I think its single list "
+"formatting does not scale well with the number of posts and different "
+"tags. The table format from Basically Basic was much more attractive to "
+"me, so I combined the tag archive page from BB theme with the square "
+"layout of massively. I also removed the post image to get a more compact "
+"look."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:199
+#: 80018e55ee7047ed8e56000d4792cc2d
+msgid "Colour schemes and syntax highlighting"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:200
+#: ecf1542ea6a04fb488a314222372897a
+msgid ""
+"Choosing a colour scheme for our code editors can be a very personal "
+"choice influenced by many different reasons. When configuring our code "
+"editor, we can decide whatever we want and choose to completely ignore "
+"everyone else in the entire world. With websites and other public "
+"resources however this is not a choice. Websites should be careful with "
+"their colour themes to be accessible to people with colour vision "
+"deficiency. One clear example of a bad practice on this is GitHub symbols"
+" of open and closed pull requests. The image below uses the Mozilla add-"
+"on [Let's get colour blind](https://addons.mozilla.org/en-"
+"US/firefox/addon/let-s-get-color-blind/). to simulate how someone with "
+"Deuteranomaly sees a list of GitHub pull requests."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:215
+#: 62aba4c7ffd5486ea11348c4a82d1de1
+msgid ""
+"![Screenshot of default GitHub PR list. Closed and open PRs use the same "
+"icon but different color: red and green](../post_images/pr_normal.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:215
+#: 54b63ebca01b496586d797632bb17cdc
+msgid ""
+"Screenshot of default GitHub PR list. Closed and open PRs use the same "
+"icon but different color: red and green"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:218
+#: 346d022ec7234fed827d2cf4c84ba9d5
+msgid ""
+"![Screenshot of default GitHub as seen by someone with deuteranomy. Both "
+"closed and open PR icons look brownish grey and can't be "
+"distinguished](../post_images/pr_deuteranomaly.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:218
+#: 5fbcbbc60e3a4ccda6918464afbbd509
+msgid ""
+"Screenshot of default GitHub as seen by someone with deuteranomy. Both "
+"closed and open PR icons look brownish grey and can't be distinguished"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:221
+#: 2c2c69552c4646b89ad946c18c371638
+msgid ""
+"I used this same add-on to make sure everything could be seen without too"
+" much effort and did a couple of changes to the fastpages-dracula "
+"pygments theme for syntax highlighting. I also tried [high contrast "
+"colour schemes](https://github.com/mpchadwick/pygments-high-contrast-"
+"stylesheets) so feel free to contact me if you were to need help "
+"modifying the colour scheme of your website. The plots in my post use the"
+" [`arviz-darkgrid`](https://github.com/arviz-"
+"devs/arviz/blob/master/arviz/plots/styles/arviz-darkgrid.mplstyle) theme "
+"whose palette is colourblind friendly, so I have not modified them. In "
+"the future I'll try to be more careful and try to not rely only on colour"
+" to distinguish lines in plots."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:231
+#: 08c18e12195c4be0bbd2610949323a62
+msgid "Social Media links and serch icon"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:232
+#: f970c57d8aad4194b11cf255482cf840
+msgid ""
+"Thanks to [fontawesome](https://fontawesome.com/) I have been able to add"
+" links to GitHub and Twitter profiles and to the blog's Atom feed: "
+"[{fas}`rss`](https://oriolabrilpla.cat/blog/atom.xml) in the navigation "
+"bar. Moreover, there is also a link to the search page. Search is powered"
+" by [Lunr](https://lunrjs.com/) via fastpages."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/setting_up_blog.md:237
+#: 473a100d03d642f3a276784199fc854f
+msgid ""
+"All these social media links are also in the copyright notice found in "
+"the website footer, where thanks to "
+"[academicons](https://jpswalsh.github.io/academicons/), the links to my "
+"ORCID and Google Scholar profiles are also available. Fontawsome icons "
+"worked out of the box with all the 3 themes I tinkered with, while "
+"academicons was not supported by any of them and had to be added manually"
+" following the instructions on their website."
+msgstr ""
+

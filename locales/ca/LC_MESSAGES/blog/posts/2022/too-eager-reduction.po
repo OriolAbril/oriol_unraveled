@@ -1,0 +1,591 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:10003
+#: 94af63d881de4114adaac495981f1418
+msgid "Some dimensionality devils"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:20002
+#: 0b6c6b5d50894f27add7eb5b646ed1da
+msgid ""
+"This blog post is a loosely connected collection of potentially bad "
+"practices that I have come accross while answering questions on discourse"
+" and reading the [PyMC examples "
+"collection](https://docs.pymc.io/projects/examples/en/latest/) or similar"
+" blog posts and case studies. They are not necessarily the worst or most "
+"dangerous practices, they might not even be the most common ones! The "
+"main relation between the cases covered here is that they are related to "
+"my work and so it is much more easy for me to notice them and to remember"
+" them."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:20004
+#: de112dcc3e014862976fa54fa942fdc9
+msgid ""
+"In fact, all examples are related to \"dimensionality\" but not "
+"necessarly using the exact same definition for the term!"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:40002
+#: 5929fe36646446b9bca2badd196fc7ec
+msgid "Simulated data generation"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:50002
+#: de032018482847c4988d1f3a23039006
+msgid ""
+"I initialize three distributions to use in the examples below. I will use"
+" 2d distributions with different shape but the same marginal means `(2, "
+"3)` and standard deviations `(0.4, 0.3)`. 2d is clearly not high "
+"dimensional and so the effects might not be of the same magnitude as what"
+" you will encounter in your real models, but it is much more convenient "
+"for visualization purposes and already serves to illustrate my points."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:50004
+#: c64e592661494e73b2191b0e8df945ee
+msgid ""
+"To give it a feel of \"MCMC output\" I will generate 4000 samples per "
+"distribution in a 4 \"chains\" and 1000 \"draws\" shape. This also allows"
+" loading the data as `InferenceData` and taking advantage of ArviZ "
+"functions."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:50006
+#: 35fc5f822fe54bb7940b3d35fdc217c5
+msgid ""
+"For the purposes of the blog post, only the shape of the data is "
+"relevant, so the data generation is hidden inside the toggle button below"
+" and only the plots are visible by default."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:80002
+#: de4560f856d14d9d9b71d4fbcd9ea741
+msgid ""
+"You can now see the draws of all 3 distributions in the 2d plane to see "
+"their shape. The distributions are all 2d representing a joint posterior "
+"with variables `shot` and `distance` and I have named the distributions "
+"`a, b, c` to distinguish them throughout the blog post."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:120002
+#: 7d9abbc64bd44134ba7bc0e30fc491bd
+msgid ""
+"You can also see their marginal distributions compared below. Both `a` "
+"and `c` have the exact same marginal distributions, all normal, whereas "
+"the marginal distribution for `b` is also the same for the `shot` "
+"variable but not for the `distance` one."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:140002
+#: f5d0432dda5f4239a4e26295993c5bfd
+msgid "Last but not least, I also double check the normalization has worked:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:160002
+#: 32aa6ef25af344a589d34c97c60e5a51
+msgid "Premature aggregation"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:160003
+#: 7efe0535be334d8f9fc2cb1f286ef5a5
+msgid ""
+"Now let's get to work! It is very tempting to take the means and go with "
+"it instead of using the whole posterior, working with high dimensional "
+"arrays can be annoying or even borderline impossible unless we recurr to "
+"nested on nested loops. For the data generation to work we had to add "
+"these `[..., i]` clauses for example and it is also very common to need "
+"to reshape the data or use `[None, :]` for broadcasting to work."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:160005
+#: 45af4ec7d726465fad34d62b6c30d0f6
+msgid ""
+"And in some cases, doing that won't make any difference. If you were "
+"calculating the mean of a linear regression for example:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:160007
+#: 90ba99c80a084843b3f140c9de7e0ae9
+msgid ""
+"\n"
+"\\mu = \\alpha + \\beta x \\\\\n"
+"\\text{E}[\\mu] = \\text{E}[\\alpha + \\beta x] = \\text{E}[\\alpha] + "
+"\\text{E}[\\beta] x\n"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:160012
+#: ebafd26206934ed296329b5932081bb0
+msgid ""
+"Still, very often (I might even say more often than not) this is not the "
+"case. Sometimes even with a single variable the result of the _posterior "
+"pushforward_ operations followed by the mean is not the same as the "
+"result of first taking the mean and then doing the pushforward "
+"operations."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:160014
+#: 4f5fd7dc05f84807a6d93170d9c4af2c
+msgid ""
+"Note: I call _posterior pushforward_ operations to deterministic "
+"operations on posterior variables as opposed to sampling from the "
+"posterior predictive which should never be done with the means alone."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:180002
+#: c4ab73af6725456199028203458612ed
+msgid ""
+"In the blogpost I use only the `mean` as summary, to see how things look "
+"for the median you'll need to rerun the notebook (you can download it or "
+"run it online clicking on the badges at the top of the notebook)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:180005
+#: bfe9e82d0c464de9a15e3432ebd6dc48
+msgid ""
+"Important: If you use the median as summary, there can be differences "
+"between aggregating before or after pushforward computation even for "
+"linear operations. Linearity of expectations is a property of the "
+"expectation (mean) function, not of the .5 quantile function!"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190002
+#: a579ddb639e646ecafb5657a94c72c92
+msgid "Pushforward computation examples"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190004
+#: ac0e443b388a44c59c526649d5522221
+msgid ""
+"In this section I will go over some pushforward computation examples. "
+"I'll take a function that depends on two variables and apply it to each "
+"of the 3 distributions we generated. First I'll compute the result using "
+"the `post_summary` with the already averaged data and then compare it to "
+"doing the operation first and averaging later."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190006
+#: 7820c790610f4be0ae3eceb2bfcd90c1
+msgid ""
+"I will generate the same plot for each combination of function and "
+"distribution. That plot will have the following elements:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190008
+#: c178190c921741ffbdf9d2d88159633f
+msgid ""
+"Two vertical lines, indicating the result we get averaging before and "
+"after operating"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190009
+#: d04510b705594c469ca2a7557b8b352a
+msgid ""
+"A box with two quantities annotated: the relative error (as a percentage)"
+" and the ratio between the difference of results and the Monte Carlo "
+"standard error (MCSE) of the result"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190010
+#: 42293e042f1642c5b5f8f3ab9ea34ec6
+msgid ""
+"A histogram with the result of (block-wise) averaging after and "
+"pushforward computation and dividing all the 2000 samples into 80 blocks."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:190012
+#: c907723095b94ddea47cf94faef5c850
+msgid ""
+"The vertical lines can probably be considered the key element of the "
+"plot, but they don't really give any information without the context "
+"provided by the other elements too. You can click to see the plotting "
+"code, but it is hidden by default as it is not necessary to follow the "
+"blog post."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:210002
+#: dccaecca621444f69f32f63bb7e1ab88
+msgid ""
+"The expectancy of a sum is always the sum of expectancies, and we see "
+"that indeed the difference is of the order of floating point accuracy now"
+" that we are using the mean (but again, it won't be if you rerun this "
+"using the median as summary):"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:230002
+#: 42f145b648ca43918395e6ec9f980f5b
+msgid ""
+"The second example is a product between our two variables. This is no "
+"longer a linear operation and we can see noticeable differences in the "
+"result of distribution `a`. However, the dashed orange line is still only"
+" 3.7 MCSE units away from the real average and inside the region of the "
+"histogram. That means that it is still a credible value for the mean of "
+"the product."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:250002
+#: 0b7c875e3c494823830e791a9fa0d99a
+msgid ""
+"The 3rd example is a division between the two variables. Here we see that"
+" the dashed orange line lies always outside the histogram range and over "
+"9 MCSE units away from the real average. These values are no longer "
+"credible as the mean of the quotient!"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:250004
+#: a693030c12c7411c85595a53418ce955
+msgid ""
+"If we plotted the distribution of quotient values, the dashed orange line"
+" would most probably still be on a high probability region, after all the"
+" relative difference is not too big. However, plausible **values** of the"
+" quotient and plausible **means** of the quotient are very different "
+"concepts that should not be confused."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:250006
+#: e99252a663d146e1b0c36561c14bc31e
+msgid ""
+"I am currently working on MCSE for arbitrary quantities and arbitrary "
+"summary statistics and on some recommendations related to its use. "
+"Hopefully I'll be able to write more on this."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:270002
+#: a75f88f6e8b649e6b2e7846c9befdc57
+msgid "Moreover, we can always find pathological cases:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:290002
+#: 30f94345518e421a821f669c48cd7623
+msgid "Golf putting example"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:290003
+#: 50d6bbeed378437299833b03c9f031a6
+msgid ""
+"I will also use the code from the [golf putting case "
+"study](https://docs.pymc.io/projects/examples/en/latest/case_studies/putting_workflow.html)"
+" (from PyMC examples because it already uses xarray). To illustrate two "
+"more points."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:290005
+#: 6cbc1120889e4821a3b13c9851c89eb0
+msgid ""
+"The first is that averaging before operating is also dangerous when "
+"having a single variable: $E[f(x)] \\neq f(E[x])$ (except for [linear "
+"functions](https://en.wikipedia.org/wiki/Expected_value#Properties) as we"
+" have seen)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:290007
+#: 930b1e62e72e4400aefbc701b0ebfde8
+msgid ""
+"And the second is that the \"badness\" of averaging before operating "
+"depends as we have seen on the distribution, on the function and can also"
+" depend on other constant inputs of the function. In this case, the "
+"effect of averaging before gets worse as we compute the pushforward "
+"operation on larger distances (we are modeling probabilities of making "
+"the putt as a function of the distance)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:310002
+#: f981eafff1f74286914f4c6a51d3b64a
+msgid "Plotting code collapsed below:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:350002
+#: 9d13df0da33a4242a365d8f1286f5b76
+msgid "A possible solution"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:350003
+#: 12e9572dd731406180c11d5265084986
+msgid ""
+"I know the fact that all posterior samples should be used is not a secret"
+" in any sense, it is mostly the challenge of working comfortably with "
+"them that motivates computing summary statistics earlier than one should."
+" The Bayesian workflow paper (Gelman et al 2020) mentions this as one of "
+"the open challenges in using Bayesian workflow in practice:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:350005
+#: 50b2854260b34b329ab784b5389dac79
+msgid ""
+"Probabilistic programming ultimately has the potential to allow random "
+"variables to manipulated like any other data objects, with uncertainty "
+"implicit in all the plots and calculations, but much more work needs to "
+"be done to turn this possibility into reality, going beyond point and "
+"interval estimation so that we can make full use of the models we fit."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:350007
+#: e23d31360b1844ad84a18cf945e80ee4
+msgid ""
+"And while it is true it can still be challenging, batching operations is "
+"becoming increasingly simple and performant in Python, Julia or R and "
+"label based multidimensional arrays are also becoming more popular and "
+"applicable to a wide set of domains and tasks. I find that working with "
+"label based arrays and indexing operations is much more clear (both to "
+"others and to future me)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:350009
+#: 048d808f52d64d64823ea5fb4e1fcc1c
+msgid ""
+"You can use [ArviZ](https://python.arviz.org) which builds on top of "
+"[xarray](https://docs.xarray.dev/en/stable/) and [xarray-"
+"einstats](https://einstats.python.arviz.org) to make all these "
+"computations while preserving the chain and draw dimensions in order to "
+"average later. The xarray ecosystem is developing and maturing quickly, "
+"you can already take advantage of automatic alignment and broadcasting "
+"for general python or math operations, for linear algebra, statistical "
+"operations like evaluation of pdf/cdf... or drawing from a specified "
+"distribution, fast fourier transforms..."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:360002
+#: 1319451582ae4c80b15a65ac66cb1f57
+msgid ""
+"As you'll have seen, this is what I am using in this post because I am "
+"the most comfortable working with Python and xarray, but the posterior R "
+"package recently introduced an [rvar](https://mc-"
+"stan.org/posterior/articles/rvar.html) type with similar properties for "
+"example, and similar work is also happening in the Julia ecosystem."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370002
+#: df9bf9fbe08e4d529ac4fa1351a972a1
+msgid "Univariate priors"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370003
+#: 1ec782761851404d85a0f140da0af8b5
+msgid ""
+"I recently collaborated a little to a [paper on prior "
+"elicitation](https://arxiv.org/abs/2112.01380), where the current state "
+"and future research possibilities are discussed. One of the challenges "
+"mentioned is that most of the work so far has been done on eliciting the "
+"univariate marginal prior distributions. But what we really need to "
+"elicit are multivariate prior distributions because it is the joint prior"
+" what afects the model and the sampling."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370005
+#: a6ef54de14f14c28bbc6e3e04ed12a8f
+msgid ""
+"This section won't have (yet) a possible solution section at the end "
+":sweat_smile:. I realize that univariate priors are the default and that "
+"we need to develop better tools before this can actually change in "
+"practice. But I think it is still good to be aware of its limitations. I "
+"will use an extreme example to show some of its limitations. Hopefully "
+"this will motivate more thorough prior and prior predictive checks."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370007
+#: c20c22db57a64fa9abfe453dd20dd268
+msgid ""
+"I will use the [updating "
+"priors](https://docs.pymc.io/projects/examples/en/latest/pymc3_howto/updating_priors.html)"
+" notebook in the PyMC examples collection. It is a very popular example, "
+"there are often questions on discourse about adapting it to the specific "
+"situations of new users; and for good reason. It promises the philosophal"
+" stone of Bayesian statistics: using an old posterior as prior when we "
+"get new data so we can update our beliefs after seeing this new data and "
+"get an updated posterior. Again, this is very tempting, maybe even more "
+"so than premature averaging. But again, this is usually a bad idea, and "
+"more often than not a terrible one."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370009
+#: 4dfbc3cf48a54b3bb8ede6a4adcc3571
+msgid "Let's see why."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370011
+#: e6f8b67f4a364da297f81d21b9e8c8f9
+msgid ""
+"In case you haven't gone through the linked notebook, the idea is the "
+"following:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370013
+#: c1103468aa2344c8b4f04156b2364a92
+msgid "Fit the model on the available data"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370014
+#: 82cf437d5ff3401281028aee894d36f0
+msgid "Convert the posterior obtained into a prior using a KDE approximation"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370015
+#: b926be8b6d47478bbfa910370895cd96
+msgid "Get new data and fit the model using the generated prior"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370016
+#: e16025a26a404eef8ba8f0d87a217884
+msgid "Repeat 2-3 every time new data becomes available"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:370018
+#: 97da27954c9c4843bc6e9e7b89f96ee0
+msgid "Here is the function used to take care of step 2:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:390002
+#: 860dd4df5a6a482490f3f9278f060960
+msgid ""
+"As usual, the devil lies in the details, there are two issues to take "
+"into account."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:390004
+#: 2745af068d1c42169a33970fb0e0be05
+msgid ""
+"First and foremost, _this generates univariate priors_. The fit generated"
+" a _joint posterior_ and variables will probably not be independent "
+"between them. Therefore, any prior generated as a product of univariate "
+"distributions won't generally be able to represent the posterior."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:390006
+#: 5f5985bacb4f456da3ae125a635a3dd6
+msgid ""
+"Secondly and not so relevant, the KDE is also an approximation which "
+"might not be very accurate, especially when it comes to the tails. This "
+"`from_posterior` already contains a handmade correction to account for "
+"the tails being longer than the observed data, which is somewhat sensible"
+" but it also is clearly different from the actual tails we'd expect our "
+"distributions to have."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:390008
+#: 340cded78d8a4a11a0ae0c3816d25893
+msgid ""
+"(This extension of the tails is done with the two `concatenate` lines, "
+"you can try comenting them if you download the notebook. If you do, "
+"you'll see better prior checks, but you will also be constraining all "
+"prior and posterior samples to have values between the minimum of the "
+"maximum in the distribution used to interpolate)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:390010
+#: e4269a00b11245618d626060779bb9fa
+msgid ""
+"The bad news is that there really isn't anything you can do about this. "
+"There are some 2d KDE approximations available, but that will generally "
+"not be enough either to represent the posterior (as it will be more than "
+"2d) and they are even less reliable than 1d KDEs."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:390012
+#: 670e1a2cfc844e8a8dedaa0a14c7c4b3
+msgid ""
+"We can use prior sampling to get an idea of the differences between the "
+"posteriors and the priors generated by this method by using our 3 "
+"simulated cases as posteriors."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:430002
+#: bf7e6a2fa38e414d932221b097263c38
+msgid ""
+"The figure on the left shows both the 2d distribution and the two "
+"marginals, and the one on the right shows only the 2d distribution zoomed"
+" in. All 2d KDEs (here and in coming posts) have 4 contour lines with the"
+" probability inside each line being `[.2, .4, .6, .8]` in order to allow "
+"proper comparison."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:430004
+#: b4cc36b7f6de45b996617e4733f40bca
+#, python-format
+msgid ""
+"The figure on the left shows the problematic with the KDE approximation "
+"and the tail extension. The combination of the high probability central "
+"region with the low probability but not negligible tails generates this +"
+" looking shape. It is possible to have values outside this cross, and in "
+"this generation there is one on the lower right quadrant, but the "
+"probability of a draw being on the tail of the distribution is very low "
+"so the probability of this happening twice even for the two independent "
+"distributions is extremely low. We can see however how this tail "
+"expansion has no effect on the KDE lines, not even for the one that "
+"contains 80% of the probability, so even if their values are a bit too "
+"extreme, their probability is very low and generally not a source of "
+"worry."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:430006
+#: 04ab4ddfcadf4a59b907482e932e5ddb
+msgid ""
+"The figure on the right shows clearly how our prior even if generated "
+"from interpolating our original (red) distribution is unable to retrieve "
+"the dependency between the two variables."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:460002
+#: 4b3e6cb9a53c40f9913fbe41e37f0831
+msgid ""
+"Here again, we see the same effects as we saw for distribution `a`. Even "
+"a bit more exagerated. Now the marginal distribution on the `distance` "
+"variable is not symettric, so the tail extension fares worse than before."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:460004
+#: d4623e12f01c445db6e17b46b79025b8
+msgid ""
+"The shape of the dependency between variables is also more complicated "
+"now than it was in distribution `a`, so the isodensity regions differ "
+"even more from the original (red) distribution."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:490002
+#: 4d91405b04c342b3946f3fadde0b714f
+msgid ""
+"The two variables in `c` are independent, so here the only source of "
+"error will be the KDE approximation and tail expansion. We see that "
+"indeed the shape of the posterior is now right, but the size is not "
+"exactly the same. Like in all other examples, the tails are overpopulated"
+" due to the tail extension."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:490004
+#: a09412646ea6422dadbe9b25adc59c06
+msgid ""
+"Again, hopefully I'll be able to write about tools for multidimensional "
+"prior elicitation at some point :see_no_evil:."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:500002
+#: 658e4609b973463dbc816e3df8782b58
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/too-eager-reduction.ipynb:520003
+#: 66ba749e25684b95820502eedb09a532
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [Stan Discourse](https://discourse.mc-"
+"stan.org/) or [PyMC Discourse](https://discourse.pymc.io/). Feel free to "
+"tag me at `@OriolAbril`"
+msgstr ""
+
