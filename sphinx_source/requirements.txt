@@ -8,3 +8,5 @@ sphinxext-opengraph
 sphinx-notfound-page
 sphinxext-rediraffe
 git+https://github.com/oriolabril/oriol-personal-theme
+# Temporary fix for lexer errors
+ipython!=8.7.0
