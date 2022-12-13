@@ -272,62 +272,62 @@
 <h2>Data generation<a class="headerlink" href="#data-generation" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pymc3 as pm
-import numpy as np
-import arviz as az 
-import matplotlib.pyplot as plt
-import theano.tensor as tt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span> 
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
 
-import scipy.stats as stats
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="k">as</span> <span class="nn">stats</span>
 
-np.random.seed(7)
+<a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html#numpy.random.seed" title="numpy.random.seed"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span></a><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.style.use('arviz-darkgrid')
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'arviz-darkgrid'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_ppc_loopit(idata, title):
-    fig = plt.figure(figsize=(12,9))
-    ax_ppc = fig.add_subplot(211)
-    ax1 = fig.add_subplot(223); ax2 = fig.add_subplot(224)
-    az.plot_ppc(idata, ax=ax_ppc);
-    for ax, ecdf in zip([ax1, ax2], (False, True)):
-        az.plot_loo_pit(idata, y="obs", ecdf=ecdf, ax=ax);
-    ax_ppc.set_title(title)
-    ax_ppc.set_xlabel("")
-    return np.array([ax_ppc, ax1, ax2])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+    <span class="n">ax_ppc</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">);</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+    <span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_ppc</span><span class="p">);</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ecdf</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">],</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)):</span>
+        <span class="n">az</span><span class="o">.</span><span class="n">plot_loo_pit</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">ecdf</span><span class="o">=</span><span class="n">ecdf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+    <span class="n">ax_ppc</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax_ppc</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ax_ppc</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>N_obs = 170
-mu_normal = -2
-sd_normal = 3
-data_normal = np.random.normal(loc=mu_normal, scale=sd_normal, size=N_obs)
-a0_lr, a1_lr = 5, -2.3
-sd_lr = 1.4
-data_x_regression = np.linspace(0, 10, N_obs)
-data_y_regression = np.random.normal(loc=a1_lr*data_x_regression+a0_lr, scale=sd_lr)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_obs</span> <span class="o">=</span> <span class="mi">170</span>
+<span class="n">mu_normal</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">sd_normal</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">data_normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu_normal</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sd_normal</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N_obs</span><span class="p">)</span>
+<span class="n">a0_lr</span><span class="p">,</span> <span class="n">a1_lr</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.3</span>
+<span class="n">sd_lr</span> <span class="o">=</span> <span class="mf">1.4</span>
+<span class="n">data_x_regression</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">N_obs</span><span class="p">)</span>
+<span class="n">data_y_regression</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">a1_lr</span><span class="o">*</span><span class="n">data_x_regression</span><span class="o">+</span><span class="n">a0_lr</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sd_lr</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>coords_normal = {"obs": ["observation"], "log_likelihood": ["observation"]}
-dims_normal = {"observation": range(N_obs)}
-coords_regression = {"y": ["time"], "log_likelihood": ["time"]}
-dims_regression = {"time": data_x_regression}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords_normal</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"obs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"observation"</span><span class="p">],</span> <span class="s2">"log_likelihood"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"observation"</span><span class="p">]}</span>
+<span class="n">dims_normal</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"observation"</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_obs</span><span class="p">)}</span>
+<span class="n">coords_regression</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">],</span> <span class="s2">"log_likelihood"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"time"</span><span class="p">]}</span>
+<span class="n">dims_regression</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"time"</span><span class="p">:</span> <span class="n">data_x_regression</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -335,14 +335,14 @@ dims_regression = {"time": data_x_regression}
 <p>We will now plot the two datsets generated, to give graphical an idea of the data we are working with.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axes = plt.subplots(1, 2, figsize=(11,5))
-textsize = plt.rcParams["axes.labelsize"]
-az.plot_dist(data_normal, rug=True, ax=axes[0], rug_kwargs={"space": 0}, textsize=textsize);
-axes[1].plot(data_x_regression, data_y_regression, ".");
-axes[1].tick_params(labelsize=textsize)
-axes[0].set_title("Gaussian random variable draws")
-axes[1].set_title("Data for linear regression")
-fig.tight_layout()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">textsize</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"axes.labelsize"</span><span class="p">]</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_dist</span><span class="p">(</span><span class="n">data_normal</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rug_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"space"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">textsize</span><span class="o">=</span><span class="n">textsize</span><span class="p">);</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x_regression</span><span class="p">,</span> <span class="n">data_y_regression</span><span class="p">,</span> <span class="s2">"."</span><span class="p">);</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="n">textsize</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Gaussian random variable draws"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Data for linear regression"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -356,26 +356,26 @@ fig.tight_layout()
 <p>We will start with a model that correctly fits with the data, to show how should both checks look like. Afterwards, we will see cases were these checks deviate from this ideal case and give some hints on how to interpret these deviations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    # Define priors
-    mu = pm.Normal("mu", mu=0, sd=10)
-    sd = pm.HalfNormal("sd", sd=10)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Define priors</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">"sd"</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     
-    # Define likelihood
-    likelihood = pm.Normal("obs", mu=mu, sd=sd, observed=data_normal)
+    <span class="c1"># Define likelihood</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_normal</span><span class="p">)</span>
     
-    # Inference!
-    trace = pm.sample() # draw posterior samples using NUTS sampling
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="c1"># Inference!</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span> <span class="c1"># draw posterior samples using NUTS sampling</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 
-    idata_normal = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_normal,
-        dims=dims_normal,
-    )
+    <span class="n">idata_normal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_normal</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_normal</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -392,7 +392,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_normal, "Gaussian: Calibrated model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="s2">"Gaussian: Calibrated model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -407,22 +407,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 <p>These two examples show how the LOO-PIT looks like for overdispersed models (i.e. the error is assumed to be larger than what it actually is) and for underdispersed models (i.e. the error is assumed to be smaller than what it really is).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    mu = pm.Normal("mu", mu=0, sd=10)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     
-    likelihood = pm.Normal("obs", mu=mu, sd=1.5 * sd_normal, observed=data_normal)
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">sd_normal</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_normal</span><span class="p">)</span>
     
-    trace = pm.sample()
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
     
-    idata_normal_overdispersed = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_normal,
-        dims=dims_normal,
-    )
+    <span class="n">idata_normal_overdispersed</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_normal</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_normal</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -439,7 +439,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_normal_overdispersed, "Gaussian: Overdispersed model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_normal_overdispersed</span><span class="p">,</span> <span class="s2">"Gaussian: Overdispersed model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -453,22 +453,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 <h3>Underdispersion signs<a class="headerlink" href="#underdispersion-signs" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    mu = pm.Normal("mu", mu=0, sd=10)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     
-    likelihood = pm.Normal("obs", mu=mu, sd=.75 * sd_normal, observed=data_normal)
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mf">.75</span> <span class="o">*</span> <span class="n">sd_normal</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_normal</span><span class="p">)</span>
     
-    trace = pm.sample()
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
     
-    idata_normal_underdispersed = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_normal,
-        dims=dims_normal,
-    )
+    <span class="n">idata_normal_underdispersed</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_normal</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_normal</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -485,7 +485,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_normal_underdispersed, "Gaussian: Underdispersed model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_normal_underdispersed</span><span class="p">,</span> <span class="s2">"Gaussian: Underdispersed model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -500,22 +500,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 <p>In addition, LOO-PIT checks also show signs of model bias, as shown in the following example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    sd = pm.HalfNormal("sd", sd=10)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">"sd"</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     
-    likelihood = pm.Normal("obs", mu=mu_normal - sd_normal / 2, sd=sd, observed=data_normal)
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu_normal</span> <span class="o">-</span> <span class="n">sd_normal</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_normal</span><span class="p">)</span>
     
-    trace = pm.sample()
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
     
-    idata_normal_bias = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_normal,
-        dims=dims_normal,
-    )
+    <span class="n">idata_normal_bias</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_normal</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_normal</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -532,7 +532,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_normal_bias, "Gaussian: Biased model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_normal_bias</span><span class="p">,</span> <span class="s2">"Gaussian: Biased model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -555,24 +555,24 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 It is important to note though, that this is not an issue inherent to the posterior predictive checks, and could be solved by rescaling each observation by substracting the mean and divide by the standard deviation along every observation from the posterior predictive. We will also include an example of this kind of transformation in the last example, but there should not be much to worry about as this improvement is on the ArviZ roadmap.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    sigma = pm.HalfNormal('sigma', sd=10)
-    a0 = pm.Normal("a0", mu=0, sd=20)
-    a1 = pm.Normal("a1", mu=0, sd=20)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">'sigma'</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">a0</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a0"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a1"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     
-    likelihood = pm.Normal('obs', mu=a0 + a1 * data_x_regression, sd=sigma, observed=data_y_regression)
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">'obs'</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">a0</span> <span class="o">+</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">data_x_regression</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_y_regression</span><span class="p">)</span>
     
-    trace = pm.sample()
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
     
-    idata_lr = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_regression,
-        dims=dims_regression,
-    )
+    <span class="n">idata_lr</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_regression</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_regression</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -590,7 +590,7 @@ The acceptance probability does not match the target. It is 0.9065348582364419, 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_lr, "Linear Regression: Calibrated model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_lr</span><span class="p">,</span> <span class="s2">"Linear Regression: Calibrated model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -601,23 +601,23 @@ The acceptance probability does not match the target. It is 0.9065348582364419, 
 <p>Now let’s see how does introducing some small bias modifies the results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    sigma = pm.HalfNormal('sigma', sd=10)
-    a1 = pm.Normal("a1", mu=0, sd=20)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">'sigma'</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a1"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-    likelihood = pm.Normal('obs', mu=a0_lr + 2 + a1 * data_x_regression, sd=sigma, observed=data_y_regression)
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">'obs'</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">a0_lr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">data_x_regression</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_y_regression</span><span class="p">)</span>
 
-    trace = pm.sample()
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
     
-    idata_lr_bias = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_regression,
-        dims=dims_regression,
-    )
+    <span class="n">idata_lr_bias</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_regression</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_regression</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -635,7 +635,7 @@ The acceptance probability does not match the target. It is 0.8792817423537712, 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_lr_bias, "Linear Regression: Biased model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_lr_bias</span><span class="p">,</span> <span class="s2">"Linear Regression: Biased model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -647,25 +647,25 @@ The acceptance probability does not match the target. It is 0.8792817423537712, 
 <p>Finally, let’s combine some bias with overdispersion, to see how is LOO-PIT modified. Moreover, we will rescale the posterior predictive data to see how would rescaling affect the posterior predictive checks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with pm.Model() as model:
-    a1 = pm.Normal("a1", mu=0, sd=20)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">"a1"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     
-    likelihood = pm.Normal(
-        'obs', mu=a0_lr + 2 + a1 * data_x_regression, sd=1.5 * sd_lr, observed=data_y_regression
-    )
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span>
+        <span class="s1">'obs'</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">a0_lr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">data_x_regression</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">sd_lr</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data_y_regression</span>
+    <span class="p">)</span>
     
-    # Inference!
-    trace = pm.sample() # draw posterior samples using NUTS sampling
-    prior = pm.sample_prior_predictive()
-    posterior_predictive = pm.sample_posterior_predictive(trace)
+    <span class="c1"># Inference!</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span> <span class="c1"># draw posterior samples using NUTS sampling</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_prior_predictive</span><span class="p">()</span>
+    <span class="n">posterior_predictive</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
     
-    idata_lr_bias_overdispersed = az.from_pymc3(
-        trace=trace,
-        prior=prior,
-        posterior_predictive=posterior_predictive,
-        coords=coords_regression,
-        dims=dims_regression,
-    )
+    <span class="n">idata_lr_bias_overdispersed</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span>
+        <span class="n">trace</span><span class="o">=</span><span class="n">trace</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span>
+        <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">posterior_predictive</span><span class="p">,</span>
+        <span class="n">coords</span><span class="o">=</span><span class="n">coords_regression</span><span class="p">,</span>
+        <span class="n">dims</span><span class="o">=</span><span class="n">dims_regression</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -682,7 +682,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_ppc_loopit(idata_lr_bias_overdispersed, "Linear Regression: Biased and oversidpersed model");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata_lr_bias_overdispersed</span><span class="p">,</span> <span class="s2">"Linear Regression: Biased and oversidpersed model"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -692,24 +692,24 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pp_samples = idata_lr_bias_overdispersed.posterior_predictive.obs
-obs_samples = idata_lr_bias_overdispersed.observed_data.obs
-pp_means = pp_samples.mean(dim=("chain", "draw"))
-pp_stds = pp_samples.std(dim=("chain", "draw"))
-idata_lr_bias_overdispersed.posterior_predictive["obs_rescaled"] = (pp_samples - pp_means) / pp_stds
-idata_lr_bias_overdispersed.observed_data["obs_rescaled"] = (obs_samples - pp_means) / pp_stds
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pp_samples</span> <span class="o">=</span> <span class="n">idata_lr_bias_overdispersed</span><span class="o">.</span><span class="n">posterior_predictive</span><span class="o">.</span><span class="n">obs</span>
+<span class="n">obs_samples</span> <span class="o">=</span> <span class="n">idata_lr_bias_overdispersed</span><span class="o">.</span><span class="n">observed_data</span><span class="o">.</span><span class="n">obs</span>
+<span class="n">pp_means</span> <span class="o">=</span> <span class="n">pp_samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+<span class="n">pp_stds</span> <span class="o">=</span> <span class="n">pp_samples</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
+<span class="n">idata_lr_bias_overdispersed</span><span class="o">.</span><span class="n">posterior_predictive</span><span class="p">[</span><span class="s2">"obs_rescaled"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pp_samples</span> <span class="o">-</span> <span class="n">pp_means</span><span class="p">)</span> <span class="o">/</span> <span class="n">pp_stds</span>
+<span class="n">idata_lr_bias_overdispersed</span><span class="o">.</span><span class="n">observed_data</span><span class="p">[</span><span class="s2">"obs_rescaled"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs_samples</span> <span class="o">-</span> <span class="n">pp_means</span><span class="p">)</span> <span class="o">/</span> <span class="n">pp_stds</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axes = plt.subplots(3, 2, figsize=(12,13), constrained_layout=True)
-for i, var in enumerate(("obs", "obs_rescaled")):
-    for j, ecdf in enumerate((False, True)):
-        az.plot_loo_pit(idata_lr_bias_overdispersed, y=var, ecdf=ecdf, ax=axes[j, i]);
-az.plot_ppc(idata_lr_bias_overdispersed, ax=axes[2]);
-fig.suptitle("Linear Regression: Rescaling effect\nBiased and overdispersed model", fontsize=16);
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s2">"obs"</span><span class="p">,</span> <span class="s2">"obs_rescaled"</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">ecdf</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)):</span>
+        <span class="n">az</span><span class="o">.</span><span class="n">plot_loo_pit</span><span class="p">(</span><span class="n">idata_lr_bias_overdispersed</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">ecdf</span><span class="o">=</span><span class="n">ecdf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]);</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">(</span><span class="n">idata_lr_bias_overdispersed</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Linear Regression: Rescaling effect</span><span class="se">\n</span><span class="s2">Biased and overdispersed model"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -754,14 +754,14 @@ fig.suptitle("Linear Regression: Rescaling effect\nBiased and overdispersed mode
   
   
   
-  <a href="../../category/arviz.html">arviz</a>
+  <a href="../../category/pymc.html">pymc</a>
   
   ,
   
   
   
   
-  <a href="../../category/pymc.html">pymc</a>
+  <a href="../../category/arviz.html">arviz</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>

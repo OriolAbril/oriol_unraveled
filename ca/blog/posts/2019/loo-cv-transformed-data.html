@@ -237,18 +237,18 @@
 <p>Blog post exploring whether or not LOO-CV can be used to compare models that try to explain some data <span class="math notranslate nohighlight">\(y\)</span> with models trying to explain the same data after a transformation <span class="math notranslate nohighlight">\(z=f(y)\)</span>. Inspired by <a class="reference external" href="https://discourse.mc-stan.org/t/very-simple-loo-question/9258">@tiagocc question</a> on Stan Forums. This post has two sections, the first one is the mathematical derivation of the equations used and their application on a validation example, and the second section is a real example. In addition to the LOO-CV usage examples and explanations, another goal of this notebook is to show and highlight the capabilities of <a class="reference external" href="https://arviz-devs.github.io/arviz/">ArviZ</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pystan
-import pandas as pd
-import numpy as np
-import arviz as az
-import matplotlib.pyplot as plt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pystan</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.style.use("arviz-darkgrid")
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -265,11 +265,11 @@ import matplotlib.pyplot as plt
 <p>Define the data and execute the two models</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mu = 2
-sigma = 1
-logy = np.random.normal(loc=mu, scale=sigma, size=30)
-y = np.exp(logy) # y will then be distributed as lognormal
-data = {'N': len(y), 'y': y, 'logy': logy}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">logy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logy</span><span class="p">)</span> <span class="c1"># y will then be distributed as lognormal</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'N'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="s1">'y'</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'logy'</span><span class="p">:</span> <span class="n">logy</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -281,32 +281,32 @@ data = {'N': len(y), 'y': y, 'logy': logy}
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lognormal_code = """
-data {
-  int&lt;lower=0&gt; N;
-  vector[N] y;
-}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lognormal_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">data {</span>
+<span class="s2">  int&lt;lower=0&gt; N;</span>
+<span class="s2">  vector[N] y;</span>
+<span class="s2">}</span>
 
-parameters {
-  real mu;
-  real&lt;lower=0&gt; sigma;
-}
+<span class="s2">parameters {</span>
+<span class="s2">  real mu;</span>
+<span class="s2">  real&lt;lower=0&gt; sigma;</span>
+<span class="s2">}</span>
 
-model {
-    y ~ lognormal(mu, sigma);
-}
+<span class="s2">model {</span>
+<span class="s2">    y ~ lognormal(mu, sigma);</span>
+<span class="s2">}</span>
 
-generated quantities {
-    vector[N] log_lik;
-    vector[N] y_hat;
+<span class="s2">generated quantities {</span>
+<span class="s2">    vector[N] log_lik;</span>
+<span class="s2">    vector[N] y_hat;</span>
 
-    for (i in 1:N) {
-        log_lik[i] = lognormal_lpdf(y[i] | mu, sigma);
-        y_hat[i] = lognormal_rng(mu, sigma);
-    }
-}
+<span class="s2">    for (i in 1:N) {</span>
+<span class="s2">        log_lik[i] = lognormal_lpdf(y[i] | mu, sigma);</span>
+<span class="s2">        y_hat[i] = lognormal_rng(mu, sigma);</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
 
-"""
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -314,8 +314,8 @@ generated quantities {
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sm_lognormal = pystan.StanModel(model_code=lognormal_code)
-fit_lognormal = sm_lognormal.sampling(data=data, iter=1000, chains=4)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_lognormal</span> <span class="o">=</span> <span class="n">pystan</span><span class="o">.</span><span class="n">StanModel</span><span class="p">(</span><span class="n">model_code</span><span class="o">=</span><span class="n">lognormal_code</span><span class="p">)</span>
+<span class="n">fit_lognormal</span> <span class="o">=</span> <span class="n">sm_lognormal</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -327,12 +327,12 @@ fit_lognormal = sm_lognormal.sampling(data=data, iter=1000, chains=4)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_lognormal = az.from_pystan(
-    posterior=fit_lognormal,
-    posterior_predictive='y_hat',
-    observed_data=['y'],
-    log_likelihood={'y': 'log_lik'},
-)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_lognormal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_lognormal</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -344,31 +344,31 @@ fit_lognormal = sm_lognormal.sampling(data=data, iter=1000, chains=4)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>normal_on_log_code = """
-data {
-  int&lt;lower=0&gt; N;
-  vector[N] logy;
-}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normal_on_log_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">data {</span>
+<span class="s2">  int&lt;lower=0&gt; N;</span>
+<span class="s2">  vector[N] logy;</span>
+<span class="s2">}</span>
 
-parameters {
-  real mu;
-  real&lt;lower=0&gt; sigma;
-}
+<span class="s2">parameters {</span>
+<span class="s2">  real mu;</span>
+<span class="s2">  real&lt;lower=0&gt; sigma;</span>
+<span class="s2">}</span>
 
-model {
-    logy ~ normal(mu, sigma);
-}
+<span class="s2">model {</span>
+<span class="s2">    logy ~ normal(mu, sigma);</span>
+<span class="s2">}</span>
 
-generated quantities {
-    vector[N] log_lik;
-    vector[N] logy_hat;
+<span class="s2">generated quantities {</span>
+<span class="s2">    vector[N] log_lik;</span>
+<span class="s2">    vector[N] logy_hat;</span>
 
-    for (i in 1:N) {
-        log_lik[i] = normal_lpdf(logy[i] | mu, sigma);
-        logy_hat[i] = normal_rng(mu, sigma);
-    }
-}
-"""
+<span class="s2">    for (i in 1:N) {</span>
+<span class="s2">        log_lik[i] = normal_lpdf(logy[i] | mu, sigma);</span>
+<span class="s2">        logy_hat[i] = normal_rng(mu, sigma);</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -376,8 +376,8 @@ generated quantities {
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sm_normal = pystan.StanModel(model_code=normal_on_log_code)
-fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_normal</span> <span class="o">=</span> <span class="n">pystan</span><span class="o">.</span><span class="n">StanModel</span><span class="p">(</span><span class="n">model_code</span><span class="o">=</span><span class="n">normal_on_log_code</span><span class="p">)</span>
+<span class="n">fit_normal</span> <span class="o">=</span> <span class="n">sm_normal</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -389,12 +389,12 @@ fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_normal = az.from_pystan(
-    posterior=fit_normal,
-    posterior_predictive='logy_hat',
-    observed_data=['logy'],
-    log_likelihood={'logy': 'log_lik'},
-)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_normal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_normal</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'logy_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'logy'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'logy'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -402,7 +402,7 @@ fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
 <p>Check model convergence. Use <code class="docutils literal notranslate"><span class="pre">az.summary</span></code> to in one view that the effective sample size (ESS) is large enough and <span class="math notranslate nohighlight">\(\hat{R}\)</span> is close to one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.summary(idata_lognormal)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -473,7 +473,7 @@ fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.summary(idata_normal)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -545,7 +545,7 @@ fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
 <p>In addition, we can plot the quantile ESS plot for one of them directly with <code class="docutils literal notranslate"><span class="pre">plot_ess</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_ess(idata_normal, kind="quantile", color="k");
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"quantile"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -559,7 +559,7 @@ fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
 <p>Check that both models are equivalent and do indeed give the same result for both parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.plot_density([idata_lognormal, idata_normal], data_labels=["Lognormal likelihood", "Normal likelihood"]);
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_density</span><span class="p">([</span><span class="n">idata_lognormal</span><span class="p">,</span> <span class="n">idata_normal</span><span class="p">],</span> <span class="n">data_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Lognormal likelihood"</span><span class="p">,</span> <span class="s2">"Normal likelihood"</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -573,7 +573,7 @@ fit_normal = sm_normal.sampling(data=data, iter=1000, chains=4)
 <p>Now we get to calculate LOO-CV using Pareto Smoothed Importance Sampling as detailed in Vehtari et al., 2017. As we explained above, both models are equivalent, but one is in terms of <span class="math notranslate nohighlight">\(y\)</span> and the other in terms of <span class="math notranslate nohighlight">\(\log y\)</span>. Therefore, their likelihoods will be on different scales, and hence, their expected log predictive density will also be different.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.loo(idata_lognormal)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -589,7 +589,7 @@ p_loo        1.80        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.loo(idata_normal)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -631,15 +631,15 @@ p_y(y|\theta)=p_z(z|\theta)|\frac{dz}{dy}|=\frac{1}{|y|}p_z(z|\theta)=e^{-z}p_z(
 <p>We apply the results to the log likelihood data of the second model (the normal on the logarithm instead of the lognormal) and check that now the result does coincide with the LOO-CV estimated by the lognormal model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>z = logy
-idata_normal.log_likelihood["y"] = -z+idata_normal.log_likelihood.logy
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">logy</span>
+<span class="n">idata_normal</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">z</span><span class="o">+</span><span class="n">idata_normal</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">logy</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.loo(idata_normal, var_name="y")
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -665,8 +665,8 @@ p_loo        1.64        -
 <p>Below, the data is loaded and plotted for inspection.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pd.read_csv("data/indicator_breast_female_incidence.csv", index_col=0)
-df.plot(figsize=(9,5.5));
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/indicator_breast_female_incidence.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mf">5.5</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
@@ -686,15 +686,15 @@ df.plot(figsize=(9,5.5));
 <p>This models have been chosen mainly because of their simplicity. In addition, they can all be applied using the same Stan code and the data looks kind of linear. This will put the focus of the example on the loo calculation instead of on the model itself. For the online example, the data from Finland has been chosen, but feel free to download the notebook and experiment with it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>y_data = df.Finland
-z1_data = np.log(y_data)
-z2_data = np.sqrt(y_data)
-x_data = df.index/100 # rescale to set both to a similar scale
-dict_y = {"N": len(x_data), "y": y_data, "x": x_data}
-dict_z1 = {"N": len(x_data), "y": z1_data, "x": x_data}
-dict_z2 = {"N": len(x_data), "y": z2_data, "x": x_data}
-coords = {"year": x_data}
-dims = {"y": ["year"], "log_likelihood": ["year"]}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Finland</span>
+<span class="n">z1_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">z2_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">/</span><span class="mi">100</span> <span class="c1"># rescale to set both to a similar scale</span>
+<span class="n">dict_y</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">y_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">dict_z1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">z1_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">dict_z2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">z2_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
+<span class="n">dims</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"year"</span><span class="p">],</span> <span class="s2">"log_likelihood"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"year"</span><span class="p">]}</span>
 </pre></div>
 </div>
 </div>
@@ -706,37 +706,37 @@ dims = {"y": ["year"], "log_likelihood": ["year"]}
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lr_code = """
-data {
-  int&lt;lower=0&gt; N;
-  vector[N] x;
-  vector[N] y;
-}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lr_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">data {</span>
+<span class="s2">  int&lt;lower=0&gt; N;</span>
+<span class="s2">  vector[N] x;</span>
+<span class="s2">  vector[N] y;</span>
+<span class="s2">}</span>
 
-parameters {
-  real b0;
-  real b1;
-  real&lt;lower=0&gt; sigma_e;
-}
+<span class="s2">parameters {</span>
+<span class="s2">  real b0;</span>
+<span class="s2">  real b1;</span>
+<span class="s2">  real&lt;lower=0&gt; sigma_e;</span>
+<span class="s2">}</span>
 
-model {
-  b0 ~ normal(0, 20);
-  b1 ~ normal(0, 20);
-  for (i in 1:N) {
-    y[i] ~ normal(b0 + b1 * x[i], sigma_e);
-  }
+<span class="s2">model {</span>
+<span class="s2">  b0 ~ normal(0, 20);</span>
+<span class="s2">  b1 ~ normal(0, 20);</span>
+<span class="s2">  for (i in 1:N) {</span>
+<span class="s2">    y[i] ~ normal(b0 + b1 * x[i], sigma_e);</span>
+<span class="s2">  }</span>
 
-}
+<span class="s2">}</span>
 
-generated quantities {
-    vector[N] log_lik;
-    vector[N] y_hat;
-    for (i in 1:N) {
-        log_lik[i] = normal_lpdf(y[i] | b0 + b1 * x[i], sigma_e);
-        y_hat[i] = normal_rng(b0 + b1 * x[i], sigma_e);
-    }
-}
-"""
+<span class="s2">generated quantities {</span>
+<span class="s2">    vector[N] log_lik;</span>
+<span class="s2">    vector[N] y_hat;</span>
+<span class="s2">    for (i in 1:N) {</span>
+<span class="s2">        log_lik[i] = normal_lpdf(y[i] | b0 + b1 * x[i], sigma_e);</span>
+<span class="s2">        y_hat[i] = normal_rng(b0 + b1 * x[i], sigma_e);</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -744,8 +744,8 @@ generated quantities {
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sm_lr = pystan.StanModel(model_code=lr_code)
-control = {"max_treedepth": 15}
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm_lr</span> <span class="o">=</span> <span class="n">pystan</span><span class="o">.</span><span class="n">StanModel</span><span class="p">(</span><span class="n">model_code</span><span class="o">=</span><span class="n">lr_code</span><span class="p">)</span>
+<span class="n">control</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"max_treedepth"</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -757,65 +757,65 @@ control = {"max_treedepth": 15}
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fit_y = sm_lr.sampling(data=dict_y, iter=1500, chains=6, control=control)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_y</span> <span class="o">=</span> <span class="n">sm_lr</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dict_y</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="n">control</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fit_z1 = sm_lr.sampling(data=dict_z1, iter=1500, chains=6, control=control)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_z1</span> <span class="o">=</span> <span class="n">sm_lr</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dict_z1</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="n">control</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fit_z2 = sm_lr.sampling(data=dict_z2, iter=1500, chains=6, control=control)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fit_z2</span> <span class="o">=</span> <span class="n">sm_lr</span><span class="o">.</span><span class="n">sampling</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dict_z2</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">control</span><span class="o">=</span><span class="n">control</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_y = az.from_pystan(
-    posterior=fit_y,
-    posterior_predictive='y_hat',
-    observed_data=['y'],
-    log_likelihood={'y': 'log_lik'},
-    coords=coords,
-    dims=dims,
-)
-idata_y.posterior = idata_y.posterior.rename({"b0": "a0", "b1": "a1"})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_y</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_y</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'y'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">idata_y</span><span class="o">.</span><span class="n">posterior</span> <span class="o">=</span> <span class="n">idata_y</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">"b0"</span><span class="p">:</span> <span class="s2">"a0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">:</span> <span class="s2">"a1"</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_z1 = az.from_pystan(
-    posterior=fit_z1,
-    posterior_predictive='y_hat',
-    observed_data=['y'],
-    log_likelihood={'z1': 'log_lik'},
-    coords=coords,
-    dims=dims,
-)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z1</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_z1</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'z1'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_z2 = az.from_pystan(
-    posterior=fit_z2,
-    posterior_predictive='y_hat',
-    observed_data=['y'],
-    log_likelihood={'z2': 'log_lik'},
-    coords=coords,
-    dims=dims,
-)
-idata_z2.posterior = idata_z2.posterior.rename({"b0": "c0", "b1": "c1"})
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+    <span class="n">posterior</span><span class="o">=</span><span class="n">fit_z2</span><span class="p">,</span>
+    <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
+    <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
+    <span class="n">log_likelihood</span><span class="o">=</span><span class="p">{</span><span class="s1">'z2'</span><span class="p">:</span> <span class="s1">'log_lik'</span><span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">idata_z2</span><span class="o">.</span><span class="n">posterior</span> <span class="o">=</span> <span class="n">idata_z2</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">"b0"</span><span class="p">:</span> <span class="s2">"c0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">:</span> <span class="s2">"c1"</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -825,7 +825,7 @@ idata_z2.posterior = idata_z2.posterior.rename({"b0": "c0", "b1": "c1"})
 <p>The transformation to apply to the second model <span class="math notranslate nohighlight">\(z_1 = \log y\)</span> is the same as the previous example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_z1.log_likelihood["y"] = -z1_data.values+idata_z1.log_likelihood.z1
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z1</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">z1_data</span><span class="o">.</span><span class="n">values</span><span class="o">+</span><span class="n">idata_z1</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">z1</span>
 </pre></div>
 </div>
 </div>
@@ -835,14 +835,14 @@ idata_z2.posterior = idata_z2.posterior.rename({"b0": "c0", "b1": "c1"})
 \[ |\frac{dz}{dy}| = |\frac{1}{2\sqrt{y}}| = \frac{1}{2 z_2} \quad \rightarrow \quad \log |\frac{dz}{dy}| = -\log (2 z_2)\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>idata_z2.log_likelihood["y"] = -np.log(2*z2_data.values)+idata_z2.log_likelihood.z2
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z2_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">+</span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">z2</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>az.loo(idata_y)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -858,8 +858,8 @@ p_loo        1.58        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print("LOO before Jacobian transformation: {:.2f}".format(az.loo(idata_z1, var_name="z1").loo))
-print(az.loo(idata_z1, var_name="y"))
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z1"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -876,8 +876,8 @@ p_loo        3.14        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print("LOO before Jacobian transformation: {:.2f}".format(az.loo(idata_z2, var_name="z2").loo))
-print(az.loo(idata_z2, var_name="y"))
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z2"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
