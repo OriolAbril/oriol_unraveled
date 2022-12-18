@@ -9,8 +9,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://oriolabrilpla.cat/en/projects.html" />
 <meta property="og:site_name" content="Oriol unraveled" />
-<meta property="og:description" content="Open source community projects: ArviZ: PyMC: Other: Personal projects:" />
-<meta name="description" content="Open source community projects: ArviZ: PyMC: Other: Personal projects:" />
+<meta property="og:description" content="This page describes my ongoing projects and collaborations, for past work, talks and publications, see About me. Open source community projects: ArviZ: The ArviZ project provides tools for Explorat..." />
+<meta name="description" content="This page describes my ongoing projects and collaborations, for past work, talks and publications, see About me. Open source community projects: ArviZ: The ArviZ project provides tools for Explorat..." />
 
     <title>Projects &#8212; Oriol unraveled</title>
   
@@ -372,68 +372,123 @@
           
   <section class="tex2jax_ignore mathjax_ignore" id="projects">
 <span id="id1"></span><h1>Projects<a class="headerlink" href="#projects" title="Permalink to this heading">#</a></h1>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>Page still in construction</p>
-</div>
+<p>This page describes my ongoing projects and collaborations,
+for past work, talks and publications, see <a class="reference internal" href="about.html#about-me"><span class="std std-ref">About me</span></a>.</p>
 <section id="open-source-community-projects">
 <h2>Open source community projects<a class="headerlink" href="#open-source-community-projects" title="Permalink to this heading">#</a></h2>
 <section id="arviz">
 <h3>ArviZ<a class="headerlink" href="#arviz" title="Permalink to this heading">#</a></h3>
+<aside class="sidebar">
+<img alt="https://raw.githubusercontent.com/arviz-devs/arviz-project/main/arviz_logos/ArviZ.svg" src="https://raw.githubusercontent.com/arviz-devs/arviz-project/main/arviz_logos/ArviZ.svg" /></aside>
+<p>The <a class="reference external" href="https://www.arviz.org/en/latest/index.html" title="(in ArviZ project)"><span class="xref std std-doc">ArviZ project</span></a> provides tools for Exploratory Analysis of Bayesian Models that do not depend on the inference library nor the programming language used.
+That includes visualization, sampling diagnostics, model comparison, summary statistics or model checking. ArviZ maintains several libraries in Python and Julia.</p>
+<p>I am currently a core contributor and council member of ArviZ.
+As such, I am contribute to multiple libraries maintained by ArviZ and
+I am involved with other project initiatives such as grants.</p>
+<p>Project wide, I help maintain the project website at <a class="reference external" href="https://www.arviz.org/en/latest/index.html" title="(in ArviZ project)"><span class="xref std std-doc">www.arviz.org</span></a>,
+coordinate project meetings, write grant proposals, try to make sure we follow ArviZ governance procedures…
+Moreover, I am more deeply involved with some of the libraries and initiatives of
+the project:</p>
+<section id="arviz-python-library">
+<h4>ArviZ Python library<a class="headerlink" href="#arviz-python-library" title="Permalink to this heading">#</a></h4>
+<p>I am one of the maintainers and main <a class="reference external" href="https://github.com/arviz-devs/arviz/graphs/contributors">contributors</a> to the ArviZ python library.
+I contribute on most areas of the repo, issue triaging, code, documentation or reviewing PRs,
+as well as mentoring and helping other contributors work on issues and submit PRs.</p>
 </section>
+<section id="xarray-einstats">
+<h4>xarray-einstats<a class="headerlink" href="#xarray-einstats" title="Permalink to this heading">#</a></h4>
+<p>I started this smaller <a class="reference external" href="https://einstats.python.arviz.org">library</a> to externalize and package many tricks
+on executing NumPy/Scipy/Dask functions on xarray objects.</p>
+<p>ArviZ already depends on it so it is easier for example to use summary statistics
+for circular variables, and it might be used more extensively to allow a
+better integration of ArviZ stats and diagnostics with xarray.</p>
+</section>
+<section id="czi-eoss-grant">
+<h4>CZI EOSS grant<a class="headerlink" href="#czi-eoss-grant" title="Permalink to this heading">#</a></h4>
+<p>I am currently acting as coordinator for the ArviZ part of an Essential
+Open Source Software (EOSS) grant from the Chan Zuckerberg Initiative (CZI):
+<a class="reference external" href="https://chanzuckerberg.com/eoss/proposals/bayesian-open-source-software-for-biomedicine-stan-arviz-and-pymc3/">Bayesian Open Source Software for Biomedicine: Stan, ArviZ and PyMC3</a>.</p>
+<p>Thanks to this grant, we have been able to both book dedicated team from
+team members and hire external help to improve both Python and Julia
+ArviZ libraries, improve the documentation, explore refactoring avenues
+and ease the maintenance cost.</p>
+<p>The experiments I have uploaded to <a class="reference external" href="https://xrtist.readthedocs.io/en/latest/">xrtist</a>,
+showcasing potential refactorings of the plots module in ArviZ are an example of such work.</p>
+</section>
+</section>
+<hr class="docutils" />
 <section id="pymc">
 <h3>PyMC<a class="headerlink" href="#pymc" title="Permalink to this heading">#</a></h3>
+<aside class="sidebar">
+<img alt="https://raw.githubusercontent.com/pymc-devs/brand/main/logos/PyMC.svg" src="https://raw.githubusercontent.com/pymc-devs/brand/main/logos/PyMC.svg" /></aside>
+<p>The <a class="reference external" href="https://www.pymc.io/index.html" title="(in PyMC project website)"><span class="xref std std-doc">PyMC project</span></a> is a project for probabilistic programming in Python.
+PyMC strives to make Bayesian modeling as simple and painless as possible,
+allowing users to focus on their problem rather than the methods.</p>
+<p>I am core contributor and council member of PyMC. Similarly to ArviZ,
+I also contribute to multiple libraries and initiatives within the project.
+However, in PyMC I try to focus much more on documentation and community efforts,
+coding much less than what I do at ArviZ.</p>
+<section id="pymc-example-gallery">
+<h4>PyMC example gallery<a class="headerlink" href="#pymc-example-gallery" title="Permalink to this heading">#</a></h4>
+<p>I am one of the main maintainers and curators of the <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest/gallery.html">PyMC example gallery</a>
+(everything within the “Examples” navigation bar section).</p>
+<p>I started focusing on the example gallery in 2020, when I coordinated
+the participaiton of PyMC in both <a class="reference external" href="https://developers.google.com/season-of-docs/docs/2021/participants">GSoD</a> and <a class="reference external" href="https://www.outreachy.org/">Outreachy</a>.
+During 2020, we defined the new look and updated many notebooks to it
+together with <a class="reference external" href="https://linktr.ee/martinacantaro">Martina Cantaro</a>
+and <a class="reference external" href="https://chiral-carbon.github.io/">Abhipsha Das</a>.</p>
+<p>And we have continued maintaining and improving the example gallery
+within the PyMC team since then.</p>
 </section>
+<section id="pymcon">
+<h4>PyMCon<a class="headerlink" href="#pymcon" title="Permalink to this heading">#</a></h4>
+<p>I am currently helping organize the <a class="reference external" href="https://pymcon.com/">PyMCon Webseries</a> as an advisor.</p>
+<p>I was also a Diversity Chair in <a class="reference external" href="https://pymc-devs.github.io/pymcon//">PyMCon 2020</a>.</p>
+</section>
+<section id="pymc-data-umbrella-working-sessions">
+<h4>PyMC Data Umbrella working sessions<a class="headerlink" href="#pymc-data-umbrella-working-sessions" title="Permalink to this heading">#</a></h4>
+<p>I also helped organize the <a class="reference external" href="https://pymc-data-umbrella.xyz/en/latest">PyMC Data Umbrella working sessions</a>.
+So far we have organized two series of working sessions in <a class="reference external" href="https://pymc-data-umbrella.xyz/en/latest/2022-02_sprint/organizers/index.html">Feb 2022</a> and <a class="reference external" href="https://pymc-data-umbrella.xyz/en/latest/2022-07_sprint/sprint_parties/organizers.html">July 2022</a>,
+which have been quite successful and helped several people join the PyMC team.</p>
+<p>We are currently working on translating the sprint website! Join the efforts on
+<a class="reference external" href="https://explore.transifex.com/pymc/data-umbrella-sprints-website/">transifex</a>!</p>
+</section>
+<section id="pymc-discourse">
+<h4>PyMC Discourse<a class="headerlink" href="#pymc-discourse" title="Permalink to this heading">#</a></h4>
+<p>Last but not least, I also try to answer questions about PyMC, ArviZ, visualization,
+model comparison… at the <a class="reference external" href="https://discourse.pymc.io/">PyMC Discourse</a>.</p>
+</section>
+</section>
+<hr class="docutils" />
 <section id="other">
 <h3>Other<a class="headerlink" href="#other" title="Permalink to this heading">#</a></h3>
+<p>I also try to contribute to other libraries, specially within the PyData ecosystem.
+I have made some issues and PRs to matplotlib, pydata-sphinx-theme or numpydoc,
+and try to follow xarray particularly closely to see which ArviZ developments
+could be upstreamed to xarray.</p>
 </section>
 </section>
 <section id="personal-projects">
 <h2>Personal projects<a class="headerlink" href="#personal-projects" title="Permalink to this heading">#</a></h2>
-<!--
-## Open source libraries
-Here are highlighted some open source projects I contribute to, check out my
-[GitHub profile](https://github.com/OriolAbril) for a complete list
-of the projects I contribute to.
-
-* [**ArviZ**](https://github.com/arviz-devs/arviz): Exploratory analysis of
-  Bayesian models in [Python](https://arviz-devs.github.io/arviz/index.html)
-  or [Julia](https://arviz-devs.github.io/ArviZ.jl/stable/)
-* [**xarray-einstats**](https://xarray-einstats.readthedocs.io/en/latest):
-  Label based statistics, linear algebra and einops for xarray objects.
-* [**PyMC**](https://www.pymc.io): Friendly probabilistic programming in Python.
-  - In addition to helping a bit with PyMC development, I am one of the main curator/reviewers
-    of [PyMC-examples](https://docs.pymc.io/projects/examples/en/latest/),
-    a collection of Jupyter notebooks about Bayesian modeling with PyMC.
-* [**mombf**](https://github.com/davidrusi/mombf): Bayesian model selection and
-  averaging for regression and mixtures for non-local and local priors.
-* [**exosherlock**](https://github.com/mbadenas/exosherlock): Smooth
-  your interactions with the NASA Exoplanet Archive using Python and pandas.
-
-## Projects and initiatives
-* [**CZI EOSS 4 grant**](https://chanzuckerberg.com/eoss/proposals/bayesian-open-source-software-for-biomedicine-stan-arviz-and-pymc3/):
-  Bayesian Open Source Software for Biomedicine: Stan, ArviZ and PyMC
-* [**PyMC-Data Umbrella sprint**](https://pymc-data-umbrella.xyz/en/latest):
-  A series of webinars and sprint event to encourage and help people contribute to PyMC.
-* [**Season of Docs at ArviZ**](https://arviz-gsod.readthedocs.io/en/latest/):
-  [GSoD](https://developers.google.com/season-of-docs/) is an initiative to help
-  open source projects get in contact and hire technical writers.
-* [**PyMCon 2020**](https://pymc-devs.github.io/pymcon//): PyMCon 2020 is an
-  asynchronous-first virtual conference for the Bayesian community
-
-
-## Talks and conferences
-* PyMC-Data Umbrella sprint webinar: _Contributing to PyMC documentation_
-  [video and presentation material](https://pymc-data-umbrella.xyz/en/latest/webinars/contributing_to_documentation/index.html)
-* Data Umbrella webinar: _Bayesian modeling with PyMC3_ [video recording](https://www.youtube.com/watch?v=6dc7JgR8eI0),
-  [slides](https://oriolabril.github.io/pymc3-data_umbrella/)
-* PROBPROG 2020: _Backend agnostic exploratory analysis of Bayesian models_. Poster presentation.
-  All the materials are available on [GitHub](https://github.com/OriolAbril/arviz-probprog-2020)
-* StanCon 2020: _ArviZ, InferenceData, and NetCDF: A unified file format for Bayesians._
-  Slides and video presentation are available at [GitHub](https://github.com/arviz-devs/arviz_misc/tree/master/stancon_2020),
-  the slides are executable thanks to Binder!
-  - Slides and video presentations are available in English, Catalan, French and Finnish.
--->
+<section id="sphinx-primer">
+<h3>Sphinx primer<a class="headerlink" href="#sphinx-primer" title="Permalink to this heading">#</a></h3>
+<p>I wrote and maintain a <a class="reference external" href="https://sphinx-primer.readthedocs.io/en/latest/">small website</a>
+that aims to be a first contact to sphinx for contributors of scientific open
+source libraries, especially ArviZ and PyMC contributors.</p>
+<p>I also use it as a personal reference to host useful links, tips and tricks
+I recurrently need when working on sphinx generated websites.</p>
+<p>Fun fact: I used sphinx-primer as a playground to learn how to manage translations
+in sphinx, which eventually allowed me to build my personal website
+(the one you are on now) with sphinx and in multiple languages!</p>
+</section>
+<section id="oriol-personal-theme">
+<h3><code class="docutils literal notranslate"><span class="pre">oriol-personal-theme</span></code><a class="headerlink" href="#oriol-personal-theme" title="Permalink to this heading">#</a></h3>
+<p>I also host the <a class="reference external" href="https://github.com/OriolAbril/oriol-personal-theme">sphinx theme used for this website</a> on GitHub as a Python package.</p>
+<p>It is an extension on top of the <a class="reference external" href="https://pydata-sphinx-theme.readthedocs.io/en/stable/">PyData-Sphinx-Theme</a> inspired on the <a class="reference external" href="https://html5up.net/massively">Massively theme</a> by HTML5Up.</p>
+<p>I don’t have any immediate plans to make it a proper theme usable by other people,
+but I might consider it if there is interest and people willing to help improve
+and maintain it.</p>
+</section>
 </section>
 </section>
 
@@ -469,11 +524,50 @@ of the projects I contribute to.
     <a class="reference internal nav-link" href="#arviz">
      ArviZ
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#arviz-python-library">
+       ArviZ Python library
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#xarray-einstats">
+       xarray-einstats
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#czi-eoss-grant">
+       CZI EOSS grant
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#pymc">
      PyMC
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pymc-example-gallery">
+       PyMC example gallery
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pymcon">
+       PyMCon
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pymc-data-umbrella-working-sessions">
+       PyMC Data Umbrella working sessions
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pymc-discourse">
+       PyMC Discourse
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#other">
@@ -486,6 +580,22 @@ of the projects I contribute to.
   <a class="reference internal nav-link" href="#personal-projects">
    Personal projects
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sphinx-primer">
+     Sphinx primer
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#oriol-personal-theme">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       oriol-personal-theme
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 

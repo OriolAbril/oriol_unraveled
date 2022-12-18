@@ -1,3 +1,4 @@
+(about_me)=
 # About me
 
 I'm a physicist/engineer converted into a computational statistician.
@@ -19,6 +20,74 @@ the summer at the _Costa Brava_. Here I leave you a sneak peak of the views
 when nobody is around
 
 ![A small cave with clear water and pine trees growing near the sea](images/cala_costa_brava.jpg)
+
+(talks_conferences)=
+## Talks and conferences
+::::{dropdown} Contributing to ArviZ and Open Source: Social and technical sides
+:icon: device-camera-video
+:open:
+
+Online webinar with [Data Umbrella](https://www.dataumbrella.org/).
+
+:::{youtube} 457ZTes4xOI
+:::
+
+**Webinar resources**
+* Slides: https://oriolabril.github.io/contributing_to_arviz/
+  ({kbd}`space` for next slide)
+* Example PR: https://github.com/arviz-devs/arviz/pull/2176
+* Source repo: https://github.com/OriolAbril/contributing_to_arviz
+
+::::
+::::{dropdown} Contributing to PyMC documentation
+:icon: device-camera-video
+
+Online webinar with [Data Umbrella](https://www.dataumbrella.org/).
+
+:::{youtube} fzpmLWQNj4A
+:::
+
+**Webinar resources**
+* Presentation material: https://pymc-data-umbrella.xyz/en/latest/about/contributing_to_documentation/docs_presentation.html
+* PyMC Series paylist: https://www.youtube.com/playlist?list=PLBKcU7Ik-ir99uTvN0315hIVLuyj4Q1Gt
+* Sprint website: https://pymc-data-umbrella.xyz/en/latest/2022-07_sprint/schedule.html
+::::
+::::{dropdown} Intuitive Bayesian Modeling and Computation with PyMC
+:icon: device-camera-video
+
+Online webinar with [Data Umbrella](https://www.dataumbrella.org/).
+
+:::{youtube} 6dc7JgR8eI0
+:::
+
+**Webinar resources**
+* Slides: https://oriolabril.github.io/pymc3-data_umbrella/
+  ({kbd}`space` for next slide)
+* PyMC Series paylist: https://www.youtube.com/playlist?list=PLBKcU7Ik-ir99uTvN0315hIVLuyj4Q1Gt
+::::
+:::{dropdown} Backend agnostic Exploratory Analysis of Bayesian Models
+
+Poster presentation at [PROBPROG](https://probprog.cc/) 2020.
+
+**Resources**
+* Poster pdf: https://raw.githubusercontent.com/OriolAbril/arviz-probprog-2020/main/probprog_poster.pdf
+* Source and code examples: https://github.com/OriolAbril/arviz-probprog-2020
+:::
+
+::::{dropdown} ArviZ, InferenceData and netCDF: A unified file format for Bayesians
+:icon: device-camera-video
+
+Collaborative talk at StanCon 2020.
+
+:::{youtube} TOCphac1GM0
+:::
+
+**Resources**
+* Slides and video presentation are available at [GitHub](https://github.com/arviz-devs/arviz_misc/tree/master/stancon_2020),
+  the slides are executable thanks to Binder!
+  - Slides and video presentations are available in English, Catalan, French and Finnish.
+::::
+
 ## Academic work and publications
 I have also worked as doctoral researcher and research assistant,
 at Helsinki University and at Universitat Pompeu Fabra respectively.
@@ -71,6 +140,6 @@ Donate to PyMC
 When donating to ArviZ or PyMC, you are supporting me indirectly,
 along with the rest of the people who make these libraries possible.
 
-If you use open source and have the means to do so, please consider donating somehow.
+If you or your company use open source and have the means to do so, please consider donating somehow.
 We need some financial support to make sure open source is sustainable.
 

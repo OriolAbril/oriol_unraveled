@@ -30,15 +30,27 @@ Get ready for some puns and let's dive in!
 ::::{grid} 1 1 2 2
 :gutter: 3
 
+:::{grid-item-card} Panel discussion
+
+I will participate in a discussion about Google Summer of Code organized by
+[Data Umbrella](https://www.dataumbrella.org/).
+Together with other GSoC participants, we'll share our experiences applying and participating to the project.
+
+You can register on [MeetUp](https://www.meetup.com/data-umbrella/events/290346752/).
++++
+Jan 24, 2023
+:::
+
 :::{grid-item-card} Webinar
 
-I will give an [online webinar](https://www.meetup.com/data-umbrella/events/289308615/)
-with [Data Umbrella](https://www.dataumbrella.org/) on how to contribute to ArviZ and to open source in general.
-:::
-:::{grid-item-card} Working session
+I gave an online webinar with [Data Umbrella](https://www.dataumbrella.org/)
+on how to contribute to ArviZ and to open source in general,
+covering both social and technical aspects and doing a PR live during the webinar.
 
-I will participate to [PyData Global](https://global2022.pydata.org) hosting a working session
-on [interoperability within the Python Bayesian ecosystem](https://global2022.pydata.org/cfp/talk/BNUAL8/).
+The video is [available on YouTube](https://www.youtube.com/watch?v=457ZTes4xOI),
+go check it out!
++++
+Nov 29, 2022
 :::
 ::::
 
