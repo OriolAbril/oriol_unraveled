@@ -32,6 +32,7 @@ extensions = [
     "sphinxext.opengraph",
     "sphinx_codeautolink",
     "notfound.extension",
+    "sphinxcontrib.youtube",
     # "sphinxext.rediraffe",
 ]
 
@@ -56,13 +57,13 @@ ogp_use_first_image = True
 
 nb_execution_mode = "auto"
 nb_execution_excludepatterns = ["*.ipynb"]
-myst_enable_extensions = ["colon_fence", "deflist", "dollarmath", "amsmath"]
+myst_enable_extensions = ["colon_fence", "deflist", "dollarmath", "amsmath", "linkify"]
 
 intersphinx_mapping = {
     "arviz": ("https://python.arviz.org/en/latest/", None),
     "arviz_org": (f"https://www.arviz.org/{language}/latest/", None),
     "mpl": ("https://matplotlib.org/stable/", None),
-    "numpy": ("https://numpy.org/doc/stable/", None),
+    # "numpy": ("https://numpy.org/doc/stable/", None),
     "pymc": ("https://www.pymc.io/projects/docs/en/stable/", None),
     "pymc_io": ("https://www.pymc.io", None),
     "pymc-examples": ("https://www.pymc.io/projects/examples/en/latest/", None),

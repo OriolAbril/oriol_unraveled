@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oriol unraveled \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-29 15:36+0100\n"
+"POT-Creation-Date: 2022-12-18 20:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,11 +26,11 @@ msgstr "Etiquetes"
 msgid "Categories"
 msgstr "Categories"
 
-#: ../sphinx_source/index.md:6 8f70774719af468db443836bd286f081
+#: ../sphinx_source/index.md:6 ef9e9005d02640998b95d61f7586976f
 msgid "Oriol unraveled"
 msgstr "Oriol unraveled"
 
-#: ../sphinx_source/index.md:19 5d522a41950f4d06a3242ae46607d240
+#: ../sphinx_source/index.md:19 78c5acc3b44a4a6a98107dde5c5a1452
 msgid ""
 "A well known Catalan saying goes: \"Xerrar pels descosits\". It means "
 "that somebody talks too much. \"xerrar\" is talking and a \"descosit\" "
@@ -41,23 +41,22 @@ msgid ""
 "and programming, allowing me to \"xerrar pels descosits\" in blog "
 "version."
 msgstr ""
-"En català tenim l'espressió \"Xerrar pels descosits\". "
-"En anglès, el verb \"unravel\" te dues accepcions: "
-"\"desfilar\" o \"fer planer, lliure de dificultats\". "
-"He escollit el participi \"unraveled\" pel nom del blog "
-"perquè tot i que normalment no parlo massa, quan es tracta "
-"de parlar d'estadística o programació acabo parlant massa. "
-"Espero que aquest blog pugui ser un lloc on poder \"desfilar\" "
-"i aclarir conceptes relacionats amb l'estadística i el programari lliure, "
-"un lloc on poder xerrar pels descosits en versió blog."
+"En català tenim l'espressió \"Xerrar pels descosits\". En anglès, el verb"
+" \"unravel\" te dues accepcions: \"desfilar\" o \"fer planer, lliure de "
+"dificultats\". He escollit el participi \"unraveled\" pel nom del blog "
+"perquè tot i que normalment no parlo massa, quan es tracta de parlar "
+"d'estadística o programació acabo parlant massa. Espero que aquest blog "
+"pugui ser un lloc on poder \"desfilar\" i aclarir conceptes relacionats "
+"amb l'estadística i el programari lliure, un lloc on poder xerrar pels "
+"descosits en versió blog."
 
-#: ../sphinx_source/index.md:21 db5fec01854a4ba6938181bb56bf2c9c
+#: ../sphinx_source/index.md:22 28a95870dc794135ae7b27aa7309493f
 msgid "Get ready for some puns and let's dive in!"
 msgstr ""
 "Prepareu-vos per uns quants jocs de paraules i aprofundim en el "
 "programari lliure i l'estadística!"
 
-#: ../sphinx_source/index.md:24 9beb66ec0fa04438b495744de39409d9
+#: ../sphinx_source/index.md:26 6b0b96c236744cc9959716f80777f1dd
 msgid ""
 "![A picture of me diving towards the sea bed while "
 "snorkeling.](images/theme_image.png)"
@@ -65,34 +64,66 @@ msgstr ""
 "![Una fotografia meva capbussant-me cap al fons "
 "marí.](images/theme_image.png)"
 
-#: ../sphinx_source/index.md:24 df1d75d770fc4a059c45f8b47fec09ba
+#: ../sphinx_source/index.md:26 1a5d538b376b416490fa7854eefea6be
 msgid "A picture of me diving towards the sea bed while snorkeling."
 msgstr "Una fotografia meva capbussant-me cap al fons marí."
 
-#: ../sphinx_source/index.md:26 53eca571f6c347fa834525f926a0ca53
+#: ../sphinx_source/index.md:28 e2ee98ae99b842768a718b8aa696e665
 msgid "News"
 msgstr "Notícies"
 
-#: ../sphinx_source/index.md:33 5b9e7c1b1cc948eda4b2f6cd4547538c
+#: ../sphinx_source/index.md:35 6c93b86016894c14b31e65a57ae83592
 msgid ""
-"I will give an [online webinar](https://www.meetup.com/data-"
-"umbrella/events/289308615/) with [Data "
+"I will participate in a discussion about Google Summer of Code organized "
+"by [Data Umbrella](https://www.dataumbrella.org/). Together with other "
+"GSoC participants, we'll share our experiences applying and participating"
+" to the project."
+msgstr ""
+"Participaré en una taula rodona sobre Google Summer of Code (GSoC) organitzada "
+"per [Data Umbrella](https://www.dataumbrella.org/). Jo i altres participants "
+"al GSoC parlarem de la nostra experiència al inscriure'ns i participar en "
+"aquest projecte."
+
+#: ../sphinx_source/index.md:39 2515f1aa031c409691596848abce7a21
+msgid ""
+"You can register on [MeetUp](https://www.meetup.com/data-"
+"umbrella/events/290346752/)."
+msgstr ""
+"Us podeu registrar a [MeetUp](https://www.meetup.com/data-"
+"umbrella/events/290346752/) (tant el formulari com la taula rodona són en anglès)."
+
+#: ../sphinx_source/index.md:41 bce2f92b7bcb4cb6b56d309392b421ce
+msgid "Jan 24, 2023"
+msgstr "24 de gener de 2023"
+
+#: ../sphinx_source/index.md:46 15498b67281546338f23f23ebc5f225c
+msgid ""
+"I gave an online webinar with [Data "
 "Umbrella](https://www.dataumbrella.org/) on how to contribute to ArviZ "
-"and to open source in general."
+"and to open source in general, covering both social and technical aspects"
+" and doing a PR live during the webinar."
 msgstr ""
+"Vaig fer una xerrada online amb [Data Umbrella](https://www.dataumbrella.org) "
+"sobre com col·laborar a ArviZ i al programari lliure en general. Durant la xerrada "
+"parlo tant d'aspectes tècnics com socials, i faig una suggerència de canvis en directe."
 
-#: ../sphinx_source/index.md:38 5e0b3ac0f2cd4002af04840841638518
+#: ../sphinx_source/index.md:50 1556cab918144822858b0a78fd24ff4e
 msgid ""
-"I will participate to [PyData Global](https://global2022.pydata.org) "
-"hosting a working session on [interoperability within the Python Bayesian"
-" ecosystem](https://global2022.pydata.org/cfp/talk/BNUAL8/)."
+"The video is [available on "
+"YouTube](https://www.youtube.com/watch?v=457ZTes4xOI), go check it out!"
 msgstr ""
+"La gravació (en anglès) està [disponible a YouTube](https://www.youtube.com/watch?"
+"v=457ZTes4xOI), no te la perdis!"
 
-#: ../sphinx_source/index.md:43 fb59a9a564d54be88086f172b6d678af
+#: ../sphinx_source/index.md:53 6ad8248f20624163bfe063616f30ecfb
+msgid "Nov 29, 2022"
+msgstr "29 de novembre de 2022"
+
+#: ../sphinx_source/index.md:57 556077750f6c4be6b197e02130636e13
 msgid "Projects"
 msgstr "Projectes"
 
-#: ../sphinx_source/index.md:44 06a2a4df8b35450a8874867517266392
+#: ../sphinx_source/index.md:58 5f06fde1ae8d43fcaa4b18a99a5b5d5c
 msgid ""
 "Most of my current work is related to two community-drives open source "
 "libraries: ArviZ and PyMC. They are both related to Bayesian modeling, "
@@ -103,100 +134,133 @@ msgstr ""
 " de modelització Bayesiana, però tenen missions diferents i "
 "complementàries."
 
-#: ../sphinx_source/index.md:53 e39e83dc074d48afaa2f57b9efd0e729
+#: ../sphinx_source/index.md:67 0a26351392fc4263bdee393c77d7016a
 msgid "{doc}`ArviZ <arviz_org:index>`"
 msgstr ""
 
-#: ../sphinx_source/index.md:56 d9a5cd74ffcf4e9db3f7cdda49751b1d
+#: ../sphinx_source/index.md:70 f9c96e5e314241c985e783135165074a
 msgid ""
 "The ArviZ project provides tools for Exploratory Analysis of Bayesian "
 "Models that do not depend on the inference library nor the programming "
 "language used."
 msgstr ""
+"El projecte ArviZ proveeix eines per a fer anàlisi exploratòria de "
+"models Bayesians que no depenen de les llibreries d'inferència ni "
+"dels llenguatges de programació usats."
 
-#: ../sphinx_source/index.md:58 9740e850c3f34f2d8cb6e8e2f94baafe
+#: ../sphinx_source/index.md:72 582d7668aaf34ca49cb135f8d6d3f8a9
 msgid ""
 "That includes visualization, sampling diagnostics, model comparison, "
 "summary statistics or model checking. The ArviZ project maintains several"
 " libraries in Python and Julia."
 msgstr ""
+"Això inclou visualització, diagnostics de mostreig, comparació de models, "
+"resums estadístics o verificació de models. El projecte ArviZ manté varies "
+"llibreries en Python i Julia."
 
-#: ../sphinx_source/index.md:62 96e4084621044efda3bd907ce60c4a66
+#: ../sphinx_source/index.md:76 5792c77f8110402691435d4cf5f737a0
 msgid "{doc}`PyMC <pymc_io:index>`"
 msgstr ""
 
-#: ../sphinx_source/index.md:65 c44108b25d114f1e96aa3659432e6ac0
+#: ../sphinx_source/index.md:79 eedcf281e3694f8095815450eeff3843
 msgid ""
 "PyMC is a project for probabilistic programming in Python. PyMC strives "
 "to make Bayesian modeling as simple and painless as possible, allowing "
 "users to focus on their problem rather than the methods."
 msgstr ""
+"PyMC és un projecte de programació probabilistica en Python. PyMC aspira "
+"a fer la modelització Bayesiana tan simple i agradable com sigui possible, "
+"permetent al seus usuaris centrar-se en els seus problemes reals enlloc "
+"dels mètodes necessaris per resoldre'ls."
 
-#: ../sphinx_source/index.md:67 407f137f59a54c0ab941822e3661b7a3
+#: ../sphinx_source/index.md:81 4d47874042d849aca0b963f0ffee19cf
 msgid ""
 "The PyMC project maintains the PyMC library, the flagship of the project,"
 " as well as extensive documentation and some smaller libraries that "
 "complement the PyMC library. Moreover, it also organizes many activities "
 "such as [PyMCon](https://pymcon.com/)."
 msgstr ""
+"El projecte PyMC manté la llibreria PyMC, la llibreria referent del projecte, "
+" juntament amb una extensa documentació i altres llibreries més petites que "
+"complementen la llibreria PyMC. A més, també organitza activitats com ara "
+"[PyMCon](https://pymcon.com/)."
 
-#: ../sphinx_source/index.md:72 cfd4820c622e4520974065c7fc324524
+#: ../sphinx_source/index.md:86 c32bb8e531154ea4871ce5ea2031a755
 msgid ""
 "See the {ref}`projects` page for a complete list of the projects I am "
 "involved in."
 msgstr ""
+"Consulteu a pàgina de {ref}`projects` la llista completa dels projectes "
+"en els que treballo."
 
-#: ../sphinx_source/index.md:74 80a8c809968942d692306dd7e6f3decb
+#: ../sphinx_source/index.md:88 a188e8cdc87446f1af4750011119e635
 msgid "Support me"
-msgstr ""
+msgstr "Dona'm suport"
 
-#: ../sphinx_source/partials/donations.md:11 789fee2a95cb4f67890515f9fcf3f5f7
+#: ../sphinx_source/partials/donations.md:11 1debae74b742410c8c304fbd448e24d7
 msgid "Ko-Fi"
 msgstr ""
 
-#: ../sphinx_source/partials/donations.md:14 0fed9377cf7c430a9ee59c40d18b65c0
+#: ../sphinx_source/partials/donations.md:14 dc35ee085c8d429eb46ccb69b533b605
 msgid "Flexible donations, one time or recurrent"
-msgstr ""
+msgstr "Donacions flexibles, puntuals o recurrents"
 
 #: ../sphinx_source/partials/donations.md:15
-#: ../sphinx_source/partials/donations.md:28 c34bb11fb8904c608915f693f39de0ee
-#: f15e060d370d44658a31cf649bbd3dac
+#: ../sphinx_source/partials/donations.md:28 93d03ef0bf90485f9835720be3b07ff7
+#: c2dee05683324e9abbe0e983a2ea4fa9
 msgid "Account required"
-msgstr ""
+msgstr "Cal crear-s'hi un compte"
 
-#: ../sphinx_source/partials/donations.md:16 d02a4e0c1001448eb00d9eecc8dbe75b
+#: ../sphinx_source/partials/donations.md:16 0d3eb80bb9c74d369ea4e1730cc159ff
 msgid "Debit or credit card, PayPal or Stripe available"
-msgstr ""
+msgstr "Accepta targetes de dèbit o crèdit, PayPal o Stripe"
 
-#: ../sphinx_source/partials/donations.md:24 bc8d77d1f13b4df3b11c0b26b50b32a9
+#: ../sphinx_source/partials/donations.md:24 72bfa92370454cb4a10f9cf8867d7bc9
 msgid "LiberaPay"
 msgstr ""
 
-#: ../sphinx_source/partials/donations.md:27 5d92d0f2a8d34904868f4412acc18446
+#: ../sphinx_source/partials/donations.md:27 5511d10eb86e4c98911e766250b74679
 msgid "Recurrent donations only"
-msgstr ""
+msgstr "Només donacions recurrents"
 
-#: ../sphinx_source/partials/donations.md:29 4fc1151b135f49d2a695461dad3bc8c7
+#: ../sphinx_source/partials/donations.md:29 7e2f3baa047742adbbb2d0ae6c54cfe4
 msgid "Debit or credit card, PayPal or EURO bank transfer available"
-msgstr ""
+msgstr "Accepta targeta de dèbit o crèdit, PayPal o transferències bancàries en EURO"
 
-#: ../sphinx_source/partials/donations.md:37 30bac8ff72324045939dcafefdbdf3fe
+#: ../sphinx_source/partials/donations.md:37 07a7490221d94b2fb84de264a090e972
 msgid "Buy Me a Coffee"
 msgstr ""
 
-#: ../sphinx_source/partials/donations.md:40 df35e554c05545fb871b14951e9920d2
+#: ../sphinx_source/partials/donations.md:40 45bcdcd5a9534785a43683e06e5f5384
 msgid "One time donations only (at least for now)"
-msgstr ""
+msgstr "Només donacions puntuals"
 
-#: ../sphinx_source/partials/donations.md:41 3367c8c0ea5e4f5d90704dfa51933eb8
+#: ../sphinx_source/partials/donations.md:41 74037b2ddd8848b3bf6d67af47a8a593
 msgid "No account required"
-msgstr ""
+msgstr "No cal crear-s'hi cap compte"
 
-#: ../sphinx_source/partials/donations.md:42 982a7399715a402aa410332d24e8ae24
+#: ../sphinx_source/partials/donations.md:42 2c2c3bdce9a2453ba89f7221fb3156e8
 msgid "Debit or credit card"
-msgstr ""
+msgstr "Targeta de dèbit o crèdit"
 
-#: ../sphinx_source/index.md:79 d2af64e3e7064edca2e68855736899d1
+#: ../sphinx_source/index.md:93 775f69a8023f49988df5e10823b37ca1
 msgid "See {ref}`support_me` section for more ways to support my work."
-msgstr ""
+msgstr "La secció {ref}`support_me` conté encara més detalls sobre com "
+"ajudar a finançar la meva feina."
+
+#~ msgid ""
+#~ "I will give an [online "
+#~ "webinar](https://www.meetup.com/data-umbrella/events/289308615/)"
+#~ " with [Data Umbrella](https://www.dataumbrella.org/)"
+#~ " on how to contribute to ArviZ "
+#~ "and to open source in general."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "I will participate to [PyData "
+#~ "Global](https://global2022.pydata.org) hosting a "
+#~ "working session on [interoperability within"
+#~ " the Python Bayesian "
+#~ "ecosystem](https://global2022.pydata.org/cfp/talk/BNUAL8/)."
+#~ msgstr ""
 

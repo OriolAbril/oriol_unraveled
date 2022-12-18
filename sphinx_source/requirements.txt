@@ -1,12 +1,14 @@
 Sphinx>=5
 sphinx-copybutton
 sphinx-design
+myst-parset[linkify]
 myst-nb
 git+https://github.com/sunpy/ablog
 sphinx-codeautolink
 sphinxext-opengraph
 sphinx-notfound-page
 sphinxext-rediraffe
+sphinxcontrib-youtube
 git+https://github.com/oriolabril/oriol-personal-theme
 # Temporary fix for lexer errors
 ipython!=8.7.0

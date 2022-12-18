@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oriol unraveled \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-29 00:46+0100\n"
+"POT-Creation-Date: 2022-12-18 20:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,31 +18,272 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.11.0\n"
 
-#: ../sphinx_source/projects.md:2 ce8cec80f23343ca889a7659948a91cf
+#: ../sphinx_source/projects.md:2 2b24677150ce44ce93617190f97f4d22
 msgid "Projects"
 msgstr ""
 
-#: ../sphinx_source/projects.md:5 b94b0ef6f7054fd08216eb90f5b84c73
-msgid "Page still in construction"
+#: ../sphinx_source/projects.md:3 491ba059d7544d68bd343894c737d0d9
+msgid ""
+"This page describes my ongoing projects and collaborations, for past "
+"work, talks and publications, see {ref}`about_me`."
 msgstr ""
 
-#: ../sphinx_source/projects.md:7 ee3bcbd8aa394b0ca0fdb1c51f6280c2
+#: ../sphinx_source/projects.md:6 9feb45e4505044409e1e33c05cbca895
 msgid "Open source community projects"
 msgstr ""
 
-#: ../sphinx_source/projects.md:9 7dbe170a13c5469583bf057b3ec57b68
+#: ../sphinx_source/projects.md:8 9f663e3b186d4771a05e59bb598ac21c
 msgid "ArviZ"
 msgstr ""
 
-#: ../sphinx_source/projects.md:11 20997865534e4fbf991faed45d8cdecc
+#: ../sphinx_source/projects.md:15 888bfb7fd68f4d9db7006ef672f22d0f
+msgid ""
+"The {doc}`ArviZ project <arviz_org:index>` provides tools for Exploratory"
+" Analysis of Bayesian Models that do not depend on the inference library "
+"nor the programming language used. That includes visualization, sampling "
+"diagnostics, model comparison, summary statistics or model checking. "
+"ArviZ maintains several libraries in Python and Julia."
+msgstr ""
+
+#: ../sphinx_source/projects.md:18 adf87c6427924a9f869722b8f57a25f3
+msgid ""
+"I am currently a core contributor and council member of ArviZ. As such, I"
+" am contribute to multiple libraries maintained by ArviZ and I am "
+"involved with other project initiatives such as grants."
+msgstr ""
+
+#: ../sphinx_source/projects.md:22 6f7c9fc6cb6648f0a1583cd6a9e182b1
+msgid ""
+"Project wide, I help maintain the project website at {doc}`www.arviz.org "
+"<arviz_org:index>`, coordinate project meetings, write grant proposals, "
+"try to make sure we follow ArviZ governance procedures... Moreover, I am "
+"more deeply involved with some of the libraries and initiatives of the "
+"project:"
+msgstr ""
+
+#: ../sphinx_source/projects.md:27 bad953b2721c47b087c5c6c4df3c4fad
+msgid "ArviZ Python library"
+msgstr ""
+
+#: ../sphinx_source/projects.md:28 6322a1dcffdd4215a767faf4fc6989c6
+msgid ""
+"I am one of the maintainers and main [contributors](https://github.com"
+"/arviz-devs/arviz/graphs/contributors) to the ArviZ python library. I "
+"contribute on most areas of the repo, issue triaging, code, documentation"
+" or reviewing PRs, as well as mentoring and helping other contributors "
+"work on issues and submit PRs."
+msgstr ""
+
+#: ../sphinx_source/projects.md:32 340edcb6a5104f0eb27ec9277423fe2f
+msgid "xarray-einstats"
+msgstr ""
+
+#: ../sphinx_source/projects.md:33 dbb73554f7b34b66b170d1b1d3040ad3
+msgid ""
+"I started this smaller [library](https://einstats.python.arviz.org) to "
+"externalize and package many tricks on executing NumPy/Scipy/Dask "
+"functions on xarray objects."
+msgstr ""
+
+#: ../sphinx_source/projects.md:36 2ce0286c556c42918ee744f46468d68c
+msgid ""
+"ArviZ already depends on it so it is easier for example to use summary "
+"statistics for circular variables, and it might be used more extensively "
+"to allow a better integration of ArviZ stats and diagnostics with xarray."
+msgstr ""
+
+#: ../sphinx_source/projects.md:40 6cfdfc425c87478794434920200018db
+msgid "CZI EOSS grant"
+msgstr ""
+
+#: ../sphinx_source/projects.md:41 3999b5dbc83447fcbbc735a298191dda
+msgid ""
+"I am currently acting as coordinator for the ArviZ part of an Essential "
+"Open Source Software (EOSS) grant from the Chan Zuckerberg Initiative "
+"(CZI): [Bayesian Open Source Software for Biomedicine: Stan, ArviZ and "
+"PyMC3](https://chanzuckerberg.com/eoss/proposals/bayesian-open-source-"
+"software-for-biomedicine-stan-arviz-and-pymc3/)."
+msgstr ""
+
+#: ../sphinx_source/projects.md:45 bad0fa9461504c5f994cf9a00f427b53
+msgid ""
+"Thanks to this grant, we have been able to both book dedicated team from "
+"team members and hire external help to improve both Python and Julia "
+"ArviZ libraries, improve the documentation, explore refactoring avenues "
+"and ease the maintenance cost."
+msgstr ""
+
+#: ../sphinx_source/projects.md:50 85600fa39e2643a1be08dcdacd111dd3
+msgid ""
+"The experiments I have uploaded to "
+"[xrtist](https://xrtist.readthedocs.io/en/latest/), showcasing potential "
+"refactorings of the plots module in ArviZ are an example of such work."
+msgstr ""
+
+#: ../sphinx_source/projects.md:55 6094f2ea22a640b7a19a8127a85b6e41
 msgid "PyMC"
 msgstr ""
 
-#: ../sphinx_source/projects.md:13 926bc398450f4bb7a656e58fa03747d6
+#: ../sphinx_source/projects.md:62 98b5b4c43b28469b9646164b068acf3a
+msgid ""
+"The {doc}`PyMC project <pymc_io:index>` is a project for probabilistic "
+"programming in Python. PyMC strives to make Bayesian modeling as simple "
+"and painless as possible, allowing users to focus on their problem rather"
+" than the methods."
+msgstr ""
+
+#: ../sphinx_source/projects.md:66 82b0c054f78d43409504c9b879afcc5a
+msgid ""
+"I am core contributor and council member of PyMC. Similarly to ArviZ, I "
+"also contribute to multiple libraries and initiatives within the project."
+" However, in PyMC I try to focus much more on documentation and community"
+" efforts, coding much less than what I do at ArviZ."
+msgstr ""
+
+#: ../sphinx_source/projects.md:71 531791eee69140bb8ede296e918e8b8c
+msgid "PyMC example gallery"
+msgstr ""
+
+#: ../sphinx_source/projects.md:72 56e67a7e92614ef1bd06fde6e6d28996
+msgid ""
+"I am one of the main maintainers and curators of the [PyMC example "
+"gallery](https://www.pymc.io/projects/examples/en/latest/gallery.html) "
+"(everything within the \"Examples\" navigation bar section)."
+msgstr ""
+
+#: ../sphinx_source/projects.md:75 eb285d4f2b2245ea84bc67b7436430a7
+msgid ""
+"I started focusing on the example gallery in 2020, when I coordinated the"
+" participaiton of PyMC in both [GSoD](https://developers.google.com"
+"/season-of-docs/docs/2021/participants) and "
+"[Outreachy](https://www.outreachy.org/). During 2020, we defined the new "
+"look and updated many notebooks to it together with [Martina "
+"Cantaro](https://linktr.ee/martinacantaro) and [Abhipsha Das](https"
+"://chiral-carbon.github.io/)."
+msgstr ""
+
+#: ../sphinx_source/projects.md:81 ce4d66ded78944119d2edc4e1e5cdad2
+msgid ""
+"And we have continued maintaining and improving the example gallery "
+"within the PyMC team since then."
+msgstr ""
+
+#: ../sphinx_source/projects.md:84 ec8f1389adcd49aeb56d07f95d2c4283
+msgid "PyMCon"
+msgstr ""
+
+#: ../sphinx_source/projects.md:85 72b975012a3d4d63840de92bb5ab3e64
+msgid ""
+"I am currently helping organize the [PyMCon "
+"Webseries](https://pymcon.com/) as an advisor."
+msgstr ""
+
+#: ../sphinx_source/projects.md:87 ff2e94f9e79444339a2b71be1855cb98
+msgid ""
+"I was also a Diversity Chair in [PyMCon 2020](https://pymc-"
+"devs.github.io/pymcon//)."
+msgstr ""
+
+#: ../sphinx_source/projects.md:89 fb8be7a232674b74be1292b3c699a4fb
+msgid "PyMC Data Umbrella working sessions"
+msgstr ""
+
+#: ../sphinx_source/projects.md:90 8d645c4bb69543b28305efe6cdb4d671
+msgid ""
+"I also helped organize the [PyMC Data Umbrella working sessions](https"
+"://pymc-data-umbrella.xyz/en/latest). So far we have organized two series"
+" of working sessions in [Feb 2022](https://pymc-data-"
+"umbrella.xyz/en/latest/2022-02_sprint/organizers/index.html) and [July "
+"2022](https://pymc-data-"
+"umbrella.xyz/en/latest/2022-07_sprint/sprint_parties/organizers.html), "
+"which have been quite successful and helped several people join the PyMC "
+"team."
+msgstr ""
+
+#: ../sphinx_source/projects.md:94 7aaa7c5571eb4f8db24b70fc8c8ae6f8
+msgid ""
+"We are currently working on translating the sprint website! Join the "
+"efforts on [transifex](https://explore.transifex.com/pymc/data-umbrella-"
+"sprints-website/)!"
+msgstr ""
+
+#: ../sphinx_source/projects.md:97 54aef228934a47358f723832a01949ee
+msgid "PyMC Discourse"
+msgstr ""
+
+#: ../sphinx_source/projects.md:98 53e8fcdc46bd453e8c143720ac7d1d07
+msgid ""
+"Last but not least, I also try to answer questions about PyMC, ArviZ, "
+"visualization, model comparison... at the [PyMC "
+"Discourse](https://discourse.pymc.io/)."
+msgstr ""
+
+#: ../sphinx_source/projects.md:103 08388f9ab3784d63965134fbf0bd5a0f
 msgid "Other"
 msgstr ""
 
-#: ../sphinx_source/projects.md:15 7a60fbdd0aba4814b5529c5777c939a6
+#: ../sphinx_source/projects.md:104 a4a9d991f7034790afa761fd8d3c6123
+msgid ""
+"I also try to contribute to other libraries, specially within the PyData "
+"ecosystem. I have made some issues and PRs to matplotlib, pydata-sphinx-"
+"theme or numpydoc, and try to follow xarray particularly closely to see "
+"which ArviZ developments could be upstreamed to xarray."
+msgstr ""
+
+#: ../sphinx_source/projects.md:109 acf2b96ad0704440a2052bd36c871704
 msgid "Personal projects"
 msgstr ""
+
+#: ../sphinx_source/projects.md:111 59df0a1f21624a8187b2f3dc2026f5ce
+msgid "Sphinx primer"
+msgstr ""
+
+#: ../sphinx_source/projects.md:112 4c5b330c0e4d444d997c76fe84490b55
+msgid ""
+"I wrote and maintain a [small website](https://sphinx-"
+"primer.readthedocs.io/en/latest/) that aims to be a first contact to "
+"sphinx for contributors of scientific open source libraries, especially "
+"ArviZ and PyMC contributors."
+msgstr ""
+
+#: ../sphinx_source/projects.md:116 fdd7c037608a499fbc582e2a67b334d2
+msgid ""
+"I also use it as a personal reference to host useful links, tips and "
+"tricks I recurrently need when working on sphinx generated websites."
+msgstr ""
+
+#: ../sphinx_source/projects.md:119 1a7f2334dd2c44e28c1a8de3b0337127
+msgid ""
+"Fun fact: I used sphinx-primer as a playground to learn how to manage "
+"translations in sphinx, which eventually allowed me to build my personal "
+"website (the one you are on now) with sphinx and in multiple languages!"
+msgstr ""
+
+#: ../sphinx_source/projects.md:123 75808bcd1e764631b74de893b4e47459
+msgid "`oriol-personal-theme`"
+msgstr ""
+
+#: ../sphinx_source/projects.md:124 178cdf980220438181678099de5863ae
+msgid ""
+"I also host the [sphinx theme used for this "
+"website](https://github.com/OriolAbril/oriol-personal-theme) on GitHub as"
+" a Python package."
+msgstr ""
+
+#: ../sphinx_source/projects.md:126 e6601e892d9e47dfafb8856eb8ef37b8
+msgid ""
+"It is an extension on top of the [PyData-Sphinx-Theme](https://pydata-"
+"sphinx-theme.readthedocs.io/en/stable/) inspired on the [Massively "
+"theme](https://html5up.net/massively) by HTML5Up."
+msgstr ""
+
+#: ../sphinx_source/projects.md:128 d95c96e984784efbaa4300cbc9d7d799
+msgid ""
+"I don't have any immediate plans to make it a proper theme usable by "
+"other people, but I might consider it if there is interest and people "
+"willing to help improve and maintain it."
+msgstr ""
+
+#~ msgid "Page still in construction"
+#~ msgstr ""
 
