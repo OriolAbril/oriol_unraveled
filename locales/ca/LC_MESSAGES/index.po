@@ -209,7 +209,7 @@ msgstr "Donacions flexibles, puntuals o recurrents"
 #: ../sphinx_source/partials/donations.md:28 93d03ef0bf90485f9835720be3b07ff7
 #: c2dee05683324e9abbe0e983a2ea4fa9
 msgid "Account required"
-msgstr "Cal crear-s'hi un compte"
+msgstr "Cal inscriure's"
 
 #: ../sphinx_source/partials/donations.md:16 0d3eb80bb9c74d369ea4e1730cc159ff
 msgid "Debit or credit card, PayPal or Stripe available"
@@ -237,7 +237,7 @@ msgstr "Només donacions puntuals"
 
 #: ../sphinx_source/partials/donations.md:41 74037b2ddd8848b3bf6d67af47a8a593
 msgid "No account required"
-msgstr "No cal crear-s'hi cap compte"
+msgstr "No cal inscriure's"
 
 #: ../sphinx_source/partials/donations.md:42 2c2c3bdce9a2453ba89f7221fb3156e8
 msgid "Debit or credit card"
