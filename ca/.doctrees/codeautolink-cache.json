@@ -9,16 +9,6 @@
       "names": [
         {
           "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
             "matplotlib",
             "pyplot"
           ],
@@ -475,16 +465,6 @@
       "names": [
         {
           "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
             "matplotlib",
             "pyplot"
           ],
@@ -504,18 +484,6 @@
           "end_lineno": 7,
           "context": "import_target",
           "resolved_location": "scipy.stats"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "random",
-            "seed"
-          ],
-          "code_str": "np.random.seed",
-          "lineno": 9,
-          "end_lineno": 9,
-          "context": "none",
-          "resolved_location": "numpy.random.seed"
         }
       ],
       "example": {
@@ -825,16 +793,6 @@
         },
         {
           "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
             "xarray"
           ],
           "code_str": "xarray",
@@ -842,18 +800,6 @@
           "end_lineno": 4,
           "context": "import_target",
           "resolved_location": "xarray"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "random",
-            "default_rng"
-          ],
-          "code_str": "np.random.default_rng",
-          "lineno": 6,
-          "end_lineno": 6,
-          "context": "none",
-          "resolved_location": "numpy.random.default_rng"
         }
       ],
       "example": {
@@ -1133,28 +1079,6 @@
           "end_lineno": 2,
           "context": "import_target",
           "resolved_location": "matplotlib.pyplot"
-        },
-        {
-          "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "random",
-            "default_rng"
-          ],
-          "code_str": "np.random.default_rng",
-          "lineno": 8,
-          "end_lineno": 8,
-          "context": "none",
-          "resolved_location": "numpy.random.default_rng"
         }
       ],
       "example": {
@@ -1727,16 +1651,6 @@
       "names": [
         {
           "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
             "matplotlib",
             "pyplot"
           ],
@@ -2217,28 +2131,6 @@
           "end_lineno": 2,
           "context": "import_target",
           "resolved_location": "matplotlib.pyplot"
-        },
-        {
-          "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "random",
-            "default_rng"
-          ],
-          "code_str": "np.random.default_rng",
-          "lineno": 8,
-          "end_lineno": 8,
-          "context": "none",
-          "resolved_location": "numpy.random.default_rng"
         }
       ],
       "example": {
@@ -2580,16 +2472,6 @@
       "names": [
         {
           "import_components": [
-            "numpy"
-          ],
-          "code_str": "numpy",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_target",
-          "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
             "matplotlib",
             "pyplot"
           ],
@@ -2630,18 +2512,6 @@
           "end_lineno": 6,
           "context": "import_target",
           "resolved_location": "xarray"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "random",
-            "default_rng"
-          ],
-          "code_str": "np.random.default_rng",
-          "lineno": 9,
-          "end_lineno": 9,
-          "context": "none",
-          "resolved_location": "numpy.random.default_rng"
         }
       ],
       "example": {
