@@ -1,6 +1,7 @@
 ---
 html_theme.sidebar_secondary.remove:
 sd_hide_title: true
+og:image: _static/estendard_web_min.png
 ---
 
 # Oriol unraveled

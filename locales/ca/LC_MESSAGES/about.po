@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Són un físic/enginyer convertit en estadístic computacional. "
 "M'apassiona l'anàlisi estadístic, la programació i la visualització de dades. "
-"Soc col·laborador principal d'{doc}`ArviZ <arviz_org:index>`, un projecte "
+"Soc col·laborador principal {doc}`d'ArviZ <arviz_org:index>`, un projecte "
 "per a l'anàlisi exploratòria de models Bayesians. A més de la modelització "
 "probabilística, també m'agrada ensenyar i la redacció tècnica."
 
@@ -44,8 +44,8 @@ msgid ""
 "pursue a career in probabilistic modeling and statistical research with "
 "special emphasis on openness and reproducibility."
 msgstr ""
-"Crec que la cultura en la recerca científica necessita canvis profunds "
-"per transformar-se en un model més col·laboratiu, obert i divers. M'interessa "
+"Crec que el món de la recerca científica necessita canvis profunds "
+"per a transformar-se en un model més col·laboratiu, obert i divers. M'interessa "
 "la ciència oberta, la reproductibilitat i la comunicació científica. "
 "Vull dedicar-me a la modelització probabilística i recerca estadística, "
 "amb un èmfasi particular en la transparència i la reproductibilitat."
@@ -59,10 +59,10 @@ msgid ""
 "the views when nobody is around"
 msgstr ""
 "En el meu temps lliure, m'agrada jugar a jocs de taula i anar a la platja "
-"a disfrutar d'esports aquàtics. Faig immersió lleugera i vela navego a vela "
-"des de ben petit i més recentment vaig afegir el kayak! Generalment passo "
-"l'estiu a la costa Brava. Aquí sota us en deixo una foto de les vistes "
-"quan no hi ha ningú"
+"a disfrutar d'esports aquàtics. Faig immersió lleugera i navego a vela "
+"des de ben petit. Més recentment també he afegit el kayak a la llista! "
+"Si puc, passo unes quantes setmanes cada estiu a la costa Brava. "
+"Aquí sota us deixo una foto de les vistes quan no hi ha ningú"
 
 #: ../sphinx_source/about.md:22 5e24efc0c3654834a217709514d4ebe7
 msgid ""
@@ -327,11 +327,11 @@ msgstr ""
 
 #: ../sphinx_source/about.md:124 8cadf3fe6eb6483ead8e1da12e5a8b3c
 msgid "Donate to ArviZ"
-msgstr "Fer una donació a ArviZ"
+msgstr ""
 
 #: ../sphinx_source/about.md:133 3645626b18764d888a7dbf6908b40afe
 msgid "Donate to PyMC"
-msgstr "Fer una donació a PyMC"
+msgstr ""
 
 #: ../sphinx_source/about.md:140 c06ccfc38e724dd4943d893adff99c6b
 msgid ""
