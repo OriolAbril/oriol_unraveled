@@ -1,3 +1,7 @@
+---
+og:image: _static/oriol_profile_min.png
+---
+
 (about_me)=
 # About me
 
