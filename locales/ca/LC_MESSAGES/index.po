@@ -190,7 +190,7 @@ msgid ""
 "See the {ref}`projects` page for a complete list of the projects I am "
 "involved in."
 msgstr ""
-"Consulteu a pàgina de {ref}`projects` la llista completa dels projectes "
+"Consulteu a la pàgina de {ref}`projects` la llista completa dels projectes "
 "en els que treballo."
 
 #: ../sphinx_source/index.md:88 a188e8cdc87446f1af4750011119e635

@@ -170,11 +170,11 @@ elif language == "ca":
     html_context.update(
         {
             "homepage_intro": r"""
-<p>Sóc un programador, estadístic i físic en construcció.<br>
+<p>Soc un programador, estadístic i físic en construcció.<br>
 Crec en la col·laboració interdisciplinar i la ciència oberta.<br>
 Per tant, contribueixo a llibreries de programari lliure i intento publicar la meva feina.</p>
 <p>El meu objectiu és utilitzar aquest blog per<br>
-promoure pràctiques de recerca obertes i reproduibles,<br>
+promoure pràctiques de recerca obertes i reproduïbles,<br>
 compartir programari lliure i parlar sobre els meus projectes i experiències.</p>"""
         }
     )

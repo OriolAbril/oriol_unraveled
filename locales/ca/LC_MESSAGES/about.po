@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../sphinx_source/about.md:2 a68f7ee9c8514d728ffdf51ac228effa
 msgid "About me"
-msgstr ""
+msgstr "Qui soc"
 
 #: ../sphinx_source/about.md:4 e33d824736cd4512811f170d729559a5
 msgid ""
@@ -30,6 +30,11 @@ msgid ""
 "exploratory analysis of Bayesian models. In addition to probabilistic "
 "modeling, I also enjoy teaching and technical writing."
 msgstr ""
+"Són un físic/enginyer convertit en estadístic computacional. "
+"M'apassiona l'anàlisi estadístic, la programació i la visualització de dades. "
+"Soc col·laborador principal d'{doc}`ArviZ <arviz_org:index>`, un projecte "
+"per a l'anàlisi exploratòria de models Bayesians. A més de la modelització "
+"probabilística, també m'agrada ensenyar i la redacció tècnica."
 
 #: ../sphinx_source/about.md:10 c3f07f0907ad4ed2815bb774caa67482
 msgid ""
@@ -39,6 +44,11 @@ msgid ""
 "pursue a career in probabilistic modeling and statistical research with "
 "special emphasis on openness and reproducibility."
 msgstr ""
+"Crec que la cultura en la recerca científica necessita canvis profunds "
+"per transformar-se en un model més col·laboratiu, obert i divers. M'interessa "
+"la ciència oberta, la reproductibilitat i la comunicació científica. "
+"Vull dedicar-me a la modelització probabilística i recerca estadística, "
+"amb un èmfasi particular en la transparència i la reproductibilitat."
 
 #: ../sphinx_source/about.md:16 d499d844939c448b9efcd3b092052ce2
 msgid ""
@@ -48,60 +58,72 @@ msgid ""
 " spend the summer at the _Costa Brava_. Here I leave you a sneak peak of "
 "the views when nobody is around"
 msgstr ""
+"En el meu temps lliure, m'agrada jugar a jocs de taula i anar a la platja "
+"a disfrutar d'esports aquàtics. Faig immersió lleugera i vela navego a vela "
+"des de ben petit i més recentment vaig afegir el kayak! Generalment passo "
+"l'estiu a la costa Brava. Aquí sota us en deixo una foto de les vistes "
+"quan no hi ha ningú"
 
 #: ../sphinx_source/about.md:22 5e24efc0c3654834a217709514d4ebe7
 msgid ""
 "![A small cave with clear water and pine trees growing near the "
 "sea](images/cala_costa_brava.jpg)"
 msgstr ""
+"![Una cala d'aigua cristal·lina i pins creixent vora el mar]"
+"(images/cala_costa_brava.jpg)"
 
 #: ../sphinx_source/about.md:22 7e556bf2587b4f2791a41a05fbc44a15
 msgid "A small cave with clear water and pine trees growing near the sea"
-msgstr ""
+msgstr "Una cala d'aigua cristal·lina i pins creixent vora el mar"
 
 #: ../sphinx_source/about.md:25 d464008747984814935760db95f1935a
 msgid "Talks and conferences"
-msgstr ""
+msgstr "Xerrades i conferències"
 
 #: ../sphinx_source/about.md 4f2a12700d4a4009b2965adb052252e6
 msgid "Contributing to ArviZ and Open Source: Social and technical sides"
-msgstr ""
+msgstr "Contribuir a ArviZ i programari lliure: aspectes tècnics i socials"
 
 #: ../sphinx_source/about.md:31 ../sphinx_source/about.md:45
 #: ../sphinx_source/about.md:58 2aabb4881e2147a4b1e57a5dad961dea
 #: 56c1e44081fa4d0389f943d6974b7357 b0dc9d13a7e2497383a44969bc44b545
 msgid "Online webinar with [Data Umbrella](https://www.dataumbrella.org/)."
-msgstr ""
+msgstr "Seminari web amb [Data Umbrella](https://www.dataumbrella.org/) (en anglès)."
 
 #: ../sphinx_source/about.md:36 ../sphinx_source/about.md:50
 #: ../sphinx_source/about.md:63 8b397e68f77c47878c6f46f8428b7082
 #: be005abdda684385af6baf78f1d36561 e91c3a4d58c443bd9a8b068f2fd8e83c
 msgid "**Webinar resources**"
-msgstr ""
+msgstr "**Recursos del seminari**"
 
 #: ../sphinx_source/about.md:37 3e53b4cb841747f7859ec6b88ddeeb4f
 msgid ""
 "Slides: https://oriolabril.github.io/contributing_to_arviz/ ({kbd}`space`"
 " for next slide)"
 msgstr ""
+"Diapositives: https://oriolabril.github.io/contributing_to_arviz/ ({kbd}`espai`"
+" per passar a la següent)"
 
 #: ../sphinx_source/about.md:39 219a370fc57c433e9f681a2240d700e1
 msgid "Example PR: https://github.com/arviz-devs/arviz/pull/2176"
-msgstr ""
+msgstr "Exemple de sol·licitud de canvi (_pull request_ en anglès):"
+"https://github.com/arviz-devs/arviz/pull/2176"
 
 #: ../sphinx_source/about.md:40 c2583921142f471db7ff1e941bc3f2a1
 msgid "Source repo: https://github.com/OriolAbril/contributing_to_arviz"
-msgstr ""
+msgstr "Repositori amb el codi font: https://github.com/OriolAbril/contributing_to_arviz"
 
 #: ../sphinx_source/about.md d0e430ab01ee485285fadfc2a5e9b18f
 msgid "Contributing to PyMC documentation"
-msgstr ""
+msgstr "Contribuir a la documentació de PyMC"
 
 #: ../sphinx_source/about.md:51 23d87d3f22d745c0a555356d7ea1ffe9
 msgid ""
 "Presentation material: https://pymc-data-"
 "umbrella.xyz/en/latest/about/contributing_to_documentation/docs_presentation.html"
 msgstr ""
+"Material de la presentació: https://pymc-data-"
+"umbrella.xyz/en/latest/about/contributing_to_documentation/docs_presentation.html"
 
 #: ../sphinx_source/about.md:52 ../sphinx_source/about.md:66
 #: 4ff3e4b830e74aa89293d371beaf0889 5035fb1966d54834b27b83be9c0f8e10
@@ -109,55 +131,62 @@ msgid ""
 "PyMC Series paylist: https://www.youtube.com/playlist?list=PLBKcU7Ik-"
 "ir99uTvN0315hIVLuyj4Q1Gt"
 msgstr ""
+"Llista de reproducció de la sèrie sobre PyMC: https://www.youtube.com/playlist?list=PLBKcU7Ik-"
+"ir99uTvN0315hIVLuyj4Q1Gt"
 
 #: ../sphinx_source/about.md:53 48330384b19940b09e260c15d5c4b6cf
 msgid ""
-"Sprint website: https://pymc-data-"
+"Web de la sessió de treball: https://pymc-data-"
 "umbrella.xyz/en/latest/2022-07_sprint/schedule.html"
 msgstr ""
 
 #: ../sphinx_source/about.md 549caea83dae4a4ba99c39c07602c68f
 msgid "Intuitive Bayesian Modeling and Computation with PyMC"
-msgstr ""
+msgstr "Modelització i computació Bayesiana intuitiva amb PyMC"
 
 #: ../sphinx_source/about.md:64 d3cbbffb579f4db18db1556c8ad107c1
 msgid ""
 "Slides: https://oriolabril.github.io/pymc3-data_umbrella/ ({kbd}`space` "
 "for next slide)"
 msgstr ""
+"Diapositives: https://oriolabril.github.io/pymc3-data_umbrella/ ({kbd}`espai` "
+"per passar a la següent)"
 
 #: ../sphinx_source/about.md c8974105e88e4753bd1bf7009a94ceab
 msgid "Backend agnostic Exploratory Analysis of Bayesian Models"
-msgstr ""
+msgstr "Anàlisi exploratòria de models Bayesians independent de la font"
 
 #: ../sphinx_source/about.md:70 e4f00c0545594ca3b9bbcc338a34d54a
 msgid "Poster presentation at [PROBPROG](https://probprog.cc/) 2020."
-msgstr ""
+msgstr "Presentació de pòster al [PROBPROG](https://probprog.cc/) 2020."
 
 #: ../sphinx_source/about.md:72 ../sphinx_source/about.md:85
 #: 1c9f5ca27ed8407690affbf4401d23ec d591c8d0bce24eab963898cdcca0d6f5
 msgid "**Resources**"
-msgstr ""
+msgstr "**Recursos**"
 
 #: ../sphinx_source/about.md:73 524867fc41f94a5cb2f7df521a84c25c
 msgid ""
 "Poster pdf: https://raw.githubusercontent.com/OriolAbril/arviz-"
 "probprog-2020/main/probprog_poster.pdf"
-msgstr ""
+msgstr "Pdf del pòster: https://raw.githubusercontent.com/OriolAbril/arviz-"
+"probprog-2020/main/probprog_poster.pdf"
 
 #: ../sphinx_source/about.md:74 ebf798c5170b47ca80388efb494cd34f
 msgid ""
 "Source and code examples: https://github.com/OriolAbril/arviz-"
 "probprog-2020"
 msgstr ""
+"Codi font i exemples: https://github.com/OriolAbril/arviz-"
+"probprog-2020"
 
 #: ../sphinx_source/about.md 944e12bc61e14d9ab9fbccaceed81e1c
 msgid "ArviZ, InferenceData and netCDF: A unified file format for Bayesians"
-msgstr ""
+msgstr "ArviZ, InferenceData i netCDF: Un format de fitxer unificat pels Bayesians"
 
 #: ../sphinx_source/about.md:80 1aa9c410fe4b487eaa901a17eda43436
 msgid "Collaborative talk at StanCon 2020."
-msgstr ""
+msgstr "Xerrada col·laborativa al StanCon 2020"
 
 #: ../sphinx_source/about.md:86 36991e08ef9341609d2a5bf8febc7d8b
 msgid ""
@@ -166,16 +195,21 @@ msgid ""
 "devs/arviz_misc/tree/master/stancon_2020), the slides are executable "
 "thanks to Binder!"
 msgstr ""
+"Les diapositives i vídeos estan disponibles a "
+"[GitHub](https://github.com/arviz-"
+"devs/arviz_misc/tree/master/stancon_2020), les diapositives son executables "
+"gràcies a Binder!"
 
 #: ../sphinx_source/about.md:88 6b059d0337ca418c90be77e879b691ea
 msgid ""
 "Slides and video presentations are available in English, Catalan, French "
 "and Finnish."
 msgstr ""
+"Tant les diapositives com els vídeos estan disponibles an català, anglès, francés i finlandès."
 
 #: ../sphinx_source/about.md:91 00bfc7626deb46f6bc2b15e4923402f1
 msgid "Academic work and publications"
-msgstr ""
+msgstr "Publicacions i feina acadèmica"
 
 #: ../sphinx_source/about.md:92 7162a92689b5450aaadbb17bfad703ff
 msgid ""
@@ -183,6 +217,9 @@ msgid ""
 "Helsinki University and at Universitat Pompeu Fabra respectively. Here "
 "are some publications I have helped a bit with:"
 msgstr ""
+"He treballat com a investigador doctoral i assistent a la recerca "
+"a la Universitat de Helsinki i a la Universitat Pompeu Fabra respectivament. "
+"Aquí hi ha un llistat de publications en les que he contribuit:"
 
 #: ../sphinx_source/about.md:96 b3937a07a48c4dc6b3e87cce91264ef9
 msgid ""
@@ -218,11 +255,11 @@ msgstr ""
 
 #: ../sphinx_source/about.md:106 f7e7d71898c74163b37198ec6dd21735
 msgid "Support me"
-msgstr ""
+msgstr "Dona'm suport"
 
 #: ../sphinx_source/about.md:107 556b78f4e67244d2bde6604e352fd56c
 msgid "You can support me directly via"
-msgstr ""
+msgstr "Em pots donar suport de manera directa a través de"
 
 #: ../sphinx_source/partials/donations.md:11 0836a8e3bb05471a8823488e1873321f
 msgid "Ko-Fi"
@@ -230,17 +267,17 @@ msgstr ""
 
 #: ../sphinx_source/partials/donations.md:14 60a94562a18a4c8782b795672e4b49a6
 msgid "Flexible donations, one time or recurrent"
-msgstr ""
+msgstr "Donacions flexibles, puntuals o recurrents"
 
 #: ../sphinx_source/partials/donations.md:15
 #: ../sphinx_source/partials/donations.md:28 0dc0a2fee2354293840be6a7c28c4e16
 #: c41d444b071f48cdbc860015904249b5
 msgid "Account required"
-msgstr ""
+msgstr "Cal inscriure's"
 
 #: ../sphinx_source/partials/donations.md:16 80ff739ac8aa4c3f9267a7bf8a16f57a
 msgid "Debit or credit card, PayPal or Stripe available"
-msgstr ""
+msgstr "Accepta targetes de dèbit o crèdit, PayPal o Stripe"
 
 #: ../sphinx_source/partials/donations.md:24 fe195df0680244388ce961de5c901492
 msgid "LiberaPay"
@@ -248,11 +285,11 @@ msgstr ""
 
 #: ../sphinx_source/partials/donations.md:27 6f3bad8935074757838ea90953d08a51
 msgid "Recurrent donations only"
-msgstr ""
+msgstr "Només donacions recurrents"
 
 #: ../sphinx_source/partials/donations.md:29 7fdec0a050fd40e9aba5abc229e24fd7
 msgid "Debit or credit card, PayPal or EURO bank transfer available"
-msgstr ""
+msgstr "Accepta targeta de dèbit o crèdit, PayPal o transferències bancàries en EURO"
 
 #: ../sphinx_source/partials/donations.md:37 5879a9f71b7c4b92bcc57058dbdedec7
 msgid "Buy Me a Coffee"
@@ -260,15 +297,15 @@ msgstr ""
 
 #: ../sphinx_source/partials/donations.md:40 09a9efc57e4c49efb8b1ce853b6ae570
 msgid "One time donations only (at least for now)"
-msgstr ""
+msgstr "Només donacions puntuals"
 
 #: ../sphinx_source/partials/donations.md:41 4337c3b09e7f4488af1649e8ff8e7d4f
 msgid "No account required"
-msgstr ""
+msgstr "No cal inscriure's"
 
 #: ../sphinx_source/partials/donations.md:42 45dea0ae676a4f82ad75c8468bfceb1c
 msgid "Debit or credit card"
-msgstr ""
+msgstr "Targeta de dèbit o crèdit"
 
 #: ../sphinx_source/about.md:112 ea8b6975c668498b865bb6822825eb25
 msgid ""
@@ -276,26 +313,33 @@ msgid ""
 " open source projects I contribute to and sustaining this blog and other "
 "personal projects."
 msgstr ""
+"En donar-me suport directament, estas ajudant a que pugui dedicar temps tant "
+"al programari lliure al que contribueixo com a mantenir aquest blog i altres "
+"projectes personals"
 
 #: ../sphinx_source/about.md:116 75e25ade08604ca1b49c6d8b893a20a4
 msgid ""
 "If you or your company prefers supporting the open source projects "
 "directly, you can also do so through NumFOCUS:"
 msgstr ""
+"Si prefereixes (o l'empresa on treballes ho prefereix) donar suport als projectes "
+" de programari lliure directament, ho podeu fer a través de NumFOCUS:"
 
 #: ../sphinx_source/about.md:124 8cadf3fe6eb6483ead8e1da12e5a8b3c
 msgid "Donate to ArviZ"
-msgstr ""
+msgstr "Fer una donació a ArviZ"
 
 #: ../sphinx_source/about.md:133 3645626b18764d888a7dbf6908b40afe
 msgid "Donate to PyMC"
-msgstr ""
+msgstr "Fer una donació a PyMC"
 
 #: ../sphinx_source/about.md:140 c06ccfc38e724dd4943d893adff99c6b
 msgid ""
 "When donating to ArviZ or PyMC, you are supporting me indirectly, along "
 "with the rest of the people who make these libraries possible."
 msgstr ""
+"En fer una donació a ArviZ o PyMC, també em dones suport de manera indirecta, "
+"conjuntament amb la resta de l'equip que fem aquestes llibreries possibles."
 
 #: ../sphinx_source/about.md:143 247d31d2cb224cd3ba59866591d7affb
 msgid ""
@@ -303,6 +347,9 @@ msgid ""
 "please consider donating somehow. We need some financial support to make "
 "sure open source is sustainable."
 msgstr ""
+"Si o tu, o especialment la teva empresa, us ho podeu permetre, "
+"considereu fer algun tipus de donació. El programari lliure necessita "
+"suport financer per tal de ser sostenible."
 
 #~ msgid ""
 #~ "If you use open source and have"
