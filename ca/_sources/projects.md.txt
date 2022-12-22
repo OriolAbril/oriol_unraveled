@@ -108,6 +108,12 @@ could be upstreamed to xarray.
 
 ## Personal projects
 
+### Oriol Unraveled
+Currently, my main personal project is this blog you are reading now.
+I have posted sporadically about the libraries I contribute to and
+the progress on my work, and I would like to post more regularly
+about both general work updates and tutorial or deep dive contents.
+
 ### Sphinx primer
 I wrote and maintain a [small website](https://sphinx-primer.readthedocs.io/en/latest/)
 that aims to be a first contact to sphinx for contributors of scientific open
