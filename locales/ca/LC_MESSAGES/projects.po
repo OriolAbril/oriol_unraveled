@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Oriol unraveled \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-18 20:49+0100\n"
+"POT-Creation-Date: 2022-12-22 05:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,11 +234,23 @@ msgstr ""
 msgid "Personal projects"
 msgstr ""
 
-#: ../sphinx_source/projects.md:111 59df0a1f21624a8187b2f3dc2026f5ce
+#: ../sphinx_source/projects.md:111 75808bcd1e764631b74de893b4e47459
+msgid "Oriol Unraveled"
+msgstr ""
+
+#: ../sphinx_source/projects.md:112 1a2559a8d06a471fb9693eddb4214e13
+msgid ""
+"Currently, my main personal project is this blog you are reading now. I "
+"have posted sporadically about the libraries I contribute to and the "
+"progress on my work, and I would like to post more regularly about both "
+"general work updates and tutorial or deep dive contents."
+msgstr ""
+
+#: ../sphinx_source/projects.md:117 59df0a1f21624a8187b2f3dc2026f5ce
 msgid "Sphinx primer"
 msgstr ""
 
-#: ../sphinx_source/projects.md:112 4c5b330c0e4d444d997c76fe84490b55
+#: ../sphinx_source/projects.md:118 4c5b330c0e4d444d997c76fe84490b55
 msgid ""
 "I wrote and maintain a [small website](https://sphinx-"
 "primer.readthedocs.io/en/latest/) that aims to be a first contact to "
@@ -246,38 +258,38 @@ msgid ""
 "ArviZ and PyMC contributors."
 msgstr ""
 
-#: ../sphinx_source/projects.md:116 fdd7c037608a499fbc582e2a67b334d2
+#: ../sphinx_source/projects.md:122 fdd7c037608a499fbc582e2a67b334d2
 msgid ""
 "I also use it as a personal reference to host useful links, tips and "
 "tricks I recurrently need when working on sphinx generated websites."
 msgstr ""
 
-#: ../sphinx_source/projects.md:119 1a7f2334dd2c44e28c1a8de3b0337127
+#: ../sphinx_source/projects.md:125 1a7f2334dd2c44e28c1a8de3b0337127
 msgid ""
 "Fun fact: I used sphinx-primer as a playground to learn how to manage "
 "translations in sphinx, which eventually allowed me to build my personal "
 "website (the one you are on now) with sphinx and in multiple languages!"
 msgstr ""
 
-#: ../sphinx_source/projects.md:123 75808bcd1e764631b74de893b4e47459
+#: ../sphinx_source/projects.md:129 75808bcd1e764631b74de893b4e47459
 msgid "`oriol-personal-theme`"
 msgstr ""
 
-#: ../sphinx_source/projects.md:124 178cdf980220438181678099de5863ae
+#: ../sphinx_source/projects.md:130 178cdf980220438181678099de5863ae
 msgid ""
 "I also host the [sphinx theme used for this "
 "website](https://github.com/OriolAbril/oriol-personal-theme) on GitHub as"
 " a Python package."
 msgstr ""
 
-#: ../sphinx_source/projects.md:126 e6601e892d9e47dfafb8856eb8ef37b8
+#: ../sphinx_source/projects.md:132 e6601e892d9e47dfafb8856eb8ef37b8
 msgid ""
 "It is an extension on top of the [PyData-Sphinx-Theme](https://pydata-"
 "sphinx-theme.readthedocs.io/en/stable/) inspired on the [Massively "
 "theme](https://html5up.net/massively) by HTML5Up."
 msgstr ""
 
-#: ../sphinx_source/projects.md:128 d95c96e984784efbaa4300cbc9d7d799
+#: ../sphinx_source/projects.md:134 d95c96e984784efbaa4300cbc9d7d799
 msgid ""
 "I don't have any immediate plans to make it a proper theme usable by "
 "other people, but I might consider it if there is interest and people "
