@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://oriolabrilpla.cat/en/</id>
   <title>Oriol unraveled</title>
-  <updated>2022-12-22T04:16:51.126326+00:00</updated>
+  <updated>2023-01-03T22:21:38.513544+00:00</updated>
   <link href="https://oriolabrilpla.cat/en/"/>
   <link href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.io/" version="0.10.30.dev28+g4054479">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.io/" version="0.11.0rc2.dev2+g896903e">ABlog</generator>
   <entry>
     <id>https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html</id>
     <title>LOO-CV on transformed data</title>
