@@ -55,7 +55,7 @@ showcasing potential refactorings of the plots module in ArviZ are an example of
 ### PyMC
 
 ::::{sidebar}
-:::{image} https://raw.githubusercontent.com/pymc-devs/brand/main/logos/PyMC.svg
+:::{image} https://raw.githubusercontent.com/pymc-devs/brand/main/pymc/pymc_logos/PyMC.svg
 :::
 ::::
 
@@ -102,7 +102,8 @@ model comparison... at the [PyMC Discourse](https://discourse.pymc.io/).
 
 ### Other
 I also try to contribute to other libraries, specially within the PyData ecosystem.
-I have made some issues and PRs to matplotlib, pydata-sphinx-theme or numpydoc,
+I have made some contributions as both issues and PRs to libraries like scipy,
+matplotlib, pydata-sphinx-theme or numpydoc,
 and try to follow xarray particularly closely to see which ArviZ developments
 could be upstreamed to xarray.
 
