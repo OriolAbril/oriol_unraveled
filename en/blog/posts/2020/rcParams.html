@@ -32,6 +32,7 @@
 <link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
 <link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
 <link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/custom.css" rel="stylesheet" type="text/css">
 <!-- Pre-loaded scripts that we'll load fully later -->
 <link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
 <link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
@@ -51,7 +52,7 @@
         </script>
 <link href="../../../_static/favicon.ico" rel="shortcut icon">
 <link href="../../../about.html" rel="author" title="About these documents">
-<link href="../../../genindex.html" rel="index" title="Index">
+<link href="../../../genindex.html" rel="index" title="Index"/>
 <link href="../../../search.html" rel="search" title="Search"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
@@ -331,14 +332,14 @@ is not defined)</p></li>
 <p>And last but not least, to temporarily use a different set of defaults, ArviZ also has a <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rc_context.html#arviz.rc_context"><code class="docutils literal notranslate"><span class="pre">rc_context</span></code></a> function. Its main difference and advantage is that it is a context manager, therefore, all code executed inside the context will use the defaults defined by <code class="docutils literal notranslate"><span class="pre">rc_context</span></code> but once we exit the context, everything goes back to normal. Let’s generate 3 posterior plots with the same command to show this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 
-<span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_posterior.html#arviz.plot_posterior" title="arviz.plot_posterior"><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.point_estimate"</span><span class="p">:</span> <span class="s2">"mode"</span><span class="p">,</span> <span class="s2">"stats.hdi_prob"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.rc_context.html#arviz.rc_context" title="arviz.rc_context"><span class="n">az</span><span class="o">.</span><span class="n">rc_context</span></a><span class="p">({</span><span class="s2">"plot.point_estimate"</span><span class="p">:</span> <span class="s2">"mode"</span><span class="p">,</span> <span class="s2">"stats.hdi_prob"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}):</span>
+    <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_posterior.html#arviz.plot_posterior" title="arviz.plot_posterior"><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-<span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_posterior.html#arviz.plot_posterior" title="arviz.plot_posterior"><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -358,7 +359,7 @@ is not defined)</p></li>
 <p>Only the first two example datasets <code class="docutils literal notranslate"><span class="pre">centered_eight</span></code> and <code class="docutils literal notranslate"><span class="pre">non_centered_eight</span></code> come as part of ArviZ. All the others are downloaded from figshare the first time and stored locally to help reloading them the next time. We can get the names of the data available by not passing any argument to <code class="docutils literal notranslate"><span class="pre">az.load_arviz_data</span></code> (you can also get the description of each of them with <code class="docutils literal notranslate"><span class="pre">az.list_datasets</span></code>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.load_arviz_data.html#arviz.load_arviz_data" title="arviz.load_arviz_data"><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span></a><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -436,8 +437,8 @@ observed_vars:
 <p>Maximum number of subplots in a single figure. Adding too many subplots into a figure can be really slow, to the point that it looks like everthing has crashed without any error message. When there are more variables to plot than <code class="docutils literal notranslate"><span class="pre">max_subplots</span></code> allowed, ArviZ sends a warning and plots at most <code class="docutils literal notranslate"><span class="pre">max_suplots</span></code>. See for yourselves:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.max_subplots"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">(</span><span class="n">idata</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.rc_context.html#arviz.rc_context" title="arviz.rc_context"><span class="n">az</span><span class="o">.</span><span class="n">rc_context</span></a><span class="p">({</span><span class="s2">"plot.max_subplots"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}):</span>
+    <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_posterior.html#arviz.plot_posterior" title="arviz.plot_posterior"><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span></a><span class="p">(</span><span class="n">idata</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -461,8 +462,8 @@ observed_vars:
 <p>Select subplot structure for bokeh. One of <code class="docutils literal notranslate"><span class="pre">default</span></code>, <code class="docutils literal notranslate"><span class="pre">column</span></code>, <code class="docutils literal notranslate"><span class="pre">row</span></code>, <code class="docutils literal notranslate"><span class="pre">square</span></code>, <code class="docutils literal notranslate"><span class="pre">square_trimmed</span></code> or <code class="docutils literal notranslate"><span class="pre">Ncolumn</span></code> (<code class="docutils literal notranslate"><span class="pre">Nrow</span></code>) where N is an integer number of columns (rows), here is one example to generate a subplot grid with 2 columns and the necessary rows to fit all variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">az</span><span class="o">.</span><span class="n">rc_context</span><span class="p">({</span><span class="s2">"plot.bokeh.layout.order"</span><span class="p">:</span> <span class="s2">"2column"</span><span class="p">}):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"bokeh"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.rc_context.html#arviz.rc_context" title="arviz.rc_context"><span class="n">az</span><span class="o">.</span><span class="n">rc_context</span></a><span class="p">({</span><span class="s2">"plot.bokeh.layout.order"</span><span class="p">:</span> <span class="s2">"2column"</span><span class="p">}):</span>
+    <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_ess.html#arviz.plot_ess" title="arviz.plot_ess"><span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"bokeh"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

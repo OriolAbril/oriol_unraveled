@@ -32,6 +32,7 @@
 <link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
 <link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
 <link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/custom.css" rel="stylesheet" type="text/css">
 <!-- Pre-loaded scripts that we'll load fully later -->
 <link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
 <link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
@@ -51,7 +52,7 @@
         </script>
 <link href="../../../_static/favicon.ico" rel="shortcut icon">
 <link href="../../../about.html" rel="author" title="About these documents">
-<link href="../../../genindex.html" rel="index" title="Index">
+<link href="../../../genindex.html" rel="index" title="Index"/>
 <link href="../../../search.html" rel="search" title="Search"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
@@ -242,10 +243,10 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
 
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -259,8 +260,8 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_centered</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">"centered_eight"</span><span class="p">)</span>
-<span class="n">idata</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">"rugby"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_centered</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.load_arviz_data.html#arviz.load_arviz_data" title="arviz.load_arviz_data"><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span></a><span class="p">(</span><span class="s2">"centered_eight"</span><span class="p">)</span>
+<span class="n">idata</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.load_arviz_data.html#arviz.load_arviz_data" title="arviz.load_arviz_data"><span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span></a><span class="p">(</span><span class="s2">"rugby"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -271,9 +272,9 @@
 <p><code class="docutils literal notranslate"><span class="pre">az.plot_trace</span></code> generates two columns. The left one calls <code class="docutils literal notranslate"><span class="pre">plot_dist</span></code> to plot KDE/Histogram of the data, and the right column can contain either the trace itself (which gives the name to the plot) or a rank plot for which two visualizations are available. Rank plots are an alternative to trace plots, see <a class="reference external" href="https://arxiv.org/abs/1903.08008">https://arxiv.org/abs/1903.08008</a> for more details.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">kind</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s2">"trace"</span><span class="p">,</span> <span class="s2">"rank_bars"</span><span class="p">,</span> <span class="s2">"rank_vlines"</span><span class="p">)):</span>
-    <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,:]);</span>
+    <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,:]);</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -292,7 +293,7 @@
 <p>If present, divergences are indicated as a black rugplot in both columns of the trace plot. By default they are placed at the bottom of the plot, but they can be placed at the top or hidden.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -302,7 +303,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">None</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"tau"</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">None</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -316,7 +317,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">rug</span></code> adds a rug plot with the posterior samples at the bottom of the distribution plot, there are no changes in the trace plot column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mf">.4</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"home"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rug_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mf">.4</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -327,7 +328,7 @@
 <p>But what about having both rug and divergences at the same time? Fear not, ArviZ automatically modifies the default for divergences from <code class="docutils literal notranslate"><span class="pre">bottom</span></code> to <code class="docutils literal notranslate"><span class="pre">top</span></code> to prevent rug and divergences from overlapping:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata_centered</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"mu"</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -347,7 +348,7 @@
 <p>Let’s see what <code class="docutils literal notranslate"><span class="pre">xarray_var_iter</span></code> does with a simple dataset. We will create a dataset with two variables: <code class="docutils literal notranslate"><span class="pre">a</span></code> will be a 2x3 matrix and <code class="docutils literal notranslate"><span class="pre">b</span></code> will be a scalar. In addition, the dimensions of <code class="docutils literal notranslate"><span class="pre">a</span></code> will be labeled.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">({</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="xarray.Dataset"><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span></a><span class="p">({</span>
     <span class="s2">"a"</span><span class="p">:</span> <span class="p">((</span><span class="s2">"pos"</span><span class="p">,</span> <span class="s2">"direction"</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))),</span>
     <span class="s2">"b"</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> 
     <span class="s2">"pos"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">],</span>
@@ -408,7 +409,7 @@ b {} 12
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"atts"</span><span class="p">]</span>
 <span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="n">var_names</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))))</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
+<a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -425,7 +426,7 @@ b {} 12
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">]</span>
 <span class="n">quantile_ds</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span><span class="p">[[</span><span class="s2">"defs"</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">((</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="s2">"chain"</span><span class="p">,</span> <span class="s2">"draw"</span><span class="p">))</span>
 <span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">quantile_ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"quantile"</span><span class="p">}))</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
+<a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="n">var_names</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -444,7 +445,7 @@ b {} 12
 <p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> is to perform no aggregation at all. In this case therefore, all subplots will have exactly one line per chain in the posterior. In this chain only setting, the default mapping is to use color to distinguish chains:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -460,7 +461,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chain_prop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"linewidth"</span><span class="p">:</span> <span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)}</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
+<a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span>
     <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="n">chain_prop</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">);</span>
 </pre></div>
@@ -477,7 +478,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>In these cases, it may be more convenient to analyze a compact version of the trace plot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -493,7 +494,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>To reduce even more the clutter of lines in the trace plot, we can also combine chains. Moreover, the <code class="docutils literal notranslate"><span class="pre">linestyle</span> <span class="pre">-&gt;</span> <span class="pre">chain</span></code> mapping can be distracting, especially if we don’t care too much about distinguishing the chains between them. Like we did before, we will use <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to control this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"ls"</span><span class="p">:</span> <span class="s2">"-"</span><span class="p">},</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"ls"</span><span class="p">:</span> <span class="s2">"-"</span><span class="p">},</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -504,10 +505,10 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>Finally, we will explore alternative usage options for <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">compact_prop</span></code>. In the two previous examples we have used a 2 element tuple where the second position of the tuple contained the properties to use. Another alternative is to pass a string present in <code class="docutils literal notranslate"><span class="pre">plt.rcParams["axes.prop_cycle"]</span></code>, which in our case is <code class="docutils literal notranslate"><span class="pre">color</span></code> only.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span>
     <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">],</span> 
     <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="s2">"color"</span><span class="p">,</span> 
-    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
+    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -535,13 +536,13 @@ This is also a chain only setting, the default mapping is to use color to distin
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"team"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Scotland"</span><span class="p">,</span> <span class="s2">"Ireland"</span><span class="p">,</span> <span class="s2">"Italy"</span><span class="p">,</span> <span class="s2">"Wales"</span><span class="p">]}</span>
-<span class="n">quantile_ds</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">hdi</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"defs"</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span>
+<span class="n">quantile_ds</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.hdi.html#arviz.hdi" title="arviz.hdi"><span class="n">az</span><span class="o">.</span><span class="n">hdi</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="s2">"defs"</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span>
 <span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xarray_var_iter</span><span class="p">(</span><span class="n">quantile_ds</span><span class="p">,</span> <span class="n">skip_dims</span><span class="o">=</span><span class="p">{</span><span class="s2">"hdi"</span><span class="p">,</span> <span class="s2">"team"</span><span class="p">}))</span>
 <span class="n">chain_prop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C0'</span><span class="p">,</span> <span class="s1">'C1'</span><span class="p">,</span> <span class="s1">'C2'</span><span class="p">,</span> <span class="s1">'C3'</span><span class="p">,</span> <span class="s2">"xkcd:purple blue"</span><span class="p">]}</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span>
+<a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_trace.html#arviz.plot_trace" title="arviz.plot_trace"><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span></a><span class="p">(</span>
     <span class="n">idata</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"defs"</span><span class="p">,</span> <span class="s2">"atts"</span><span class="p">],</span> 
     <span class="n">combined</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_prop</span><span class="o">=</span><span class="n">chain_prop</span><span class="p">,</span> 
-    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"ls"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">)},</span>
+    <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compact_prop</span><span class="o">=</span><span class="p">{</span><span class="s2">"lw"</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s2">"ls"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">"--"</span><span class="p">)},</span>
     <span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">,</span>
     <span class="n">coords</span><span class="o">=</span><span class="n">coords</span>
 <span class="p">);</span>
@@ -603,14 +604,7 @@ watermark 2.0.2
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/matplotlib.html">matplotlib</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/arviz.html">arviz</a>
+<a href="../../category/arviz.html">arviz</a>
   
   ,
   
@@ -618,6 +612,13 @@ watermark 2.0.2
   
   
   <a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/matplotlib.html">matplotlib</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>

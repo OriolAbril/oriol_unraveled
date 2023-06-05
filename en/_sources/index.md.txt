@@ -31,15 +31,16 @@ Get ready for some puns and let's dive in!
 ::::{grid} 1 1 2 2
 :gutter: 3
 
-:::{grid-item-card} Panel discussion
+:::{grid-item-card} Workshop on uncertainty visualization
 
-I will participate in a discussion about Google Summer of Code organized by
-[Data Umbrella](https://www.dataumbrella.org/).
-Together with other GSoC participants, we'll share our experiences applying and participating to the project.
+I will lead a workshop on uncertainty visualization at
+[PyData BCN](https://pybcn.org/events/pydatabcn/pydatabcn_2023/).
 
-You can register on [MeetUp](https://www.meetup.com/data-umbrella/events/290346752/).
+We will go over different types of visualizations like histograms,
+KDEs, quantile dotplots or ECDF plots their interpretation and use-cases.
+
 +++
-Jan 24, 2023
+Jun 10, 2023
 :::
 
 :::{grid-item-card} Webinar
