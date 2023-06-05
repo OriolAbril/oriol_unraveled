@@ -2,133 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://oriolabrilpla.cat/en/</id>
   <title>Oriol unraveled</title>
-  <updated>2023-01-13T23:31:46.196786+00:00</updated>
+  <updated>2023-06-05T00:48:42.398285+00:00</updated>
   <link href="https://oriolabrilpla.cat/en/"/>
   <link href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.io/" version="0.11.0rc2.dev3+gd7c08e5">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.io/" version="0.11.4.post2.dev2+g3302dc5">ABlog</generator>
   <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html</id>
-    <title>LOO-CV on transformed data</title>
-    <updated>2019-06-21T00:00:00+00:00</updated>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html</id>
+    <title>PyMC 4.0 with labeled coords and dims</title>
+    <updated>2022-06-07T00:00:00+00:00</updated>
     <author>
       <name>Oriol Abril Pla</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Can different transformations of the data be compared with leave one out cross validation?&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/loo_regression.png" /&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Go even crazier with your virtual label-maker!&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/labeled_arys_v4.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html" rel="alternate"/>
-    <summary>Can different transformations of the data be compared with leave one out cross validation?</summary>
-    <category term="modelcomparison" label="model comparison"/>
-    <published>2019-06-21T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html</id>
-    <title>LOO-PIT tutorial</title>
-    <updated>2019-07-31T00:00:00+00:00</updated>
-    <author>
-      <name>Oriol Abril Pla</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Extend your posterior predictive checks with leave one out probability integral transform&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/loo_pit_bias.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html" rel="alternate"/>
-    <summary>Extend your posterior predictive checks with leave one out probability integral transform</summary>
-    <category term="modelcriticism" label="model criticism"/>
-    <category term="visualization" label="visualization"/>
-    <published>2019-07-31T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2020/rcParams.html</id>
-    <title>ArviZ customization with rcParams</title>
-    <updated>2020-06-16T00:00:00+00:00</updated>
-    <author>
-      <name>Oriol Abril Pla</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Use ArviZ rcParams to get sensible defaults right out of the box&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/rc_context.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/rcParams.html" rel="alternate"/>
-    <summary>Use ArviZ rcParams to get sensible defaults right out of the box</summary>
-    <category term="customization" label="customization"/>
-    <category term="rcparams" label="rcparams"/>
-    <published>2020-06-16T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html</id>
-    <title>ArviZ in depth: plot_trace</title>
-    <updated>2020-06-20T00:00:00+00:00</updated>
-    <author>
-      <name>Oriol Abril Pla</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Who said looking at traces wasn’t fun?&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/plot_trace_purple.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html" rel="alternate"/>
-    <summary>Who said looking at traces wasn’t fun?</summary>
-    <category term="visualization" label="visualization"/>
-    <published>2020-06-20T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2020/setting_up_blog.html</id>
-    <title>Creating a blog</title>
-    <updated>2020-07-10T00:00:00+00:00</updated>
-    <author>
-      <name>Oriol Abril Pla</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Sailing in the sea of blogging alternatives&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/blog.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/setting_up_blog.html" rel="alternate"/>
-    <summary>Sailing in the sea of blogging alternatives</summary>
-    <category term="blogging" label="blogging"/>
-    <category term="communication" label="communication"/>
-    <published>2020-07-10T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html</id>
-    <title>PyMC3 with labeled coords and dims</title>
-    <updated>2020-09-22T00:00:00+00:00</updated>
-    <author>
-      <name>Oriol Abril Pla</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Go crazy with your virtual label-maker!&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/labeled_arys.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html" rel="alternate"/>
-    <summary>Go crazy with your virtual label-maker!</summary>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html" rel="alternate"/>
+    <summary>Go even crazier with your virtual label-maker!</summary>
     <category term="arvizconverters" label="arviz converters"/>
     <category term="datastorage" label="data storage"/>
-    <published>2020-09-22T00:00:00+00:00</published>
-  </entry>
-  <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html</id>
-    <title>CmdStanPy and ArviZ integration</title>
-    <updated>2022-04-25T00:00:00+00:00</updated>
-    <author>
-      <name>Oriol Abril Pla</name>
-    </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Embrace labeled multi-dimensional arrays for better exploratory analysis of your Bayesian models&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/hmm_drive.png" /&gt;
-&lt;/div&gt;
-</content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html" rel="alternate"/>
-    <summary>Embrace labeled multi-dimensional arrays for better exploratory analysis of your Bayesian models</summary>
-    <category term="arvizconverters" label="arviz converters"/>
-    <category term="posteriorpredictive" label="posterior predictive"/>
-    <published>2022-04-25T00:00:00+00:00</published>
+    <published>2022-06-07T00:00:00+00:00</published>
   </entry>
   <entry>
     <id>https://oriolabrilpla.cat/en/blog/posts/2022/too-eager-reduction.html</id>
@@ -137,10 +29,8 @@
     <author>
       <name>Oriol Abril Pla</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Common cases of excessively eager dimensionality reduction&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/evil_kermit_posterior_mean.jpeg" /&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Common cases of excessively eager dimensionality reduction&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/evil_kermit_posterior_mean.jpeg" /&gt;&lt;/p&gt;
 </content>
     <link href="https://oriolabrilpla.cat/en/blog/posts/2022/too-eager-reduction.html" rel="alternate"/>
     <summary>Common cases of excessively eager dimensionality reduction</summary>
@@ -149,21 +39,113 @@
     <published>2022-05-25T00:00:00+00:00</published>
   </entry>
   <entry>
-    <id>https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html</id>
-    <title>PyMC 4.0 with labeled coords and dims</title>
-    <updated>2022-06-07T00:00:00+00:00</updated>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html</id>
+    <title>CmdStanPy and ArviZ integration</title>
+    <updated>2022-04-25T00:00:00+00:00</updated>
     <author>
       <name>Oriol Abril Pla</name>
     </author>
-    <content type="html">&lt;div class="ablog-post-excerpt docutils container"&gt;
-&lt;p&gt;Go even crazier with your virtual label-maker!&lt;/p&gt;
-&lt;img alt="" class="hidden-metadata" src="_images/labeled_arys_v4.png" /&gt;
-&lt;/div&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Embrace labeled multi-dimensional arrays for better exploratory analysis of your Bayesian models&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/hmm_drive.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html" rel="alternate"/>
-    <summary>Go even crazier with your virtual label-maker!</summary>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html" rel="alternate"/>
+    <summary>Embrace labeled multi-dimensional arrays for better exploratory analysis of your Bayesian models</summary>
+    <category term="arvizconverters" label="arviz converters"/>
+    <category term="posteriorpredictive" label="posterior predictive"/>
+    <published>2022-04-25T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html</id>
+    <title>PyMC3 with labeled coords and dims</title>
+    <updated>2020-09-22T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Go crazy with your virtual label-maker!&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/labeled_arys.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html" rel="alternate"/>
+    <summary>Go crazy with your virtual label-maker!</summary>
     <category term="arvizconverters" label="arviz converters"/>
     <category term="datastorage" label="data storage"/>
-    <published>2022-06-07T00:00:00+00:00</published>
+    <published>2020-09-22T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2020/setting_up_blog.html</id>
+    <title>Creating a blog</title>
+    <updated>2020-07-10T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Sailing in the sea of blogging alternatives&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/blog.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/setting_up_blog.html" rel="alternate"/>
+    <summary>Sailing in the sea of blogging alternatives</summary>
+    <category term="blogging" label="blogging"/>
+    <category term="communication" label="communication"/>
+    <published>2020-07-10T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html</id>
+    <title>ArviZ in depth: plot_trace</title>
+    <updated>2020-06-20T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Who said looking at traces wasn’t fun?&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/plot_trace_purple.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html" rel="alternate"/>
+    <summary>Who said looking at traces wasn’t fun?</summary>
+    <category term="visualization" label="visualization"/>
+    <published>2020-06-20T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2020/rcParams.html</id>
+    <title>ArviZ customization with rcParams</title>
+    <updated>2020-06-16T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Use ArviZ rcParams to get sensible defaults right out of the box&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/rc_context.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/rcParams.html" rel="alternate"/>
+    <summary>Use ArviZ rcParams to get sensible defaults right out of the box</summary>
+    <category term="customization" label="customization"/>
+    <category term="rcparams" label="rcparams"/>
+    <published>2020-06-16T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html</id>
+    <title>LOO-PIT tutorial</title>
+    <updated>2019-07-31T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Extend your posterior predictive checks with leave one out probability integral transform&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/loo_pit_bias.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html" rel="alternate"/>
+    <summary>Extend your posterior predictive checks with leave one out probability integral transform</summary>
+    <category term="modelcriticism" label="model criticism"/>
+    <category term="visualization" label="visualization"/>
+    <published>2019-07-31T00:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html</id>
+    <title>LOO-CV on transformed data</title>
+    <updated>2019-06-21T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Can different transformations of the data be compared with leave one out cross validation?&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/loo_regression.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html" rel="alternate"/>
+    <summary>Can different transformations of the data be compared with leave one out cross validation?</summary>
+    <category term="modelcomparison" label="model comparison"/>
+    <published>2019-06-21T00:00:00+00:00</published>
   </entry>
 </feed>
