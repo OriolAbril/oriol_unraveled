@@ -3,12 +3,11 @@ sphinx-copybutton
 sphinx-design
 myst-parser[linkify]
 myst-nb
-git+https://github.com/sunpy/ablog
+ablog>=0.11
 sphinx-codeautolink
 sphinxext-opengraph
 sphinx-notfound-page
 sphinxext-rediraffe
 sphinxcontrib-youtube
 git+https://github.com/oriolabril/oriol-personal-theme
-# Temporary fix for lexer errors
-ipython!=8.7.0
+ipython>=8.10

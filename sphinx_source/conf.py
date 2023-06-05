@@ -51,6 +51,8 @@ exclude_patterns = [
 
 # -- Options for extensions
 
+codeautolink_concat_default = True
+
 ogp_site_url = f"https://oriolabrilpla.cat/{language}/"
 ogp_image = f"https://oriolabrilpla.cat/{language}/_static/estendard_web_min.png"
 ogp_use_first_image = True
@@ -64,7 +66,7 @@ intersphinx_mapping = {
     "arviz": ("https://python.arviz.org/en/latest/", None),
     "arviz_org": (f"https://www.arviz.org/{language}/latest/", None),
     "mpl": ("https://matplotlib.org/stable/", None),
-    # "numpy": ("https://numpy.org/doc/stable/", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
     "pymc": ("https://www.pymc.io/projects/docs/en/stable/", None),
     "pymc_io": ("https://www.pymc.io", None),
     "pymc-examples": ("https://www.pymc.io/projects/examples/en/latest/", None),
@@ -183,8 +185,8 @@ compartir programari lliure i parlar sobre els meus projectes i experiències.</
 # html_logo = "images/logo.jpg"
 html_favicon = "images/favicon.ico"
 
-html_static_path = ["images"]
-# html_css_files = ["custom.css"]
+html_static_path = ["images", "_static"]
+html_css_files = ["custom.css"]
 html_title = project
 
 html_sidebars = {"**": []}
