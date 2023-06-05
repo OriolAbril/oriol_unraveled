@@ -32,6 +32,7 @@
 <link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css">
 <link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css">
 <link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css">
+<link href="../../../_static/custom.css" rel="stylesheet" type="text/css">
 <!-- Pre-loaded scripts that we'll load fully later -->
 <link as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94" rel="preload"/>
 <link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94" rel="preload"/>
@@ -54,7 +55,7 @@
         </script>
 <link href="../../../_static/favicon.ico" rel="shortcut icon">
 <link href="../../../about.html" rel="author" title="Quant a aquests documents">
-<link href="../../../genindex.html" rel="index" title="Índex">
+<link href="../../../genindex.html" rel="index" title="Índex"/>
 <link href="../../../search.html" rel="search" title="Cerca"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="ca" name="docsearch:language"/>
@@ -241,7 +242,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pystan</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
@@ -269,8 +270,8 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">logy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logy</span><span class="p">)</span> <span class="c1"># y will then be distributed as lognormal</span>
+<span class="n">logy</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html#numpy.random.normal" title="numpy.random.normal"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span></a><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.exp.html#numpy.exp" title="numpy.exp"><span class="n">np</span><span class="o">.</span><span class="n">exp</span></a><span class="p">(</span><span class="n">logy</span><span class="p">)</span> <span class="c1"># y will then be distributed as lognormal</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'N'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="s1">'y'</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'logy'</span><span class="p">:</span> <span class="n">logy</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -329,7 +330,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_lognormal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_lognormal</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.from_pystan.html#arviz.from_pystan" title="arviz.from_pystan"><span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span></a><span class="p">(</span>
     <span class="n">posterior</span><span class="o">=</span><span class="n">fit_lognormal</span><span class="p">,</span>
     <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
     <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
@@ -391,7 +392,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_normal</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_normal</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.from_pystan.html#arviz.from_pystan" title="arviz.from_pystan"><span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span></a><span class="p">(</span>
     <span class="n">posterior</span><span class="o">=</span><span class="n">fit_normal</span><span class="p">,</span>
     <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'logy_hat'</span><span class="p">,</span>
     <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'logy'</span><span class="p">],</span>
@@ -404,7 +405,7 @@
 <p>Check model convergence. Use <code class="docutils literal notranslate"><span class="pre">az.summary</span></code> to in one view that the effective sample size (ESS) is large enough and <span class="math notranslate nohighlight">\(\hat{R}\)</span> is close to one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.summary.html#arviz.summary" title="arviz.summary"><span class="n">az</span><span class="o">.</span><span class="n">summary</span></a><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -475,7 +476,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.summary.html#arviz.summary" title="arviz.summary"><span class="n">az</span><span class="o">.</span><span class="n">summary</span></a><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -547,7 +548,7 @@
 <p>In addition, we can plot the quantile ESS plot for one of them directly with <code class="docutils literal notranslate"><span class="pre">plot_ess</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"quantile"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_ess.html#arviz.plot_ess" title="arviz.plot_ess"><span class="n">az</span><span class="o">.</span><span class="n">plot_ess</span></a><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"quantile"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"k"</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -561,7 +562,7 @@
 <p>Check that both models are equivalent and do indeed give the same result for both parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_density</span><span class="p">([</span><span class="n">idata_lognormal</span><span class="p">,</span> <span class="n">idata_normal</span><span class="p">],</span> <span class="n">data_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Lognormal likelihood"</span><span class="p">,</span> <span class="s2">"Normal likelihood"</span><span class="p">]);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_density.html#arviz.plot_density" title="arviz.plot_density"><span class="n">az</span><span class="o">.</span><span class="n">plot_density</span></a><span class="p">([</span><span class="n">idata_lognormal</span><span class="p">,</span> <span class="n">idata_normal</span><span class="p">],</span> <span class="n">data_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Lognormal likelihood"</span><span class="p">,</span> <span class="s2">"Normal likelihood"</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -575,7 +576,7 @@
 <p>Now we get to calculate LOO-CV using Pareto Smoothed Importance Sampling as detailed in Vehtari et al., 2017. As we explained above, both models are equivalent, but one is in terms of <span class="math notranslate nohighlight">\(y\)</span> and the other in terms of <span class="math notranslate nohighlight">\(\log y\)</span>. Therefore, their likelihoods will be on different scales, and hence, their expected log predictive density will also be different.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_lognormal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -591,7 +592,7 @@ p_loo        1.80        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_normal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -641,7 +642,7 @@ p_y(y|\theta)=p_z(z|\theta)|\frac{dz}{dy}|=\frac{1}{|y|}p_z(z|\theta)=e^{-z}p_z(
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_normal</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -689,8 +690,8 @@ p_loo        1.64        -
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Finland</span>
-<span class="n">z1_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
-<span class="n">z2_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">z1_data</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log"><span class="n">np</span><span class="o">.</span><span class="n">log</span></a><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">z2_data</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
 <span class="n">x_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">/</span><span class="mi">100</span> <span class="c1"># rescale to set both to a similar scale</span>
 <span class="n">dict_y</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">y_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
 <span class="n">dict_z1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"N"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">z1_data</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">x_data</span><span class="p">}</span>
@@ -780,7 +781,7 @@ p_loo        1.64        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_y</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_y</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.from_pystan.html#arviz.from_pystan" title="arviz.from_pystan"><span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span></a><span class="p">(</span>
     <span class="n">posterior</span><span class="o">=</span><span class="n">fit_y</span><span class="p">,</span>
     <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
     <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
@@ -795,7 +796,7 @@ p_loo        1.64        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z1</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z1</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.from_pystan.html#arviz.from_pystan" title="arviz.from_pystan"><span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span></a><span class="p">(</span>
     <span class="n">posterior</span><span class="o">=</span><span class="n">fit_z1</span><span class="p">,</span>
     <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
     <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
@@ -809,7 +810,7 @@ p_loo        1.64        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.from_pystan.html#arviz.from_pystan" title="arviz.from_pystan"><span class="n">az</span><span class="o">.</span><span class="n">from_pystan</span></a><span class="p">(</span>
     <span class="n">posterior</span><span class="o">=</span><span class="n">fit_z2</span><span class="p">,</span>
     <span class="n">posterior_predictive</span><span class="o">=</span><span class="s1">'y_hat'</span><span class="p">,</span>
     <span class="n">observed_data</span><span class="o">=</span><span class="p">[</span><span class="s1">'y'</span><span class="p">],</span>
@@ -837,14 +838,14 @@ p_loo        1.64        -
 \[ |\frac{dz}{dy}| = |\frac{1}{2\sqrt{y}}| = \frac{1}{2 z_2} \quad \rightarrow \quad \log |\frac{dz}{dy}| = -\log (2 z_2)\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z2_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">+</span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">z2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">[</span><span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log"><span class="n">np</span><span class="o">.</span><span class="n">log</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z2_data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">+</span><span class="n">idata_z2</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">z2</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_y</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -860,8 +861,8 @@ p_loo        1.58        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z1"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z1"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_z1</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -878,8 +879,8 @@ p_loo        3.14        -
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z2"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">loo</span><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"LOO before Jacobian transformation: </span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"z2"</span><span class="p">)</span><span class="o">.</span><span class="n">loo</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.loo.html#arviz.loo" title="arviz.loo"><span class="n">az</span><span class="o">.</span><span class="n">loo</span></a><span class="p">(</span><span class="n">idata_z2</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
