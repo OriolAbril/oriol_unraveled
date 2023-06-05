@@ -1449,6 +1449,18 @@
           "end_lineno": 1,
           "context": "import_from",
           "resolved_location": "mpl_toolkits.mplot3d"
+        },
+        {
+          "import_components": [
+            "mpl_toolkits",
+            "mplot3d",
+            "Axes3D"
+          ],
+          "code_str": "Axes3D",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "mpl_toolkits.mplot3d.axes3d.Axes3D"
         }
       ],
       "example": {
