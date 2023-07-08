@@ -5111,7 +5111,7 @@
           "lineno": 2,
           "end_lineno": 2,
           "context": "none",
-          "resolved_location": "numpy.amin"
+          "resolved_location": "numpy.min"
         },
         {
           "import_components": [
@@ -5122,7 +5122,7 @@
           "lineno": 2,
           "end_lineno": 2,
           "context": "none",
-          "resolved_location": "numpy.amax"
+          "resolved_location": "numpy.max"
         },
         {
           "import_components": [

@@ -3,6 +3,7 @@ html[data-theme="light"] {
     --pst-color-primary-highlight: #217F87aa;
     --pst-color-secondary: #217F87;
     --pst-color-secondary-highlight: #217F87aa;
+    --pst-heading-color: #217F87;
 }
 
 .taxonomy-index {
@@ -268,7 +269,7 @@ label.sidebar-toggle {
   padding-left: 0;
 }
 
-button.version-switcher__button {
+button.btn.version-switcher__button {
   color: white;
 }
 
@@ -419,12 +420,12 @@ ul.blog-pre-title, .ablog__postcard > ul {
 .button.icon.solo {
   display: inline-block;
   position: relative;
-  width: 4rem;
-  height: 4rem;
+  width: 2rem;
+  height: 2rem;
   line-height: 4rem;
   border-radius: 4rem;
   overflow: hidden;
-  padding: 0;
+  padding: 13px;
   white-space: nowrap;
 }
 
