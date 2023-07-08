@@ -1,8 +1,8 @@
 Sphinx>=5
 sphinx-copybutton
 sphinx-design
-myst-parser[linkify]
-myst-nb
+myst-parser[linkify]>=2
+myst-nb @ git+https://github.com/executablebooks/myst-nb
 ablog>=0.11
 sphinx-codeautolink
 sphinxext-opengraph
