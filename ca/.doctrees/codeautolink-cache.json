@@ -3011,6 +3011,29 @@
       "names": [
         {
           "import_components": [
+            "xarray_einstats",
+            "stats"
+          ],
+          "code_str": "xarray_einstats.stats",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_from",
+          "resolved_location": "xarray_einstats.stats"
+        },
+        {
+          "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
             "scipy",
             "stats"
           ],
@@ -3058,6 +3081,18 @@
           "end_lineno": 1,
           "context": "none",
           "resolved_location": "scipy.stats.norm"
+        },
+        {
+          "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
         }
       ],
       "example": {
@@ -3240,6 +3275,18 @@
         },
         {
           "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
             "scipy",
             "stats",
             "norm"
@@ -3249,6 +3296,18 @@
           "end_lineno": 5,
           "context": "none",
           "resolved_location": "scipy.stats.norm"
+        },
+        {
+          "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 5,
+          "end_lineno": 5,
+          "context": "none",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
         },
         {
           "import_components": [
@@ -4738,6 +4797,17 @@
       "names": [
         {
           "import_components": [
+            "xarray_einstats",
+            "einops"
+          ],
+          "code_str": "xarray_einstats.einops",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_from",
+          "resolved_location": "xarray_einstats.einops"
+        },
+        {
+          "import_components": [
             "matplotlib",
             "pyplot",
             "subplots"
@@ -4906,6 +4976,29 @@
       "names": [
         {
           "import_components": [
+            "xarray_einstats",
+            "stats"
+          ],
+          "code_str": "xarray_einstats.stats",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_from",
+          "resolved_location": "xarray_einstats.stats"
+        },
+        {
+          "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
             "scipy",
             "stats"
           ],
@@ -4929,6 +5022,18 @@
         },
         {
           "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 10,
+          "end_lineno": 10,
+          "context": "none",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
             "numpy",
             "arcsin"
           ],
@@ -4949,6 +5054,18 @@
           "end_lineno": 14,
           "context": "none",
           "resolved_location": "scipy.stats.norm"
+        },
+        {
+          "import_components": [
+            "xarray_einstats",
+            "stats",
+            "XrContinuousRV"
+          ],
+          "code_str": "XrContinuousRV",
+          "lineno": 14,
+          "end_lineno": 14,
+          "context": "none",
+          "resolved_location": "xarray_einstats.stats.XrContinuousRV"
         },
         {
           "import_components": [
@@ -5521,6 +5638,540 @@
         ]
       },
       "doc_lineno": 510002
+    }
+  ],
+  "blog/posts/2023/xarray_intro": [
+    {
+      "source": "import numpy as np\nimport xarray as xr\n\nxr.set_options(display_expand_data=False, display_expand_indexes=True, display_expand_attrs=False);",
+      "names": [
+        {
+          "import_components": [
+            "numpy"
+          ],
+          "code_str": "numpy",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "numpy"
+        },
+        {
+          "import_components": [
+            "xarray"
+          ],
+          "code_str": "xarray",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "import_target",
+          "resolved_location": "xarray"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "set_options"
+          ],
+          "code_str": "xr.set_options",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "xarray.set_options"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "an-introduction-to-xarray",
+        "headings": [
+          "An introduction to xarray"
+        ]
+      },
+      "doc_lineno": 30002
+    },
+    {
+      "source": "ary = np.random.default_rng().normal(size=(4, 100, 7, 24))\nda_dims = xr.DataArray(ary, dims=[\"chain\", \"draw\", \"person\", \"time\"])\nda_dims",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "random",
+            "default_rng"
+          ],
+          "code_str": "np.random.default_rng",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.random.default_rng"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dimensions",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Dimensions"
+        ]
+      },
+      "doc_lineno": 50002
+    },
+    {
+      "source": "da_dims.mean(dim=(\"chain\", \"draw\"))\n# instead of ary.mean(axis=(0, 1))",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dimensions",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Dimensions"
+        ]
+      },
+      "doc_lineno": 70002
+    },
+    {
+      "source": "time_means = da_dims.mean((\"chain\", \"draw\", \"person\"))\nda_dims.sortby(time_means)\n# instead of\n# order = np.argsort(ary.mean(axis=(0, 1, 2)))\n# ary[..., order] ",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dimensions",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Dimensions"
+        ]
+      },
+      "doc_lineno": 90002
+    },
+    {
+      "source": "da_persons = xr.DataArray(np.arange(7), dims=\"person\")\nda_dims + da_persons\n# instead of ary + np.arange(13)[..., :, None]",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.arange"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dimensions",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Dimensions"
+        ]
+      },
+      "doc_lineno": 110002
+    },
+    {
+      "source": "np.fft.rfft(da_dims, n=8, axis=2)",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "fft",
+            "rfft"
+          ],
+          "code_str": "np.fft.rfft",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.fft.rfft"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dimensions",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Dimensions"
+        ]
+      },
+      "doc_lineno": 130002
+    },
+    {
+      "source": "ary = np.random.default_rng().normal(size=(4, 100, 7, 24))\nda = xr.DataArray(\n    ary,\n    dims=[\"chain\", \"draw\", \"person\", \"time\"],\n    coords={\n        \"chain\": [1, 2, 3, 4],\n        \"gender\": (\"person\", [\"male\", \"neutrois\", \"female\", \"male\", \"NB\", \"female\", \"female\"]),\n        \"age\": (\"person\", [25, 30, 73, 47, 51, 20, 64]),\n    }\n)\nda",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "random",
+            "default_rng"
+          ],
+          "code_str": "np.random.default_rng",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.random.default_rng"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "coordinates-and-indexes",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Coordinates and indexes"
+        ]
+      },
+      "doc_lineno": 160002
+    },
+    {
+      "source": "da = da.assign_coords(city=(\"person\", [\"Lleida\", \"Leida\", \"Sau\", \"Lleida\", \"Reus\", \"Sau\", \"Reus\"]))\nda",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "coordinates-and-indexes",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Coordinates and indexes"
+        ]
+      },
+      "doc_lineno": 180002
+    },
+    {
+      "source": "da = da.set_xindex(\"gender\").set_xindex(\"city\")\nda",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "coordinates-and-indexes",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Coordinates and indexes"
+        ]
+      },
+      "doc_lineno": 200002
+    },
+    {
+      "source": "da.sel(gender=\"female\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "coordinates-and-indexes",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Coordinates and indexes"
+        ]
+      },
+      "doc_lineno": 220002
+    },
+    {
+      "source": "da.sel(chain=[1, 3], time=slice(0, 5))",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "vectorized-and-outer-indexing",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Vectorized and outer indexing"
+        ]
+      },
+      "doc_lineno": 250002
+    },
+    {
+      "source": "chain_idx = xr.DataArray([1, 1, 3, 3, 1, 3, 1, 1], dims=\"vectorized_sel\")\ntime_idx = xr.DataArray([0, 1, 0, 1, 2, 2, 3, 4], dims=\"vectorized_sel\")\nda.sel(chain=chain_idx, time=time_idx)",
+      "names": [
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "vectorized-and-outer-indexing",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Vectorized and outer indexing"
+        ]
+      },
+      "doc_lineno": 270002
+    },
+    {
+      "source": "da.mean(\"draw\").plot.line(x=\"time\", hue=\"person\", col=\"chain\", col_wrap=2);",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "plotting",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Plotting"
+        ]
+      },
+      "doc_lineno": 290002
+    },
+    {
+      "source": "# make the plot more interesting\nda_plot = da_dims + da_persons - xr.DataArray(2*np.sin(np.linspace(0, np.pi, 24)), dims=\"time\")\nda_plot.mean((\"chain\", \"draw\")).plot.imshow(x=\"time\", y=\"person\", center=False);",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "pi"
+          ],
+          "code_str": "np.pi",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "numpy.pi"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "linspace"
+          ],
+          "code_str": "np.linspace",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "numpy.linspace"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "sin"
+          ],
+          "code_str": "np.sin",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "numpy.sin"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "plotting",
+        "headings": [
+          "An introduction to xarray",
+          "DataArray",
+          "Plotting"
+        ]
+      },
+      "doc_lineno": 310002
+    },
+    {
+      "source": "ds = xr.Dataset(\n    {\n        \"a\": ([\"chain\", \"draw\", \"person\", \"time\"], ary),\n        \"b\": ([\"chain\", \"draw\"], np.random.default_rng().normal(size=(4, 100)))\n    },\n    coords={\"chain\": [1, 2, 3, 4]}\n)\nds",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "random",
+            "default_rng"
+          ],
+          "code_str": "np.random.default_rng",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "numpy.random.default_rng"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "Dataset"
+          ],
+          "code_str": "xr.Dataset",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "xarray.Dataset"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dataset",
+        "headings": [
+          "An introduction to xarray",
+          "Dataset"
+        ]
+      },
+      "doc_lineno": 330002
+    },
+    {
+      "source": "ds.sel(chain=2).mean(\"person\")",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dataset",
+        "headings": [
+          "An introduction to xarray",
+          "Dataset"
+        ]
+      },
+      "doc_lineno": 350002
+    },
+    {
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dataset",
+        "headings": [
+          "An introduction to xarray",
+          "Dataset"
+        ]
+      },
+      "doc_lineno": 390002
+    },
+    {
+      "source": "import matplotlib.pyplot as plt\nimport numpy as np\n\nfig, axes = plt.subplots(1, 2, figsize=(8, 4))\n\nax = axes[0]\nax.fill_betweenx([3, 5], x1=5, x2=0, color=\"xkcd:jade\", alpha=.3)\nax.fill_between([1, 2], y1=5, y2=0, color=\"violet\", alpha=.3)\nax.fill_between([3, 4], y1=5, y2=0, color=\"violet\", alpha=.3)\nax.fill_between([1, 2], y1=5, y2=3, color=\"r\")\nax.fill_between([3, 4], y1=5, y2=3, color=\"r\")\nax.hlines(np.arange(6), 0, 5, lw=1, color=\"k\")\nax.vlines(np.arange(6), 0, 5, lw=1, color=\"k\")\nax.set_ylim(-0.05, 5.05)\nax.set_xlim(-0.05, 5.05)\nax.set_title(\"Outer indexing: [[0, 1], [1, 3]]\")\nax.set_axis_off()\nax.set_aspect(\"equal\")\n\nax = axes[1]\nax.fill_between([1, 2], y1=5, y2=4, color=\"r\")\nax.fill_between([3, 4], y1=4, y2=3, color=\"r\")\nax.hlines(np.arange(6), 0, 5, lw=1, color=\"k\")\nax.vlines(np.arange(6), 0, 5, lw=1, color=\"k\")\nax.set_ylim(-0.05, 5.05)\nax.set_xlim(-0.05, 5.05)\nax.set_title(\"Vectorized indexing: [[0, 1], [1, 3]]\")\nax.set_axis_off()\nax.set_aspect(\"equal\")\n\n#fig.savefig(\"indexing_modes.png\", dpi=300)",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot"
+          ],
+          "code_str": "matplotlib.pyplot",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "matplotlib.pyplot"
+        },
+        {
+          "import_components": [
+            "numpy"
+          ],
+          "code_str": "numpy",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "import_target",
+          "resolved_location": "numpy"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "subplots"
+          ],
+          "code_str": "plt.subplots",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "matplotlib.pyplot.subplots"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 12,
+          "end_lineno": 12,
+          "context": "none",
+          "resolved_location": "numpy.arange"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 13,
+          "end_lineno": 13,
+          "context": "none",
+          "resolved_location": "numpy.arange"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 23,
+          "end_lineno": 23,
+          "context": "none",
+          "resolved_location": "numpy.arange"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 24,
+          "end_lineno": 24,
+          "context": "none",
+          "resolved_location": "numpy.arange"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/xarray_intro",
+        "ref_id": "dataset",
+        "headings": [
+          "An introduction to xarray",
+          "Dataset"
+        ]
+      },
+      "doc_lineno": 410002
     }
   ],
   "blog/tag": [],

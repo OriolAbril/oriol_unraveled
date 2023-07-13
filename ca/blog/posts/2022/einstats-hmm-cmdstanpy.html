@@ -683,7 +683,7 @@ Attributes:
 <p>Following the case study, we will perform posterior predictive sampling in Python instead of in the <code class="docutils literal notranslate"><span class="pre">generated_quantities</span></code> block of Stan. We will use <a class="reference external" href="https://einstats.python.arviz.org/en/latest/">xarray-einstats</a> to generate the random samples from xarray objects.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.stats</span> <span class="kn">import</span> <span class="n">XrContinuousRV</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/stats.html#module-xarray_einstats.stats" title="xarray_einstats.stats"><span class="nn">xarray_einstats.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a>
 <span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a>
 
 <span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
@@ -711,7 +711,7 @@ xarray-einstats provides the <a class="reference external" href="https://einstat
 <p>We can then generate the distribution and generate the random samples with the <code class="docutils literal notranslate"><span class="pre">rvs</span></code> method like we would do with SciPy. The <code class="docutils literal notranslate"><span class="pre">to_dataset</span></code> method is called so we can then add the data as a new group to our <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">posterior_predictive</span><span class="o">=</span><span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a><span class="p">,</span> <span class="n">psi_seq</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">idata</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span><span class="n">posterior_predictive</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a><span class="p">,</span> <span class="n">psi_seq</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">idata</span><span class="p">)</span>
 <span class="n">idata</span><span class="o">.</span><span class="n">posterior_predictive</span>
 </pre></div>
@@ -960,8 +960,8 @@ Attributes:
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">post</span> <span class="o">=</span> <span class="n">drive_idata</span><span class="o">.</span><span class="n">posterior</span>
 
 <span class="n">ds_seq</span> <span class="o">=</span> <span class="n">post</span><span class="p">[[</span><span class="s2">"phi"</span><span class="p">,</span> <span class="s2">"lambda"</span><span class="p">]]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s2">"z_star"</span><span class="p">])</span>
-<span class="n">phi_hat</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a><span class="p">,</span> <span class="n">ds_seq</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">],</span> <span class="mf">.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
-<span class="n">lambda_hat</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a><span class="p">,</span> <span class="n">ds_seq</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">],</span> <span class="mf">.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+<span class="n">phi_hat</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a><span class="p">,</span> <span class="n">ds_seq</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">],</span> <span class="mf">.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+<span class="n">lambda_hat</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a><span class="p">,</span> <span class="n">ds_seq</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">],</span> <span class="mf">.1</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
 
 <span class="n">drive_idata</span><span class="o">.</span><span class="n">add_groups</span><span class="p">(</span>
     <span class="n">posterior_predictive</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="xarray.Dataset"><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span></a><span class="p">({</span><span class="s2">"phi"</span><span class="p">:</span> <span class="n">phi_hat</span><span class="p">,</span> <span class="s2">"lambda"</span><span class="p">:</span> <span class="n">lambda_hat</span><span class="p">})</span>
@@ -1451,7 +1451,14 @@ Watermark: 2.3.0
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Categoria</label>
-<a href="../../category/xarray.html">xarray</a>
+<a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray.html">xarray</a>
   
   ,
   
@@ -1465,7 +1472,7 @@ Watermark: 2.3.0
   
   
   
-  <a href="../../category/python.html">python</a>
+  <a href="../../category/arviz.html">arviz</a>
   
   ,
   
@@ -1473,21 +1480,14 @@ Watermark: 2.3.0
   
   
   <a href="../../category/stan.html">stan</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/arviz.html">arviz</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
 <i class="fa-solid fa-tags"></i>
 </span>
 <label class="sr-only">Etiquetes</label>
-<a href="../../tag/arviz-converters.html">arviz converters</a>
 <a href="../../tag/posterior-predictive.html">posterior predictive</a>
+<a href="../../tag/arviz-converters.html">arviz converters</a>
 </li>
 </ul>
 </div>
