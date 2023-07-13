@@ -502,7 +502,7 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.einops</span> <span class="kn">import</span> <span class="n">raw_reduce</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/einops.html#module-xarray_einstats.einops" title="xarray_einstats.einops"><span class="nn">xarray_einstats.einops</span></a> <span class="kn">import</span> <span class="n">raw_reduce</span>
 
 <span class="k">def</span> <span class="nf">plot_func_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -611,7 +611,7 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>And the second is that the “badness” of averaging before operating depends as we have seen on the distribution, on the function and can also depend on other constant inputs of the function. In this case, the effect of averaging before gets worse as we compute the pushforward operation on larger distances (we are modeling probabilities of making the putt as a function of the distance).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xarray_einstats.stats</span> <span class="kn">import</span> <span class="n">XrContinuousRV</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/stats.html#module-xarray_einstats.stats" title="xarray_einstats.stats"><span class="nn">xarray_einstats.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a>
 <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="k">as</span> <span class="nn">st</span>
 
 <span class="n">BALL_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.68</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
@@ -620,11 +620,11 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="n">DISTANCE_TOLERANCE</span> <span class="o">=</span> <span class="mf">3.0</span>
 
 <span class="k">def</span> <span class="nf">forward_angle_model</span><span class="p">(</span><span class="n">variances_of_shot</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="n">norm_dist</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">variances_of_shot</span><span class="p">)</span>
+    <span class="n">norm_dist</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">variances_of_shot</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">norm_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arcsin.html#numpy.arcsin" title="numpy.arcsin"><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span></a><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
 
 <span class="k">def</span> <span class="nf">forward_distance_angle_model</span><span class="p">(</span><span class="n">variance_of_shot</span><span class="p">,</span> <span class="n">variance_of_distance</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="n">rv</span> <span class="o">=</span> <span class="n">XrContinuousRV</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">rv</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">angle_prob</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arcsin.html#numpy.arcsin" title="numpy.arcsin"><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span></a><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance_of_shot</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
     <span class="n">distance_prob_one</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span>
@@ -998,14 +998,7 @@ Watermark: 2.3.0
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/xarray-einstats.html">xarray-einstats</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/python.html">python</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
@@ -1013,6 +1006,13 @@ Watermark: 2.3.0
   
   
   <a href="../../category/arviz.html">arviz</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
   
   ,
   

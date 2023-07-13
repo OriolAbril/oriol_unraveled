@@ -2,10 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://oriolabrilpla.cat/en/</id>
   <title>Oriol unraveled</title>
-  <updated>2023-07-08T21:42:29.740232+00:00</updated>
+  <updated>2023-07-13T21:35:55.362263+00:00</updated>
   <link href="https://oriolabrilpla.cat/en/"/>
   <link href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.4.post1">ABlog</generator>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html</id>
+    <title>An introduction to xarray</title>
+    <updated>2023-07-13T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Tutorial style introduction to xarray features: dimensions, coordinates, indexes, plotting and more…&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/indexing_modes.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html" rel="alternate"/>
+    <summary>Tutorial style introduction to xarray features: dimensions, coordinates, indexes, plotting and more…</summary>
+    <category term="datastorage" label="data storage"/>
+    <category term="recommendation" label="recommendation"/>
+    <published>2023-07-13T00:00:00+00:00</published>
+  </entry>
   <entry>
     <id>https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html</id>
     <title>PyMC 4.0 with labeled coords and dims</title>
