@@ -72,6 +72,7 @@ intersphinx_mapping = {
     "pymc-examples": ("https://www.pymc.io/projects/examples/en/latest/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
+    "einstats": ("https://einstats.python.arviz.org/en/latest", None),
 }
 
 blog_baseurl = ogp_site_url
