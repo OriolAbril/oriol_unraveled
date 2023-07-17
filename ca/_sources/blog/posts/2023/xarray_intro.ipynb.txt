@@ -27,7 +27,7 @@
    "id": "a49a819f-0973-4cd5-8486-d80a10f01b1b",
    "metadata": {},
    "source": [
-    "Xarray provides two data structures: <inv:#xarray.DataArray> and <inv:#xarray.Dataset>. Both support named dimensions, coordinates and, more recently, also explicit indexes.\n",
+    "Xarray is a Python library for N-D labeled arrays and datasets. It provides two data structures: <inv:#xarray.DataArray> and <inv:#xarray.Dataset>. Both support named dimensions, coordinates and, more recently, also explicit indexes.\n",
     "A `DataArray` can be seen as an extension of an n-dimensional array like a <inv:#numpy.ndarray>. A `DataSet` can be seen as an extension of a flat dictionary of arrays.\n",
     "\n",
     "In this post we will cover dimensions, coordinates and indexes, especially for `DataArray` objects but also for `Dataset` objects. Xarray also supports attaching arbitrary metadata to `DataArray`s, `Dataset`s and even coordinates. The arrays we'll generate will have random values, so we won't care much about the values themselves, and we won't cover attributes in this post either, so we will configure the html view of xarray objects to show indexes by default and hide attributes:"
