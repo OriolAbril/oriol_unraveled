@@ -4,7 +4,7 @@
 <html data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="An introduction to xarray" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html" property="og:url"/>
@@ -19,34 +19,36 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2023/xarray_intro';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -125,10 +127,6 @@
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -189,7 +187,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      en  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -215,10 +213,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -236,10 +230,10 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="an-introduction-to-xarray">
-<span id="xarray-intro"></span><h1>An introduction to xarray<a class="headerlink" href="#an-introduction-to-xarray" title="Permalink to this heading">#</a></h1>
+<span id="xarray-intro"></span><h1>An introduction to xarray<a class="headerlink" href="#an-introduction-to-xarray" title="Link to this heading">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/indexing_modes.png"/>
-<p>Xarray is a Python library for N-D labeled arrays and datasets. It provides two data structures: <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray 2023.7.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="xarray 2023.7.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>. Both support named dimensions, coordinates and, more recently, also explicit indexes.
-A <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> can be seen as an extension of an n-dimensional array like a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="NumPy 1.25"><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>. A <code class="docutils literal notranslate"><span class="pre">DataSet</span></code> can be seen as an extension of a flat dictionary of arrays.</p>
+<p>Xarray is a Python library for N-D labeled arrays and datasets. It provides two data structures: <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray 2023.9.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="xarray 2023.9.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>. Both support named dimensions, coordinates and, more recently, also explicit indexes.
+A <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> can be seen as an extension of an n-dimensional array like a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="NumPy 1.26"><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>. A <code class="docutils literal notranslate"><span class="pre">DataSet</span></code> can be seen as an extension of a flat dictionary of arrays.</p>
 <p>In this post we will cover dimensions, coordinates and indexes, especially for <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects but also for <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> objects. Xarray also supports attaching arbitrary metadata to <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s, <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>s and even coordinates. The arrays we’ll generate will have random values, so we won’t care much about the values themselves, and we won’t cover attributes in this post either, so we will configure the html view of xarray objects to show indexes by default and hide attributes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -252,9 +246,9 @@ A <code class="docutils literal notranslate"><span class="pre">DataArray</span><
 </div>
 </div>
 <section id="dataarray">
-<h2>DataArray<a class="headerlink" href="#dataarray" title="Permalink to this heading">#</a></h2>
+<h2>DataArray<a class="headerlink" href="#dataarray" title="Link to this heading">#</a></h2>
 <section id="dimensions">
-<h3>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this heading">#</a></h3>
+<h3>Dimensions<a class="headerlink" href="#dimensions" title="Link to this heading">#</a></h3>
 <p>For me, the most important feature is the ability to label dimensions. Given an array, we can assign a label to each of its dimensions (axes in NumPy terminology):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2454,7 +2448,7 @@ Dimensions without coordinates: chain, draw, person, time</pre><div class="xr-wr
 <p>It is possible to convert a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> to an ndarray using <code class="docutils literal notranslate"><span class="pre">da.values</span></code> but as we have just seen, very often it is not necessary.</p>
 </section>
 <section id="coordinates-and-indexes">
-<h3>Coordinates and indexes<a class="headerlink" href="#coordinates-and-indexes" title="Permalink to this heading">#</a></h3>
+<h3>Coordinates and indexes<a class="headerlink" href="#coordinates-and-indexes" title="Link to this heading">#</a></h3>
 <p>In addition, it is also possible to use coordinates. For <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s, coordinates are kind of in between data and attributes.
 A <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> is equivalent to a single array, however, it can have as many coordinates as desired. When creating a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>,
 the <code class="docutils literal notranslate"><span class="pre">coords</span></code> argument can be used to initialize the coordinates. It is a dictionary whose keys are coordinate names,
@@ -2888,7 +2882,7 @@ Dimensions without coordinates: draw, person, time</pre><div class="xr-wrap" sty
            1.02708010e-01, -1.82473399e-01,  1.19789412e+00]]]])</pre></div></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-37c87508-4ebe-49c6-b3ce-2d8548d4d85a" type="checkbox"/><label class="xr-section-summary" for="section-37c87508-4ebe-49c6-b3ce-2d8548d4d85a">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">chain</span></div><div class="xr-var-dims">(chain)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">1 2 3 4</div><input class="xr-var-attrs-in" disabled="" id="attrs-12619e21-511b-4667-b4a7-206b0cbf357c" type="checkbox"/><label for="attrs-12619e21-511b-4667-b4a7-206b0cbf357c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-07f59adb-ad87-4831-bc2a-8d89444381a0" type="checkbox"/><label for="data-07f59adb-ad87-4831-bc2a-8d89444381a0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([1, 2, 3, 4])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>gender</span></div><div class="xr-var-dims">(person)</div><div class="xr-var-dtype">&lt;U8</div><div class="xr-var-preview xr-preview">'male' 'neutrois' ... 'female'</div><input class="xr-var-attrs-in" disabled="" id="attrs-07463b86-fdb9-42ba-af94-564ce87ecc38" type="checkbox"/><label for="attrs-07463b86-fdb9-42ba-af94-564ce87ecc38" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-c7b2dab1-f3fb-4ac0-862b-9ef84d0114bd" type="checkbox"/><label for="data-c7b2dab1-f3fb-4ac0-862b-9ef84d0114bd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['male', 'neutrois', 'female', 'male', 'NB', 'female', 'female'],
       dtype='&lt;U8')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>age</span></div><div class="xr-var-dims">(person)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">25 30 73 47 51 20 64</div><input class="xr-var-attrs-in" disabled="" id="attrs-1dd8054a-62d3-4e72-97df-4dfbc2e84abd" type="checkbox"/><label for="attrs-1dd8054a-62d3-4e72-97df-4dfbc2e84abd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-20f3f545-eb64-40cb-986a-8d79b5e47671" type="checkbox"/><label for="data-20f3f545-eb64-40cb-986a-8d79b5e47671" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([25, 30, 73, 47, 51, 20, 64])</pre></div></li></ul></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-b5ae431b-5213-4ea2-a6e7-056c34e0842b" type="checkbox"/><label class="xr-section-summary" for="section-b5ae431b-5213-4ea2-a6e7-056c34e0842b">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>chain</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input class="xr-index-data-in" id="index-3636f707-70c7-45e2-b0c9-3456afabdef3" type="checkbox"><label for="index-3636f707-70c7-45e2-b0c9-3456afabdef3" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([1, 2, 3, 4], dtype='int64', name='chain'))</pre></div></input></li></ul></div></li><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-46c9d112-0738-4534-af46-2029191a7038" type="checkbox"/><label class="xr-section-summary" for="section-46c9d112-0738-4534-af46-2029191a7038" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div></div></div>
 </div>
-<p>Alternatively, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.assign_coords.html#xarray.DataArray.assign_coords" title="xarray 2023.7.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray.assign_coords</span></code></a> can be used to add coordinates to an existing <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>:</p>
+<p>Alternatively, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.assign_coords.html#xarray.DataArray.assign_coords" title="xarray 2023.9.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray.assign_coords</span></code></a> can be used to add coordinates to an existing <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="p">(</span><span class="s2">"person"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"Lleida"</span><span class="p">,</span> <span class="s2">"Leida"</span><span class="p">,</span> <span class="s2">"Sau"</span><span class="p">,</span> <span class="s2">"Lleida"</span><span class="p">,</span> <span class="s2">"Reus"</span><span class="p">,</span> <span class="s2">"Sau"</span><span class="p">,</span> <span class="s2">"Reus"</span><span class="p">]))</span>
@@ -4157,7 +4151,7 @@ Dimensions without coordinates: draw, person, time</pre><div class="xr-wrap" sty
 </div>
 </section>
 <section id="vectorized-and-outer-indexing">
-<h3>Vectorized and outer indexing<a class="headerlink" href="#vectorized-and-outer-indexing" title="Permalink to this heading">#</a></h3>
+<h3>Vectorized and outer indexing<a class="headerlink" href="#vectorized-and-outer-indexing" title="Link to this heading">#</a></h3>
 <p>NumPy indexing is extremely powerful, especially what is often called “fancy” indexing. However, it can be confusing and inconsistent (see <a class="reference external" href="https://numpy.org/neps/nep-0021-advanced-indexing.html">this NEP proposal</a> for more background). With dimensions and coordinates, xarray allows being explicit and consistent when choosing between vectorized and outer indexing.</p>
 <p><img alt="Diagram showing visually the two indexing modes. With outer indexing, we select the intersection between the slice in each dimension. With vectorized indexing we select only the specific positions indicated by the pointwise combination of indexes." src="../../../_images/indexing_modes.png"/></p>
 <p>Outer indexing selects rectangular or hyper-rectangular slices. To use outer indexing with xarray, we can use lists, arrays or <em><code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s that have as a dimension the one that is being indexed</em>. Therefore, the output of outer indexing will have the same dimensions as the input minus those dimensions whose slice is a scalar, which are squeezed.</p>
@@ -5006,7 +5000,7 @@ Dimensions without coordinates: vectorized_sel, draw, person</pre><div class="xr
 </div>
 </section>
 <section id="plotting">
-<h3>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading">#</a></h3>
+<h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h3>
 <p>Xarray also has some plotting support, which is very convenient for visualizing the multidimensional data. For example, we can facet over a 1st dimension (here <code class="docutils literal notranslate"><span class="pre">chain</span></code>,
 use a 2nd dimension (here <code class="docutils literal notranslate"><span class="pre">time</span></code>) as x values of the line plot and map the color of the lines to a 3rd dimension (here <code class="docutils literal notranslate"><span class="pre">person</span></code>).
 The y values are the actual values in the <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>.</p>
@@ -5036,7 +5030,7 @@ The y values are the actual values in the <code class="docutils literal notransl
 </section>
 </section>
 <section id="dataset">
-<h2>Dataset<a class="headerlink" href="#dataset" title="Permalink to this heading">#</a></h2>
+<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Dataset</span></code>s are a collection of <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s, each <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> being a data variable and having a name/key. Thus, they are similar to a dictionary of arrays but with one important difference. Dimensions with the same name are shared between variables:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -5915,7 +5909,7 @@ Data variables:
         0.42497381,  0.91993564, -0.36942464, -1.31634694,  1.00861486,
         0.62791804,  1.25721273, -1.39035552,  0.24185504,  1.65858151])</pre></div></li></ul></div></li><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-9cf7fb80-7095-47ff-acc7-c0d97f89472d" type="checkbox"/><label class="xr-section-summary" for="section-9cf7fb80-7095-47ff-acc7-c0d97f89472d" title="Expand/collapse section">Indexes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-200ad4e4-e1e9-4b70-a57b-28793934a390" type="checkbox"/><label class="xr-section-summary" for="section-200ad4e4-e1e9-4b70-a57b-28793934a390" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div></div></div>
 </div>
-<p>To apply arbitrary functions to all the data variables in a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, we can use <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.map.html#xarray.Dataset.map" title="xarray 2023.7.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset.map</span></code></a> for functions that return a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.apply_ufunc.html#xarray.apply_ufunc" title="xarray 2023.7.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.apply_ufunc</span></code></a> for functions that return arrays. <code class="docutils literal notranslate"><span class="pre">apply_ufunc</span></code> can be challenging to use, but there is a good chance that a library exists that already wraps and extends numpy/scipy/… functions to have an xarray-like API. Take a look at <a class="reference external" href="https://docs.xarray.dev/en/stable/ecosystem.html" title="xarray 2023.7.1.dev0">Xarray related projects</a> to browse packages that extend xarray.</p>
+<p>To apply arbitrary functions to all the data variables in a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, we can use <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.map.html#xarray.Dataset.map" title="xarray 2023.9.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset.map</span></code></a> for functions that return a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.apply_ufunc.html#xarray.apply_ufunc" title="xarray 2023.9.1.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.apply_ufunc</span></code></a> for functions that return arrays. <code class="docutils literal notranslate"><span class="pre">apply_ufunc</span></code> can be challenging to use, but there is a good chance that a library exists that already wraps and extends numpy/scipy/… functions to have an xarray-like API. Take a look at <a class="reference external" href="https://docs.xarray.dev/en/stable/ecosystem.html" title="xarray 2023.9.1.dev0">Xarray related projects</a> to browse packages that extend xarray.</p>
 <p>And if this still doesn’t work, yet again, <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>s are quite like a dictionary. So much so that they even have a <a class="reference external" href="https://docs.xarray.dev/en/stable/api.html#dictionary-interface">dict-like interface</a> with <code class="docutils literal notranslate"><span class="pre">.items()</span></code>, <code class="docutils literal notranslate"><span class="pre">.keys()</span></code>, <code class="docutils literal notranslate"><span class="pre">.get()</span></code>…</p>
 <p>I hope this introduction has been useful. I would like to continue exploring features of xarray as a series, also covering potential new features and extensions for ArviZ. You can leave your comments to this blog post below, only a GitHub account is needed for commenting.</p>
 <hr class="docutils"/>
@@ -6068,8 +6062,8 @@ Watermark: 2.4.3
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -6094,7 +6088,7 @@ Watermark: 2.4.3
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>

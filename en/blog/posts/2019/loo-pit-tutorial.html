@@ -4,7 +4,7 @@
 <html data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="LOO-PIT tutorial" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html" property="og:url"/>
@@ -19,36 +19,38 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
 <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2019/loo-pit-tutorial';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -127,10 +129,6 @@
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -191,7 +189,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      en  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -217,10 +215,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -238,10 +232,10 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="loo-pit-tutorial">
-<span id="id1"></span><h1>LOO-PIT tutorial<a class="headerlink" href="#loo-pit-tutorial" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>LOO-PIT tutorial<a class="headerlink" href="#loo-pit-tutorial" title="Link to this heading">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/loo_pit_bias.png"/>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>One of the new functionalities I added in ArviZ during my GSoC internship is Leave One Out (LOO) Probability Integral Transform (PIT) marginal posterior predictive checks. You can see <a class="reference external" href="https://arviz-devs.github.io/arviz/examples/plot_loo_pit_ecdf.html">two</a> <a class="reference external" href="https://arviz-devs.github.io/arviz/examples/plot_loo_pit_overlay.html">examples</a> of its usage in the example gallery and also some examples in its <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.plot_loo_pit.html#arviz.plot_loo_pit">API section</a>. However, these examples are mainly related to the usage of the functionalities, not so much on the usage of LOO-PIT itself nor its interpretability.</p>
 <p>I feel that the LOO-PIT algorithm usage and interpretability needs a short summary with examples showing the most common issues found when checking models with LOO-PIT. This tutorial will tackle this issue: how can LOO-PIT be used for model checking and what does it tell us in a practical manner, so we can see firsthand how wrongly specified models cause LOO-PIT values to differ from a uniform distribution. I have included a short description on what is the algorithm doing, however, for a detailed explanation, see:</p>
 <ul class="simple">
@@ -251,31 +245,31 @@ document.write(`
 <p>Here, we will experiment with LOO-PIT using two different models. First an estimation of the mean and standard deviation of a 1D Gaussian Random Variable, and then a 1D linear regression. Afterwards, we will see how to use LOO-PIT checks with multivariate data using as example a multivariate linear regression.</p>
 </section>
 <section id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
 <p>One of the pilars of Bayesian Statistics is working with the posterior distribution of the parameters instead of using point estimates and errors or confidence intervals. We all know how to obtain this posterior given the likelihood, the prior and the , <span class="math notranslate nohighlight">\(p(\theta \mid y) = p(y \mid \theta) p(\theta) / p(y)\)</span>. In addition, in many cases we are also interested in <strong>the probability of future observations given the observed data</strong> according to our model. This is called posterior predictive, which is calculated integrating out <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[ p(y^* | y) = \int p(y^*|\theta) p(\theta|y) d\theta\]</div>
 <p>where <span class="math notranslate nohighlight">\(y^*\)</span> is the possible unobserved data and <span class="math notranslate nohighlight">\(y\)</span> is the observed data. Therefore, if our model is correct, the observed data and the posterior predictive follow the same probability density function (pdf). In order to check if this holds, it is common to perform posterior predictive checks comparing the posterior predictive to the observed data. This can be done directly, comparing the kernel density estimates (KDE) of the observed data and posterior predictive samples, etc. A KDEs is nothing else than an estimation of the pdf of a random variable given a finite number of samples from this random variable.</p>
 <p>Another alternative it to perform LOO-PIT checks, which are a kind of marginal posterior predictive checks. Marginal because we compare each observation only with the corresponding posterior predictive samples instead of combining all observations and all posterior predictive samples. As the name indicates, it combines two different concepts, Leave-One-Out Cross-Validation and Probability Integral Transform.</p>
 <section id="probability-integral-transform">
-<h3>Probability Integral Transform<a class="headerlink" href="#probability-integral-transform" title="Permalink to this heading">#</a></h3>
+<h3>Probability Integral Transform<a class="headerlink" href="#probability-integral-transform" title="Link to this heading">#</a></h3>
 <p>Probability Integral Transform stands for the fact that given a random variable <span class="math notranslate nohighlight">\(X\)</span>, <strong>the random variable <span class="math notranslate nohighlight">\(Y = F_X(X) = P(x \leq X)\)</span> is a uniform random variable if the transformation <span class="math notranslate nohighlight">\(F_X\)</span> is the Cumulative Density Function</strong> (CDF) of the original random variable <span class="math notranslate nohighlight">\(X\)</span>.</p>
 <p>If instead of <span class="math notranslate nohighlight">\(F_X\)</span> we have <span class="math notranslate nohighlight">\(n\)</span> samples from <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(\{x_1, \dots, x_n\}\)</span>, we can use them to estimate <span class="math notranslate nohighlight">\(\hat{F_X}\)</span> and apply it to future <span class="math notranslate nohighlight">\(X\)</span> samples <span class="math notranslate nohighlight">\({x^*}\)</span>. In this case, <span class="math notranslate nohighlight">\(\hat{F_X}(x^*)\)</span> will be approximately a uniform random variable, converging to an exact uniform variable as <span class="math notranslate nohighlight">\(n\)</span> tends to infinity.</p>
 <p>The mathematical demonstration can be found on wikipedia itself just googling it. However here, instead of reproducing it I will try to outline the intuition behind this fact. One way to imagine it is with posterior samples from an MCMC run. If we have enough samples, the probability of a new sample falling between the two smallest values will be the same than the probability of a new sample falling inside the two values closest to the median.</p>
 <p>This is because around the probability around the smallest values will be lower, but they will be further apart, whereas the probability around the median will be larger but they will be extremely close. These two effect compensate each other and the probability is indeed the same. Thus, the probability is constant independently of the square the new sample would fall in, which is only compatible with a uniform distribution.</p>
 </section>
 <section id="leave-one-out-cross-validation">
-<h3>Leave-One-Out Cross-Validation<a class="headerlink" href="#leave-one-out-cross-validation" title="Permalink to this heading">#</a></h3>
+<h3>Leave-One-Out Cross-Validation<a class="headerlink" href="#leave-one-out-cross-validation" title="Link to this heading">#</a></h3>
 <p>Cross-Validation is one way to try to solve the problem with all the <em>future data</em> I have been mentioning so far. We do not have this future data, so how are we supposed to make calculations with it? Cross-Validation solves this problem by dividing the observed data in <span class="math notranslate nohighlight">\(K\)</span> subsets, excluding one subset from the data used to fit the model (so it is data unknown to the model, aka future data) and then using this excluded subset as future data. In general, to get better results, this process is preformed <span class="math notranslate nohighlight">\(K\)</span> times, excluding one different subset every time.</p>
 <p>LOO-CV is one particular case where the number of subsets is equal to the number of observations so that each iteration only one observation is excluded. That is, we <strong>fit the model one time per observation excluding only this one observation</strong>.</p>
 </section>
 <section id="loo-pit">
-<h3>LOO-PIT<a class="headerlink" href="#loo-pit" title="Permalink to this heading">#</a></h3>
+<h3>LOO-PIT<a class="headerlink" href="#loo-pit" title="Link to this heading">#</a></h3>
 <p>LOO-PIT checks consist on checking the PIT using LOO-CV. That is, fit the model on all data but observation <span class="math notranslate nohighlight">\(y_i\)</span> (we will refer to this leave one out subset as <span class="math notranslate nohighlight">\(y_{-i}\)</span>), use this model to estimate the cumulative density function of the posterior predictive and calculate the PIT, <span class="math notranslate nohighlight">\(P(y_i &lt; y^* \mid y_{-i}) = \int_{-\infty}^{y_i} p(y^* \mid y_{-i}) dy^*\)</span>, of each observation. Then, the KDE of all LOO-PIT values is estimated to see whether or not it is compatible with the LOO-PIT values being draws from a uniform variable.</p>
 </section>
 </section>
 <section id="data-generation">
-<h2>Data generation<a class="headerlink" href="#data-generation" title="Permalink to this heading">#</a></h2>
+<h2>Data generation<a class="headerlink" href="#data-generation" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
@@ -301,9 +295,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_ppc_loopit</span><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-    <span class="n">fig</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-    <span class="n">ax_ppc</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
-    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">);</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+    <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure"><span class="n">fig</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+    <span class="n">ax_ppc</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot" title="matplotlib.figure.Figure.add_subplot"><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span></a><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+    <span class="n">ax1</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot" title="matplotlib.figure.Figure.add_subplot"><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span></a><span class="p">(</span><span class="mi">223</span><span class="p">);</span> <span class="n">ax2</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot" title="matplotlib.figure.Figure.add_subplot"><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span></a><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
     <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_ppc.html#arviz.plot_ppc" title="arviz.plot_ppc"><span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_ppc</span><span class="p">);</span>
     <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ecdf</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">],</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)):</span>
         <a class="sphinx-codeautolink-a" href="https://python.arviz.org/en/latest/api/generated/arviz.plot_loo_pit.html#arviz.plot_loo_pit" title="arviz.plot_loo_pit"><span class="n">az</span><span class="o">.</span><span class="n">plot_loo_pit</span></a><span class="p">(</span><span class="n">idata</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">ecdf</span><span class="o">=</span><span class="n">ecdf</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
@@ -358,7 +352,7 @@ document.write(`
 </div>
 </section>
 <section id="unidimensional-gaussian-variable">
-<h2>Unidimensional Gaussian variable<a class="headerlink" href="#unidimensional-gaussian-variable" title="Permalink to this heading">#</a></h2>
+<h2>Unidimensional Gaussian variable<a class="headerlink" href="#unidimensional-gaussian-variable" title="Link to this heading">#</a></h2>
 <p>We will start with a model that correctly fits with the data, to show how should both checks look like. Afterwards, we will see cases were these checks deviate from this ideal case and give some hints on how to interpret these deviations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -408,7 +402,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 <p>To begin with, it can be seen that <strong>the observed KDE is similar to the overlayed posterior predictive KDEs</strong>. The <strong>same happens with the LOO-PIT values</strong>; the LOO-PIT KDE is similar to the overlayed uniform KDEs. Thus, in this first example, similar information can be obteined from their interpretation.</p>
 <section id="overdispersion-signs">
-<h3>Overdispersion signs<a class="headerlink" href="#overdispersion-signs" title="Permalink to this heading">#</a></h3>
+<h3>Overdispersion signs<a class="headerlink" href="#overdispersion-signs" title="Link to this heading">#</a></h3>
 <p>We will now move to one common mismatch between the model and the observed data. We will perform the same fit as the previous example but fixing the standard deviation of the normal random variable. This is actually not an unrealistic case, as in many cases where the instrument used to measure gives error data in addition to the measure, this error is used to fix the standard deviation.</p>
 <p>These two examples show how the LOO-PIT looks like for overdispersed models (i.e. the error is assumed to be larger than what it actually is) and for underdispersed models (i.e. the error is assumed to be smaller than what it really is).</p>
 <div class="cell docutils container">
@@ -456,7 +450,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 <p>In this example of <strong>overdispersed model</strong>, we can see that the posterior predictive checks show that the <strong>observed KDE is narrower than most of the posterior predictive KDEs</strong> and narrower than the mean KDE of the posterior predictive samples. However, there are still some posterior predictive samples whose KDEs are similar to the observed KDE. In the LOO-PIT check though, there is no room for confursion. <strong>The LOO-PIT KDE is not uniform between 0 and 1</strong>, its range is much quite more limited than the uniform counterparts. Moreover, the difference between the Empirical Cumulative Density Function (ECDF) and the ideal uniform CDF lays outside the envelope most of the time.</p>
 </section>
 <section id="underdispersion-signs">
-<h3>Underdispersion signs<a class="headerlink" href="#underdispersion-signs" title="Permalink to this heading">#</a></h3>
+<h3>Underdispersion signs<a class="headerlink" href="#underdispersion-signs" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
@@ -502,7 +496,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 <p>Here, the differences are similar to the overdispersed case, modifying overdispersed by underdispersed and inverting the shapes.</p>
 </section>
 <section id="bias-signs">
-<h3>Bias signs<a class="headerlink" href="#bias-signs" title="Permalink to this heading">#</a></h3>
+<h3>Bias signs<a class="headerlink" href="#bias-signs" title="Link to this heading">#</a></h3>
 <p>In addition, LOO-PIT checks also show signs of model bias, as shown in the following example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -556,7 +550,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </section>
 </section>
 <section id="linear-regression">
-<h2>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this heading">#</a></h2>
+<h2>Linear regression<a class="headerlink" href="#linear-regression" title="Link to this heading">#</a></h2>
 <p>In the case of a linear regression, the posterior predictive checks direclty do not give us much information, because each datapoint is centered at a different location, so combining them to create a single KDE won’t yield useful results.
 It is important to note though, that this is not an issue inherent to the posterior predictive checks, and could be solved by rescaling each observation by substracting the mean and divide by the standard deviation along every observation from the posterior predictive. We will also include an example of this kind of transformation in the last example, but there should not be much to worry about as this improvement is on the ArviZ roadmap.</p>
 <div class="cell docutils container">
@@ -753,14 +747,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/arviz.html">arviz</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/python.html">python</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
@@ -768,14 +755,21 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
   
   
   <a href="../../category/pymc.html">pymc</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/arviz.html">arviz</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
 <i class="fa-solid fa-tags"></i>
 </span>
 <label class="sr-only">Tags</label>
-<a href="../../tag/model-criticism.html">model criticism</a>
 <a href="../../tag/visualization.html">visualization</a>
+<a href="../../tag/model-criticism.html">model criticism</a>
 </li>
 </ul>
 </div>
@@ -815,8 +809,8 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -841,7 +835,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 4000/4000
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>

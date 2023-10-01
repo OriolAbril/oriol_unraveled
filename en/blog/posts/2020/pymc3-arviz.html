@@ -4,7 +4,7 @@
 <html data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="PyMC3 with labeled coords and dims" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html" property="og:url"/>
@@ -19,34 +19,36 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2020/pymc3-arviz';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -125,10 +127,6 @@
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -189,7 +187,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      en  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -215,10 +213,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -236,7 +230,7 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="pymc3-with-labeled-coords-and-dims">
-<h1>PyMC3 with labeled coords and dims<a class="headerlink" href="#pymc3-with-labeled-coords-and-dims" title="Permalink to this heading">#</a></h1>
+<h1>PyMC3 with labeled coords and dims<a class="headerlink" href="#pymc3-with-labeled-coords-and-dims" title="Link to this heading">#</a></h1>
 <p>Go crazy with your virtual label-maker!</p>
 <img alt="" class="hidden-metadata" src="../../../_images/labeled_arys.png"/>
 <div class="admonition important">
@@ -265,13 +259,13 @@ document.write(`
 </div>
 </div>
 <section id="for-the-of-labeled-arrays">
-<h2>For the <svg aria-hidden="true" class="sd-octicon sd-octicon-heart-fill sd-text-danger" height="1.0em" version="1.1" viewbox="0 0 16 16" width="1.0em"><path d="M7.655 14.916L8 14.25l.345.666a.752.752 0 01-.69 0zm0 0L8 14.25l.345.666.002-.001.006-.003.018-.01a7.643 7.643 0 00.31-.17 22.08 22.08 0 003.433-2.414C13.956 10.731 16 8.35 16 5.5 16 2.836 13.914 1 11.75 1 10.203 1 8.847 1.802 8 3.02 7.153 1.802 5.797 1 4.25 1 2.086 1 0 2.836 0 5.5c0 2.85 2.045 5.231 3.885 6.818a22.075 22.075 0 003.744 2.584l.018.01.006.003h.002z" fill-rule="evenodd"></path></svg> of labeled arrays<a class="headerlink" href="#for-the-of-labeled-arrays" title="Permalink to this heading">#</a></h2>
+<h2>For the <svg aria-hidden="true" class="sd-octicon sd-octicon-heart-fill sd-text-danger" height="1.0em" version="1.1" viewbox="0 0 16 16" width="1.0em"><path d="M7.655 14.916L8 14.25l.345.666a.752.752 0 01-.69 0zm0 0L8 14.25l.345.666.002-.001.006-.003.018-.01a7.643 7.643 0 00.31-.17 22.08 22.08 0 003.433-2.414C13.956 10.731 16 8.35 16 5.5 16 2.836 13.914 1 11.75 1 10.203 1 8.847 1.802 8 3.02 7.153 1.802 5.797 1 4.25 1 2.086 1 0 2.836 0 5.5c0 2.85 2.045 5.231 3.885 6.818a22.075 22.075 0 003.744 2.584l.018.01.006.003h.002z" fill-rule="evenodd"></path></svg> of labeled arrays<a class="headerlink" href="#for-the-of-labeled-arrays" title="Link to this heading">#</a></h2>
 <p>For all of us who love labeled arrays, <a class="reference external" href="https://github.com/pymc-devs/pymc3/blob/master/RELEASE-NOTES.md#pymc3-390-16-june-2020">PyMC 3.9.0</a> came with some amazing news: support for using coordinate and dimension names to specify the shapes of variables in a <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code>. While this is good news by its own merit, its seamless integration with ArviZ even more impactful and relevant.</p>
 <p>This post will focus on using PyMC3 coords and dims and the conversion of traces and models to <a class="reference external" href="https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html"><code class="docutils literal notranslate"><span class="pre">InferenceData</span></code></a> using <code class="docutils literal notranslate"><span class="pre">arviz.from_pymc3</span></code>. To see <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> in action, refer to <a class="reference external" href="https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/multilevel_modeling.html">this example</a> in PyMC docs.</p>
 <p>We will use an example based approach and use models from the <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest/gallery.html">example gallery</a> to illustrate how to use coords and dims within PyMC3 models.</p>
 </section>
 <section id="st-example-rugby-analytics">
-<h2>1st example: rugby analytics<a class="headerlink" href="#st-example-rugby-analytics" title="Permalink to this heading">#</a></h2>
+<h2>1st example: rugby analytics<a class="headerlink" href="#st-example-rugby-analytics" title="Link to this heading">#</a></h2>
 <p>We will use an alternative parametrization of the same model used in the <a class="reference external" href="https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/rugby_analytics.html">rugby analytics example</a> taking advantage of dims and coords. Here, we will use as observations a 2d matrix, whose rows are the matches and whose columns are the field: home and away.</p>
 <p>The first step after preprocessing is to define the dimensions used by the model and their coordinates. In our case, we have 3 dimensions:</p>
 <ul class="simple">
@@ -392,7 +386,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </section>
 <section id="nd-example-radon-multilevel-model">
-<h2>2nd example: radon multilevel model<a class="headerlink" href="#nd-example-radon-multilevel-model" title="Permalink to this heading">#</a></h2>
+<h2>2nd example: radon multilevel model<a class="headerlink" href="#nd-example-radon-multilevel-model" title="Link to this heading">#</a></h2>
 <p>We will now use one of the many models in the <a class="reference external" href="https://www.pymc.io/projects/examples/en/2022.01.0/case_studies/multilevel_modeling.html">A Primer on Bayesian Methods for Multilevel Modeling</a> notebook to dive deeper into coords and dims functionality. We won’t cover the model itself, it’s already explained in the example notebook, we will explain in detail how are labeled coords and dims being used.</p>
 <p>The code used to load and clean the data is hidden, click the button below to see it.</p>
 <div class="cell tag_hide-input docutils container">
@@ -527,7 +521,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </section>
 <section id="there-is-life-outside-the-posterior">
-<h2>There is life outside the posterior<a class="headerlink" href="#there-is-life-outside-the-posterior" title="Permalink to this heading">#</a></h2>
+<h2>There is life outside the posterior<a class="headerlink" href="#there-is-life-outside-the-posterior" title="Link to this heading">#</a></h2>
 <p>The posterior is the center of Bayesian analysis but other quantities such as the prior or the posterior predictive are also crucial to an analysis workflow. We’ll use a linear regression to quickly showcase some of the key steps in a Bayesian workflow: prior predictive checks, posterior sampling, posterior predictive checks (using LOO-PIT) and out of sample predictions.</p>
 <p>We will start generating some simulated data (code hidden, click to expand) and defining the model. As it’s a simple linear regression we’ll only have scalar parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
 <div class="cell docutils container">
@@ -574,7 +568,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <p>We have now written a model in order to study our super interesting quantity <code class="docutils literal notranslate"><span class="pre">y</span></code>. We have used everything we have seen so far, the <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> container and the labeled dims and coords. We will now simulate a workflow starting from prior predictive checks and finishing with predicting the values of our <em>quantity of interest</em> in 2021 and 2022.</p>
 <section id="priors">
-<h3>Priors<a class="headerlink" href="#priors" title="Permalink to this heading">#</a></h3>
+<h3>Priors<a class="headerlink" href="#priors" title="Link to this heading">#</a></h3>
 <p>We start by sampling both prior and prior predictive with <code class="docutils literal notranslate"><span class="pre">pm.sample_prior_predictive</span></code>. This will generate a dictionary whose keys are variable names and whose values are numpy arrays. We can then pass this dictionary to <code class="docutils literal notranslate"><span class="pre">az.from_pymc3</span></code> as the <code class="docutils literal notranslate"><span class="pre">prior</span></code> argument. ArviZ will then use the information in the <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code> instance to 1) split the variables between <code class="docutils literal notranslate"><span class="pre">prior</span></code> and <code class="docutils literal notranslate"><span class="pre">prior_predictive</span></code> groups, 2) fill the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> and <code class="docutils literal notranslate"><span class="pre">constant_data</span></code> groups and 3) get the <code class="docutils literal notranslate"><span class="pre">dims</span></code> and <code class="docutils literal notranslate"><span class="pre">coords</span></code> if present.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -604,7 +598,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </section>
 <section id="posterior">
-<h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this heading">#</a></h3>
+<h3>Posterior<a class="headerlink" href="#posterior" title="Link to this heading">#</a></h3>
 <p>The next step will be computing the posterior. As we have seen, we can use <code class="docutils literal notranslate"><span class="pre">return_inferencedata</span></code> to get an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> as a result of <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In this case however, we will store it as an auxiliary variable to then use <code class="docutils literal notranslate"><span class="pre">InferenceData.extend</span></code> and add the new groups to the <code class="docutils literal notranslate"><span class="pre">linreg_idata</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -672,7 +666,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 </section>
 <section id="posterior-predictive">
-<h3>Posterior predictive<a class="headerlink" href="#posterior-predictive" title="Permalink to this heading">#</a></h3>
+<h3>Posterior predictive<a class="headerlink" href="#posterior-predictive" title="Link to this heading">#</a></h3>
 <p>Our third step will be to evaluate the posterior predictive at the observations so we can perform model checking with functions such as <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> or <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code>. Here again we are using the <code class="docutils literal notranslate"><span class="pre">extend</span></code> trick to keep all our data as part of the same <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>. This has two main advantages. <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code> requires both the <code class="docutils literal notranslate"><span class="pre">posterior_predictive</span></code> group, generated here and the <code class="docutils literal notranslate"><span class="pre">log_likelihood</span></code> group which was created in <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In addition, keeping all our data in a single <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> means we can store it as a netCDF and share a single file to allow reproducing the whole exploratory analysis of our model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -733,7 +727,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </div>
 </section>
 <section id="predictions">
-<h3>Predictions<a class="headerlink" href="#predictions" title="Permalink to this heading">#</a></h3>
+<h3>Predictions<a class="headerlink" href="#predictions" title="Link to this heading">#</a></h3>
 <p>Finally, our last step will be to get some predictions, which in this case is evaluating the posterior predictive at positions different than the observations. In the example below, we are evaluating our predictions at 2021 and 2020. To do so, we are using <code class="docutils literal notranslate"><span class="pre">pm.set_data</span></code> to modify the values of <code class="docutils literal notranslate"><span class="pre">x</span></code> to the ones that correspond to these two future years.</p>
 <p>Here we will use <code class="docutils literal notranslate"><span class="pre">from_pymc3_predictions</span></code> instead of <code class="docutils literal notranslate"><span class="pre">from_pymc3</span></code>+<code class="docutils literal notranslate"><span class="pre">extend</span></code>. <code class="docutils literal notranslate"><span class="pre">from_pymc3_predictions</span></code> combines functionality from both of these functions and let’s the user choose how to handle predictions depending on the goal at hand: if <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> is not present, the returned object will be an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> containing only the predictions groups; if <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> is present and <code class="docutils literal notranslate"><span class="pre">inplace=False</span></code> the returned <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> will be a copy of <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> with the predictions groups added, and with <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> there is no returned object, the preditcions groups are added to <code class="docutils literal notranslate"><span class="pre">idata_orig</span></code> which is not returned.</p>
 <div class="cell docutils container">
@@ -799,7 +793,7 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
 </section>
 </section>
 <section id="extra-generating-the-post-image">
-<h2>Extra: generating the post image<a class="headerlink" href="#extra-generating-the-post-image" title="Permalink to this heading">#</a></h2>
+<h2>Extra: generating the post image<a class="headerlink" href="#extra-generating-the-post-image" title="Link to this heading">#</a></h2>
 <p>Here is the code used to generate the summary image for this post. Take a look if you want to use matplotlib to create array diagrams!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -824,8 +818,8 @@ The acceptance probability does not match the target. It is 0.879454342399517, b
     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="p">])</span>
 
-<span class="n">fig</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
+<a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure"><span class="n">fig</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_axes" title="matplotlib.figure.Figure.add_axes"><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span></a><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
 <span class="n">side</span> <span class="o">=</span> <span class="mi">3</span> 
 <span class="n">r</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">one_2d</span> <span class="o">=</span> <span class="n">side</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones" title="numpy.ones"><span class="n">np</span><span class="o">.</span><span class="n">ones</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -963,7 +957,14 @@ watermark 2.0.2
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/arviz.html">arviz</a>
+<a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/pymc.html">pymc</a>
   
   ,
   
@@ -977,22 +978,15 @@ watermark 2.0.2
   
   
   
-  <a href="../../category/python.html">python</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/pymc.html">pymc</a>
+  <a href="../../category/arviz.html">arviz</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
 <i class="fa-solid fa-tags"></i>
 </span>
 <label class="sr-only">Tags</label>
-<a href="../../tag/arviz-converters.html">arviz converters</a>
 <a href="../../tag/data-storage.html">data storage</a>
+<a href="../../tag/arviz-converters.html">arviz converters</a>
 </li>
 </ul>
 </div>
@@ -1028,8 +1022,8 @@ watermark 2.0.2
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -1054,7 +1048,7 @@ watermark 2.0.2
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>

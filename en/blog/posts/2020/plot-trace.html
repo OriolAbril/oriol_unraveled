@@ -4,7 +4,7 @@
 <html data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="ArviZ in depth: plot_trace" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html" property="og:url"/>
@@ -19,34 +19,36 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2020/plot-trace';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -125,10 +127,6 @@
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -189,7 +187,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      en  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -215,10 +213,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -236,10 +230,10 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="arviz-in-depth-plot-trace">
-<span id="plot-trace"></span><h1>ArviZ in depth: plot_trace<a class="headerlink" href="#arviz-in-depth-plot-trace" title="Permalink to this heading">#</a></h1>
+<span id="plot-trace"></span><h1>ArviZ in depth: plot_trace<a class="headerlink" href="#arviz-in-depth-plot-trace" title="Link to this heading">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/plot_trace_purple.png"/>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> is one of the most common plots to assess the convergence of MCMC runs, therefore, it is also one of the most used ArviZ functions. <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> has a lot of parameters that allow creating highly customizable plots, but they may not be straightforward to use. There are many reasons that can explain this convolutedness of the arguments and their format, there is no clear culprit: ArviZ has to integrate with several libraries such as xarray and matplotlib which provide amazing features and customization power, and we’d like to allow ArviZ users to access all these features. However, we also aim to keep ArviZ usage simple and with sensible defaults; <code class="docutils literal notranslate"><span class="pre">plot_xyz(idata)</span></code> should generate acceptable results in most situations.</p>
 <p>This post aims to be an extension to the API section on <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.plot_trace.html#arviz.plot_trace"><code class="docutils literal notranslate"><span class="pre">plot_trace</span></code></a>, focusing mostly on arguments where examples may be lacking and arguments that appear often in questions posted to ArviZ issues.</p>
 <p>Therefore, the most common arguments such as <code class="docutils literal notranslate"><span class="pre">var_names</span></code> will not be covered, and for arguments that I do not remeber appearing in issues or generating confusion only some examples will be shown without an in depth description.</p>
@@ -272,7 +266,7 @@ document.write(`
 </div>
 </section>
 <section id="the-kind-argument">
-<h2>The <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument<a class="headerlink" href="#the-kind-argument" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument<a class="headerlink" href="#the-kind-argument" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">az.plot_trace</span></code> generates two columns. The left one calls <code class="docutils literal notranslate"><span class="pre">plot_dist</span></code> to plot KDE/Histogram of the data, and the right column can contain either the trace itself (which gives the name to the plot) or a rank plot for which two visualizations are available. Rank plots are an alternative to trace plots, see <a class="reference external" href="https://arxiv.org/abs/1903.08008">https://arxiv.org/abs/1903.08008</a> for more details.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -293,7 +287,7 @@ document.write(`
 </div>
 </section>
 <section id="the-divergences-argument">
-<h2>The <code class="docutils literal notranslate"><span class="pre">divergences</span></code> argument<a class="headerlink" href="#the-divergences-argument" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">divergences</span></code> argument<a class="headerlink" href="#the-divergences-argument" title="Link to this heading">#</a></h2>
 <p>If present, divergences are indicated as a black rugplot in both columns of the trace plot. By default they are placed at the bottom of the plot, but they can be placed at the top or hidden.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -317,7 +311,7 @@ document.write(`
 </div>
 </section>
 <section id="the-rug-argument">
-<h2>The <code class="docutils literal notranslate"><span class="pre">rug</span></code> argument<a class="headerlink" href="#the-rug-argument" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">rug</span></code> argument<a class="headerlink" href="#the-rug-argument" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">rug</span></code> adds a rug plot with the posterior samples at the bottom of the distribution plot, there are no changes in the trace plot column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -342,7 +336,7 @@ document.write(`
 </div>
 </section>
 <section id="the-lines-argument">
-<h2>The <code class="docutils literal notranslate"><span class="pre">lines</span></code> argument<a class="headerlink" href="#the-lines-argument" title="Permalink to this heading">#</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">lines</span></code> argument<a class="headerlink" href="#the-lines-argument" title="Link to this heading">#</a></h2>
 <p>The description about lines in <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code>’s docstring is the following:</p>
 <blockquote><p>lines : <i>list of tuple of (str, dict, array_like), optional</i></p>
 <p>
@@ -440,12 +434,12 @@ b {} 12
 </div>
 </section>
 <section id="aggregation-kwargs">
-<h2>Aggregation kwargs<a class="headerlink" href="#aggregation-kwargs" title="Permalink to this heading">#</a></h2>
+<h2>Aggregation kwargs<a class="headerlink" href="#aggregation-kwargs" title="Link to this heading">#</a></h2>
 <p>This section is dedicated to 5 different kwargs, closely related to each other: <code class="docutils literal notranslate"><span class="pre">compact</span></code>+<code class="docutils literal notranslate"><span class="pre">compact_prop</span></code>, <code class="docutils literal notranslate"><span class="pre">combined</span></code>+<code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">legend</span></code>. If we focus on the distribution plots of the left column, we may want to aggregate data along 2 possible dimensions, chains or variable dimension(s) – school dimension in <code class="docutils literal notranslate"><span class="pre">centered_eight</span></code> data, team dimension in <code class="docutils literal notranslate"><span class="pre">rugby</span></code> data… As aggragation or not along these 2 possible dimensions is independent, we end up with 4 possibilities.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">az.plot_trace</span></code>, the argument <code class="docutils literal notranslate"><span class="pre">combined</span></code> governs the aggregation of all chains into a single plot (has no effect in trace, only in distributions), and <code class="docutils literal notranslate"><span class="pre">compact</span></code> governs the aggregation of the variable dimension(s). In order to be able to distinguish each single line after some aggregation has taken place, a <code class="docutils literal notranslate"><span class="pre">legend</span></code> argument is also available to show the legend with the data labels. <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> and <code class="docutils literal notranslate"><span class="pre">compact_prop</span></code> allow customization of the aesthetics mapping.</p>
 <p>We’ll now cover all 4 possibilities to showcase all supported cases and explore related customizations.</p>
 <section id="combined-false-and-compact-false">
-<h3><code class="docutils literal notranslate"><span class="pre">combined=False</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=False</span></code><a class="headerlink" href="#combined-false-and-compact-false" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">combined=False</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=False</span></code><a class="headerlink" href="#combined-false-and-compact-false" title="Link to this heading">#</a></h3>
 <p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">plot_trace</span></code> is to perform no aggregation at all. In this case therefore, all subplots will have exactly one line per chain in the posterior. In this chain only setting, the default mapping is to use color to distinguish chains:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -459,7 +453,7 @@ b {} 12
 </div>
 </section>
 <section id="combined-true-and-compact-false">
-<h3><code class="docutils literal notranslate"><span class="pre">combined=True</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=False</span></code><a class="headerlink" href="#combined-true-and-compact-false" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">combined=True</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=False</span></code><a class="headerlink" href="#combined-true-and-compact-false" title="Link to this heading">#</a></h3>
 <p>Chains are aggregated into a single quantity if possible. Therefore, distribution column will have one line per subplot due to the aggregation but the trace column will be the same as in the previous section.
 This is also a chain only setting, the default mapping is to use color to distinguish chains. However, we’ll use this example to show usage of <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to map the chain to the linewidth:</p>
 <div class="cell docutils container">
@@ -477,7 +471,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 </div>
 </section>
 <section id="combined-false-and-compact-true">
-<h3><code class="docutils literal notranslate"><span class="pre">combined=False</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=True</span></code><a class="headerlink" href="#combined-false-and-compact-true" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">combined=False</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=True</span></code><a class="headerlink" href="#combined-false-and-compact-true" title="Link to this heading">#</a></h3>
 <p>You are probably tired already from scrolling down and we have only 6 teams! Imagine having a variable with a dimension of length 100 or more :scream:</p>
 <p>In these cases, it may be more convenient to analyze a compact version of the trace plot:</p>
 <div class="cell docutils container">
@@ -494,7 +488,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 <p>We can also see that <code class="docutils literal notranslate"><span class="pre">legend=True</span></code> has included multiple legends to the figure. The <code class="docutils literal notranslate"><span class="pre">chain</span></code> legend is always included in the top right trace plot, and the plots in the distribution column contain a legend if necessary.</p>
 </section>
 <section id="combined-true-and-compact-true">
-<h3><code class="docutils literal notranslate"><span class="pre">combined=True</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=True</span></code><a class="headerlink" href="#combined-true-and-compact-true" title="Permalink to this heading">#</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">combined=True</span></code> and <code class="docutils literal notranslate"><span class="pre">compact=True</span></code><a class="headerlink" href="#combined-true-and-compact-true" title="Link to this heading">#</a></h3>
 <p>To reduce even more the clutter of lines in the trace plot, we can also combine chains. Moreover, the <code class="docutils literal notranslate"><span class="pre">linestyle</span> <span class="pre">-&gt;</span> <span class="pre">chain</span></code> mapping can be distracting, especially if we don’t care too much about distinguishing the chains between them. Like we did before, we will use <code class="docutils literal notranslate"><span class="pre">chain_prop</span></code> to control this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -524,7 +518,7 @@ This is also a chain only setting, the default mapping is to use color to distin
 </section>
 </section>
 <section id="summing-it-all-up">
-<h2>Summing it all up<a class="headerlink" href="#summing-it-all-up" title="Permalink to this heading">#</a></h2>
+<h2>Summing it all up<a class="headerlink" href="#summing-it-all-up" title="Link to this heading">#</a></h2>
 <p>Now that we have covered most arguments, let’s put everything to practice. Try to generate a trace plot following the instructions below:</p>
 <ul class="simple">
 <li><p>Show variables <code class="docutils literal notranslate"><span class="pre">home</span></code>, <code class="docutils literal notranslate"><span class="pre">defs</span></code> and <code class="docutils literal notranslate"><span class="pre">atts</span></code> showing only <code class="docutils literal notranslate"><span class="pre">Scotland,</span> <span class="pre">Ireland,</span> <span class="pre">Italy,</span> <span class="pre">Wales</span></code> coordinates.</p></li>
@@ -608,14 +602,7 @@ watermark 2.0.2
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/arviz.html">arviz</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/python.html">python</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
@@ -623,6 +610,13 @@ watermark 2.0.2
   
   
   <a href="../../category/matplotlib.html">matplotlib</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/arviz.html">arviz</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -667,8 +661,8 @@ watermark 2.0.2
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -693,7 +687,7 @@ watermark 2.0.2
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>

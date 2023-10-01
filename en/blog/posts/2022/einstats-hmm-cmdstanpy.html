@@ -4,7 +4,7 @@
 <html data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="CmdStanPy and ArviZ integration" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html" property="og:url"/>
@@ -19,34 +19,36 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2022/einstats-hmm-cmdstanpy';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -125,10 +127,6 @@
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -189,7 +187,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      en  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -215,10 +213,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -236,7 +230,7 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="cmdstanpy-and-arviz-integration">
-<span id="arviz-cmdstanpy"></span><h1>CmdStanPy and ArviZ integration<a class="headerlink" href="#cmdstanpy-and-arviz-integration" title="Permalink to this heading">#</a></h1>
+<span id="arviz-cmdstanpy"></span><h1>CmdStanPy and ArviZ integration<a class="headerlink" href="#cmdstanpy-and-arviz-integration" title="Link to this heading">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/hmm_drive.png"/>
 <p>This blog post is an adaptation of the <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html">Tagging Basketball Events with HMM in Stan</a> case study. It will not cover any new topics or analysis and assumes you have at least skimmed the original case study.</p>
 <p>So what is this post about? I will use cmdstanpy+ArviZ integration to show the potential of using labeled arrays when doing exploratory analysis of Bayesian models. I will use <a class="reference external" href="https://xarray.dev/">xarray</a>’s automatic broadcasting and alignment of arrays and the <code class="docutils literal notranslate"><span class="pre">stats</span></code> module of <a class="reference external" href="https://einstats.python.arviz.org">xarray-einstats</a> for posterior predictive sampling.</p>
@@ -262,7 +256,7 @@ document.write(`
 </div>
 </div>
 <section id="simple-hmm-example">
-<h2>Simple HMM example<a class="headerlink" href="#simple-hmm-example" title="Permalink to this heading">#</a></h2>
+<h2>Simple HMM example<a class="headerlink" href="#simple-hmm-example" title="Link to this heading">#</a></h2>
 <p>Link to <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html#simple-hmm-example">this same section</a> in the original Stan case study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -388,7 +382,7 @@ generated quantities {
 </div>
 </div>
 <section id="conversion-to-inferencedata">
-<h3>Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code><a class="headerlink" href="#conversion-to-inferencedata" title="Permalink to this heading">#</a></h3>
+<h3>Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code><a class="headerlink" href="#conversion-to-inferencedata" title="Link to this heading">#</a></h3>
 <p>To convert a CmdStanPy fit to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code>, only the <code class="docutils literal notranslate"><span class="pre">CmdStanMCMC</span></code> object is needed. However, to make the most out of ArviZ and xarray features, the dimensions of each variable should also be provided.</p>
 <p>Optionally, you can also give coordinate values to some of the dimensions. The dimensions without coordinate values provided are initialized with integers starting from 0 as their coordinate values.</p>
 <p>Dimensions are provided as a dictionary whose keys are variable names and whose values are a list with the dimension names.</p>
@@ -446,7 +440,7 @@ Attributes:
 </div>
 </section>
 <section id="diagnostics">
-<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this heading">#</a></h3>
+<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">arviz.summary</span></code> gives an overview of the fit with both summary statistics and diagnostics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -678,7 +672,7 @@ Attributes:
 <p>Further guidance on sorting and customizing ArviZ labels can be found in the <a class="reference external" href="https://python.arviz.org/en/latest/user_guide/label_guide.html">ArviZ label guide</a></p>
 </section>
 <section id="posterior-predictive-sampling">
-<h3>Posterior predictive sampling<a class="headerlink" href="#posterior-predictive-sampling" title="Permalink to this heading">#</a></h3>
+<h3>Posterior predictive sampling<a class="headerlink" href="#posterior-predictive-sampling" title="Link to this heading">#</a></h3>
 <p>Following the case study, we will perform posterior predictive sampling in Python instead of in the <code class="docutils literal notranslate"><span class="pre">generated_quantities</span></code> block of Stan. We will use <a class="reference external" href="https://einstats.python.arviz.org/en/latest/">xarray-einstats</a> to generate the random samples from xarray objects.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -757,7 +751,7 @@ Data variables:
 </section>
 </section>
 <section id="tagging-drive-events">
-<h2>Tagging Drive Events<a class="headerlink" href="#tagging-drive-events" title="Permalink to this heading">#</a></h2>
+<h2>Tagging Drive Events<a class="headerlink" href="#tagging-drive-events" title="Link to this heading">#</a></h2>
 <p>Link to <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html#tagging-drive-events">this same section</a> in the original Stan case study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -904,7 +898,7 @@ generated quantities {
 </div>
 </div>
 <section id="id1">
-<h3>Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In this example we also use the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> argument to add some data to the <code class="docutils literal notranslate"><span class="pre">observed_data</span></code> group. This can be useful to have the observations also as xarray objects and ease postprocessing operations, or to share the model and InferenceData file for collaborators to reproduce the fit or work with the results directly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -952,7 +946,7 @@ Attributes:
 </div>
 </section>
 <section id="id2">
-<h3>Posterior predictive sampling<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3>Posterior predictive sampling<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>We use again the same functions as before, with only a small difference, we now use <code class="docutils literal notranslate"><span class="pre">.sel</span></code> on a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> with the two variables of interest instead of a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>. As you can see, everything works the same.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1025,7 +1019,7 @@ Data variables:
 </section>
 </section>
 <section id="defensive-assignment">
-<h2>Defensive assignment<a class="headerlink" href="#defensive-assignment" title="Permalink to this heading">#</a></h2>
+<h2>Defensive assignment<a class="headerlink" href="#defensive-assignment" title="Link to this heading">#</a></h2>
 <p>Link to <a class="reference external" href="https://mc-stan.org/users/documentation/case-studies/bball-hmm.html#defensive-assignment">this same section</a> in the original Stan case study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1388,7 +1382,7 @@ Data variables:
 <p>However, in many cases we need to operate with all the draws of each random variable. xarray makes it straightforward to work with all the samples and average only once we have the quantity of interest.</p>
 </section>
 <section id="further-reading">
-<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://python.arviz.org/en/latest/getting_started/WorkingWithInferenceData.html">Working with InferenceData</a> page in the ArviZ docs</p></li>
 </ul>
@@ -1450,14 +1444,7 @@ Watermark: 2.3.0
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/xarray-einstats.html">xarray-einstats</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/xarray.html">xarray</a>
+<a href="../../category/stan.html">stan</a>
   
   ,
   
@@ -1471,7 +1458,7 @@ Watermark: 2.3.0
   
   
   
-  <a href="../../category/stan.html">stan</a>
+  <a href="../../category/xarray.html">xarray</a>
   
   ,
   
@@ -1479,14 +1466,21 @@ Watermark: 2.3.0
   
   
   <a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
 <i class="fa-solid fa-tags"></i>
 </span>
 <label class="sr-only">Tags</label>
-<a href="../../tag/arviz-converters.html">arviz converters</a>
 <a href="../../tag/posterior-predictive.html">posterior predictive</a>
+<a href="../../tag/arviz-converters.html">arviz converters</a>
 </li>
 </ul>
 </div>
@@ -1524,8 +1518,8 @@ Watermark: 2.3.0
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -1550,7 +1544,7 @@ Watermark: 2.3.0
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>
