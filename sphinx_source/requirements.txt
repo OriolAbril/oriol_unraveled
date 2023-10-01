@@ -1,4 +1,4 @@
-Sphinx>=5
+Sphinx>=6
 sphinx-copybutton
 sphinx-design
 myst-parser[linkify]>=2

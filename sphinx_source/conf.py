@@ -124,12 +124,6 @@ html_theme_options = {
             "type": "fontawesome",
         },
         {
-            "name": "Twitter",
-            "url": "https://twitter.com/OriolAbril",
-            "icon": "fa-brands fa-twitter",
-            "type": "fontawesome",
-        },
-        {
             "name": "Mastodon",
             "url": "https://toot.cat/@oriolabril",
             "icon": "fa-brands fa-mastodon",
