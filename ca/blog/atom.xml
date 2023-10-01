@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ca">
   <id>https://oriolabrilpla.cat/ca/</id>
   <title>Oriol unraveled</title>
-  <updated>2023-07-17T17:26:09.733854+00:00</updated>
+  <updated>2023-10-01T14:25:07.825174+00:00</updated>
   <link href="https://oriolabrilpla.cat/ca/"/>
   <link href="https://oriolabrilpla.cat/ca/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.io/" version="0.11.4.post1">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.io/" version="0.11.5">ABlog</generator>
   <entry>
     <id>https://oriolabrilpla.cat/ca/blog/posts/2023/xarray_intro.html</id>
     <title>An introduction to xarray</title>

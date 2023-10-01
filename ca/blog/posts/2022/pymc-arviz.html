@@ -4,7 +4,7 @@
 <html data-theme="light" lang="ca">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="PyMC 4.0 with labeled coords and dims" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/ca/blog/posts/2022/pymc-arviz.html" property="og:url"/>
@@ -19,35 +19,37 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/translations.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=eec613ba"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/translations.js?v=d8dd923b"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2022/pymc-arviz';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'ca';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="Quant a aquests documents"/>
@@ -108,7 +110,7 @@
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Etiquetes
+                        Tags
                       </a>
 </li>
 <li class="nav-item">
@@ -124,10 +126,6 @@
 <li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
 <span class="sr-only">GitHub</span></a>
-</li>
-<li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
 </li>
 <li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
@@ -174,7 +172,7 @@
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Etiquetes
+                        Tags
                       </a>
 </li>
 <li class="nav-item">
@@ -190,7 +188,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      ca  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -216,10 +214,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -237,7 +231,7 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="pymc-4-0-with-labeled-coords-and-dims">
-<span id="pymc-arviz"></span><h1>PyMC 4.0 with labeled coords and dims<a class="headerlink" href="#pymc-4-0-with-labeled-coords-and-dims" title="Permalink to this heading">#</a></h1>
+<span id="pymc-arviz"></span><h1>PyMC 4.0 with labeled coords and dims<a class="headerlink" href="#pymc-4-0-with-labeled-coords-and-dims" title="Enllaça amb aquesta capçalera">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/labeled_arys_v4.png"/>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -261,7 +255,7 @@ document.write(`
 </div>
 </div>
 <section id="for-the-of-labeled-arrays">
-<h2>For the <svg aria-hidden="true" class="sd-octicon sd-octicon-heart-fill sd-text-danger" height="1.0em" version="1.1" viewbox="0 0 16 16" width="1.0em"><path d="M7.655 14.916L8 14.25l.345.666a.752.752 0 01-.69 0zm0 0L8 14.25l.345.666.002-.001.006-.003.018-.01a7.643 7.643 0 00.31-.17 22.08 22.08 0 003.433-2.414C13.956 10.731 16 8.35 16 5.5 16 2.836 13.914 1 11.75 1 10.203 1 8.847 1.802 8 3.02 7.153 1.802 5.797 1 4.25 1 2.086 1 0 2.836 0 5.5c0 2.85 2.045 5.231 3.885 6.818a22.075 22.075 0 003.744 2.584l.018.01.006.003h.002z" fill-rule="evenodd"></path></svg> of labeled arrays<a class="headerlink" href="#for-the-of-labeled-arrays" title="Permalink to this heading">#</a></h2>
+<h2>For the <svg aria-hidden="true" class="sd-octicon sd-octicon-heart-fill sd-text-danger" height="1.0em" version="1.1" viewbox="0 0 16 16" width="1.0em"><path d="M7.655 14.916L8 14.25l.345.666a.752.752 0 01-.69 0zm0 0L8 14.25l.345.666.002-.001.006-.003.018-.01a7.643 7.643 0 00.31-.17 22.08 22.08 0 003.433-2.414C13.956 10.731 16 8.35 16 5.5 16 2.836 13.914 1 11.75 1 10.203 1 8.847 1.802 8 3.02 7.153 1.802 5.797 1 4.25 1 2.086 1 0 2.836 0 5.5c0 2.85 2.045 5.231 3.885 6.818a22.075 22.075 0 003.744 2.584l.018.01.006.003h.002z" fill-rule="evenodd"></path></svg> of labeled arrays<a class="headerlink" href="#for-the-of-labeled-arrays" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>While <a class="reference external" href="https://github.com/pymc-devs/pymc3/blob/master/RELEASE-NOTES.md#pymc3-390-16-june-2020">PyMC 3.9.0</a> came with some amazing news for those of us who love labeled arrays: support for using coordinate and dimension names to specify the shapes of variables in a <code class="docutils literal notranslate"><span class="pre">pm.Model</span></code>; now, 2 years later, with the release of PyMC 4.0, the integration between ArviZ and PyMC has improved even more.</p>
 <p>Therefore, I decided to post and updated version of <a class="reference internal" href="../2020/pymc3-arviz.html#pymc3-arviz"><span class="std std-ref">my original blog post</span></a> using version 3.x of PyMC now using
 version 4.0 of PyMC which was released earlier this week.</p>
@@ -269,7 +263,7 @@ version 4.0 of PyMC which was released earlier this week.</p>
 <p>We will use an example based approach and use models from the <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest">example gallery</a> to illustrate how to use coords and dims within PyMC models.</p>
 </section>
 <section id="st-example-rugby-analytics">
-<h2>1st example: rugby analytics<a class="headerlink" href="#st-example-rugby-analytics" title="Permalink to this heading">#</a></h2>
+<h2>1st example: rugby analytics<a class="headerlink" href="#st-example-rugby-analytics" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>We will use an alternative parametrization of the same model used in the <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest/case_studies/rugby_analytics.html">rugby analytics example</a> taking advantage of dims and coords. Here, we will use as observations a 2d matrix, whose rows are the matches and whose columns are the field: home and away.</p>
 <p>The first step after preprocessing is to define the dimensions used by the model and their coordinates. In our case, we have 3 dimensions:</p>
 <ul class="simple">
@@ -294,7 +288,7 @@ version 4.0 of PyMC which was released earlier this week.</p>
     <span class="s2">"match"</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mi">60</span><span class="p">),</span>
     <span class="s2">"field"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"home"</span><span class="p">,</span> <span class="s2">"away"</span><span class="p">],</span>
 <span class="p">}</span>
-<span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.Model.html#pymc.Model" title="pymc.Model"><span class="n">pm</span><span class="o">.</span><span class="n">Model</span></a><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">rugby_model</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">rugby_model</span><span class="p">:</span>
     <span class="c1"># global model parameters</span>
     <span class="n">home</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/distributions/generated/pymc.Flat.html#pymc.Flat" title="pymc.Flat"><span class="n">pm</span><span class="o">.</span><span class="n">Flat</span></a><span class="p">(</span><span class="s1">'home'</span><span class="p">)</span>
     <span class="n">sd_att</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/distributions/generated/pymc.HalfStudentT.html#pymc.HalfStudentT" title="pymc.HalfStudentT"><span class="n">pm</span><span class="o">.</span><span class="n">HalfStudentT</span></a><span class="p">(</span><span class="s1">'sd_att'</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
@@ -305,8 +299,8 @@ version 4.0 of PyMC which was released earlier this week.</p>
     <span class="n">atts_star</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/distributions/generated/pymc.Normal.html#pymc.Normal" title="pymc.Normal"><span class="n">pm</span><span class="o">.</span><span class="n">Normal</span></a><span class="p">(</span><span class="s2">"atts_star"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sd_att</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
     <span class="n">defs_star</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/distributions/generated/pymc.Normal.html#pymc.Normal" title="pymc.Normal"><span class="n">pm</span><span class="o">.</span><span class="n">Normal</span></a><span class="p">(</span><span class="s2">"defs_star"</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sd_def</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
 
-    <span class="n">atts</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.Deterministic.html#pymc.Deterministic" title="pymc.Deterministic"><span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span></a><span class="p">(</span><span class="s1">'atts'</span><span class="p">,</span> <span class="n">atts_star</span> <span class="o">-</span> <span class="n">at</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">atts_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
-    <span class="n">defs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.Deterministic.html#pymc.Deterministic" title="pymc.Deterministic"><span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span></a><span class="p">(</span><span class="s1">'defs'</span><span class="p">,</span> <span class="n">defs_star</span> <span class="o">-</span> <span class="n">at</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">defs_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+    <span class="n">atts</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">'atts'</span><span class="p">,</span> <span class="n">atts_star</span> <span class="o">-</span> <span class="n">at</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">atts_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
+    <span class="n">defs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">'defs'</span><span class="p">,</span> <span class="n">defs_star</span> <span class="o">-</span> <span class="n">at</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">defs_star</span><span class="p">),</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"team"</span><span class="p">)</span>
     <span class="n">home_theta</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">home</span> <span class="o">+</span> <span class="n">atts</span><span class="p">[</span><span class="n">home_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">defs</span><span class="p">[</span><span class="n">away_idx</span><span class="p">])</span>
     <span class="n">away_theta</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">intercept</span> <span class="o">+</span> <span class="n">atts</span><span class="p">[</span><span class="n">away_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">defs</span><span class="p">[</span><span class="n">home_idx</span><span class="p">])</span>
 
@@ -368,7 +362,7 @@ NUTS: [home, sd_att, sd_def, intercept, atts_star, defs_star]
 </div>
 </section>
 <section id="nd-example-radon-multilevel-model">
-<h2>2nd example: radon multilevel model<a class="headerlink" href="#nd-example-radon-multilevel-model" title="Permalink to this heading">#</a></h2>
+<h2>2nd example: radon multilevel model<a class="headerlink" href="#nd-example-radon-multilevel-model" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>We will now use one of the many models in the <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest/case_studies/multilevel_modeling.html">A Primer on Bayesian Methods for Multilevel Modeling</a> notebook to dive deeper into coords and dims functionality. We won’t cover the model itself, it’s already explained in the example notebook, we will explain in detail how are labeled coords and dims being used.</p>
 <p>The code used to load and clean the data is hidden, click the button below to see it.</p>
 <div class="cell tag_hide-input docutils container">
@@ -424,7 +418,7 @@ NUTS: [home, sd_att, sd_def, intercept, atts_star, defs_star]
 <p>We’ll begin to define the model creating the indexing arrays that will implement the hierarchical model. We are using the <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> container to tell ArviZ to store the variables in the <code class="docutils literal notranslate"><span class="pre">constant_data</span></code> group. Moreover, <code class="docutils literal notranslate"><span class="pre">pm.Data</span></code> defines a theano shared variable, so its values can be modified in order to call <code class="docutils literal notranslate"><span class="pre">pm.sample_posterior_predictive</span></code> using different data. This is particularly interesting for regressions for example in order to generate predictions for the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.Model.html#pymc.Model" title="pymc.Model"><span class="n">pm</span><span class="o">.</span><span class="n">Model</span></a><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">radon_model</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span> <span class="k">as</span> <span class="n">radon_model</span><span class="p">:</span>
     <span class="n">floor_idx</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.ConstantData.html#pymc.ConstantData" title="pymc.ConstantData"><span class="n">pm</span><span class="o">.</span><span class="n">ConstantData</span></a><span class="p">(</span><span class="s2">"floor_idx"</span><span class="p">,</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">floor</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
     <span class="n">county_idx</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.ConstantData.html#pymc.ConstantData" title="pymc.ConstantData"><span class="n">pm</span><span class="o">.</span><span class="n">ConstantData</span></a><span class="p">(</span><span class="s2">"county_idx"</span><span class="p">,</span> <span class="n">srrs_mn</span><span class="o">.</span><span class="n">county_code</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"obs_id"</span><span class="p">)</span>
 </pre></div>
@@ -452,7 +446,7 @@ NUTS: [home, sd_att, sd_def, intercept, atts_star, defs_star]
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">radon_model</span><span class="p">:</span>
-    <span class="n">ab_county</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.Deterministic.html#pymc.Deterministic" title="pymc.Deterministic"><span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span></a><span class="p">(</span><span class="s2">"ab_county"</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">chol</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"county"</span><span class="p">,</span> <span class="s2">"param"</span><span class="p">))</span>
+    <span class="n">ab_county</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s2">"ab_county"</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">chol</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">"county"</span><span class="p">,</span> <span class="s2">"param"</span><span class="p">))</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">ab_county</span><span class="p">[</span><span class="n">county_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">ab_county</span><span class="p">[</span><span class="n">county_idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">floor_idx</span>
 
     <span class="n">sigma</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/distributions/generated/pymc.Exponential.html#pymc.Exponential" title="pymc.Exponential"><span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span></a><span class="p">(</span><span class="s2">"sigma"</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
@@ -504,7 +498,7 @@ NUTS: [a, b, z, chol, sigma]
 </div>
 </section>
 <section id="there-is-life-outside-the-posterior">
-<h2>There is life outside the posterior<a class="headerlink" href="#there-is-life-outside-the-posterior" title="Permalink to this heading">#</a></h2>
+<h2>There is life outside the posterior<a class="headerlink" href="#there-is-life-outside-the-posterior" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>The posterior is the center of Bayesian analysis but other quantities such as the prior or the posterior predictive are also crucial to an analysis workflow. We’ll use a linear regression to quickly showcase some of the key steps in a Bayesian workflow: prior predictive checks, posterior sampling, posterior predictive checks (using LOO-PIT) and out of sample predictions.</p>
 <p>We will start generating some simulated data (code hidden, click to expand) and defining the model. As it’s a simple linear regression we’ll only have scalar parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
 <div class="cell tag_hide-input docutils container">
@@ -541,7 +535,7 @@ NUTS: [a, b, z, chol, sigma]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.Model.html#pymc.Model" title="pymc.Model"><span class="n">pm</span><span class="o">.</span><span class="n">Model</span></a><span class="p">()</span> <span class="k">as</span> <span class="n">linreg_model</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">linreg_model</span><span class="p">:</span>
     <span class="c1"># use x_ to avoid overwriting x previously defined as np.ndarray</span>
     <span class="n">x_</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.MutableData.html#pymc.MutableData" title="pymc.MutableData"><span class="n">pm</span><span class="o">.</span><span class="n">MutableData</span></a><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="s2">"year"</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="n">year</span><span class="p">})</span>
     
@@ -559,7 +553,7 @@ NUTS: [a, b, z, chol, sigma]
 <p>Here however, as our goal is to generate out of sample predictions, there is an important difference. Instead of providing the coordinates when initializing the model context, we add them in the call to <code class="docutils literal notranslate"><span class="pre">pm.MutableData</span></code>. By initializing the coordinates with a <code class="docutils literal notranslate"><span class="pre">pm.MutableData</span></code> object we make sure that we can later modify both the length of the <code class="docutils literal notranslate"><span class="pre">year</span></code> dimension and its associated coordinate values.</p>
 <p>The dimensions defined from <code class="docutils literal notranslate"><span class="pre">coords</span></code> passed while initializing the model context can’t be modified. Their length is fixed. The coordinate values can be updated, but only for an array of the same length.</p>
 <section id="priors">
-<h3>Priors<a class="headerlink" href="#priors" title="Permalink to this heading">#</a></h3>
+<h3>Priors<a class="headerlink" href="#priors" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>We start by sampling both prior and prior predictive with <code class="docutils literal notranslate"><span class="pre">pm.sample_prior_predictive</span></code>. In PyMC 4.0, this returns an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> object with multiple groups depending on the data available, if provided, variables will have their corresponding dims and coords.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -590,7 +584,7 @@ NUTS: [a, b, z, chol, sigma]
 </div>
 </section>
 <section id="posterior">
-<h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this heading">#</a></h3>
+<h3>Posterior<a class="headerlink" href="#posterior" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>The next step will be computing the posterior. As we have seen, we can use <code class="docutils literal notranslate"><span class="pre">return_inferencedata</span></code> to get an <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> as a result of <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In this case however, we will store it as an auxiliary variable to then use <code class="docutils literal notranslate"><span class="pre">InferenceData.extend</span></code> and add the new groups to the <code class="docutils literal notranslate"><span class="pre">linreg_idata</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -658,7 +652,7 @@ NUTS: [a, b, sigma]
 </div>
 </section>
 <section id="posterior-predictive">
-<h3>Posterior predictive<a class="headerlink" href="#posterior-predictive" title="Permalink to this heading">#</a></h3>
+<h3>Posterior predictive<a class="headerlink" href="#posterior-predictive" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>Our third step will be to evaluate the posterior predictive at the observations so we can perform model checking with functions such as <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> or <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code>. <code class="docutils literal notranslate"><span class="pre">sample_posterior_predictive</span></code> already returns an InferenceData, we will use the <code class="docutils literal notranslate"><span class="pre">extend_inferencedata</span></code> argument to indicate PyMC to add the new groups inplace.</p>
 <p>This has two main advantages. <code class="docutils literal notranslate"><span class="pre">plot_loo_pit</span></code> requires both the <code class="docutils literal notranslate"><span class="pre">posterior_predictive</span></code> group, generated here and the <code class="docutils literal notranslate"><span class="pre">log_likelihood</span></code> group which was created in <code class="docutils literal notranslate"><span class="pre">pm.sample</span></code>. In addition, keeping all our data in a single <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> means we can store it as a netCDF and share a single file to allow reproducing the whole exploratory analysis of our model.</p>
 <div class="cell docutils container">
@@ -719,13 +713,13 @@ NUTS: [a, b, sigma]
 </div>
 </section>
 <section id="predictions">
-<h3>Predictions<a class="headerlink" href="#predictions" title="Permalink to this heading">#</a></h3>
+<h3>Predictions<a class="headerlink" href="#predictions" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>Finally, our last step will be to get some predictions, which in this case is evaluating the posterior predictive at positions different than the observations. In the example below, we are evaluating our predictions at 2022 and 2023. To do so, we are using <code class="docutils literal notranslate"><span class="pre">pm.set_data</span></code> to modify the values of <code class="docutils literal notranslate"><span class="pre">x</span></code> to the ones that correspond to these two future years and to update the coordinate values of the <code class="docutils literal notranslate"><span class="pre">year</span></code> dimension.</p>
 <p>Here we will use <code class="docutils literal notranslate"><span class="pre">predictions</span></code> and <code class="docutils literal notranslate"><span class="pre">extend_inferencedata</span></code> keywords. This will store these new samples in the <code class="docutils literal notranslate"><span class="pre">predictions</span></code> group and the modified <code class="docutils literal notranslate"><span class="pre">x</span></code> values in <code class="docutils literal notranslate"><span class="pre">predictions_constant_data</span></code> and add these groups inplace to our InferenceData object</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">linreg_model</span><span class="p">:</span>
-    <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.set_data.html#pymc.set_data" title="pymc.set_data"><span class="n">pm</span><span class="o">.</span><span class="n">set_data</span></a><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]},</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2023</span><span class="p">]})</span>
+    <span class="n">pm</span><span class="o">.</span><span class="n">set_data</span><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]},</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">"year"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2023</span><span class="p">]})</span>
     <a class="sphinx-codeautolink-a" href="https://www.pymc.io/projects/docs/en/stable/api/generated/pymc.sample_posterior_predictive.html#pymc.sample_posterior_predictive" title="pymc.sample_posterior_predictive"><span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span></a><span class="p">(</span><span class="n">linreg_idata</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">extend_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -838,14 +832,7 @@ Watermark: 2.3.0
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Categoria</label>
-<a href="../../category/python.html">python</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/pymc.html">pymc</a>
+<a href="../../category/pymc.html">pymc</a>
   
   ,
   
@@ -859,6 +846,13 @@ Watermark: 2.3.0
   
   
   
+  <a href="../../category/python.html">python</a>
+  
+  ,
+  
+  
+  
+  
   <a href="../../category/xarray.html">xarray</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
@@ -866,8 +860,8 @@ Watermark: 2.3.0
 <i class="fa-solid fa-tags"></i>
 </span>
 <label class="sr-only">Etiquetes</label>
-<a href="../../tag/data-storage.html">data storage</a>
 <a href="../../tag/arviz-converters.html">arviz converters</a>
+<a href="../../tag/data-storage.html">data storage</a>
 </li>
 </ul>
 </div>
@@ -902,8 +896,8 @@ Watermark: 2.3.0
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -928,7 +922,7 @@ Watermark: 2.3.0
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/ca/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>

@@ -819,6 +819,61 @@
         },
         {
           "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()"
+          ],
+          "code_str": "fig",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
+        },
+        {
+          "import_components": [
             "arviz",
             "plot_ppc"
           ],
@@ -2331,6 +2386,33 @@
         },
         {
           "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()"
+          ],
+          "code_str": "fig",
+          "lineno": 14,
+          "end_lineno": 14,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()",
+            "add_axes"
+          ],
+          "code_str": "fig.add_axes",
+          "lineno": 15,
+          "end_lineno": 15,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_axes"
+        },
+        {
+          "import_components": [
             "numpy",
             "array"
           ],
@@ -3640,17 +3722,6 @@
         {
           "import_components": [
             "pymc",
-            "Model"
-          ],
-          "code_str": "pm.Model",
-          "lineno": 6,
-          "end_lineno": 6,
-          "context": "none",
-          "resolved_location": "pymc.Model"
-        },
-        {
-          "import_components": [
-            "pymc",
             "Flat"
           ],
           "code_str": "pm.Flat",
@@ -3713,28 +3784,6 @@
           "end_lineno": 15,
           "context": "none",
           "resolved_location": "pymc.Normal"
-        },
-        {
-          "import_components": [
-            "pymc",
-            "Deterministic"
-          ],
-          "code_str": "pm.Deterministic",
-          "lineno": 17,
-          "end_lineno": 17,
-          "context": "none",
-          "resolved_location": "pymc.Deterministic"
-        },
-        {
-          "import_components": [
-            "pymc",
-            "Deterministic"
-          ],
-          "code_str": "pm.Deterministic",
-          "lineno": 18,
-          "end_lineno": 18,
-          "context": "none",
-          "resolved_location": "pymc.Deterministic"
         },
         {
           "import_components": [
@@ -3859,17 +3908,6 @@
         {
           "import_components": [
             "pymc",
-            "Model"
-          ],
-          "code_str": "pm.Model",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "pymc.Model"
-        },
-        {
-          "import_components": [
-            "pymc",
             "ConstantData"
           ],
           "code_str": "pm.ConstantData",
@@ -3973,17 +4011,6 @@
     {
       "source": "with radon_model:\n    ab_county = pm.Deterministic(\"ab_county\", at.dot(chol, z).T, dims=(\"county\", \"param\"))\n    theta = a + ab_county[county_idx, 0] + (b + ab_county[county_idx, 1]) * floor_idx\n\n    sigma = pm.Exponential(\"sigma\", 1.0)\n    pm.Normal(\"y\", theta, sigma=sigma, observed=srrs_mn.log_radon, dims=\"obs_id\")",
       "names": [
-        {
-          "import_components": [
-            "pymc",
-            "Deterministic"
-          ],
-          "code_str": "pm.Deterministic",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "pymc.Deterministic"
-        },
         {
           "import_components": [
             "pymc",
@@ -4093,17 +4120,6 @@
     {
       "source": "with pm.Model() as linreg_model:\n    # use x_ to avoid overwriting x previously defined as np.ndarray\n    x_ = pm.MutableData(\"x\", x, dims=\"year\", coords={\"year\": year})\n    \n    a = pm.Normal(\"a\", 0, 3)\n    b = pm.Normal(\"b\", 0, 2)\n    sigma = pm.HalfNormal(\"sigma\", 2)\n    \n    pm.Normal(\"y\", a + b * x_, sigma, observed=y, dims=\"year\")",
       "names": [
-        {
-          "import_components": [
-            "pymc",
-            "Model"
-          ],
-          "code_str": "pm.Model",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "pymc.Model"
-        },
         {
           "import_components": [
             "pymc",
@@ -4357,17 +4373,6 @@
     {
       "source": "with linreg_model:\n    pm.set_data({\"x\": x[-1] + x[1:3]}, coords={\"year\": [2022, 2023]})\n    pm.sample_posterior_predictive(linreg_idata, predictions=True, extend_inferencedata=True)",
       "names": [
-        {
-          "import_components": [
-            "pymc",
-            "set_data"
-          ],
-          "code_str": "pm.set_data",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "pymc.set_data"
-        },
         {
           "import_components": [
             "pymc",
@@ -5373,6 +5378,32 @@
           "import_components": [
             "matplotlib",
             "pyplot",
+            "figure",
+            "()"
+          ],
+          "code_str": "fig",
+          "lineno": 34,
+          "end_lineno": 34,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()"
+          ],
+          "code_str": "fig",
+          "lineno": 40,
+          "end_lineno": 40,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
             "GridSpec"
           ],
           "code_str": "plt.GridSpec",
@@ -5411,6 +5442,20 @@
           "import_components": [
             "matplotlib",
             "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 45,
+          "end_lineno": 45,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
             "GridSpec",
             "()"
           ],
@@ -5424,6 +5469,20 @@
           "import_components": [
             "matplotlib",
             "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 47,
+          "end_lineno": 47,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
             "GridSpec",
             "()"
           ],
@@ -5432,6 +5491,20 @@
           "end_lineno": 50,
           "context": "none",
           "resolved_location": "matplotlib.gridspec.GridSpec"
+        },
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 50,
+          "end_lineno": 50,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
         },
         {
           "import_components": [
@@ -5459,6 +5532,20 @@
         },
         {
           "import_components": [
+            "matplotlib",
+            "pyplot",
+            "figure",
+            "()",
+            "add_subplot"
+          ],
+          "code_str": "fig.add_subplot",
+          "lineno": 64,
+          "end_lineno": 64,
+          "context": "none",
+          "resolved_location": "matplotlib.figure.Figure.add_subplot"
+        },
+        {
+          "import_components": [
             "numpy",
             "array"
           ],
@@ -5482,17 +5569,6 @@
     {
       "source": "with pm.Model():\n    a_shot = from_posterior(\"a_shot\", post[\"a\"].sel(var=\"shot\").values.flatten())\n    a_distance = from_posterior(\"a_distance\", post[\"a\"].sel(var=\"distance\").values.flatten())\n    \n    a_prior = pm.sample_prior_predictive(2000)",
       "names": [
-        {
-          "import_components": [
-            "pymc",
-            "Model"
-          ],
-          "code_str": "pm.Model",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "pymc.Model"
-        },
         {
           "import_components": [
             "pymc",
@@ -5534,17 +5610,6 @@
         {
           "import_components": [
             "pymc",
-            "Model"
-          ],
-          "code_str": "pm.Model",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "pymc.Model"
-        },
-        {
-          "import_components": [
-            "pymc",
             "sample_prior_predictive"
           ],
           "code_str": "pm.sample_prior_predictive",
@@ -5580,17 +5645,6 @@
     {
       "source": "with pm.Model():\n    c_shot = from_posterior(\"c_shot\", post[\"c\"].sel(var=\"shot\").values.flatten())\n    c_distance = from_posterior(\"c_distance\", post[\"c\"].sel(var=\"distance\").values.flatten())\n    \n    c_prior = pm.sample_prior_predictive(2000)",
       "names": [
-        {
-          "import_components": [
-            "pymc",
-            "Model"
-          ],
-          "code_str": "pm.Model",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "pymc.Model"
-        },
         {
           "import_components": [
             "pymc",

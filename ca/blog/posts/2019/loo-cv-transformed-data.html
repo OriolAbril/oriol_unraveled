@@ -4,7 +4,7 @@
 <html data-theme="light" lang="ca">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="LOO-CV on transformed data" property="og:title"/>
 <meta content="website" property="og:type"/>
 <meta content="https://oriolabrilpla.cat/ca/blog/posts/2019/loo-cv-transformed-data.html" property="og:url"/>
@@ -19,37 +19,39 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=dbdf47d2b5dfcbc4de90" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=06df8a71" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/doctools.js"></script>
-<script src="../../../_static/sphinx_highlight.js"></script>
-<script src="../../../_static/clipboard.min.js"></script>
-<script src="../../../_static/copybutton.js"></script>
-<script src="../../../_static/translations.js"></script>
-<script src="../../../_static/design-tabs.js"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/documentation_options.js?v=eec613ba"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../../_static/copybutton.js?v=f281be69"></script>
+<script src="../../../_static/translations.js?v=d8dd923b"></script>
+<script src="../../../_static/design-tabs.js?v=36754332"></script>
 <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
 <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2019/loo-cv-transformed-data';</script>
 <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'ca';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="Quant a aquests documents"/>
@@ -110,7 +112,7 @@
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Etiquetes
+                        Tags
                       </a>
 </li>
 <li class="nav-item">
@@ -126,10 +128,6 @@
 <li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
 <span class="sr-only">GitHub</span></a>
-</li>
-<li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
 </li>
 <li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
@@ -176,7 +174,7 @@
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Etiquetes
+                        Tags
                       </a>
 </li>
 <li class="nav-item">
@@ -192,7 +190,7 @@
 document.write(`
   <div class="version-switcher__container dropdown">
     <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
-      ca  <!-- this text may get changed later by javascript -->
+      Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
     <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
@@ -218,10 +216,6 @@ document.write(`
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://twitter.com/OriolAbril" rel="noopener" target="_blank" title="Twitter"><span><i aria-hidden="true" class="fa-brands fa-twitter fa-lg"></i></span>
-<span class="sr-only">Twitter</span></a>
-</li>
-<li class="nav-item">
 <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
 <span class="sr-only">Mastodon</span></a>
 </li>
@@ -239,7 +233,7 @@ document.write(`
 <div class="bd-article-container bd-content-page">
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="loo-cv-on-transformed-data">
-<span id="loo-transformed-data"></span><h1>LOO-CV on transformed data<a class="headerlink" href="#loo-cv-on-transformed-data" title="Permalink to this heading">#</a></h1>
+<span id="loo-transformed-data"></span><h1>LOO-CV on transformed data<a class="headerlink" href="#loo-cv-on-transformed-data" title="Enllaça amb aquesta capçalera">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/loo_regression.png"/>
 <p>Blog post exploring whether or not LOO-CV can be used to compare models that try to explain some data <span class="math notranslate nohighlight">\(y\)</span> with models trying to explain the same data after a transformation <span class="math notranslate nohighlight">\(z=f(y)\)</span>. Inspired by <a class="reference external" href="https://discourse.mc-stan.org/t/very-simple-loo-question/9258">@tiagocc question</a> on Stan Forums. This post has two sections, the first one is the mathematical derivation of the equations used and their application on a validation example, and the second section is a real example. In addition to the LOO-CV usage examples and explanations, another goal of this notebook is to show and highlight the capabilities of <a class="reference external" href="https://arviz-devs.github.io/arviz/">ArviZ</a>.</p>
 <div class="cell docutils container">
@@ -261,14 +255,14 @@ document.write(`
 </div>
 </div>
 <section id="mathematical-derivation-and-validation-example">
-<h2>Mathematical derivation and validation example<a class="headerlink" href="#mathematical-derivation-and-validation-example" title="Permalink to this heading">#</a></h2>
+<h2>Mathematical derivation and validation example<a class="headerlink" href="#mathematical-derivation-and-validation-example" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>In the first example, we will compare two equivalent models:</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(y \sim \text{LogNormal}(\mu, \sigma)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\log y \sim \text{Normal}(\mu, \sigma)\)</span></p></li>
 </ol>
 <section id="model-definition-and-execution">
-<h3>Model definition and execution<a class="headerlink" href="#model-definition-and-execution" title="Permalink to this heading">#</a></h3>
+<h3>Model definition and execution<a class="headerlink" href="#model-definition-and-execution" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>Define the data and execute the two models</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -562,7 +556,7 @@ document.write(`
 </div>
 </section>
 <section id="posterior-validation">
-<h3>Posterior validation<a class="headerlink" href="#posterior-validation" title="Permalink to this heading">#</a></h3>
+<h3>Posterior validation<a class="headerlink" href="#posterior-validation" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>Check that both models are equivalent and do indeed give the same result for both parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -576,7 +570,7 @@ document.write(`
 </div>
 </section>
 <section id="calculate-loo-cv">
-<h3>Calculate LOO-CV<a class="headerlink" href="#calculate-loo-cv" title="Permalink to this heading">#</a></h3>
+<h3>Calculate LOO-CV<a class="headerlink" href="#calculate-loo-cv" title="Enllaça amb aquesta capçalera">#</a></h3>
 <p>Now we get to calculate LOO-CV using Pareto Smoothed Importance Sampling as detailed in Vehtari et al., 2017. As we explained above, both models are equivalent, but one is in terms of <span class="math notranslate nohighlight">\(y\)</span> and the other in terms of <span class="math notranslate nohighlight">\(\log y\)</span>. Therefore, their likelihoods will be on different scales, and hence, their expected log predictive density will also be different.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -663,7 +657,7 @@ p_loo        1.64        -
 </section>
 </section>
 <section id="real-example">
-<h2>Real example<a class="headerlink" href="#real-example" title="Permalink to this heading">#</a></h2>
+<h2>Real example<a class="headerlink" href="#real-example" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>We will now use as data a subsample of a <a class="reference external" href="https://docs.google.com/spreadsheets/d/1gt1Dvi7AnQJiBb5vKaxanTis_sfd4sC4sVoswM1Fz7s/pub#">real dataset</a>. The subset has been selected using:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">"indicator breast female incidence.xlsx"</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Breast Female Incidence"</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">thresh</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"indicator_breast_female_incidence.csv"</span><span class="p">)</span>
@@ -901,7 +895,7 @@ p_loo        2.92        -
 </div>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Enllaça amb aquesta capçalera">#</a></h2>
 <p>Vehtari, A., Gelman, A., and Gabry, J. (2017):  Practical Bayesian Model Evaluation Using Leave-One-OutCross-Validation and WAIC, <em>Statistics and Computing</em>, vol. 27(5), pp. 1413–1432.</p>
 <hr class="docutils"/>
 <p>Comments are not enabled for the blog, to inquiry further about the contents of the post, ask on <a class="reference external" href="https://github.com/arviz-devs/arviz/issues">ArviZ Issues</a> or <a class="reference external" href="https://discourse.mc-stan.org/">Stan Discourse</a></p>
@@ -932,7 +926,7 @@ p_loo        2.92        -
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Categoria</label>
-<a href="../../category/python.html">python</a>
+<a href="../../category/stan.html">stan</a>
   
   ,
   
@@ -946,7 +940,7 @@ p_loo        2.92        -
   
   
   
-  <a href="../../category/stan.html">stan</a>
+  <a href="../../category/python.html">python</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -986,8 +980,8 @@ p_loo        2.92        -
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=dbdf47d2b5dfcbc4de90"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dbdf47d2b5dfcbc4de90"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -1012,7 +1006,7 @@ p_loo        2.92        -
       <a data-toggle="tooltip" href="https://oriolabrilpla.cat/ca/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
 </li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
-<li>Design by <a href="pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
+<li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
 </ul>
 </div>
