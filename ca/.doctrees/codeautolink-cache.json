@@ -819,61 +819,6 @@
         },
         {
           "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()"
-          ],
-          "code_str": "fig",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 3,
-          "end_lineno": 3,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
-        },
-        {
-          "import_components": [
             "arviz",
             "plot_ppc"
           ],
@@ -2351,18 +2296,6 @@
         },
         {
           "import_components": [
-            "mpl_toolkits",
-            "mplot3d",
-            "Axes3D"
-          ],
-          "code_str": "Axes3D",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "import_target",
-          "resolved_location": "mpl_toolkits.mplot3d.axes3d.Axes3D"
-        },
-        {
-          "import_components": [
             "numpy",
             "array"
           ],
@@ -2383,33 +2316,6 @@
           "end_lineno": 14,
           "context": "none",
           "resolved_location": "matplotlib.pyplot.figure"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()"
-          ],
-          "code_str": "fig",
-          "lineno": 14,
-          "end_lineno": 14,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_axes"
-          ],
-          "code_str": "fig.add_axes",
-          "lineno": 15,
-          "end_lineno": 15,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_axes"
         },
         {
           "import_components": [
@@ -5376,138 +5282,6 @@
         },
         {
           "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()"
-          ],
-          "code_str": "fig",
-          "lineno": 34,
-          "end_lineno": 34,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()"
-          ],
-          "code_str": "fig",
-          "lineno": 40,
-          "end_lineno": 40,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "GridSpec"
-          ],
-          "code_str": "plt.GridSpec",
-          "lineno": 35,
-          "end_lineno": 35,
-          "context": "none",
-          "resolved_location": "matplotlib.gridspec.GridSpec"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "GridSpec",
-            "()"
-          ],
-          "code_str": "grid",
-          "lineno": 35,
-          "end_lineno": 35,
-          "context": "none",
-          "resolved_location": "matplotlib.gridspec.GridSpec"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "GridSpec",
-            "()"
-          ],
-          "code_str": "grid",
-          "lineno": 45,
-          "end_lineno": 45,
-          "context": "none",
-          "resolved_location": "matplotlib.gridspec.GridSpec"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 45,
-          "end_lineno": 45,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "GridSpec",
-            "()"
-          ],
-          "code_str": "grid",
-          "lineno": 47,
-          "end_lineno": 47,
-          "context": "none",
-          "resolved_location": "matplotlib.gridspec.GridSpec"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 47,
-          "end_lineno": 47,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "GridSpec",
-            "()"
-          ],
-          "code_str": "grid",
-          "lineno": 50,
-          "end_lineno": 50,
-          "context": "none",
-          "resolved_location": "matplotlib.gridspec.GridSpec"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 50,
-          "end_lineno": 50,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
-        },
-        {
-          "import_components": [
             "arviz",
             "plot_dist"
           ],
@@ -5516,33 +5290,6 @@
           "end_lineno": 58,
           "context": "none",
           "resolved_location": "arviz.plot_dist"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "GridSpec",
-            "()"
-          ],
-          "code_str": "grid",
-          "lineno": 64,
-          "end_lineno": 64,
-          "context": "none",
-          "resolved_location": "matplotlib.gridspec.GridSpec"
-        },
-        {
-          "import_components": [
-            "matplotlib",
-            "pyplot",
-            "figure",
-            "()",
-            "add_subplot"
-          ],
-          "code_str": "fig.add_subplot",
-          "lineno": 64,
-          "end_lineno": 64,
-          "context": "none",
-          "resolved_location": "matplotlib.figure.Figure.add_subplot"
         },
         {
           "import_components": [
