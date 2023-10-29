@@ -27,6 +27,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "myst_nb",
     "sphinx_copybutton",
+    "sphinx_togglebutton",
     "sphinx_design",
     "ablog",
     "sphinxext.opengraph",

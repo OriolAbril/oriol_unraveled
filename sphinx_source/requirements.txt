@@ -2,9 +2,10 @@ Sphinx>=6
 sphinx-copybutton
 sphinx-design
 myst-parser[linkify]>=2
-myst-nb @ git+https://github.com/executablebooks/myst-nb
+myst-nb>=1.0.0.dev0
 ablog>=0.11
 sphinx-codeautolink
+sphinx-togglebutton
 sphinxext-opengraph
 sphinx-notfound-page
 sphinxext-rediraffe
