@@ -19,10 +19,10 @@
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet"/>
+<link href="../../../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
+<link href="../../../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
+<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
@@ -35,10 +35,10 @@
 <link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/documentation_options.js?v=eec613ba"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" rel="preload"/>
+<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+<script src="../../../_static/documentation_options.js?v=744f91c5"></script>
 <script src="../../../_static/doctools.js?v=888ff710"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -55,7 +55,7 @@
 <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2019/loo-cv-transformed-data';</script>
 <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.14.1';
+        DOCUMENTATION_OPTIONS.theme_version = '0.14.2';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'ca';
         DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
@@ -70,7 +70,7 @@
 <link href="https://oriolabrilpla.cat/ca/blog/posts/2019/loo-cv-transformed-data.html" hreflang="ca" rel="alternate"/>
 </head>
 <body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
-<a class="skip-link" href="#main">Skip to main content</a>
+<a class="skip-link" href="#main">Salta al contingut principal</a>
 <div id="pst-scroll-pixel-helper"></div>
 <button class="btn rounded-pill" id="pst-back-to-top" type="button">
 <i class="fa-solid fa-arrow-up"></i>
@@ -98,8 +98,8 @@
 <div class="sidebar-header-items sidebar-primary__section">
 <div class="sidebar-header-items__center">
 <div class="navbar-item"><nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
+<p aria-label="Navegació del lloc" aria-level="1" class="sidebar-header-items__title" role="heading">
+    Navegació del lloc
   </p>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
@@ -160,8 +160,8 @@
 </label>
 <div class="article-navbar-text-links">
 <nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
+<p aria-label="Navegació del lloc" aria-level="1" class="sidebar-header-items__title" role="heading">
+    Navegació del lloc
   </p>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
@@ -196,12 +196,21 @@
 <script>
 document.write(`
   <div class="version-switcher__container dropdown">
-    <button id="versionswitcherbutton" type="button" role="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="listbox" aria-controls="versionswitcherlist" aria-label="Version switcher list">
+    <button id="pst-version-switcher-button"
+      type="button"
+      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list"
+      aria-label="Version switcher list"
+    >
       Choose version  <!-- this text may get changed later by javascript -->
       <span class="caret"></span>
     </button>
-    <div id="versionswitcherlist" class="version-switcher__menu dropdown-menu list-group-flush py-0" role="listbox" aria-labelledby="versionswitcherbutton">
-    <!-- dropdown will be populated by javascript on page load -->
+    <div id="pst-version-switcher-list"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button">
+      <!-- dropdown will be populated by javascript on page load -->
     </div>
   </div>
 `);
@@ -933,7 +942,7 @@ p_loo        2.92        -
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Categoria</label>
-<a href="../../category/stan.html">stan</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
@@ -947,7 +956,7 @@ p_loo        2.92        -
   
   
   
-  <a href="../../category/python.html">python</a>
+  <a href="../../category/stan.html">stan</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -961,7 +970,7 @@ p_loo        2.92        -
 </div>
 <div class="sidebar-secondary-item">
 <div class="page-toc tocsection onthispage">
-<i class="fa-solid fa-list"></i> On this page
+<i class="fa-solid fa-list"></i> Continguts de la pàgina
   </div>
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
@@ -987,8 +996,8 @@ p_loo        2.92        -
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
