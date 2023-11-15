@@ -2,7 +2,7 @@ Sphinx>=6
 sphinx-copybutton
 sphinx-design
 myst-parser[linkify]>=2
-myst-nb>=1.0.0.dev0
+myst-nb>=1.0
 ablog>=0.11
 sphinx-codeautolink
 sphinx-togglebutton
