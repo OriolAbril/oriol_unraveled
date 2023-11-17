@@ -5441,6 +5441,979 @@
       "doc_lineno": 510002
     }
   ],
+  "blog/posts/2023/plot_ppc": [
+    {
+      "source": "import arviz as az\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport xarray as xr\n\nxr.set_options(display_expand_attrs=False)\n\nradon = az.load_arviz_data(\"radon\")\nrugby = az.load_arviz_data(\"rugby\")\nschools = az.load_arviz_data(\"non_centered_eight\")",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot"
+          ],
+          "code_str": "matplotlib.pyplot",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "import_target",
+          "resolved_location": "matplotlib.pyplot"
+        },
+        {
+          "import_components": [
+            "numpy"
+          ],
+          "code_str": "numpy",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "import_target",
+          "resolved_location": "numpy"
+        },
+        {
+          "import_components": [
+            "xarray"
+          ],
+          "code_str": "xarray",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "import_target",
+          "resolved_location": "xarray"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "set_options"
+          ],
+          "code_str": "xr.set_options",
+          "lineno": 6,
+          "end_lineno": 6,
+          "context": "none",
+          "resolved_location": "xarray.set_options"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "load_arviz_data"
+          ],
+          "code_str": "az.load_arviz_data",
+          "lineno": 8,
+          "end_lineno": 8,
+          "context": "none",
+          "resolved_location": "arviz.load_arviz_data"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "load_arviz_data"
+          ],
+          "code_str": "az.load_arviz_data",
+          "lineno": 9,
+          "end_lineno": 9,
+          "context": "none",
+          "resolved_location": "arviz.load_arviz_data"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "load_arviz_data"
+          ],
+          "code_str": "az.load_arviz_data",
+          "lineno": 10,
+          "end_lineno": 10,
+          "context": "none",
+          "resolved_location": "arviz.load_arviz_data"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "how-plot-ppc-works-under-the-hood",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "Overview",
+          "How plot_ppc works under the hood"
+        ]
+      },
+      "doc_lineno": 40002
+    },
+    {
+      "source": "radon.posterior_predictive",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "how-plot-ppc-works-under-the-hood",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "Overview",
+          "How plot_ppc works under the hood"
+        ]
+      },
+      "doc_lineno": 50002
+    },
+    {
+      "source": "radon.observed_data",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "how-plot-ppc-works-under-the-hood",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "Overview",
+          "How plot_ppc works under the hood"
+        ]
+      },
+      "doc_lineno": 60002
+    },
+    {
+      "source": "_, axes = plt.subplots(2, 2, figsize=(12, 5), layout=\"constrained\")\n\naz.plot_ppc(radon, kind=\"kde\", ax=axes[0, 0], legend=False)\naz.plot_ppc(radon, kind=\"cumulative\", ax=axes[0, 1], legend=True)\naz.plot_ppc(radon, kind=\"scatter\", coords={\"obs_id\": [0]}, ax=axes[1, 0], legend=False)\naz.plot_ppc(radon, kind=\"scatter\", coords={\"obs_id\": [0, 1, 2, 3, 4]}, ax=axes[1, 1], legend=False)\naxes[0, 1].get_legend().set(bbox_to_anchor=(1.05, 1), loc='upper left');",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "subplots"
+          ],
+          "code_str": "plt.subplots",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "matplotlib.pyplot.subplots"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 5,
+          "end_lineno": 5,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 6,
+          "end_lineno": 6,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "kind",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "What is a rug plot?"
+        ]
+      },
+      "doc_lineno": 80002
+    },
+    {
+      "source": "az.plot_ppc(rugby);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "kind",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "What is a rug plot?"
+        ]
+      },
+      "doc_lineno": 100002
+    },
+    {
+      "source": "az.plot_ppc(radon, mean=False);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "mean",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "mean"
+        ]
+      },
+      "doc_lineno": 120002
+    },
+    {
+      "source": "from scipy.stats import truncnorm, norm\nimport numpy as np\n\npp = np.stack((truncnorm.rvs(-np.infty, 0, size=(500, 157)), truncnorm.rvs(0, np.infty, size=(500, 157))))\nobserved = norm.rvs(size=157)\nidata = az.from_dict(observed_data={\"obs\": observed}, posterior_predictive={\"obs\": pp})\naz.plot_ppc(idata);",
+      "names": [
+        {
+          "import_components": [
+            "scipy",
+            "stats"
+          ],
+          "code_str": "scipy.stats",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_from",
+          "resolved_location": "scipy.stats"
+        },
+        {
+          "import_components": [
+            "scipy",
+            "stats",
+            "truncnorm"
+          ],
+          "code_str": "truncnorm",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "scipy.stats.truncnorm"
+        },
+        {
+          "import_components": [
+            "scipy",
+            "stats",
+            "norm"
+          ],
+          "code_str": "norm",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "import_target",
+          "resolved_location": "scipy.stats.norm"
+        },
+        {
+          "import_components": [
+            "numpy"
+          ],
+          "code_str": "numpy",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "import_target",
+          "resolved_location": "numpy"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "infty"
+          ],
+          "code_str": "np.infty",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "numpy.infty"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "infty"
+          ],
+          "code_str": "np.infty",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "numpy.infty"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "stack"
+          ],
+          "code_str": "np.stack",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "numpy.stack"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "from_dict"
+          ],
+          "code_str": "az.from_dict",
+          "lineno": 6,
+          "end_lineno": 6,
+          "context": "none",
+          "resolved_location": "arviz.from_dict"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 7,
+          "end_lineno": 7,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "mean",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "mean"
+        ]
+      },
+      "doc_lineno": 140002
+    },
+    {
+      "source": "az.plot_ppc(schools, observed_rug=True);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "observed-and-observed-rug",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "observed and observed_rug"
+        ]
+      },
+      "doc_lineno": 160002
+    },
+    {
+      "source": "schools.posterior_predictive = schools.posterior_predictive.rename(obs=\"obs_hat\")\n# after this doing az.plot_ppc(schools) directly would raise an error\naz.plot_ppc(schools, data_pairs={\"obs\": \"obs_hat\"});",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "data-pairs",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "data_pairs"
+        ]
+      },
+      "doc_lineno": 180002
+    },
+    {
+      "source": "az.plot_ppc(radon, kind=\"scatter\", coords={\"obs_id\": [0, 1, 2, 3, 4]}, flatten=[]);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "flatten",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "flatten"
+        ]
+      },
+      "doc_lineno": 210002
+    },
+    {
+      "source": "obs_county = radon.posterior[\"County\"][radon.constant_data[\"county_idx\"]]\nradon = radon.assign_coords(obs_id=obs_county, groups=\"observed_vars\")\n\nradon",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "flatten",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "flatten"
+        ]
+      },
+      "doc_lineno": 230002
+    },
+    {
+      "source": "az.plot_ppc(radon, coords={\"obs_id\": [\"ANOKA\", \"BELTRAMI\", \"HUBBARD\"]}, flatten=[], observed_rug=True);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "flatten",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "flatten"
+        ]
+      },
+      "doc_lineno": 250002
+    },
+    {
+      "source": "rugby.observed_data[\"points\"] = xr.concat(\n    (rugby.observed_data.home_points, rugby.observed_data.away_points),\n    \"field\"\n).assign_coords(field=[\"home\", \"away\"])\nrugby.posterior_predictive[\"points\"] = xr.concat(\n    (rugby.posterior_predictive.home_points, rugby.posterior_predictive.away_points),\n    \"field\"\n).assign_coords(field=[\"home\", \"away\"])#.transpose(\"chain\", \"draw\", ...)\nrugby",
+      "names": [
+        {
+          "import_components": [
+            "xarray",
+            "concat"
+          ],
+          "code_str": "xr.concat",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "xarray.concat"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "concat"
+          ],
+          "code_str": "xr.concat",
+          "lineno": 5,
+          "end_lineno": 5,
+          "context": "none",
+          "resolved_location": "xarray.concat"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "flatten",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "flatten"
+        ]
+      },
+      "doc_lineno": 270002
+    },
+    {
+      "source": "az.plot_ppc(rugby, var_names=\"points\");",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "flatten",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "flatten"
+        ]
+      },
+      "doc_lineno": 290002
+    },
+    {
+      "source": "az.plot_ppc(rugby, var_names=\"points\", flatten=[\"match\"]);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "flatten",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "flatten"
+        ]
+      },
+      "doc_lineno": 310002
+    },
+    {
+      "source": "fig, axes = plt.subplots(1, 2, figsize=(10, 3))\naz.plot_ppc(radon, num_pp_samples=100, ax=axes[0], legend=False, coords={\"obs_id\": \"ANOKA\"})\naz.plot_ppc(radon, num_pp_samples=10, ax=axes[1], kind=\"scatter\", coords={\"obs_id\": \"HUBBARD\"})\naxes[1].get_legend().set(bbox_to_anchor=(1.05, 1), loc='upper left');",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "subplots"
+          ],
+          "code_str": "plt.subplots",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "matplotlib.pyplot.subplots"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "num-pp-samples",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "num_pp_samples"
+        ]
+      },
+      "doc_lineno": 340002
+    },
+    {
+      "source": "fig, axes = plt.subplots(1, 3, figsize=(13, 3))\naz.plot_ppc(radon, num_pp_samples=10, ax=axes[0], legend=False, kind=\"scatter\", coords={\"obs_id\": \"HUBBARD\"})\naz.plot_ppc(radon, num_pp_samples=10, random_seed=3, ax=axes[1], legend=False, kind=\"scatter\", coords={\"obs_id\": \"HUBBARD\"})\naz.plot_ppc(radon, num_pp_samples=10, random_seed=3, ax=axes[2], kind=\"scatter\", coords={\"obs_id\": \"HUBBARD\"})\naxes[2].get_legend().set(bbox_to_anchor=(1.05, 1), loc='upper left');",
+      "names": [
+        {
+          "import_components": [
+            "matplotlib",
+            "pyplot",
+            "subplots"
+          ],
+          "code_str": "plt.subplots",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "matplotlib.pyplot.subplots"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "num-pp-samples",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "num_pp_samples"
+        ]
+      },
+      "doc_lineno": 360002
+    },
+    {
+      "source": "radon.observed_data.query({\"obs_id\": \"y < -2\"}).compute()",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "radon-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Radon model"
+        ]
+      },
+      "doc_lineno": 410002
+    },
+    {
+      "source": "az.plot_ppc(radon, kind=\"cumulative\", mean=False, coords={'obs_id': ['CARVER', 'COTTONWOOD', 'MCLEOD']}, flatten=[], observed_rug=True);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "radon-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Radon model"
+        ]
+      },
+      "doc_lineno": 430002
+    },
+    {
+      "source": "np.log(0.1)",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "log"
+          ],
+          "code_str": "np.log",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.log"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "radon-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Radon model"
+        ]
+      },
+      "doc_lineno": 450002
+    },
+    {
+      "source": "lower_than_bound = (radon.posterior_predictive[\"y\"].drop_vars(\"County\") < np.log(0.1)).groupby(\"obs_id\").sum().sum((\"chain\", \"draw\"))\nlower_than_bound.isel(obs_id=lower_than_bound.argsort().values[-4:])",
+      "names": [
+        {
+          "import_components": [
+            "numpy",
+            "log"
+          ],
+          "code_str": "np.log",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.log"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "radon-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Radon model"
+        ]
+      },
+      "doc_lineno": 470002
+    },
+    {
+      "source": "rugby = az.load_arviz_data(\"rugby\")\nrugby.map(\n    lambda ds: ds.assign(points=xr.concat((ds.home_points, ds.away_points), \"field\")).assign_coords(field=[\"home\", \"away\"]),\n    groups=\"observed_vars\",\n    inplace=True\n)\n\nyears = [2014, 2015, 2016, 2017]\nall_matches = rugby.posterior_predictive.match.values.copy()\nall_unique_matches = np.array([\" \".join(sorted(match.split(\" \"))) for match in all_matches])\nunique_match, unique_matches_id = np.unique(all_unique_matches, return_inverse=True)\nindexes = np.argsort(unique_matches_id.reshape((4, 15)), axis=1)+15*np.arange(4)[:, None]\nrugby.map(\n    lambda ds: ds[[\"points\"]].isel(match=xr.DataArray(indexes, dims=[\"year\", \"team_pair\"])).assign_coords(year=years, team_pair=unique_match),\n    groups=\"observed_vars\",\n    inplace=True\n)\n# keep track of which team played as home\nhome_team = np.array([m.split(\" \")[0] for m in all_matches])[indexes]\nrugby.observed_data[\"home_team\"] = ((\"year\", \"team_pair\"), home_team)\nrugby.posterior_predictive",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "load_arviz_data"
+          ],
+          "code_str": "az.load_arviz_data",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.load_arviz_data"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "concat"
+          ],
+          "code_str": "xr.concat",
+          "lineno": 3,
+          "end_lineno": 3,
+          "context": "none",
+          "resolved_location": "xarray.concat"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "array"
+          ],
+          "code_str": "np.array",
+          "lineno": 10,
+          "end_lineno": 10,
+          "context": "none",
+          "resolved_location": "numpy.array"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "unique"
+          ],
+          "code_str": "np.unique",
+          "lineno": 11,
+          "end_lineno": 11,
+          "context": "none",
+          "resolved_location": "numpy.unique"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "argsort"
+          ],
+          "code_str": "np.argsort",
+          "lineno": 12,
+          "end_lineno": 12,
+          "context": "none",
+          "resolved_location": "numpy.argsort"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 12,
+          "end_lineno": 12,
+          "context": "none",
+          "resolved_location": "numpy.arange"
+        },
+        {
+          "import_components": [
+            "xarray",
+            "DataArray"
+          ],
+          "code_str": "xr.DataArray",
+          "lineno": 14,
+          "end_lineno": 14,
+          "context": "none",
+          "resolved_location": "xarray.DataArray"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "array"
+          ],
+          "code_str": "np.array",
+          "lineno": 19,
+          "end_lineno": 19,
+          "context": "none",
+          "resolved_location": "numpy.array"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "rugby-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Rugby model"
+        ]
+      },
+      "doc_lineno": 500002
+    },
+    {
+      "source": "coords = {\"team_pair\": [\"Italy Wales\", \"England France\"]}\naxes = az.plot_ppc(\n    rugby.map(lambda ds: ds.transpose(\"team_pair\", \"year\", ...), groups=\"observed_vars\"),\n    kind=\"scatter\", var_names=\"points\", flatten=[\"field\"], coords=coords, random_seed=3, num_pp_samples=8\n)\naxes[0 ,0].get_legend().set(bbox_to_anchor=(-0.05, 1), loc='upper right');",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "rugby-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Rugby model"
+        ]
+      },
+      "doc_lineno": 520002
+    },
+    {
+      "source": "home_wins = rugby.posterior_predictive.points.sel(field=\"home\") > rugby.posterior_predictive.points.sel(field=\"away\")\nhome_wins.mean((\"chain\", \"draw\")).sel(year=2014, team_pair=[\"Italy Wales\", \"England France\"]).to_series()",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "rugby-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Rugby model"
+        ]
+      },
+      "doc_lineno": 550002
+    },
+    {
+      "source": "(1-home_wins).mean((\"chain\", \"draw\")).sel(year=2015, team_pair=[\"Italy Wales\", \"England France\"]).to_series()",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "rugby-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Rugby model"
+        ]
+      },
+      "doc_lineno": 570002
+    },
+    {
+      "source": "az.plot_ppc(rugby, var_names=\"points\", flatten=[\"field\", \"team_pair\"]);",
+      "names": [
+        {
+          "import_components": [
+            "arviz",
+            "plot_ppc"
+          ],
+          "code_str": "az.plot_ppc",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.plot_ppc"
+        }
+      ],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "rugby-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Rugby model"
+        ]
+      },
+      "doc_lineno": 590002
+    },
+    {
+      "source": "%load_ext watermark\n%watermark -n -u -v -iv -w",
+      "names": [],
+      "example": {
+        "document": "blog/posts/2023/plot_ppc",
+        "ref_id": "rugby-model",
+        "headings": [
+          "ArviZ in depth: plot_ppc",
+          "kind",
+          "Practical examples",
+          "Rugby model"
+        ]
+      },
+      "doc_lineno": 610002
+    }
+  ],
   "blog/posts/2023/xarray_intro": [
     {
       "source": "import numpy as np\nimport xarray as xr\n\nxr.set_options(display_expand_data=False, display_expand_indexes=True, display_expand_attrs=False);",

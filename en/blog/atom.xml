@@ -2,10 +2,27 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://oriolabrilpla.cat/en/</id>
   <title>Oriol unraveled</title>
-  <updated>2023-11-15T18:49:19.165776+00:00</updated>
+  <updated>2023-11-17T13:17:52.450275+00:00</updated>
   <link href="https://oriolabrilpla.cat/en/"/>
   <link href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.6">ABlog</generator>
+  <entry>
+    <id>https://oriolabrilpla.cat/en/blog/posts/2023/plot_ppc.html</id>
+    <title>ArviZ in depth: plot_ppc</title>
+    <updated>2023-11-17T00:00:00+00:00</updated>
+    <author>
+      <name>Oriol Abril Pla</name>
+    </author>
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;All the tips (and tricks) you never knew you needed to use plot_ppc&lt;/p&gt;
+&lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/ppc_rugby_home_effect.png" /&gt;&lt;/p&gt;
+</content>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2023/plot_ppc.html" rel="alternate"/>
+    <summary>All the tips (and tricks) you never knew you needed to use plot_ppc</summary>
+    <category term="modelcriticism" label="model criticism"/>
+    <category term="posteriorpredictive" label="posterior predictive"/>
+    <category term="visualization" label="visualization"/>
+    <published>2023-11-17T00:00:00+00:00</published>
+  </entry>
   <entry>
     <id>https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html</id>
     <title>An introduction to xarray</title>
