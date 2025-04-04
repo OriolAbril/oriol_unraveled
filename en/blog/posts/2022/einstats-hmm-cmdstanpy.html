@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html data-theme="light" lang="en">
+<html data-content_root="../../../" data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -18,28 +18,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+<!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+<noscript>
+<style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+</noscript>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css?v=9864b3cb" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../../../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=fa605fa7" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/togglebutton.css?v=13237357" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-design.min.css?v=95c83b7e" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
+<!-- So that users can add custom icons -->
+<script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" rel="preload"/>
 <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/doctools.js?v=9bcbadda"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../_static/copybutton.js?v=f281be69"></script>
@@ -48,14 +53,14 @@
 <script>let toggleOpenOnPrint = 'true';</script>
 <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
 <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-<script src="../../../_static/design-tabs.js?v=36754332"></script>
-<script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+<script src="../../../_static/design-tabs.js?v=f930bc37"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2022/einstats-hmm-cmdstanpy';</script>
 <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.14.2';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -63,187 +68,174 @@
 <link href="../../../search.html" rel="search" title="Search"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
+<meta content="" name="docsearch:version"/>
 <link href="https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html" hreflang="en" rel="alternate"/>
 <link href="https://oriolabrilpla.cat/ca/blog/posts/2022/einstats-hmm-cmdstanpy.html" hreflang="ca" rel="alternate"/>
 </head>
 <body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
-<a class="skip-link" href="#main">Skip to main content</a>
+<div class="skip-link d-print-none" id="pst-skip-link"><a href="#main">Skip to main content</a></div>
 <div id="pst-scroll-pixel-helper"></div>
 <button class="btn rounded-pill" id="pst-back-to-top" type="button">
-<i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
-<label class="overlay overlay-primary" for="__primary"></label>
-<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
-<label class="overlay overlay-secondary" for="__secondary"></label>
-<div class="search-button__wrapper">
-<div class="search-button__overlay"></div>
-<div class="search-button__search-container">
+<i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<dialog id="pst-search-dialog">
 <form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
 <i class="fa-solid fa-magnifying-glass"></i>
-<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" name="q" placeholder="Search..." spellcheck="false" type="search"/>
 <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
+</form>
+</dialog>
+<div class="pst-async-banner-revealer d-none">
+<aside aria-label="Version warning" class="d-none d-print-none" id="bd-header-version-warning"></aside>
 </div>
 <header class="logo-header">
 <a class="logo" href="../../../index.html">Oriol unraveled</a>
 </header>
 <div class="bd-container">
 <div class="bd-container__inner bd-page-width">
-<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<dialog id="pst-primary-sidebar-modal"></dialog>
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide" id="pst-primary-sidebar">
 <div class="sidebar-header-items sidebar-primary__section">
 <div class="sidebar-header-items__center">
-<div class="navbar-item"><nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
-  </p>
+<div class="navbar-item">
+<nav>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../projects.html">
-                        Projects
-                      </a>
+    Projects
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../about.html">
-                        About me
-                      </a>
+    About me
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../blog.html">
-                        Blog
-                      </a>
+    Blog
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Tags
-                      </a>
+    Tags
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../category.html">
-                        Categories
-                      </a>
+    Categories
+  </a>
 </li>
 </ul>
 </nav></div>
 </div>
 <div class="sidebar-header-items__end">
-<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links">
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i>
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i>
 <span class="sr-only">Mastodon</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" rel="noopener" target="_blank" title="LinkedIn"><i aria-hidden="true" class="fa-brands fa-linkedin fa-lg"></i>
+<span class="sr-only">LinkedIn</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i>
 <span class="sr-only">Atom Feed</span></a>
 </li>
 </ul></div>
 </div>
 </div>
 <div class="sidebar-primary-items__end sidebar-primary__section">
+<div class="sidebar-primary-item">
+<div class="flat" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-type="readthedocs-sidebar" id="ethical-ad-placement">
+</div></div>
 </div>
-<div id="rtd-footer-container"></div>
 </div>
-<main class="bd-main" id="main-content">
+<main class="bd-main" id="main-content" role="main">
 <div class="bd-content-nav bd-content">
-<div class="bd-header-article">
+<div class="bd-header-article d-print-none">
 <nav class="navbar navbar-expand-lg" id="navbar-main">
-<label class="sidebar-toggle primary-toggle" for="__primary">
+<button aria-label="Site navigation" class="pst-navbar-icon sidebar-toggle primary-toggle">
 <span class="fa-solid fa-bars"></span>
-</label>
+</button>
 <div class="article-navbar-text-links">
-<nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
-  </p>
+<nav>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../projects.html">
-                        Projects
-                      </a>
+    Projects
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../about.html">
-                        About me
-                      </a>
+    About me
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../blog.html">
-                        Blog
-                      </a>
+    Blog
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Tags
-                      </a>
+    Tags
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../category.html">
-                        Categories
-                      </a>
+    Categories
+  </a>
 </li>
 </ul>
 </nav>
 </div>
 <div class="article-navbar-version-switcher">
-<script>
-document.write(`
-  <div class="version-switcher__container dropdown">
-    <button id="pst-version-switcher-button"
-      type="button"
-      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-haspopup="listbox"
-      aria-controls="pst-version-switcher-list"
-      aria-label="Version switcher list"
-    >
-      Choose version  <!-- this text may get changed later by javascript -->
-      <span class="caret"></span>
-    </button>
-    <div id="pst-version-switcher-list"
-      class="version-switcher__menu dropdown-menu list-group-flush py-0"
-      role="listbox" aria-labelledby="pst-version-switcher-button">
-      <!-- dropdown will be populated by javascript on page load -->
-    </div>
-  </div>
-`);
-</script>
+<div class="version-switcher__container dropdown pst-js-only">
+<button aria-controls="pst-version-switcher-list" aria-haspopup="listbox" aria-label="Version switcher list" class="version-switcher__button btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" id="pst-version-switcher-button" type="button">
+    Choose version  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div aria-labelledby="pst-version-switcher-button" class="version-switcher__menu dropdown-menu list-group-flush py-0" id="pst-version-switcher-list" role="listbox">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
 </div>
 <div class="article-navbar-search">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+<button aria-label="Search" class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
 </div>
 <div class="article-navbar-icon-links">
-<ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<ul aria-label="Icon Links" class="navbar-icon-links">
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i>
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i>
 <span class="sr-only">Mastodon</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" rel="noopener" target="_blank" title="LinkedIn"><i aria-hidden="true" class="fa-brands fa-linkedin fa-lg"></i>
+<span class="sr-only">LinkedIn</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i>
 <span class="sr-only">Atom Feed</span></a>
 </li>
 </ul>
 </div>
-<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<button aria-label="On this page" class="pst-navbar-icon sidebar-toggle secondary-toggle">
 <span class="fa-solid fa-outdent"></span>
-</label>
-</nav></div>
+</button>
+</nav>
+</div>
 <div class="bd-content" id="main">
 <div class="bd-article-container bd-content-page">
+<div id="searchbox"></div>
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="cmdstanpy-and-arviz-integration">
 <span id="arviz-cmdstanpy"></span><h1>CmdStanPy and ArviZ integration<a class="headerlink" href="#cmdstanpy-and-arviz-integration" title="Link to this heading">#</a></h1>
@@ -254,12 +246,12 @@ document.write(`
 <p>The beginning is as concise as possible to avoid duplication: the data needed for the model is read, the model is compiled and sampled. If you are interested you’ll be able to read the stan code of the model clicking on the “Show Output” buttons. We then move to the target of this blog post: conversion of the cmdstanpy fit to ArviZ <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code> and postprocessing with <a class="reference external" href="https://xarray.dev/">xarray</a> and <a class="reference external" href="https://einstats.python.arviz.org">xarray-einstats</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cmdstanpy</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cmdstanpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">arviz</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">az</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 </pre></div>
 </div>
 </div>
@@ -692,8 +684,8 @@ Attributes:
 <p>Following the case study, we will perform posterior predictive sampling in Python instead of in the <code class="docutils literal notranslate"><span class="pre">generated_quantities</span></code> block of Stan. We will use <a class="reference external" href="https://einstats.python.arviz.org/en/latest/">xarray-einstats</a> to generate the random samples from xarray objects.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/stats.html#module-xarray_einstats.stats" title="xarray_einstats.stats"><span class="nn">xarray_einstats.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a>
-<span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/stats.html#module-xarray_einstats.stats" title="xarray_einstats.stats"><span class="nn">xarray_einstats.stats</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a>
+<span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">norm</span></a>
 
 <span class="n">post</span> <span class="o">=</span> <span class="n">idata</span><span class="o">.</span><span class="n">posterior</span>
 
@@ -1439,7 +1431,8 @@ Watermark: 2.3.0
 <footer class="bd-footer-article">
 </footer>
 </div>
-<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<dialog id="pst-secondary-sidebar-modal"></dialog>
+<div class="bd-sidebar-secondary bd-toc" id="pst-secondary-sidebar"><div class="sidebar-secondary-items sidebar-secondary__inner">
 <div class="sidebar-secondary-item">
 <div class="ablog__postcard">
 <h5>
@@ -1460,21 +1453,21 @@ Watermark: 2.3.0
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/arviz.html">arviz</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
   
   
   
-  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
+  <a href="../../category/arviz.html">arviz</a>
   
   ,
   
   
   
   
-  <a href="../../category/python.html">python</a>
+  <a href="../../category/stan.html">stan</a>
   
   ,
   
@@ -1488,7 +1481,7 @@ Watermark: 2.3.0
   
   
   
-  <a href="../../category/stan.html">stan</a>
+  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -1502,10 +1495,10 @@ Watermark: 2.3.0
 </div>
 </div>
 <div class="sidebar-secondary-item">
-<div class="page-toc tocsection onthispage">
+<div class="page-toc tocsection onthispage" id="pst-page-navigation-heading-2">
 <i class="fa-solid fa-list"></i> On this page
   </div>
-<nav class="bd-toc-nav page-toc">
+<nav aria-labelledby="pst-page-navigation-heading-2" class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-hmm-example">Simple HMM example</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-to-inferencedata">Conversion to <code class="docutils literal notranslate"><span class="pre">InferenceData</span></code></a></li>
@@ -1534,8 +1527,8 @@ Watermark: 2.3.0
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+<script defer="" src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer="" src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -1554,11 +1547,7 @@ Watermark: 2.3.0
 <!-- <script src="../../../_static/js/intro.js"></script> -->
 <div class="footer-notes">
 <ul class="footer-list">
-<li>© Oriol Abril Pla |
-      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
-      <a data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="noopener" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span><label class="sr-only">Mastodon</label></a> |
-      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
-</li>
+<li>© Oriol Abril Pla</li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
 <li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>

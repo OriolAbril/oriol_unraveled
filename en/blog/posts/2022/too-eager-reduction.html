@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html data-theme="light" lang="en">
+<html data-content_root="../../../" data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -18,28 +18,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+<!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+<noscript>
+<style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+</noscript>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css?v=9864b3cb" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../../../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=fa605fa7" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/togglebutton.css?v=13237357" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-design.min.css?v=95c83b7e" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
+<!-- So that users can add custom icons -->
+<script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" rel="preload"/>
 <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/doctools.js?v=9bcbadda"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../_static/copybutton.js?v=f281be69"></script>
@@ -48,16 +53,16 @@
 <script>let toggleOpenOnPrint = 'true';</script>
 <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
 <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-<script src="../../../_static/design-tabs.js?v=36754332"></script>
-<script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+<script src="../../../_static/design-tabs.js?v=f930bc37"></script>
 <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
 <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2022/too-eager-reduction';</script>
 <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.14.2';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -65,187 +70,174 @@
 <link href="../../../search.html" rel="search" title="Search"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
+<meta content="" name="docsearch:version"/>
 <link href="https://oriolabrilpla.cat/en/blog/posts/2022/too-eager-reduction.html" hreflang="en" rel="alternate"/>
 <link href="https://oriolabrilpla.cat/ca/blog/posts/2022/too-eager-reduction.html" hreflang="ca" rel="alternate"/>
 </head>
 <body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
-<a class="skip-link" href="#main">Skip to main content</a>
+<div class="skip-link d-print-none" id="pst-skip-link"><a href="#main">Skip to main content</a></div>
 <div id="pst-scroll-pixel-helper"></div>
 <button class="btn rounded-pill" id="pst-back-to-top" type="button">
-<i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
-<label class="overlay overlay-primary" for="__primary"></label>
-<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
-<label class="overlay overlay-secondary" for="__secondary"></label>
-<div class="search-button__wrapper">
-<div class="search-button__overlay"></div>
-<div class="search-button__search-container">
+<i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<dialog id="pst-search-dialog">
 <form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
 <i class="fa-solid fa-magnifying-glass"></i>
-<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" name="q" placeholder="Search..." spellcheck="false" type="search"/>
 <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
+</form>
+</dialog>
+<div class="pst-async-banner-revealer d-none">
+<aside aria-label="Version warning" class="d-none d-print-none" id="bd-header-version-warning"></aside>
 </div>
 <header class="logo-header">
 <a class="logo" href="../../../index.html">Oriol unraveled</a>
 </header>
 <div class="bd-container">
 <div class="bd-container__inner bd-page-width">
-<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<dialog id="pst-primary-sidebar-modal"></dialog>
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide" id="pst-primary-sidebar">
 <div class="sidebar-header-items sidebar-primary__section">
 <div class="sidebar-header-items__center">
-<div class="navbar-item"><nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
-  </p>
+<div class="navbar-item">
+<nav>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../projects.html">
-                        Projects
-                      </a>
+    Projects
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../about.html">
-                        About me
-                      </a>
+    About me
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../blog.html">
-                        Blog
-                      </a>
+    Blog
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Tags
-                      </a>
+    Tags
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../category.html">
-                        Categories
-                      </a>
+    Categories
+  </a>
 </li>
 </ul>
 </nav></div>
 </div>
 <div class="sidebar-header-items__end">
-<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links">
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i>
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i>
 <span class="sr-only">Mastodon</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" rel="noopener" target="_blank" title="LinkedIn"><i aria-hidden="true" class="fa-brands fa-linkedin fa-lg"></i>
+<span class="sr-only">LinkedIn</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i>
 <span class="sr-only">Atom Feed</span></a>
 </li>
 </ul></div>
 </div>
 </div>
 <div class="sidebar-primary-items__end sidebar-primary__section">
+<div class="sidebar-primary-item">
+<div class="flat" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-type="readthedocs-sidebar" id="ethical-ad-placement">
+</div></div>
 </div>
-<div id="rtd-footer-container"></div>
 </div>
-<main class="bd-main" id="main-content">
+<main class="bd-main" id="main-content" role="main">
 <div class="bd-content-nav bd-content">
-<div class="bd-header-article">
+<div class="bd-header-article d-print-none">
 <nav class="navbar navbar-expand-lg" id="navbar-main">
-<label class="sidebar-toggle primary-toggle" for="__primary">
+<button aria-label="Site navigation" class="pst-navbar-icon sidebar-toggle primary-toggle">
 <span class="fa-solid fa-bars"></span>
-</label>
+</button>
 <div class="article-navbar-text-links">
-<nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
-  </p>
+<nav>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../projects.html">
-                        Projects
-                      </a>
+    Projects
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../about.html">
-                        About me
-                      </a>
+    About me
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../blog.html">
-                        Blog
-                      </a>
+    Blog
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Tags
-                      </a>
+    Tags
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../category.html">
-                        Categories
-                      </a>
+    Categories
+  </a>
 </li>
 </ul>
 </nav>
 </div>
 <div class="article-navbar-version-switcher">
-<script>
-document.write(`
-  <div class="version-switcher__container dropdown">
-    <button id="pst-version-switcher-button"
-      type="button"
-      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-haspopup="listbox"
-      aria-controls="pst-version-switcher-list"
-      aria-label="Version switcher list"
-    >
-      Choose version  <!-- this text may get changed later by javascript -->
-      <span class="caret"></span>
-    </button>
-    <div id="pst-version-switcher-list"
-      class="version-switcher__menu dropdown-menu list-group-flush py-0"
-      role="listbox" aria-labelledby="pst-version-switcher-button">
-      <!-- dropdown will be populated by javascript on page load -->
-    </div>
-  </div>
-`);
-</script>
+<div class="version-switcher__container dropdown pst-js-only">
+<button aria-controls="pst-version-switcher-list" aria-haspopup="listbox" aria-label="Version switcher list" class="version-switcher__button btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" id="pst-version-switcher-button" type="button">
+    Choose version  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div aria-labelledby="pst-version-switcher-button" class="version-switcher__menu dropdown-menu list-group-flush py-0" id="pst-version-switcher-list" role="listbox">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
 </div>
 <div class="article-navbar-search">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+<button aria-label="Search" class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
 </div>
 <div class="article-navbar-icon-links">
-<ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<ul aria-label="Icon Links" class="navbar-icon-links">
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i>
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i>
 <span class="sr-only">Mastodon</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" rel="noopener" target="_blank" title="LinkedIn"><i aria-hidden="true" class="fa-brands fa-linkedin fa-lg"></i>
+<span class="sr-only">LinkedIn</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i>
 <span class="sr-only">Atom Feed</span></a>
 </li>
 </ul>
 </div>
-<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<button aria-label="On this page" class="pst-navbar-icon sidebar-toggle secondary-toggle">
 <span class="fa-solid fa-outdent"></span>
-</label>
-</nav></div>
+</button>
+</nav>
+</div>
 <div class="bd-content" id="main">
 <div class="bd-article-container bd-content-page">
+<div id="searchbox"></div>
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="some-dimensionality-devils">
 <span id="dimensionality-devils"></span><h1>Some dimensionality devils<a class="headerlink" href="#some-dimensionality-devils" title="Link to this heading">#</a></h1>
@@ -254,13 +246,13 @@ document.write(`
 <p>In fact, all examples are related to “dimensionality” but not necessarly using the exact same definition for the term!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/ticker_api.html#module-matplotlib.ticker" title="matplotlib.ticker"><span class="nn">matplotlib.ticker</span></a> <span class="k">as</span> <span class="nn">mtick</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/lines_api.html#module-matplotlib.lines" title="matplotlib.lines"><span class="nn">matplotlib.lines</span></a> <span class="k">as</span> <span class="nn">mlines</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
-<span class="kn">import</span> <span class="nn">pymc</span> <span class="k">as</span> <span class="nn">pm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">arviz</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">az</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/ticker_api.html#module-matplotlib.ticker" title="matplotlib.ticker"><span class="nn">matplotlib.ticker</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mtick</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/lines_api.html#module-matplotlib.lines" title="matplotlib.lines"><span class="nn">matplotlib.lines</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mlines</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pymc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pm</span>
 
 <span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">az</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">"arviz-darkgrid"</span><span class="p">)</span>
@@ -293,7 +285,7 @@ document.write(`
 
 <span class="n">c</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_chains</span><span class="p">,</span> <span class="n">n_draws</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">mean_std_normalize</span><span class="p">(</span><span class="n">ary</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mean_std_normalize</span><span class="p">(</span><span class="n">ary</span><span class="p">):</span>
     <span class="n">shape</span> <span class="o">=</span> <span class="n">ary</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">assert</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
     <span class="n">axis</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
@@ -512,9 +504,9 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/einops.html#module-xarray_einstats.einops" title="xarray_einstats.einops"><span class="nn">xarray_einstats.einops</span></a> <span class="kn">import</span> <span class="n">raw_reduce</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/einops.html#module-xarray_einstats.einops" title="xarray_einstats.einops"><span class="nn">xarray_einstats.einops</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">raw_reduce</span>
 
-<span class="k">def</span> <span class="nf">plot_func_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_func_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">()</span>
 
@@ -621,19 +613,19 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>And the second is that the “badness” of averaging before operating depends as we have seen on the distribution, on the function and can also depend on other constant inputs of the function. In this case, the effect of averaging before gets worse as we compute the pushforward operation on larger distances (we are modeling probabilities of making the putt as a function of the distance).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/stats.html#module-xarray_einstats.stats" title="xarray_einstats.stats"><span class="nn">xarray_einstats.stats</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a> <span class="k">as</span> <span class="nn">st</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/stats.html#module-xarray_einstats.stats" title="xarray_einstats.stats"><span class="nn">xarray_einstats.stats</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/stats.html#module-scipy.stats" title="scipy.stats"><span class="nn">scipy.stats</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
 
 <span class="n">BALL_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.68</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
 <span class="n">CUP_RADIUS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.25</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">12</span>
 <span class="n">OVERSHOT</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">DISTANCE_TOLERANCE</span> <span class="o">=</span> <span class="mf">3.0</span>
 
-<span class="k">def</span> <span class="nf">forward_angle_model</span><span class="p">(</span><span class="n">variances_of_shot</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward_angle_model</span><span class="p">(</span><span class="n">variances_of_shot</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="n">norm_dist</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">variances_of_shot</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">norm_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arcsin.html#numpy.arcsin" title="numpy.arcsin"><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span></a><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
 
-<span class="k">def</span> <span class="nf">forward_distance_angle_model</span><span class="p">(</span><span class="n">variance_of_shot</span><span class="p">,</span> <span class="n">variance_of_distance</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward_distance_angle_model</span><span class="p">(</span><span class="n">variance_of_shot</span><span class="p">,</span> <span class="n">variance_of_distance</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="n">rv</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://einstats.python.arviz.org/en/latest/api/generated/xarray_einstats.stats.XrContinuousRV.html#xarray_einstats.stats.XrContinuousRV" title="xarray_einstats.stats.XrContinuousRV"><span class="n">XrContinuousRV</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html#scipy.stats.norm" title="scipy.stats.norm"><span class="n">st</span><span class="o">.</span><span class="n">norm</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">angle_prob</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arcsin.html#numpy.arcsin" title="numpy.arcsin"><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span></a><span class="p">((</span><span class="n">CUP_RADIUS</span> <span class="o">-</span> <span class="n">BALL_RADIUS</span><span class="p">)</span> <span class="o">/</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance_of_shot</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
@@ -656,7 +648,7 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_golf_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_golf_comparison</span><span class="p">(</span><span class="n">pushforward_func</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
@@ -751,7 +743,7 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <p>Here is the function used to take care of step 2:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">from_posterior</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">from_posterior</span><span class="p">(</span><span class="n">var_name</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
     <span class="n">smin</span><span class="p">,</span> <span class="n">smax</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.min.html#numpy.min" title="numpy.min"><span class="n">np</span><span class="o">.</span><span class="n">min</span></a><span class="p">(</span><span class="n">samples</span><span class="p">),</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.max.html#numpy.max" title="numpy.max"><span class="n">np</span><span class="o">.</span><span class="n">max</span></a><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">smax</span> <span class="o">-</span> <span class="n">smin</span>
     <span class="n">x</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">smin</span><span class="p">,</span> <span class="n">smax</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -779,7 +771,7 @@ rerun the notebook (you can download it or run it online clicking on the badges 
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_prior_comparison</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
         <span class="n">contour_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"colors"</span><span class="p">:</span> <span class="s2">"k"</span><span class="p">},</span>
         <span class="n">contourf_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
@@ -808,7 +800,7 @@ rerun the notebook (you can download it or run it online clicking on the badges 
         <span class="p">])</span>
     <span class="k">return</span> <span class="n">axes</span>
 
-<span class="k">def</span> <span class="nf">plot_priors</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_priors</span><span class="p">(</span><span class="n">idata_prior</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="c1"># Instantiate figure and grid</span>
     <span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
     <span class="n">heights</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
@@ -987,7 +979,8 @@ Watermark: 2.3.0
 <footer class="bd-footer-article">
 </footer>
 </div>
-<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<dialog id="pst-secondary-sidebar-modal"></dialog>
+<div class="bd-sidebar-secondary bd-toc" id="pst-secondary-sidebar"><div class="sidebar-secondary-items sidebar-secondary__inner">
 <div class="sidebar-secondary-item">
 <div class="ablog__postcard">
 <h5>
@@ -1008,7 +1001,7 @@ Watermark: 2.3.0
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/pymc.html">pymc</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
@@ -1022,14 +1015,7 @@ Watermark: 2.3.0
   
   
   
-  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
-  
-  ,
-  
-  
-  
-  
-  <a href="../../category/python.html">python</a>
+  <a href="../../category/pymc.html">pymc</a>
   
   ,
   
@@ -1037,6 +1023,13 @@ Watermark: 2.3.0
   
   
   <a href="../../category/xarray.html">xarray</a>
+  
+  ,
+  
+  
+  
+  
+  <a href="../../category/xarray-einstats.html">xarray-einstats</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
@@ -1050,10 +1043,10 @@ Watermark: 2.3.0
 </div>
 </div>
 <div class="sidebar-secondary-item">
-<div class="page-toc tocsection onthispage">
+<div class="page-toc tocsection onthispage" id="pst-page-navigation-heading-2">
 <i class="fa-solid fa-list"></i> On this page
   </div>
-<nav class="bd-toc-nav page-toc">
+<nav aria-labelledby="pst-page-navigation-heading-2" class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulated-data-generation">Simulated data generation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#premature-aggregation">Premature aggregation</a><ul class="visible nav section-nav flex-column">
@@ -1077,8 +1070,8 @@ Watermark: 2.3.0
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+<script defer="" src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer="" src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -1097,11 +1090,7 @@ Watermark: 2.3.0
 <!-- <script src="../../../_static/js/intro.js"></script> -->
 <div class="footer-notes">
 <ul class="footer-list">
-<li>© Oriol Abril Pla |
-      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
-      <a data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="noopener" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span><label class="sr-only">Mastodon</label></a> |
-      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
-</li>
+<li>© Oriol Abril Pla</li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
 <li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>

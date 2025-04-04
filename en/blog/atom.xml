@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://oriolabrilpla.cat/en/</id>
   <title>Oriol unraveled</title>
-  <updated>2023-11-17T13:17:52.450275+00:00</updated>
+  <updated>2025-04-04T15:28:14.368077+00:00</updated>
   <link href="https://oriolabrilpla.cat/en/"/>
   <link href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="self"/>
-  <generator uri="https://ablog.readthedocs.io/" version="0.11.6">ABlog</generator>
+  <generator uri="https://ablog.readthedocs.io/" version="0.11.12">ABlog</generator>
   <entry>
     <id>https://oriolabrilpla.cat/en/blog/posts/2023/plot_ppc.html</id>
     <title>ArviZ in depth: plot_ppc</title>
@@ -16,7 +16,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;All the tips (and tricks) you never knew you needed to use plot_ppc&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/ppc_rugby_home_effect.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2023/plot_ppc.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2023/plot_ppc.html"/>
     <summary>All the tips (and tricks) you never knew you needed to use plot_ppc</summary>
     <category term="modelcriticism" label="model criticism"/>
     <category term="posteriorpredictive" label="posterior predictive"/>
@@ -33,7 +33,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Tutorial style introduction to xarray features: dimensions, coordinates, indexes, plotting and more…&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/indexing_modes.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html"/>
     <summary>Tutorial style introduction to xarray features: dimensions, coordinates, indexes, plotting and more…</summary>
     <category term="datastorage" label="data storage"/>
     <category term="recommendation" label="recommendation"/>
@@ -49,7 +49,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Go even crazier with your virtual label-maker!&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/labeled_arys_v4.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/pymc-arviz.html"/>
     <summary>Go even crazier with your virtual label-maker!</summary>
     <category term="arvizconverters" label="arviz converters"/>
     <category term="datastorage" label="data storage"/>
@@ -65,7 +65,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Common cases of excessively eager dimensionality reduction&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/evil_kermit_posterior_mean.jpeg" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/too-eager-reduction.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/too-eager-reduction.html"/>
     <summary>Common cases of excessively eager dimensionality reduction</summary>
     <category term="rant" label="rant"/>
     <category term="recommendation" label="recommendation"/>
@@ -81,7 +81,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Embrace labeled multi-dimensional arrays for better exploratory analysis of your Bayesian models&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/hmm_drive.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2022/einstats-hmm-cmdstanpy.html"/>
     <summary>Embrace labeled multi-dimensional arrays for better exploratory analysis of your Bayesian models</summary>
     <category term="arvizconverters" label="arviz converters"/>
     <category term="posteriorpredictive" label="posterior predictive"/>
@@ -97,7 +97,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Go crazy with your virtual label-maker!&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/labeled_arys.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/pymc3-arviz.html"/>
     <summary>Go crazy with your virtual label-maker!</summary>
     <category term="arvizconverters" label="arviz converters"/>
     <category term="datastorage" label="data storage"/>
@@ -113,7 +113,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Sailing in the sea of blogging alternatives&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/blog.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/setting_up_blog.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/setting_up_blog.html"/>
     <summary>Sailing in the sea of blogging alternatives</summary>
     <category term="blogging" label="blogging"/>
     <category term="communication" label="communication"/>
@@ -129,7 +129,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Who said looking at traces wasn’t fun?&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/plot_trace_purple.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/plot-trace.html"/>
     <summary>Who said looking at traces wasn’t fun?</summary>
     <category term="visualization" label="visualization"/>
     <published>2020-06-20T00:00:00+00:00</published>
@@ -144,7 +144,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Use ArviZ rcParams to get sensible defaults right out of the box&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/rc_context.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/rcParams.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2020/rcParams.html"/>
     <summary>Use ArviZ rcParams to get sensible defaults right out of the box</summary>
     <category term="customization" label="customization"/>
     <category term="rcparams" label="rcparams"/>
@@ -160,7 +160,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Extend your posterior predictive checks with leave one out probability integral transform&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/loo_pit_bias.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-pit-tutorial.html"/>
     <summary>Extend your posterior predictive checks with leave one out probability integral transform</summary>
     <category term="modelcriticism" label="model criticism"/>
     <category term="visualization" label="visualization"/>
@@ -176,7 +176,7 @@
     <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;Can different transformations of the data be compared with leave one out cross validation?&lt;/p&gt;
 &lt;img alt="" class="hidden-metadata" src="https://oriolabrilpla.cat/en/_images/loo_regression.png" /&gt;&lt;/p&gt;
 </content>
-    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html" rel="alternate"/>
+    <link href="https://oriolabrilpla.cat/en/blog/posts/2019/loo-cv-transformed-data.html"/>
     <summary>Can different transformations of the data be compared with leave one out cross validation?</summary>
     <category term="modelcomparison" label="model comparison"/>
     <published>2019-06-21T00:00:00+00:00</published>

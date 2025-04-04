@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html data-theme="light" lang="en">
+<html data-content_root="../../../" data-theme="light" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -18,28 +18,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+<!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+<noscript>
+<style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+</noscript>
 <!-- Loaded before other Sphinx assets -->
-<link href="../../../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="" href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
-<link href="../../../_static/pygments.css?v=a746c00c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/css/style.css?v=9864b3cb" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../../../_static/pygments.css?v=8f2a1f02" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/style.css?v=fa605fa7" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/togglebutton.css?v=13237357" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/sphinx-codeautolink.css?v=125d5c1c" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-codeautolink.css?v=b2176991" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/sphinx-design.min.css?v=95c83b7e" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/custom.css?v=f7eda732" rel="stylesheet" type="text/css"/>
+<!-- So that users can add custom icons -->
+<script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
 <!-- Pre-loaded scripts that we'll load fully later -->
-<link as="script" href="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" rel="preload"/>
-<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" rel="preload"/>
-<script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+<link as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<link as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" rel="preload"/>
 <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/doctools.js?v=9bcbadda"></script>
 <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
 <script src="../../../_static/copybutton.js?v=f281be69"></script>
@@ -48,14 +53,14 @@
 <script>let toggleOpenOnPrint = 'true';</script>
 <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
 <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-<script src="../../../_static/design-tabs.js?v=36754332"></script>
-<script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+<script src="../../../_static/design-tabs.js?v=f930bc37"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'blog/posts/2023/xarray_intro';</script>
 <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.14.2';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
 <link href="../../../_static/favicon.ico" rel="icon"/>
 <link href="../../../about.html" rel="author" title="About these documents"/>
@@ -63,198 +68,185 @@
 <link href="../../../search.html" rel="search" title="Search"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
+<meta content="" name="docsearch:version"/>
 <link href="https://oriolabrilpla.cat/en/blog/posts/2023/xarray_intro.html" hreflang="en" rel="alternate"/>
 <link href="https://oriolabrilpla.cat/ca/blog/posts/2023/xarray_intro.html" hreflang="ca" rel="alternate"/>
 </head>
 <body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target="#bd-toc-nav" data-default-mode="light" data-offset="180">
-<a class="skip-link" href="#main">Skip to main content</a>
+<div class="skip-link d-print-none" id="pst-skip-link"><a href="#main">Skip to main content</a></div>
 <div id="pst-scroll-pixel-helper"></div>
 <button class="btn rounded-pill" id="pst-back-to-top" type="button">
-<i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
-<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
-<label class="overlay overlay-primary" for="__primary"></label>
-<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
-<label class="overlay overlay-secondary" for="__secondary"></label>
-<div class="search-button__wrapper">
-<div class="search-button__overlay"></div>
-<div class="search-button__search-container">
+<i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<dialog id="pst-search-dialog">
 <form action="../../../search.html" class="bd-search d-flex align-items-center" method="get">
 <i class="fa-solid fa-magnifying-glass"></i>
-<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" name="q" placeholder="Search..." spellcheck="false" type="search"/>
 <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
+</form>
+</dialog>
+<div class="pst-async-banner-revealer d-none">
+<aside aria-label="Version warning" class="d-none d-print-none" id="bd-header-version-warning"></aside>
 </div>
 <header class="logo-header">
 <a class="logo" href="../../../index.html">Oriol unraveled</a>
 </header>
 <div class="bd-container">
 <div class="bd-container__inner bd-page-width">
-<div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+<dialog id="pst-primary-sidebar-modal"></dialog>
+<div class="bd-sidebar-primary bd-sidebar hide-on-wide" id="pst-primary-sidebar">
 <div class="sidebar-header-items sidebar-primary__section">
 <div class="sidebar-header-items__center">
-<div class="navbar-item"><nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
-  </p>
+<div class="navbar-item">
+<nav>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../projects.html">
-                        Projects
-                      </a>
+    Projects
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../about.html">
-                        About me
-                      </a>
+    About me
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../blog.html">
-                        Blog
-                      </a>
+    Blog
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Tags
-                      </a>
+    Tags
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../category.html">
-                        Categories
-                      </a>
+    Categories
+  </a>
 </li>
 </ul>
 </nav></div>
 </div>
 <div class="sidebar-header-items__end">
-<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<div class="navbar-item"><ul aria-label="Icon Links" class="navbar-icon-links">
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i>
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i>
 <span class="sr-only">Mastodon</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" rel="noopener" target="_blank" title="LinkedIn"><i aria-hidden="true" class="fa-brands fa-linkedin fa-lg"></i>
+<span class="sr-only">LinkedIn</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i>
 <span class="sr-only">Atom Feed</span></a>
 </li>
 </ul></div>
 </div>
 </div>
 <div class="sidebar-primary-items__end sidebar-primary__section">
+<div class="sidebar-primary-item">
+<div class="flat" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-type="readthedocs-sidebar" id="ethical-ad-placement">
+</div></div>
 </div>
-<div id="rtd-footer-container"></div>
 </div>
-<main class="bd-main" id="main-content">
+<main class="bd-main" id="main-content" role="main">
 <div class="bd-content-nav bd-content">
-<div class="bd-header-article">
+<div class="bd-header-article d-print-none">
 <nav class="navbar navbar-expand-lg" id="navbar-main">
-<label class="sidebar-toggle primary-toggle" for="__primary">
+<button aria-label="Site navigation" class="pst-navbar-icon sidebar-toggle primary-toggle">
 <span class="fa-solid fa-bars"></span>
-</label>
+</button>
 <div class="article-navbar-text-links">
-<nav class="navbar-nav">
-<p aria-label="Site Navigation" aria-level="1" class="sidebar-header-items__title" role="heading">
-    Site Navigation
-  </p>
+<nav>
 <ul class="bd-navbar-elements navbar-nav">
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../projects.html">
-                        Projects
-                      </a>
+    Projects
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../about.html">
-                        About me
-                      </a>
+    About me
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../../blog.html">
-                        Blog
-                      </a>
+    Blog
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../tag.html">
-                        Tags
-                      </a>
+    Tags
+  </a>
 </li>
 <li class="nav-item">
 <a class="nav-link nav-internal" href="../../category.html">
-                        Categories
-                      </a>
+    Categories
+  </a>
 </li>
 </ul>
 </nav>
 </div>
 <div class="article-navbar-version-switcher">
-<script>
-document.write(`
-  <div class="version-switcher__container dropdown">
-    <button id="pst-version-switcher-button"
-      type="button"
-      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-haspopup="listbox"
-      aria-controls="pst-version-switcher-list"
-      aria-label="Version switcher list"
-    >
-      Choose version  <!-- this text may get changed later by javascript -->
-      <span class="caret"></span>
-    </button>
-    <div id="pst-version-switcher-list"
-      class="version-switcher__menu dropdown-menu list-group-flush py-0"
-      role="listbox" aria-labelledby="pst-version-switcher-button">
-      <!-- dropdown will be populated by javascript on page load -->
-    </div>
-  </div>
-`);
-</script>
+<div class="version-switcher__container dropdown pst-js-only">
+<button aria-controls="pst-version-switcher-list" aria-haspopup="listbox" aria-label="Version switcher list" class="version-switcher__button btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" id="pst-version-switcher-button" type="button">
+    Choose version  <!-- this text may get changed later by javascript -->
+<span class="caret"></span>
+</button>
+<div aria-labelledby="pst-version-switcher-button" class="version-switcher__menu dropdown-menu list-group-flush py-0" id="pst-version-switcher-list" role="listbox">
+<!-- dropdown will be populated by javascript on page load -->
+</div>
+</div>
 </div>
 <div class="article-navbar-search">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+<button aria-label="Search" class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
 </div>
 <div class="article-navbar-icon-links">
-<ul aria-label="Icon Links" class="navbar-icon-links navbar-nav">
+<ul aria-label="Icon Links" class="navbar-icon-links">
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><i aria-hidden="true" class="fa-brands fa-github fa-lg"></i>
 <span class="sr-only">GitHub</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><span><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="me" target="_blank" title="Mastodon"><i aria-hidden="true" class="fa-brands fa-mastodon fa-lg"></i>
 <span class="sr-only">Mastodon</span></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i></span>
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" rel="noopener" target="_blank" title="LinkedIn"><i aria-hidden="true" class="fa-brands fa-linkedin fa-lg"></i>
+<span class="sr-only">LinkedIn</span></a>
+</li>
+<li class="nav-item">
+<a class="nav-link pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" href="https://oriolabrilpla.cat/en//blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><i aria-hidden="true" class="fa-solid fa-rss fa-lg"></i>
 <span class="sr-only">Atom Feed</span></a>
 </li>
 </ul>
 </div>
-<label class="sidebar-toggle secondary-toggle" for="__secondary">
+<button aria-label="On this page" class="pst-navbar-icon sidebar-toggle secondary-toggle">
 <span class="fa-solid fa-outdent"></span>
-</label>
-</nav></div>
+</button>
+</nav>
+</div>
 <div class="bd-content" id="main">
 <div class="bd-article-container bd-content-page">
+<div id="searchbox"></div>
 <article class="bd-article" role="main">
 <section class="tex2jax_ignore mathjax_ignore" id="an-introduction-to-xarray">
 <span id="xarray-intro"></span><h1>An introduction to xarray<a class="headerlink" href="#an-introduction-to-xarray" title="Link to this heading">#</a></h1>
 <img alt="" class="hidden-metadata" src="../../../_images/indexing_modes.png"/>
-<p>Xarray is a Python library for N-D labeled arrays and datasets. It provides two data structures: <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray 2023.10.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="xarray 2023.10.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>. Both support named dimensions, coordinates and, more recently, also explicit indexes.
-A <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> can be seen as an extension of an n-dimensional array like a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="NumPy 1.26"><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>. A <code class="docutils literal notranslate"><span class="pre">DataSet</span></code> can be seen as an extension of a flat dictionary of arrays.</p>
+<p>Xarray is a Python library for N-D labeled arrays and datasets. It provides two data structures: <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray 2025.3.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> and <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="xarray 2025.3.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>. Both support named dimensions, coordinates and, more recently, also explicit indexes.
+A <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> can be seen as an extension of an n-dimensional array like a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="NumPy 2.2"><code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>. A <code class="docutils literal notranslate"><span class="pre">DataSet</span></code> can be seen as an extension of a flat dictionary of arrays.</p>
 <p>In this post we will cover dimensions, coordinates and indexes, especially for <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> objects but also for <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> objects. Xarray also supports attaching arbitrary metadata to <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>s, <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>s and even coordinates. The arrays we’ll generate will have random values, so we won’t care much about the values themselves, and we won’t cover attributes in this post either, so we will configure the html view of xarray objects to show indexes by default and hide attributes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a> <span class="k">as</span> <span class="nn">xr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/index.html#module-xarray" title="xarray"><span class="nn">xarray</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
 <a class="sphinx-codeautolink-a" href="https://docs.xarray.dev/en/stable/generated/xarray.set_options.html#xarray.set_options" title="xarray.set_options"><span class="n">xr</span><span class="o">.</span><span class="n">set_options</span></a><span class="p">(</span><span class="n">display_expand_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">display_expand_indexes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">display_expand_attrs</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
 </pre></div>
@@ -2898,7 +2890,7 @@ Dimensions without coordinates: draw, person, time</pre><div class="xr-wrap" sty
            1.02708010e-01, -1.82473399e-01,  1.19789412e+00]]]])</pre></div></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-37c87508-4ebe-49c6-b3ce-2d8548d4d85a" type="checkbox"/><label class="xr-section-summary" for="section-37c87508-4ebe-49c6-b3ce-2d8548d4d85a">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">chain</span></div><div class="xr-var-dims">(chain)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">1 2 3 4</div><input class="xr-var-attrs-in" disabled="" id="attrs-12619e21-511b-4667-b4a7-206b0cbf357c" type="checkbox"/><label for="attrs-12619e21-511b-4667-b4a7-206b0cbf357c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-07f59adb-ad87-4831-bc2a-8d89444381a0" type="checkbox"/><label for="data-07f59adb-ad87-4831-bc2a-8d89444381a0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([1, 2, 3, 4])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>gender</span></div><div class="xr-var-dims">(person)</div><div class="xr-var-dtype">&lt;U8</div><div class="xr-var-preview xr-preview">'male' 'neutrois' ... 'female'</div><input class="xr-var-attrs-in" disabled="" id="attrs-07463b86-fdb9-42ba-af94-564ce87ecc38" type="checkbox"/><label for="attrs-07463b86-fdb9-42ba-af94-564ce87ecc38" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-c7b2dab1-f3fb-4ac0-862b-9ef84d0114bd" type="checkbox"/><label for="data-c7b2dab1-f3fb-4ac0-862b-9ef84d0114bd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['male', 'neutrois', 'female', 'male', 'NB', 'female', 'female'],
       dtype='&lt;U8')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>age</span></div><div class="xr-var-dims">(person)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">25 30 73 47 51 20 64</div><input class="xr-var-attrs-in" disabled="" id="attrs-1dd8054a-62d3-4e72-97df-4dfbc2e84abd" type="checkbox"/><label for="attrs-1dd8054a-62d3-4e72-97df-4dfbc2e84abd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-20f3f545-eb64-40cb-986a-8d79b5e47671" type="checkbox"/><label for="data-20f3f545-eb64-40cb-986a-8d79b5e47671" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([25, 30, 73, 47, 51, 20, 64])</pre></div></li></ul></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-b5ae431b-5213-4ea2-a6e7-056c34e0842b" type="checkbox"/><label class="xr-section-summary" for="section-b5ae431b-5213-4ea2-a6e7-056c34e0842b">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>chain</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input class="xr-index-data-in" id="index-3636f707-70c7-45e2-b0c9-3456afabdef3" type="checkbox"><label for="index-3636f707-70c7-45e2-b0c9-3456afabdef3" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([1, 2, 3, 4], dtype='int64', name='chain'))</pre></div></input></li></ul></div></li><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-46c9d112-0738-4534-af46-2029191a7038" type="checkbox"/><label class="xr-section-summary" for="section-46c9d112-0738-4534-af46-2029191a7038" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div></div></div>
 </div>
-<p>Alternatively, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.assign_coords.html#xarray.DataArray.assign_coords" title="xarray 2023.10.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray.assign_coords</span></code></a> can be used to add coordinates to an existing <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>:</p>
+<p>Alternatively, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.assign_coords.html#xarray.DataArray.assign_coords" title="xarray 2025.3.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.DataArray.assign_coords</span></code></a> can be used to add coordinates to an existing <code class="docutils literal notranslate"><span class="pre">DataArray</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="p">(</span><span class="s2">"person"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"Lleida"</span><span class="p">,</span> <span class="s2">"Leida"</span><span class="p">,</span> <span class="s2">"Sau"</span><span class="p">,</span> <span class="s2">"Lleida"</span><span class="p">,</span> <span class="s2">"Reus"</span><span class="p">,</span> <span class="s2">"Sau"</span><span class="p">,</span> <span class="s2">"Reus"</span><span class="p">]))</span>
@@ -5925,7 +5917,7 @@ Data variables:
         0.42497381,  0.91993564, -0.36942464, -1.31634694,  1.00861486,
         0.62791804,  1.25721273, -1.39035552,  0.24185504,  1.65858151])</pre></div></li></ul></div></li><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-9cf7fb80-7095-47ff-acc7-c0d97f89472d" type="checkbox"/><label class="xr-section-summary" for="section-9cf7fb80-7095-47ff-acc7-c0d97f89472d" title="Expand/collapse section">Indexes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-200ad4e4-e1e9-4b70-a57b-28793934a390" type="checkbox"/><label class="xr-section-summary" for="section-200ad4e4-e1e9-4b70-a57b-28793934a390" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div></div></div>
 </div>
-<p>To apply arbitrary functions to all the data variables in a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, we can use <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.map.html#xarray.Dataset.map" title="xarray 2023.10.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset.map</span></code></a> for functions that return a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.apply_ufunc.html#xarray.apply_ufunc" title="xarray 2023.10.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.apply_ufunc</span></code></a> for functions that return arrays. <code class="docutils literal notranslate"><span class="pre">apply_ufunc</span></code> can be challenging to use, but there is a good chance that a library exists that already wraps and extends numpy/scipy/… functions to have an xarray-like API. Take a look at <a class="reference external" href="https://docs.xarray.dev/en/stable/ecosystem.html" title="xarray 2023.10.2.dev0">Xarray related projects</a> to browse packages that extend xarray.</p>
+<p>To apply arbitrary functions to all the data variables in a <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>, we can use <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.map.html#xarray.Dataset.map" title="xarray 2025.3.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.Dataset.map</span></code></a> for functions that return a <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.apply_ufunc.html#xarray.apply_ufunc" title="xarray 2025.3.2.dev0"><code class="docutils literal notranslate"><span class="pre">xarray.apply_ufunc</span></code></a> for functions that return arrays. <code class="docutils literal notranslate"><span class="pre">apply_ufunc</span></code> can be challenging to use, but there is a good chance that a library exists that already wraps and extends numpy/scipy/… functions to have an xarray-like API. Take a look at <a class="reference external" href="https://docs.xarray.dev/en/stable/ecosystem.html" title="xarray 2025.3.2.dev0">Xarray related projects</a> to browse packages that extend xarray.</p>
 <p>And if this still doesn’t work, yet again, <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>s are quite like a dictionary. So much so that they even have a <a class="reference external" href="https://docs.xarray.dev/en/stable/api.html#dictionary-interface">dict-like interface</a> with <code class="docutils literal notranslate"><span class="pre">.items()</span></code>, <code class="docutils literal notranslate"><span class="pre">.keys()</span></code>, <code class="docutils literal notranslate"><span class="pre">.get()</span></code>…</p>
 <p>I hope this introduction has been useful. I would like to continue exploring features of xarray as a series, also covering potential new features and extensions for ArviZ. You can leave your comments to this blog post below, only a GitHub account is needed for commenting.</p>
 <hr class="docutils"/>
@@ -5961,8 +5953,8 @@ Watermark: 2.4.3
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/pyplot_summary.html#module-matplotlib.pyplot" title="matplotlib.pyplot"><span class="nn">matplotlib.pyplot</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
@@ -6006,7 +5998,8 @@ Watermark: 2.4.3
 <footer class="bd-footer-article">
 </footer>
 </div>
-<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<dialog id="pst-secondary-sidebar-modal"></dialog>
+<div class="bd-sidebar-secondary bd-toc" id="pst-secondary-sidebar"><div class="sidebar-secondary-items sidebar-secondary__inner">
 <div class="sidebar-secondary-item">
 <div class="ablog__postcard">
 <h5>
@@ -6027,31 +6020,31 @@ Watermark: 2.4.3
 <i class="fa-regular fa-folder-open"></i>
 </span>
 <label class="sr-only">Category</label>
-<a href="../../category/xarray.html">xarray</a>
+<a href="../../category/python.html">python</a>
   
   ,
   
   
   
   
-  <a href="../../category/python.html">python</a>
+  <a href="../../category/xarray.html">xarray</a>
 </li>
 <li id="ablog-sidebar-item tags ablog__tags">
 <span>
 <i class="fa-solid fa-tags"></i>
 </span>
 <label class="sr-only">Tags</label>
-<a href="../../tag/recommendation.html">recommendation</a>
 <a href="../../tag/data-storage.html">data storage</a>
+<a href="../../tag/recommendation.html">recommendation</a>
 </li>
 </ul>
 </div>
 </div>
 <div class="sidebar-secondary-item">
-<div class="page-toc tocsection onthispage">
+<div class="page-toc tocsection onthispage" id="pst-page-navigation-heading-2">
 <i class="fa-solid fa-list"></i> On this page
   </div>
-<nav class="bd-toc-nav page-toc">
+<nav aria-labelledby="pst-page-navigation-heading-2" class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataarray">DataArray</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensions">Dimensions</a></li>
@@ -6078,8 +6071,8 @@ Watermark: 2.4.3
 </div>
 </div>
 <!-- Scripts loaded after <body> so the DOM is not blocked -->
-<script src="../../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+<script defer="" src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer="" src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 <!-- Matomo -->
 <script>
   var _paq = window._paq = window._paq || [];
@@ -6098,11 +6091,7 @@ Watermark: 2.4.3
 <!-- <script src="../../../_static/js/intro.js"></script> -->
 <div class="footer-notes">
 <ul class="footer-list">
-<li>© Oriol Abril Pla |
-      <a data-toggle="tooltip" href="https://github.com/OriolAbril" rel="noopener" target="_blank" title="GitHub"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
-      <a data-toggle="tooltip" href="https://toot.cat/@oriolabril" rel="noopener" target="_blank" title="Mastodon"><span><i class="fa-brands fa-mastodon"></i></span><label class="sr-only">Mastodon</label></a> |
-      <a data-toggle="tooltip" href="https://oriolabrilpla.cat/en/blog/atom.xml" rel="noopener" target="_blank" title="Atom Feed"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
-</li>
+<li>© Oriol Abril Pla</li>
 <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
 <li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &amp;
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>

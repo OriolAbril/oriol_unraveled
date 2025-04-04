@@ -1664,17 +1664,6 @@
       "names": [
         {
           "import_components": [
-            "numpy",
-            "linspace"
-          ],
-          "code_str": "np.linspace",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "numpy.linspace"
-        },
-        {
-          "import_components": [
             "arviz",
             "plot_trace"
           ],
@@ -1683,6 +1672,17 @@
           "end_lineno": 1,
           "context": "none",
           "resolved_location": "arviz.plot_trace"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "linspace"
+          ],
+          "code_str": "np.linspace",
+          "lineno": 4,
+          "end_lineno": 4,
+          "context": "none",
+          "resolved_location": "numpy.linspace"
         }
       ],
       "example": {
@@ -1712,17 +1712,6 @@
         },
         {
           "import_components": [
-            "numpy",
-            "linspace"
-          ],
-          "code_str": "np.linspace",
-          "lineno": 8,
-          "end_lineno": 8,
-          "context": "none",
-          "resolved_location": "numpy.linspace"
-        },
-        {
-          "import_components": [
             "arviz",
             "plot_trace"
           ],
@@ -1731,6 +1720,17 @@
           "end_lineno": 5,
           "context": "none",
           "resolved_location": "arviz.plot_trace"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "linspace"
+          ],
+          "code_str": "np.linspace",
+          "lineno": 8,
+          "end_lineno": 8,
+          "context": "none",
+          "resolved_location": "numpy.linspace"
         }
       ],
       "example": {
@@ -2962,6 +2962,17 @@
         {
           "import_components": [
             "arviz",
+            "summary"
+          ],
+          "code_str": "az.summary",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.summary"
+        },
+        {
+          "import_components": [
+            "arviz",
             "labels",
             "DimCoordLabeller"
           ],
@@ -2970,17 +2981,6 @@
           "end_lineno": 1,
           "context": "none",
           "resolved_location": "arviz.labels.DimCoordLabeller"
-        },
-        {
-          "import_components": [
-            "arviz",
-            "summary"
-          ],
-          "code_str": "az.summary",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "arviz.summary"
         }
       ],
       "example": {
@@ -3060,18 +3060,6 @@
       "names": [
         {
           "import_components": [
-            "scipy",
-            "stats",
-            "norm"
-          ],
-          "code_str": "norm",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "scipy.stats.norm"
-        },
-        {
-          "import_components": [
             "xarray_einstats",
             "stats",
             "XrContinuousRV"
@@ -3081,6 +3069,18 @@
           "end_lineno": 1,
           "context": "none",
           "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
+            "scipy",
+            "stats",
+            "norm"
+          ],
+          "code_str": "norm",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "scipy.stats.norm"
         }
       ],
       "example": {
@@ -3251,18 +3251,6 @@
       "names": [
         {
           "import_components": [
-            "scipy",
-            "stats",
-            "norm"
-          ],
-          "code_str": "norm",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "scipy.stats.norm"
-        },
-        {
-          "import_components": [
             "xarray_einstats",
             "stats",
             "XrContinuousRV"
@@ -3280,8 +3268,8 @@
             "norm"
           ],
           "code_str": "norm",
-          "lineno": 5,
-          "end_lineno": 5,
+          "lineno": 4,
+          "end_lineno": 4,
           "context": "none",
           "resolved_location": "scipy.stats.norm"
         },
@@ -3296,6 +3284,18 @@
           "end_lineno": 5,
           "context": "none",
           "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
+            "scipy",
+            "stats",
+            "norm"
+          ],
+          "code_str": "norm",
+          "lineno": 5,
+          "end_lineno": 5,
+          "context": "none",
+          "resolved_location": "scipy.stats.norm"
         },
         {
           "import_components": [
@@ -4611,6 +4611,18 @@
           "import_components": [
             "arviz",
             "labels",
+            "mix_labellers"
+          ],
+          "code_str": "az.labels.mix_labellers",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "arviz.labels.mix_labellers"
+        },
+        {
+          "import_components": [
+            "arviz",
+            "labels",
             "NoVarLabeller"
           ],
           "code_str": "az.labels.NoVarLabeller",
@@ -4630,18 +4642,6 @@
           "end_lineno": 1,
           "context": "none",
           "resolved_location": "arviz.labels.DimCoordLabeller"
-        },
-        {
-          "import_components": [
-            "arviz",
-            "labels",
-            "mix_labellers"
-          ],
-          "code_str": "az.labels.mix_labellers",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "arviz.labels.mix_labellers"
         },
         {
           "import_components": [
@@ -4921,18 +4921,6 @@
         },
         {
           "import_components": [
-            "scipy",
-            "stats",
-            "norm"
-          ],
-          "code_str": "st.norm",
-          "lineno": 10,
-          "end_lineno": 10,
-          "context": "none",
-          "resolved_location": "scipy.stats.norm"
-        },
-        {
-          "import_components": [
             "xarray_einstats",
             "stats",
             "XrContinuousRV"
@@ -4942,6 +4930,18 @@
           "end_lineno": 10,
           "context": "none",
           "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
+            "scipy",
+            "stats",
+            "norm"
+          ],
+          "code_str": "st.norm",
+          "lineno": 10,
+          "end_lineno": 10,
+          "context": "none",
+          "resolved_location": "scipy.stats.norm"
         },
         {
           "import_components": [
@@ -4956,18 +4956,6 @@
         },
         {
           "import_components": [
-            "scipy",
-            "stats",
-            "norm"
-          ],
-          "code_str": "st.norm",
-          "lineno": 14,
-          "end_lineno": 14,
-          "context": "none",
-          "resolved_location": "scipy.stats.norm"
-        },
-        {
-          "import_components": [
             "xarray_einstats",
             "stats",
             "XrContinuousRV"
@@ -4977,6 +4965,18 @@
           "end_lineno": 14,
           "context": "none",
           "resolved_location": "xarray_einstats.stats.XrContinuousRV"
+        },
+        {
+          "import_components": [
+            "scipy",
+            "stats",
+            "norm"
+          ],
+          "code_str": "st.norm",
+          "lineno": 14,
+          "end_lineno": 14,
+          "context": "none",
+          "resolved_location": "scipy.stats.norm"
         },
         {
           "import_components": [
@@ -5730,28 +5730,6 @@
           "end_lineno": 2,
           "context": "import_target",
           "resolved_location": "numpy"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "infty"
-          ],
-          "code_str": "np.infty",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "numpy.infty"
-        },
-        {
-          "import_components": [
-            "numpy",
-            "infty"
-          ],
-          "code_str": "np.infty",
-          "lineno": 4,
-          "end_lineno": 4,
-          "context": "none",
-          "resolved_location": "numpy.infty"
         },
         {
           "import_components": [
@@ -6530,17 +6508,6 @@
       "names": [
         {
           "import_components": [
-            "numpy",
-            "arange"
-          ],
-          "code_str": "np.arange",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "numpy.arange"
-        },
-        {
-          "import_components": [
             "xarray",
             "DataArray"
           ],
@@ -6549,6 +6516,17 @@
           "end_lineno": 1,
           "context": "none",
           "resolved_location": "xarray.DataArray"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "arange"
+          ],
+          "code_str": "np.arange",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "numpy.arange"
         }
       ],
       "example": {
@@ -6739,14 +6717,25 @@
       "names": [
         {
           "import_components": [
-            "numpy",
-            "pi"
+            "xarray",
+            "DataArray"
           ],
-          "code_str": "np.pi",
+          "code_str": "xr.DataArray",
           "lineno": 2,
           "end_lineno": 2,
           "context": "none",
-          "resolved_location": "numpy.pi"
+          "resolved_location": "xarray.DataArray"
+        },
+        {
+          "import_components": [
+            "numpy",
+            "sin"
+          ],
+          "code_str": "np.sin",
+          "lineno": 2,
+          "end_lineno": 2,
+          "context": "none",
+          "resolved_location": "numpy.sin"
         },
         {
           "import_components": [
@@ -6762,24 +6751,13 @@
         {
           "import_components": [
             "numpy",
-            "sin"
+            "pi"
           ],
-          "code_str": "np.sin",
+          "code_str": "np.pi",
           "lineno": 2,
           "end_lineno": 2,
           "context": "none",
-          "resolved_location": "numpy.sin"
-        },
-        {
-          "import_components": [
-            "xarray",
-            "DataArray"
-          ],
-          "code_str": "xr.DataArray",
-          "lineno": 2,
-          "end_lineno": 2,
-          "context": "none",
-          "resolved_location": "xarray.DataArray"
+          "resolved_location": "numpy.pi"
         }
       ],
       "example": {
@@ -6798,6 +6776,17 @@
       "names": [
         {
           "import_components": [
+            "xarray",
+            "Dataset"
+          ],
+          "code_str": "xr.Dataset",
+          "lineno": 1,
+          "end_lineno": 1,
+          "context": "none",
+          "resolved_location": "xarray.Dataset"
+        },
+        {
+          "import_components": [
             "numpy",
             "random",
             "default_rng"
@@ -6807,17 +6796,6 @@
           "end_lineno": 4,
           "context": "none",
           "resolved_location": "numpy.random.default_rng"
-        },
-        {
-          "import_components": [
-            "xarray",
-            "Dataset"
-          ],
-          "code_str": "xr.Dataset",
-          "lineno": 1,
-          "end_lineno": 1,
-          "context": "none",
-          "resolved_location": "xarray.Dataset"
         }
       ],
       "example": {

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-theme="light">
+<html lang="en" data-content_root="./" data-theme="light">
 
   <head>
     <meta charset="utf-8" />
@@ -24,34 +24,37 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/css/style.css?v=9864b3cb" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/css/style.css?v=fa605fa7" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-codeautolink.css?v=125d5c1c" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=f7eda732" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
@@ -60,14 +63,14 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.14.2';
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://raw.githubusercontent.com/OriolAbril/oriol_unraveled/sphinx/switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'en';
-        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
         </script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="about.html" />
@@ -77,6 +80,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
 
 
 
@@ -90,32 +94,16 @@
 
   
   
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -123,7 +111,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -131,8 +118,13 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
 
 <div id="homepage-intro">
@@ -153,10 +145,16 @@ share open source software and talk about my projects and experiences.</p>
 </div>
 
 
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -165,51 +163,49 @@ share open source software and talk about my projects and experiences.</p>
     
       <div class="sidebar-header-items__center">
         
-          <div class="navbar-item"><nav class="navbar-nav">
-  <p class="sidebar-header-items__title"
-     role="heading"
-     aria-level="1"
-     aria-label="Site Navigation">
-    Site Navigation
-  </p>
+          
+          
+            <div class="navbar-item">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="projects.html">
-                        Projects
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="projects.html">
+    Projects
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="about.html">
-                        About me
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="blog.html">
-                        Blog
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about.html">
+    About me
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="blog/tag.html">
-                        Tags
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="blog/category.html">
-                        Categories
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="blog.html">
+    Blog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="blog/tag.html">
+    Tags
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="blog/category.html">
+    Categories
+  </a>
+</li>
+
   </ul>
 </nav></div>
+          
         
       </div>
     
@@ -217,7 +213,7 @@ share open source software and talk about my projects and experiences.</p>
     
       <div class="sidebar-header-items__end">
         
-          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+          <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -228,7 +224,7 @@ share open source software and talk about my projects and experiences.</p>
           
           
           
-          <a href="https://github.com/OriolAbril" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/OriolAbril" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -242,7 +238,7 @@ share open source software and talk about my projects and experiences.</p>
           
           
           
-          <a href="https://toot.cat/@oriolabril" title="Mastodon" class="nav-link" rel="me" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-mastodon fa-lg" aria-hidden="true"></i></span>
+          <a href="https://toot.cat/@oriolabril" title="Mastodon" class="nav-link pst-navbar-icon" rel="me" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-mastodon fa-lg" aria-hidden="true"></i>
             <span class="sr-only">Mastodon</span></a>
         </li>
         <li class="nav-item">
@@ -254,7 +250,19 @@ share open source software and talk about my projects and experiences.</p>
           
           
           
-          <a href="https://oriolabrilpla.cat/en//blog/atom.xml" title="Atom Feed" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-solid fa-rss fa-lg" aria-hidden="true"></i></span>
+          <a href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://oriolabrilpla.cat/en//blog/atom.xml" title="Atom Feed" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-rss fa-lg" aria-hidden="true"></i>
             <span class="sr-only">Atom Feed</span></a>
         </li>
 </ul></div>
@@ -265,109 +273,102 @@ share open source software and talk about my projects and experiences.</p>
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
   <div class="bd-content-nav bd-content">
     
     
-      <div class="bd-header-article">
+      <div class="bd-header-article d-print-none">
     
     <nav class="navbar navbar-expand-lg" id="navbar-main">
-<label class="sidebar-toggle primary-toggle" for="__primary">
+<button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
   <span class="fa-solid fa-bars"></span>
-</label>
+</button>
 <div class="article-navbar-text-links">
-  <nav class="navbar-nav">
-  <p class="sidebar-header-items__title"
-     role="heading"
-     aria-level="1"
-     aria-label="Site Navigation">
-    Site Navigation
-  </p>
+  
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="projects.html">
-                        Projects
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="projects.html">
+    Projects
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="about.html">
-                        About me
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="blog.html">
-                        Blog
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about.html">
+    About me
+  </a>
+</li>
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="blog/tag.html">
-                        Tags
-                      </a>
-                    </li>
-                
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="blog/category.html">
-                        Categories
-                      </a>
-                    </li>
-                
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="blog.html">
+    Blog
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="blog/tag.html">
+    Tags
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="blog/category.html">
+    Categories
+  </a>
+</li>
+
   </ul>
 </nav>
 </div>
 <div class="article-navbar-version-switcher">
   
-<script>
-document.write(`
-  <div class="version-switcher__container dropdown">
-    <button id="pst-version-switcher-button"
-      type="button"
-      class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-haspopup="listbox"
-      aria-controls="pst-version-switcher-list"
-      aria-label="Version switcher list"
-    >
-      Choose version  <!-- this text may get changed later by javascript -->
-      <span class="caret"></span>
-    </button>
-    <div id="pst-version-switcher-list"
-      class="version-switcher__menu dropdown-menu list-group-flush py-0"
-      role="listbox" aria-labelledby="pst-version-switcher-button">
-      <!-- dropdown will be populated by javascript on page load -->
-    </div>
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button">
+    <!-- dropdown will be populated by javascript on page load -->
   </div>
-`);
-</script>
+</div>
 </div>
 <div class="article-navbar-search">
   
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 </div>
 <div class="article-navbar-icon-links">
-  <ul class="navbar-icon-links navbar-nav"
+  <ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -378,7 +379,7 @@ document.write(`
           
           
           
-          <a href="https://github.com/OriolAbril" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i></span>
+          <a href="https://github.com/OriolAbril" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -392,7 +393,7 @@ document.write(`
           
           
           
-          <a href="https://toot.cat/@oriolabril" title="Mastodon" class="nav-link" rel="me" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-mastodon fa-lg" aria-hidden="true"></i></span>
+          <a href="https://toot.cat/@oriolabril" title="Mastodon" class="nav-link pst-navbar-icon" rel="me" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-mastodon fa-lg" aria-hidden="true"></i>
             <span class="sr-only">Mastodon</span></a>
         </li>
         <li class="nav-item">
@@ -404,19 +405,34 @@ document.write(`
           
           
           
-          <a href="https://oriolabrilpla.cat/en//blog/atom.xml" title="Atom Feed" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-solid fa-rss fa-lg" aria-hidden="true"></i></span>
+          <a href="https://www.linkedin.com/in/oriol-abril-pla-1b9123180/" title="LinkedIn" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">LinkedIn</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://oriolabrilpla.cat/en//blog/atom.xml" title="Atom Feed" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-rss fa-lg" aria-hidden="true"></i>
             <span class="sr-only">Atom Feed</span></a>
         </li>
 </ul>
 </div>
 
-</nav></div>
-  <div class="bd-content" id="main">
-    
-      <div class="bd-article-container bd-content-page no-right-sidebar">
-    
+</nav>
+      </div> 
+    <div class="bd-content" id="main">
+      
+        <div class="bd-article-container bd-content-page no-right-sidebar">
       
       
+      
+        
+<div id="searchbox"></div>
         <article class="bd-article" role="main">
           
   <section class="tex2jax_ignore mathjax_ignore" id="oriol-unraveled">
@@ -430,48 +446,10 @@ document.write(`
 </div>
 </div>
 <p><img alt="A picture of me diving towards the sea bed while snorkeling." src="_images/theme_image.png" /></p>
-<section id="news">
-<h2>News<a class="headerlink" href="#news" title="Link to this heading">#</a></h2>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Workshop on uncertainty visualization</div>
-<p class="sd-card-text">I will lead a workshop on uncertainty visualization at
-<a class="reference external" href="https://pybcn.org/events/pydatabcn/pydatabcn_2023/">PyData BCN</a>.</p>
-<p class="sd-card-text">We will go over different types of visualizations like histograms,
-KDEs, quantile dotplots or ECDF plots their interpretation and use-cases.</p>
-</div>
-<div class="sd-card-footer docutils">
-<p class="sd-card-text">Jun 10, 2023</p>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Webinar</div>
-<p class="sd-card-text">I gave an online webinar with <a class="reference external" href="https://www.dataumbrella.org/">Data Umbrella</a>
-on how to contribute to ArviZ and to open source in general,
-covering both social and technical aspects and doing a PR live during the webinar.</p>
-<p class="sd-card-text">The video is <a class="reference external" href="https://www.youtube.com/watch?v=457ZTes4xOI">available on YouTube</a>,
-go check it out!</p>
-</div>
-<div class="sd-card-footer docutils">
-<p class="sd-card-text">Nov 29, 2022</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
 <section id="projects">
 <h2>Projects<a class="headerlink" href="#projects" title="Link to this heading">#</a></h2>
-<p>Most of my current work is related to two community-drives open source libraries:
-ArviZ and PyMC. They are both related to Bayesian modeling, but have different
+<p>Most of my current work is related to two community-driven open source libraries:
+ArviZ and PyMC. They are both related to Bayesian modelling, but have different
 and complementary goals.</p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
@@ -554,12 +532,12 @@ Moreover, it also organizes many activities such as <a class="reference external
       <footer class="bd-footer-article">
         
       </footer>
-    </div>
-    
-    
+        </div> 
       
-    
-  </div>
+      
+        
+      
+    </div>
   </div>
   <footer class="bd-footer-content">
     <div class="bd-footer-content__inner"></div>
@@ -572,8 +550,8 @@ Moreover, it also organizes many activities such as <a class="reference external
   
 
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
 <!-- Matomo -->
 <script>
@@ -593,11 +571,7 @@ Moreover, it also organizes many activities such as <a class="reference external
 <!-- <script src="_static/js/intro.js"></script> -->
 <div class="footer-notes">
   <ul class="footer-list">
-    <li>&copy; Oriol Abril Pla |
-      <a href="https://github.com/OriolAbril" title="GitHub" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-github"></i></span><label class="sr-only">GitHub</label></a> |
-      <a href="https://toot.cat/@oriolabril" title="Mastodon" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-mastodon"></i></span><label class="sr-only">Mastodon</label></a> |
-      <a href="https://oriolabrilpla.cat/en/blog/atom.xml" title="Atom Feed" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-solid fa-rss"></i></span><label class="sr-only">Atom Feed</label></a>
-    </li>
+    <li>&copy; Oriol Abril Pla</li>
     <li>Powered by <a href="https://www.sphinx-doc.org">sphinx</a></li>
     <li>Design by <a href="https://pydata-sphinx-theme.readthedocs.io/">pydata-sphinx-theme</a>, <a href="https://html5up.net" rel="nofollow">HTML5 UP</a> &
       <a href="https://github.com/mmistakes/jekyll-theme-basically-basic">Basically Basic</a></li>
