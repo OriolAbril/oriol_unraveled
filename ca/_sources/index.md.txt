@@ -26,39 +26,10 @@ Get ready for some puns and let's dive in!
 
 ![A picture of me diving towards the sea bed while snorkeling.](images/theme_image.png)
 
-## News
-
-::::{grid} 1 1 2 2
-:gutter: 3
-
-:::{grid-item-card} Workshop on uncertainty visualization
-
-I will lead a workshop on uncertainty visualization at
-[PyData BCN](https://pybcn.org/events/pydatabcn/pydatabcn_2023/).
-
-We will go over different types of visualizations like histograms,
-KDEs, quantile dotplots or ECDF plots their interpretation and use-cases.
-
-+++
-Jun 10, 2023
-:::
-
-:::{grid-item-card} Webinar
-
-I gave an online webinar with [Data Umbrella](https://www.dataumbrella.org/)
-on how to contribute to ArviZ and to open source in general,
-covering both social and technical aspects and doing a PR live during the webinar.
-
-The video is [available on YouTube](https://www.youtube.com/watch?v=457ZTes4xOI),
-go check it out!
-+++
-Nov 29, 2022
-:::
-::::
 
 ## Projects
-Most of my current work is related to two community-drives open source libraries:
-ArviZ and PyMC. They are both related to Bayesian modeling, but have different
+Most of my current work is related to two community-driven open source libraries:
+ArviZ and PyMC. They are both related to Bayesian modelling, but have different
 and complementary goals.
 
 :::::{grid} 1 1 2 2
