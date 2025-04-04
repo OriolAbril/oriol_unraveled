@@ -86,6 +86,8 @@ blog_default_author = "oriol"
 post_show_prev_next = False
 post_auto_image = 1
 fontawesome_included = True
+ablog_inject_templates_after_theme = True
+skip_injecting_base_ablog_templates = True
 
 notfound_urls_prefix = f"/{language}/"
 
@@ -129,7 +131,14 @@ html_theme_options = {
             "name": "Mastodon",
             "url": "https://toot.cat/@oriolabril",
             "icon": "fa-brands fa-mastodon",
+            "type": "fontawesome",
             "attributes": {"rel": "me"},
+        },
+        {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/oriol-abril-pla-1b9123180/",
+            "icon": "fa-brands fa-linkedin",
+            "type": "fontawesome",
         },
         {
             "name": "Atom Feed",
@@ -164,6 +173,18 @@ Therefore, I contribute to open source software and try to publish my research a
 <p>My goal is to use this blog to<br>
 promote open and reproducible research practices,<br>
 share open source software and talk about my projects and experiences.</p>"""
+        }
+    )
+elif language == "es":
+    html_context.update(
+        {
+            "homepage_intro": r"""
+<p>Soy un programador, estadístico y físico en construcción.<br>
+Creo en la colaboración interdisciplinar y la ciencia abierta.<br>
+Por consiguiente, contribuyo a librerías de programario libre e intento publicar mi trabajo.</p>
+<p>My objetivo es usar este blog para<br>
+promover prácticas de inverstigación abiertas i reproducibles,<br>
+compartir programario libre y hablar de mis proyectos y experiencias.</p>"""
         }
     )
 elif language == "ca":
