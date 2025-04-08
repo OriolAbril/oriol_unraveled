@@ -1,10 +1,17 @@
 [
     {
+        "name": "English",
         "version": "en",
         "url": "https://oriolabrilpla.cat/en/"
     },
     {
+        "name": "Català",
         "version": "ca",
         "url": "https://oriolabrilpla.cat/ca/"
+    }
+    {
+        "name": "Español",
+        "version": "es",
+        "url": "https://oriolabrilpla.cat/es/"
     }
 ]

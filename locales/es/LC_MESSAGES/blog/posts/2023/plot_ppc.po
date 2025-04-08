@@ -1,0 +1,709 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-08 15:50+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:10003
+#: 32f3547b4e1448cfb090ef9e47ff7ad3
+msgid "ArviZ in depth: plot_ppc"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:20002
+#: 10a7951fdbba429eb8ad65956d92094b
+msgid "Overview"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:20004
+#: 6b258a0986924a9aa93af396165e0ce2
+msgid ""
+"I might write a post some day on posterior predictive in general, but "
+"today is not that day. Today we will dive into `plot_ppc` function of "
+"ArviZ and everything you can do with it. There are many possibilities in "
+"the {func}`arviz.plot_ppc` use alone, but there are infinite more in the "
+"world of posterior predictive checking in general. The same applies to "
+"prior predictive checking too."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:20007
+#: df59cf02b0e14077bbbd9467da381bf9
+msgid ""
+"The basic idea of posterior predictive checking is that whenever we have "
+"fitted a generative model, we can simulate observations _according to our"
+" model_. Thus, if our model is believable, these simulated observations "
+"should be similar to our actual observations. We don't call them "
+"\"simulated observations\" though, what we are doing is technically using"
+" our model to predict at the same places we had observations. If our "
+"posterior distribution is the description of the joint probability in our"
+" _paremeter space_, the posterior predictive one is its equivalent in our"
+" _observation space_."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:20009
+#: 19481174e6c84cbea751ae848825f11f
+msgid ""
+"This same idea applies to prior sampling. We can also check the prior "
+"predictive distribution and see if _at that stage_ these simulated "
+"observations are believable. If our observations can only be positive and"
+" the prior predictive assigns a lot of probability to negative values we "
+"might want to constrain our priors better to fit our knowledge. If our "
+"observations can be both positive and negative but the prior predictive "
+"only simulates positive observations, then we already know, before seeing"
+" any actual data, that this model won't work."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:30002
+#: 61bcf6ed1aea45c4bab030476a0ac26e
+msgid ""
+"`plot_ppc` helps with checking the marginals of the prior or posterior "
+"predictive distribution. It has multiple views available, and how we "
+"marginalize can be customized, but it is only for checking 1D marginal "
+"distributions."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:30004
+#: be90be6ca9cd433fbddbbda53780ea97
+msgid ""
+"The interpretation at the good/bad level is the same independently of the"
+" view we use: **if we are unable to distinguish which is the line/drawing"
+" that corresponds to the observations unless we look at its different "
+"properties, then the model is generating believable observations**. "
+"However, diagnosing why the model is not fitting the observations or what"
+" could be improved with it depends on the view."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:30006
+#: 46e59efdbca14ed390071672ff94639a
+msgid "How `plot_ppc` works under the hood"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:30007
+#: ba6668581adc486c9cacaea7bb7a2370
+msgid ""
+"Once we have a fitted model, we can generate posterior predictive samples"
+" with an extra forward sampling step. It will then generate a "
+"visualization with our observed data, and loop over the generated "
+"posterior predictive samples (or more commonly a subset of those "
+"samples). For each of these posterior predictive samples (we'll generally"
+" have as many as posterior samples) it will generate the same "
+"visualization and overlay it on the initial plot with the observed data. "
+"Eventually, it can also take all the samples at once and plot this extra "
+"aggregate line."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:30009
+#: c7f3603e1ccf423dbb7f50d743d265f7
+msgid ""
+"As it can be seen in the data below, each sample (unique combination of "
+"chain+draw) in the `posterior_predictive` group, has the same shape as "
+"the observed data, which is why we can directly compare each of our "
+"posterior predictive samples to our observations. In fact, if our model "
+"were the real data generating process, and our fit had converged, our "
+"observations would actually be one realization of that data generating "
+"process. The same can't be said about the aggregate line though. This one"
+" combines information from all draws, so it has much less variability, it"
+" is similar (yet not equivalent) to comparing samples from a distribution"
+" to its mean."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70002
+#: 467a6ba47286435cac02ebe00aa9923b
+msgid "`kind`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70004
+#: a5f9533ea4ac4fffadf9c14aea683b03
+msgid ""
+"The `kind` argument is the one that chooses which view to use. There are "
+"three options:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70006
+#: 3c14ffdd45b1436d8a535356f145bbb1
+msgid ""
+"**\"kde\"**: Using \"kde\" as `kind` sets the view to the probability "
+"density/mass function. Thus, depending on the type of data, KDEs or "
+"histograms will be used. There is currently no way to have histograms for"
+" float variables when using `plot_ppc`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70008
+#: cdd31e7a03974170bf20e5a71f7a5131
+msgid ""
+"**\"cumulative\"**: Using \"cumulative\" sets the view to the cumulative "
+"density function."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70009
+#: 3a1d6dd6e43140608779921e151ba879
+msgid ""
+"**\"scatter\"**: Using \"scatter\" sets the view to stacked rug plots, "
+"with each rugplot at a different y value."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70011
+#: 78c40f124f7344299649ca9b1d00dea3
+msgid "What is a rug plot?"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70015
+#: 44a35a7e82dc4650850128be96182f4a
+msgid ""
+"A rug plot is a 1D graphic. Given a set of data or samples, we represent "
+"each point as a mark along the real line. For example, if our data is "
+"`[-1, 0.1, 0.2, 0.3, 1, 2]` our rug plot would be:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70018
+#: 00c90c04cde0458ebd42b508cf985942
+msgid ""
+"![A horizontal line representing a numerical axis with dots at -1, 0.1, "
+"0.2, 0.3, 1 and 2.](rug_example.png)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70018
+#: 9f1ba55a16a74e88bceb5f9563597000
+msgid ""
+"A horizontal line representing a numerical axis with dots at -1, 0.1, "
+"0.2, 0.3, 1 and 2."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70020
+#: 0ebb463849e242e8b4f29b43df19ca97
+msgid ""
+"Rug plots are often incorporated into other plots, generally in their "
+"margins, either to give the viewer a better of the _raw_ data being "
+"plotted or to complement it. For example, in {func}`~arviz.plot_trace` a "
+"rug plot is incorporated into both columns whenever divergences are "
+"present. In the left column the rug plot represents the samples where "
+"divergences occurred whereas in the right column, the rug plot indicates "
+"which are the draws where divergences happened."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70024
+#: 7d35bf3e91b74c76928f667b1896d4d0
+msgid ""
+"In other cases, such as this one, rug plots are stacked as a way to "
+"compare raw data visually in a more direct and intuitive way than say "
+"columns in a table."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:70027
+#: cf632a576d6a4ec780936ef940198367
+msgid ""
+"When we have a lot of observations, the \"scatter\" kind is not a good "
+"choice, whereas on the other hand, when we have very few data points, the"
+" \"kde\" (and to a lesser extend the \"cumulative\") kinds are then the "
+"bad choice. Here we will use the \"kde\" and \"cumulative\" kinds to "
+"generate ppc plots for all observations, and the \"scatter\" one to "
+"generate ppc plots for the first and first 5 observations:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90002
+#: 506d1d9ca406481db0153de75eb159c2
+msgid ""
+"The figure above shows 4 different posterior predictive checks on the "
+"radon dataset. Its observations are the logarightm of radon concentration"
+" in the air, so they can take both positive and negative values. The "
+"first two panels show the checks for all data, one with a KDE the other "
+"using ECDF plots, everything else is the same:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90004
+#: 0a68779cd3b443918c76467fbef05eb1
+msgid ""
+"The black line (\"Observed\" in the legend) is the one that corresponds "
+"to the observations"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90005
+#: 21b94622acdf414b89f1d7b786446081
+msgid ""
+"The blue lines (\"Posterior predictive\" in the legend) are the ones that"
+" correspond to a each specific posterior predictive sample"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90006
+#: 7ad7c49a49f84fddadf397773b65db1b
+msgid ""
+"The dashed orange (\"Posterior predictive mean\" in the legend) line is "
+"the one that corresponds to the aggregate line using all available "
+"posterior predictive samples."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90008
+#: 2fdceaa3e0db43a483b114080a37baac
+msgid ""
+"Especially on the KDE, but also a bit in the ECDF, we see that the black "
+"line is very similar to all blue lines, it's even really close to the "
+"orange one. But there are a couple places where the black one is among "
+"the most extreme blue lines. We can try to look deeper into that in the "
+"coming sections, using other `plot_ppc` features."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90010
+#: b8726b196be445ff865f6240c0c3ba5a
+msgid ""
+"The last two panels use the \"scatter\" kind, and show 6 rug plots "
+"stacked along the y axis, toghether with the dashed orange line. Even "
+"when we are only ploting the `obs_id=0` subset, we still have 4000 "
+"posterior predictive samples that correspond to it, so we can always "
+"generate a KDE/ECDF for this aggregate quantity."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90014
+#: 68471a0f82844d1d9ca269d82a5f49e6
+msgid ""
+"We have called `plot_ppc` multiple times, and used the `legend` argument "
+"to generate only one legend. Moreover, we have moved the legend outside "
+"the plot to prevent it from covering any of the actual plotted data. When"
+" facetting, `plot_ppc` generates only one legend per figure, but it might"
+" still be better to move it outside the plot. There will be an example of"
+" that in the last section of the blog post."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:90019
+#: 9d56a336f2e54ec7905eb631e1cce620
+msgid ""
+"If we use `plot_ppc` on discrete data we get histograms. And even if they"
+" are arguably uglier, everything remains largely the same."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:110002
+#: e6f23d2e8b484c5b9f7cb9c5d08460d9
+msgid "`mean`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:110004
+#: 40499e57311149cf89b4b7330e58cf58
+msgid ""
+"The next argument we'll dive into is the `mean` one, which takes a "
+"boolean. It indicates weather this \"mean\" line, shown above in dashed "
+"orange, should be added to the plot."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:130002
+#: 0312db4654f742c6bb6b5268e070b68a
+msgid ""
+"What even is this line though? This KDE//hist aggregate generated using "
+"all posterior predictive samples, mostly gives a more _global_ and less "
+"noisy view of the model predictions. I emphasized _global_ because "
+"sometimes predictions can be quite different between draws, in which "
+"case, this aggregate will be misleading because there isn't really any "
+"global behaviour to capture."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:130005
+#: 0425f51c87da4a0396141361e0d57761
+msgid ""
+"Here is a toy example of such behaviour. I generate fake posterior "
+"predictive values and observations from a standard normal. However, the "
+"posterior predictive samples have a caveat. In the first chain, the "
+"standard normal is truncated at 0 and only the left tail is kept, whereas"
+" in the 2nd chain, we still truncate at 0 but keep the right tail only. "
+"This model is a disaster, there isn't a single prediction with both "
+"positive and negative values, and we see how the black line is very "
+"different from _all_ blue ones. When we generate the aggregate however, "
+"we do have roughly a standard normal, with only a slight lack of values "
+"around 0, so the orange dashed line has nothing to do with the blue ones "
+"and is closer to the black one even."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:150002
+#: 54e1b48e93b34699b9fb7594d0dd61ee
+msgid "`observed` and `observed_rug`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:150004
+#: 4365c9684b9f419da2cd8d3005282d7e
+msgid ""
+"Next up are the `observed` and `observed_rug` arguments. `observed` is a "
+"boolean flag to indicate wheather the observations should be plotted or "
+"not, which can be handy when using `plot_ppc` for prior predictive checks"
+" as we may not have observations yet. The `observed_rug` argument adds a "
+"rug plot of the observations below the standard `plot_ppc`. Therefore it "
+"can't be used with \"scatter\" as it would be redundant with the rug plot"
+" already at y=0. This can be a great complement to the plot when there "
+"aren't a lot of observations, when the KDE can be hard to interpret or "
+"directly a bad choice."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:150006
+#: e221ac3cab3147c1a425b8f0a9059d85
+msgid ""
+"Do keep in mind however that exactly the same processing happens for all "
+"posterior predictive samples and for observations, so even if he "
+"probability distribution is a bad representation or hard to read, they "
+"are still comparable."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:170002
+#: 27976f25721e449cb4d567ca574aba7d
+msgid "`data_pairs`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:170004
+#: 30e98bfae8ce4e5ba4a469f4e6726f97
+msgid ""
+"In some {abbr}`PPLs (Probabilistic Programming Languages)` variables "
+"can't repeat their names, so we need to use `data_pairs` to indicate how "
+"to compare the variables in the `observed_data` group with the ones in "
+"`posterior_predictive`. We'll rename the variable in our posterior "
+"predictive group to show an example of `data_pairs` usage:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:190002
+#: 2bf98c4a19b34027ba20f2bc9db75c2a
+msgid ""
+"The plot is the same, we have only renamed a variable, but the label is "
+"different now, and both the variable name in the observed data and in the"
+" posterior predictive groups are shown."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:200002
+#: 5255f6082b9644fe980875c810d007a9
+msgid "`flatten`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:200004
+#: c8f589b61854471b84cd1e26b1e074a6
+msgid ""
+"`flatten` and `flatten_pp` are one of the main reasons for `plot_ppc`'s "
+"flexibility. We have seen so far how all observations within the same "
+"variable are flattened/marginalized together. We can however, change that"
+" behaviour with the `flatten` and `flatten_pp` arguments. If we use an "
+"empty list, no dimension will be flattening, so in the basic case we will"
+" get one subplot per observation (so we plot only the first 5 to keep the"
+" plot smallish). We now need to use \"scatter\" kind because there is "
+"only one single observation per subplot:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:220002
+#: fa0a1e6eb8374513b5d652d00312b3c3
+msgid ""
+"This however is much more interesting if our coordinate values have "
+"repeated values! So far the `obs_id` dimension is indexed by a unique "
+"integer key, but each observation has associated one of 95 counties. So "
+"we can set the counties as coordinate values:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:240002
+#: 59c7cdc8485d443796712dc115214dda
+msgid ""
+"Now, we can both use counties to define the subset that should be plotted"
+" and ArviZ will group observations of the same county into the same "
+"subplot. We'll also activate the observed rug to see how many "
+"observations there are in each group:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:260002
+#: 7f17d6cbf6584904ac87f31a86abbf43
+msgid ""
+"`flatten` is also critical for higher dimensional samples. The rugby "
+"model for example currently has 2 variables: `home_points` and "
+"`away_points` so the default is to flatten everything but generate one "
+"plot per variable. We could have however a single variable with "
+"dimensions `chain, draw, match, field`:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:280002
+#: d8c2e12df35e40e1b6ca89cd96e8736c
+msgid ""
+"If you expand the posterior predictive or observed data groups, you'll "
+"see there is a new variable called `points`. We can now plot the marginal"
+" over both match and field:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:300002
+#: 3e0da1bac8ec4e8987cb286d6b929c5a
+msgid ""
+"replicate the plot we generated above, where only the `match` dimension "
+"is flattened:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:320002
+#: fcc69955cd4341fca0000a1e592335b4
+msgid ""
+"or instead flatten the field dimension and check per match, how home and "
+"away goals compare to the predictions. Are there any matched that prove "
+"\"problematic to predict\"? We'll do that in the last section of the blog"
+" post."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:330002
+#: a590254e5c2c414190e9754650ab66f2
+msgid "`num_pp_samples`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:330004
+#: 86e64cd3ce2649d09bca7a2f8e50e89a
+msgid ""
+"One possible complain from all the plots we have seen so far might be "
+"that there are way too many lines overlaid when kind is \"kde\" or "
+"\"cumulative\" and/or there are too few rug plots stacked vertically when"
+" kind is \"scatter\". We can control this with `num_pp_samples`:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:350002
+#: 93979f01df5d449ba6247eb2db50d937
+msgid ""
+"Now though, we are plotting only a subset, which is chosen at random. To "
+"ensure reproducibililty, there is `random_seed`. Especially with the "
+"\"scatter\" kind it can also be interesting to have multiple `plot_ppc` "
+"calls use the same subset:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:370002
+#: fa679841552444b5bf730aecc6a3a37c
+msgid "`animated`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380002
+#: 865eb9d3ebed48fcb7d88e581a6b7579
+msgid "There is also the option of generating a video of the `plot_ppc`. Using"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380006
+#: 82be8d7ef801408caaa71da1a975b495
+msgid "you will generate the following video:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380008
+#: bb472eb28f7243e884a47918568f06c7
+msgid ""
+"![animation of a plot_ppc plot, where the mean and observed data lines "
+"are fixed and the animation shows one posterior predictive sample at each"
+" step.](ppc_anim.mp4)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380008
+#: 9a69819e68d2466f831bc60d7918d869
+msgid ""
+"animation of a plot_ppc plot, where the mean and observed data lines are "
+"fixed and the animation shows one posterior predictive sample at each "
+"step."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380010
+#: c418c0dfd9144abbaa5632b27a1afe20
+msgid ""
+"Here is also a link to the [video file](ppc_anim.mp4) in case the "
+"embedded player doesn't work."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380012
+#: f1fa75b6e9ac48c39154b259e4130075
+msgid ""
+"The `animated` feature hasn't received much attention, but I think it "
+"could be interesting to maintain and develop. Something that comes to "
+"mind is having it show only a handful of frames, stop for ~2 seconds on "
+"each frame and number each frame. Frames would be similar to current "
+"ones, but without mean nor observed data lines, only a single line which "
+"will generally be a posterior predictive one except in one of the frames "
+"where we'd use the observed data. The animation would then end showing "
+"the number of the frame containing the plot of the observed data."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:380014
+#: 87c9eba808be4ab89f8465f265d0a89d
+msgid ""
+"If you guessed right then something is going on, either you have done so "
+"much {abbr}`EDA (Exploratory Data Analysis)` with your data that you have"
+" memorized how it looks, or more probably (I think?) there is some aspect"
+" of the observations that isn't captured by the model."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:390002
+#: 30d34d4213e146d4ad28c67eca54bbc7
+msgid "Practical examples"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:390004
+#: 2fd82693be244cb0a62d188eaeeb8a55
+msgid ""
+"We can now use all the arguments we have seen to dive deeper into the two"
+" main models we have used to illustrate their use."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:400002
+#: 9eaea1f7da8240a086b27fb7da781e2c
+msgid "Radon model"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:400007
+#: 396e280f69804661b3a775c211ec7b2f
+msgid ""
+"The original model that generated the example inference data we are using"
+" is available at the [arviz_example_data repository](https://github.com"
+"/arviz-devs/arviz_example_data/blob/main/code/radon/radon.py). The model "
+"was taken from [PyMC example "
+"gallery](https://www.pymc.io/projects/examples/en/2022.12.0/case_studies/multilevel_modeling.html)"
+" which has more detailed explanation and references."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:400010
+#: 81febcf6d7f741718fa6e8f45b351c8f
+msgid ""
+"And we can now also use that to explore in more detail the potentially "
+"problematic areas in the flattened `plot_ppc`, for example, observations "
+"below -2."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:420002
+#: 15af72cb822d497298bea92c1db22ff1
+msgid ""
+"We see there are only 3 observations lower than -2, and each corresponds "
+"to a different county. The two we have plotted so far looked good enough."
+" What about these ones?"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:440002
+#: d3ecd798e5024b298f492f777df4ee48
+msgid ""
+"We can see that none of the groups predicts values as extreme as -2. In "
+"fact, after seeing that I went back to the model and data, and it turns "
+"out that that the radon data can't be lower than 0.1, and then the log is"
+" taken:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:460002
+#: 65e925905c904f938bce41716ce91652
+msgid ""
+"However, this isn't taken into account in the model, which can assign "
+"non-zero probability to values lower than that for some groups:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:480002
+#: f37ae40602ab47fc8262d96b0f953972
+msgid ""
+"This is quite negligible, but in my opinion still a good example of the "
+"things that can be found out with posterior predictive checks. I was also"
+" happy that after using the radon example countless times while teaching "
+"I still managed to discover a new fact about it."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:490002
+#: bdf1cb59a2304c669cca2215494b1b58
+msgid "Rugby model"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:490007
+#: 7e752950d2eb489d8f89b0d396ebec4d
+msgid ""
+"The original model that generated the example inference data we are using"
+" is available at the [arviz_example_data repository](https://github.com"
+"/arviz-devs/arviz_example_data/blob/main/code/rugby/rugby.ipynb). The "
+"model was taken from [PyMC example "
+"gallery](https://www.pymc.io/projects/examples/en/2022.12.0/case_studies/rugby_analytics.html)"
+" which has more detailed explanation and references."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:490010
+#: 61f86313f93247b4932a0345da5e23bf
+msgid ""
+"We have 60 matches in our dataset, coming from 4 different years. Teams "
+"play each other only once in the Six Nations championship, so we will "
+"have 4 matches where the same two teams play each other, but only 2 "
+"repetitions of unique match as the field factor is relevant to our model "
+"and it switches every year. We can combine the arrays of the home and "
+"away points to visualize \"matches\" instead of only points from one of "
+"the sides, also transform the match dimension into unique team pairings "
+"if we add a year dimension."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:510002
+#: 3afc03fd310044209941ac1a56a2a2de
+msgid ""
+"It is probably better then to use \"scatter\" type of plot in this case. "
+"We will also restrict the output to a 4x2 grid:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:530002
+#: 3924ee984c4e40529116495f1b8eccb7
+msgid ""
+"This model only takes into account the defensive and ofensive strengths "
+"of each team and the home effect, there is no time component. That is, "
+"the first and third columns will show slightly different results due to "
+"the randomness of the posterior predictive sampling and the MCMC error, "
+"but they will be basically the same, as they are generated from the same "
+"parameterss. And the same happens with the second and fourth columns."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:530004
+#: 8ef8b9f087cd419ca86e3120b7795a89
+msgid ""
+"In fact, when we compare one column with the next we can see the effect "
+"of changing the home team between matches and how our model believes the "
+"outcome will change. For Italy vs Wales it doesn't do much, because Wales"
+" is much stronger than Italy, so it is only a matter of how large is the "
+"point difference, but for England vs France it has a significant effect "
+"on the win probabilities. Let's double check the home team first:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:540002
+#: d47abee0e48941f0bdfde6f3c0bb62d6
+msgid ""
+"In 2014, when Wales and France were the home teams, their win "
+"probabilities according to this model are:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:560002
+#: c098194f7cc64d27a6e1cf8f991104af
+msgid ""
+"On the other hand, in 2015 when Wale:s and France are the away teams, the"
+" model gives different probabilities, as we have seen specially"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:580002
+#: bc4b385e4fac47b1add138f3ce8ea4fd
+msgid ""
+"With the data structured like this, we can also generate a ppc plot "
+"similar to the one we did above using the `points` variable only, but "
+"without flattening the year dimension:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:600002
+#: 260133d386b141cdaab4a10c85cd75f5
+msgid ""
+"These differences are probably related to how the home advantage changes "
+"between teams from year to year mostly, it is not as clear here as we saw"
+" with specific matches, but specially lower than ~30 points there seem to"
+" be alternating similarities 2014-2016 and 2015-2017. Intuitively, the "
+"next step being considered might be trying to incorporate the time "
+"dependency somehow, even with something as simple as \"defending "
+"champion\" effect, similar to the home field one. However, for this "
+"particular model, all ppc plots we have generated are quite sensible; the"
+" model is performing quite well already when it comes to predictions."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:600006
+#: 2e1f8f570e0f447c85cbd58d7a500be1
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2023/plot_ppc.ipynb:620002
+#: 895176d7e87b4b19bb87c8ae0c5701ac
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [PyMC](https://discourse.pymc.io/) or "
+"[Stan](https://discourse.mc-stan.org/) Discourse forums, both have an "
+"`arviz` tag to ensure questions are sorted and interested people are "
+"notified."
+msgstr ""
+

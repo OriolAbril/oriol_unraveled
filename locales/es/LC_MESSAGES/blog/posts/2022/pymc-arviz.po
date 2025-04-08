@@ -1,0 +1,433 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-08 15:50+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:10003
+#: 4b4148c3d08f4ceea6cac953cf3a447f
+msgid "PyMC 4.0 with labeled coords and dims"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:40002
+#: 32d33e5865bc4e6b9f47104c3135df4e
+msgid "For the {octicon}`heart-fill;1em;sd-text-danger` of labeled arrays"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:40003
+#: de01065dd2f443598578d6389f96629f
+msgid ""
+"While [PyMC 3.9.0](https://github.com/pymc-devs/pymc3/blob/master"
+"/RELEASE-NOTES.md#pymc3-390-16-june-2020) came with some amazing news for"
+" those of us who love labeled arrays: support for using coordinate and "
+"dimension names to specify the shapes of variables in a `pm.Model`; now, "
+"2 years later, with the release of PyMC 4.0, the integration between "
+"ArviZ and PyMC has improved even more."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:40005
+#: 62f920f2185c4437a7aa520a60e4582a
+msgid ""
+"Therefore, I decided to post and updated version of {ref}`my original "
+"blog post <pymc3-arviz>` using version 3.x of PyMC now using version 4.0 "
+"of PyMC which was released earlier this week."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:50002
+#: 7c75ed5c776243138dbd07a1a0955841
+msgid ""
+"This post will focus on using PyMC coords, dims and dims without "
+"coordinate values, and explain the conversion of traces and models to "
+"[`InferenceData`](https://python.arviz.org/en/latest/getting_started/XarrayforArviZ.html)."
+" Here are two resources to [learn about working with "
+"`InferenceData`](https://python.arviz.org/en/latest/getting_started/WorkingWithInferenceData.html)"
+" on ArviZ docs and to see `InferenceData` in action in the famous [radon "
+"example](https://www.pymc.io/projects/examples/en/latest/case_studies/multilevel_modeling.html)"
+" on PyMC examples website."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:60002
+#: 4191a4fe0938423eaaf95d6d105bce1b
+msgid ""
+"We will use an example based approach and use models from the [example "
+"gallery](https://www.pymc.io/projects/examples/en/latest) to illustrate "
+"how to use coords and dims within PyMC models."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:70002
+#: 44796128ca264a389a09e047895ed768
+msgid "1st example: rugby analytics"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:70003
+#: db2eb6c5d05843bf841ad1033449423d
+msgid ""
+"We will use an alternative parametrization of the same model used in the "
+"[rugby analytics "
+"example](https://www.pymc.io/projects/examples/en/latest/case_studies/rugby_analytics.html)"
+" taking advantage of dims and coords. Here, we will use as observations a"
+" 2d matrix, whose rows are the matches and whose columns are the field: "
+"home and away."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:80002
+#: 7d6234a9bab349a9a16168b97391d56b
+msgid ""
+"The first step after preprocessing is to define the dimensions used by "
+"the model and their coordinates. In our case, we have 3 dimensions:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:80004
+#: d9949ab9859c4f66ac17a3150bb647d2
+msgid "`team`: each team will have its own offensive and defensive power"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:80005
+#: f6a7216f3fd94b96952aa5128eb003c3
+msgid ""
+"`match`: an integer identifying the match. There are 6 teams who play "
+"twice against each other so we have `6*5*2=60` matches"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:80006
+#: ccf91db57fdd4c2d9b93a8908ba0df17
+msgid "`field`: either home or away."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:80008
+#: 8a58a476c958469fa5bf55995ef2aadd
+msgid ""
+"These coordinates are passed to `pm.Model` as a dict whose keys are "
+"dimension names and whose values are coordinate values. The dimensions "
+"can then be used when defining PyMC variables to indicate their shape."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:110002
+#: aabf294a90774dbf875f8a2fdf433f51
+msgid ""
+"We have now _defined_ the shapes of some of our variables (`atts_star` "
+"and `defs_star`) and _annotated_ the dimensions of some others. This is "
+"convenient and makes the code easier to understand, but we need to "
+"remember that in PyMC, dimensions are not inherited like in xarray."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:110004
+#: 0f3da73cf38f45008d9843549d56509e
+msgid ""
+"`atts` is `atts_star` minus a scalar value and it will be an array with "
+"the same shape as `atts_star` even without the `dims` argument. However, "
+"we need to _annotate_ the dimension if we want the output to have it."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:110006
+#: 84ded074bb45429eb756dd92e718b20b
+msgid ""
+"In PyMC 4.0, the default return type of all sampling functions is "
+"`InferenceData`:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:130002
+#: 4c3a4cf2e894410f942c15ed221f57bf
+msgid "2nd example: radon multilevel model"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:130003
+#: 2f83f12ca931474da3e578f21dc4bd15
+msgid ""
+"We will now use one of the many models in the [A Primer on Bayesian "
+"Methods for Multilevel "
+"Modeling](https://www.pymc.io/projects/examples/en/latest/case_studies/multilevel_modeling.html)"
+" notebook to dive deeper into coords and dims functionality. We won't "
+"cover the model itself, it's already explained in the example notebook, "
+"we will explain in detail how are labeled coords and dims being used."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:130005
+#: 91b553fdaf6742b79c851425d90420da
+msgid ""
+"The code used to load and clean the data is hidden, click the button "
+"below to see it."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150002
+#: 3d49e0d8e4e54df4971cf48f2f3c73f5
+msgid ""
+"The first step is again defining the dimensions and their coordinate "
+"values:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150004
+#: b1c6c56028624f6783c00c4952afa611
+msgid "`Level`: observations can correspond to the basement or the first floor"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150005
+#: ed9587265e8a41e1880cfc3dd015c114
+msgid ""
+"`County`: each county has its own basement, intercept: `a`, and first "
+"floor, slope `b`, effects. Details are in the example notebook"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150006
+#: d01b589af4ce474da1635a9b336264e7
+msgid "`param`: one of `a`, `b`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150007
+#: 57f398b821e94514a611364acc7002b8
+msgid ""
+"`param2`: same as param, used for the covariance matrix because a "
+"variable can't have repeated dimensions"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150009
+#: 1f87da37cb4c499b848dbfcc1d21ee1c
+msgid ""
+"We will also use a dimension called `obs_id` for the `n` observations. In"
+" that case however, we don't care about the coordinate values and we are "
+"fine with them being an integer id."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:150011
+#: 3178907e37ef4029984d369310fbcd07
+msgid ""
+"In PyMC 4.0, if you _annotate_ the dimensions of a `pm.Data` object (also"
+" of `pm.ConstantData` or `pm.MutableData` which are aliases of "
+"`pm.Data`), that dimension will be automatically created as dimension "
+"without coordinate values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:170002
+#: 6fff33aac6404beab047ff378c6bb72b
+msgid ""
+"We'll begin to define the model creating the indexing arrays that will "
+"implement the hierarchical model. We are using the `pm.Data` container to"
+" tell ArviZ to store the variables in the `constant_data` group. "
+"Moreover, `pm.Data` defines a theano shared variable, so its values can "
+"be modified in order to call `pm.sample_posterior_predictive` using "
+"different data. This is particularly interesting for regressions for "
+"example in order to generate predictions for the model."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:190002
+#: 7f137f99c241490f9fb84d594dc299f3
+msgid ""
+"We'll also use a `LKJCholeskyCov`as prior for the covariance matrix. As "
+"you can see, it has no `dims` argument. We will have to indicate the dims"
+" that correspond to these variables with the `idata_kwargs` argument. "
+"`idata_kwargs` is used to indicate `pm.sample` what arguments to pass to "
+"[`pm.to_inference_data`](https://www.pymc.io/projects/docs/en/v4.0.0/api/generated/pymc.to_inference_data.html),"
+" which is called internally to convert the trace to InferenceData."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:210002
+#: a4c866f833bc43cf948fea24d760fe8d
+msgid ""
+"We now will store two intermediate results as variables. However, one is "
+"wrapped inside a `pm.Deterministic` whereas the other is not. Both are "
+"equally valid. `pm.Deterministic` tells PyMC to store that variable in "
+"the trace. Thus `pm.Deterministic` should only be used when we actively "
+"want to store the intermediate result. In our case, we want to store "
+"`ab_county` but not `theta`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:210004
+#: 7d1fc2e1257f4d298ad2d6e9bd7dc61e
+msgid ""
+"As we saw in the previous example, `pm.Deterministic` also has a `dims` "
+"argument, but it can only be used to _annotate_ the dimensions of that "
+"variable, not to _define_ an array variable from scalar parameters."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:230002
+#: 2bde5289ac984ff6b1c2f1e5093be8e6
+msgid ""
+"Finally we will call `pm.sample` and define the dimensions of the "
+"covariance matrix as `idata_kwargs`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:250002
+#: 9daa734bf4d64901b1ae0b46485311e0
+msgid "There is life outside the posterior"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:250003
+#: 2e13d3312f294988a3ad9220c4b8f4c0
+msgid ""
+"The posterior is the center of Bayesian analysis but other quantities "
+"such as the prior or the posterior predictive are also crucial to an "
+"analysis workflow. We'll use a linear regression to quickly showcase some"
+" of the key steps in a Bayesian workflow: prior predictive checks, "
+"posterior sampling, posterior predictive checks (using LOO-PIT) and out "
+"of sample predictions."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:260002
+#: 500fb652a03c41efaa024d26989699ce
+msgid ""
+"We will start generating some simulated data (code hidden, click to "
+"expand) and defining the model. As it's a simple linear regression we'll "
+"only have scalar parameters, `a`, `b` and `sigma`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:290002
+#: f6b55d5eda514365bd9584a477fb6b0f
+msgid ""
+"We have now written a model in order to study our quantity of interest "
+"`y`. We have used everything we have seen so far, the `pm.MutableData` "
+"container and the labeled dims and coords."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:290004
+#: 769729ab1bbb4cbb8325f0c2b2da6fd5
+msgid ""
+"We will now simulate a workflow starting from prior predictive checks and"
+" finishing with predicting the values of our _quantity of interest_ in "
+"2022 and 2023."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:290006
+#: d2fbb0a17a2744eeb6651f29f6d61d94
+msgid ""
+"Here however, as our goal is to generate out of sample predictions, there"
+" is an important difference. Instead of providing the coordinates when "
+"initializing the model context, we add them in the call to "
+"`pm.MutableData`. By initializing the coordinates with a `pm.MutableData`"
+" object we make sure that we can later modify both the length of the "
+"`year` dimension and its associated coordinate values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:290008
+#: 4dda93b452ca4e0da02cfd2ea674d2b0
+msgid ""
+"The dimensions defined from `coords` passed while initializing the model "
+"context can't be modified. Their length is fixed. The coordinate values "
+"can be updated, but only for an array of the same length."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:300002
+#: ec7e998e1e364a51a6b567ca18562045
+msgid "Priors"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:300003
+#: 9beddeaf54384cb3817c68b9c984e08d
+msgid ""
+"We start by sampling both prior and prior predictive with "
+"`pm.sample_prior_predictive`. In PyMC 4.0, this returns an "
+"`InferenceData` object with multiple groups depending on the data "
+"available, if provided, variables will have their corresponding dims and "
+"coords."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:320002
+#: 32f3d8cf2cee430fb517bf8df9e2f597
+msgid ""
+"We can now use `plot_ppc` to perform prior predictive checks for our "
+"model."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:340002
+#: 57e16bc58ba0402285d96e95502cad1f
+msgid "Posterior"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:340003
+#: f791e6e45edb44cbb9a8b90a52622b79
+msgid ""
+"The next step will be computing the posterior. As we have seen, we can "
+"use `return_inferencedata` to get an `InferenceData` as a result of "
+"`pm.sample`. In this case however, we will store it as an auxiliary "
+"variable to then use `InferenceData.extend` and add the new groups to the"
+" `linreg_idata`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:380002
+#: 9da7b9ac93034a52bc8cc5d8d8bd53fe
+msgid "Posterior predictive"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:380003
+#: fac6ba2fd5be46bbbf4058821235229a
+msgid ""
+"Our third step will be to evaluate the posterior predictive at the "
+"observations so we can perform model checking with functions such as "
+"`plot_ppc` or `plot_loo_pit`. `sample_posterior_predictive` already "
+"returns an InferenceData, we will use the `extend_inferencedata` argument"
+" to indicate PyMC to add the new groups inplace."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:380005
+#: f0fa716f3acc49a1aab06b57bcd40ce5
+msgid ""
+"This has two main advantages. `plot_loo_pit` requires both the "
+"`posterior_predictive` group, generated here and the `log_likelihood` "
+"group which was created in `pm.sample`. In addition, keeping all our data"
+" in a single `InferenceData` means we can store it as a netCDF and share "
+"a single file to allow reproducing the whole exploratory analysis of our "
+"model."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:410002
+#: 9d4450b8959b4ca785db06146974fa1e
+msgid ""
+"We will now get to use `plot_loo_pit`, which as expected does not show "
+"any issues. To learn how to interpret those plots, you can read the "
+"{ref}`loo_pit_tutorial`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:430002
+#: 90dc918851f546398a36a64ee54c1182
+msgid "Predictions"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:430003
+#: f9562906bfc34db1b874f0cc326d3e73
+msgid ""
+"Finally, our last step will be to get some predictions, which in this "
+"case is evaluating the posterior predictive at positions different than "
+"the observations. In the example below, we are evaluating our predictions"
+" at 2022 and 2023. To do so, we are using `pm.set_data` to modify the "
+"values of `x` to the ones that correspond to these two future years and "
+"to update the coordinate values of the `year` dimension."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:440002
+#: b724a5eab54b4e44b688f021f966e896
+msgid ""
+"Here we will use `predictions` and `extend_inferencedata` keywords. This "
+"will store these new samples in the `predictions` group and the modified "
+"`x` values in `predictions_constant_data` and add these groups inplace to"
+" our InferenceData object"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:480002
+#: 33e6b8540800464ab88ba1f3f8e0c4af
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/pymc-arviz.ipynb:500003
+#: 7597c4b59af448f497ace9dc4266e54a
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [PyMC "
+"Discourse](https://discourse.pymc.io/). Feel free to tag me at "
+"[@OriolAbril](https://discourse.pymc.io/u/oriolabril)"
+msgstr ""
+

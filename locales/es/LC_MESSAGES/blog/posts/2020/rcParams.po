@@ -1,0 +1,624 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-08 15:50+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:10003
+#: 076b4c1df85a411bb1699d69852c7337
+msgid "ArviZ customization with rcParams"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:20002
+#: d33b8ec19b024ae9a6ac343340a0e2eb
+msgid "About"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:20003
+#: 623389fef3e249839b30676a0c11ffd3
+msgid ""
+"ArviZ not only builds on top of matplotlib's `rcParams` but also adds its"
+" own rcParams instance to handle specific settings. This post will only "
+"graze matplotlib's rcParams, which are already detailed in [matplotlib's "
+"docs](https://matplotlib.org/1.4.1/users/customizing.html); it will dive "
+"into specific ArviZ rcParams."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:30002
+#: cd131aa2c72246888a9d5a411153ebdc
+msgid "Introduction"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:30003
+#: 3f3fe93532cd4fffb702f96c4d497b93
+msgid ""
+"Paraphrasing the description on rcParams in the documentation of "
+"matplotlib:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:30005
+#: 022d083b2170478ba5a87d9019501fb0
+msgid ""
+"ArviZ uses arvizrc configuration files to customize all kinds of "
+"properties, which we call rcParams. You can control the defaults of many "
+"properties in ArviZ: data loading mode (lazy or eager), automatically "
+"showing generated plots, the default information criteria and so on."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:30007
+#: 8c81ec4436b2498e8104a456d281d726
+msgid ""
+"There are several ways of modifying `arviz.rcParams` instance, each of "
+"them targeted to specific needs."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:50002
+#: 07971883b8b64498bb9491ac5e31bbfd
+msgid "Customizing ArviZ"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60002
+#: 5c12d10710334024a0a82cacddef46dd
+msgid "arvizrc file"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60003
+#: d27ed84457ab4d4c9b2f3942e5f6c5e7
+msgid ""
+"To define default values on a per user or per project basis, `arvizrc` "
+"file should be used. When imported, ArviZ search for an `arvizrc` file in"
+" several locations sorted below by priority:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60004
+#: 94674c52435943e9934b26e2aa77dc83
+msgid "`$PWD/arvizrc`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60005
+#: 685e213b0bf54b64ad081bb2648c058b
+msgid "`$ARVIZ_DATA/arvizrc`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60006
+#: 0f1eccd1341b4f289b30482fefe8634f
+msgid "On Linux,"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60007
+#: 14d0e9105ded4660b5fe4c71c022d575
+msgid "`$XDG_CONFIG_HOME/arviz/arvizrc` (if `$XDG_CONFIG_HOME` is defined)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60009
+#: f65b27c63f8b443795d231fb82dc7975
+msgid "or `$HOME/.config/arviz/arvizrc` (if `$XDG_CONFIG_HOME` is not defined)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60011
+#: 7e92fee3500c4205a0ff90f3b317f575
+msgid "On other platforms,"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60012
+#: 0650b70d45154dde94ebb912985263c4
+msgid "`$HOME/.arviz/arvizrc` if `$HOME` is defined"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:60014
+#: f689f88022964da2b59fba188d114502
+msgid ""
+"Once one of these files is found, ArviZ stops looking and loads its "
+"configuration. If none of them are present, the values hardcoded in ArviZ"
+" codebase are used. The file used to set the default values in ArviZ can "
+"be obtained with the following command:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:80002
+#: a9d1c6d7e4eb4905a4bcbec54144dfca
+msgid ""
+"ArviZ has loaded a file used to set defaults on a per user basis. Unless "
+"I use a different rc file in the current directory or modify `rcParams` "
+"as explained above, this configuration will be automatically used every "
+"time ArviZ is imported."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:80004
+#: 3a80455b4c544f32a597da2b8cba8893
+msgid ""
+"This can be really useful to define the favourite backend or information "
+"criterion, written once in the rc file and ArviZ automatically uses the "
+"desired values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:90003
+#: c29e3f476792498f9afe23a63034512e
+msgid "You should not rely on ArviZ defaults being always the same."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:100002
+#: 801a17167e33440498f44838cb3af94f
+msgid ""
+"ArviZ strives to encourage best practices and therefore will change the "
+"default values whenever a new algorithm is developed to achieve this "
+"goal. If you rely on a specific value, you should either use an `arvizrc`"
+" template or set the defaults at the beggining of every script/notebook."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:110002
+#: bc4061b5893344409ba86d83a27e3401
+msgid "Dynamic rc settings"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:110003
+#: 007bbdb627d54dc09d3c1156d6941496
+msgid ""
+"To set default values on a per file or per project basis, `rcParams` can "
+"also be modified dynamically, either overwritting a specific key:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:130002
+#: 83837d113fc74aa59590e95bac9ef151
+msgid ""
+"Note that `rcParams` is the instance to be modified, exactly like in "
+"matplotlib. Careful with capitalization!"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:130004
+#: 6cc06428b5e14dde930a76626cb874cf
+msgid ""
+"Another option is to define a dictionary with several new defaults and "
+"update rcParams all at once."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:150002
+#: 8022ea3941f04eaf8e55793345b044ad
+msgid "rc_context"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:150003
+#: 9acd70c82883456894beb735f44a0a8e
+msgid ""
+"And last but not least, to temporarily use a different set of defaults, "
+"ArviZ also has a [`rc_context`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.rc_context.html#arviz.rc_context) "
+"function. Its main difference and advantage is that it is a context "
+"manager, therefore, all code executed inside the context will use the "
+"defaults defined by `rc_context` but once we exit the context, everything"
+" goes back to normal. Let's generate 3 posterior plots with the same "
+"command to show this:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:170002
+#: b76d45ebf06744faab29f52571ecfa75
+msgid "ArviZ default settings"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:170003
+#: 39d84b9b74ba4e3a840c446bb78f68d9
+msgid ""
+"This section will describe ArviZ rcParams as version 0.8.3 (see "
+"[GitHub](https://github.com/arviz-"
+"devs/arviz/blob/master/arvizrc.template) for an up to date version)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:180002
+#: 4850664aaf914516b4a47876384e25fb
+msgid "Data"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:180003
+#: 1ad3a3cacaf146f8b9a47f064a8aa212
+msgid ""
+"The rcParams in this section are related to the [data](https://arviz-"
+"devs.github.io/arviz/api.html#data) module in ArviZ, that is, they are "
+"either related to `from_xyz` converter functions or to `InferenceData` "
+"class."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:190002
+#: bb4bb992013c4b33a0d60de8e8268657
+msgid "**data.http_protocol** : *{https, http}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:190004
+#: 39b8f7077bf54a8da931b924934adf8c
+msgid ""
+"Only the first two example datasets `centered_eight` and "
+"`non_centered_eight` come as part of ArviZ. All the others are downloaded"
+" from figshare the first time and stored locally to help reloading them "
+"the next time. We can get the names of the data available by not passing "
+"any argument to `az.load_arviz_data` (you can also get the description of"
+" each of them with `az.list_datasets`):"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:210002
+#: 11703dd0346a4309bd32d1f498bd13c5
+msgid ""
+"Thus, the first time you call `az.load_arviz_data(\"radon\")`, ArviZ "
+"downloads the dataset using `data.http_protocol`. The default is set to "
+"`https` but if needed, it can be modified to `http`. Notice how there is "
+"no fallback, if downloading with `https` fails, there is no second try "
+"with `http`, an error is risen. To use `http` you have to set the rcParam"
+" explicitly."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:220002
+#: bcc67452b23d4dae8888b3da6cefa5bf
+msgid "**data.index_origin** : *{0, 1}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:220004
+#: 588de37d8e5b4df1a2de7b81b7c8d47f
+msgid ""
+"ArviZ integration with Stan and Julia who use 1 based indexing motivate "
+"this rcParam. This rcParam is still at an early stage and its "
+"implementation is bound to vary, therefore it has no detailed "
+"description."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:230002
+#: bde3fa6ce0bc4ed3ae54e6d2ce29e3b9
+msgid "**data.load** : *{lazy, eager}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:230004
+#: 30241f25b3c949f2819dae12395717d6
+msgid ""
+"Even when not using Dask, xarray's default is to load data lazily into "
+"memory when reading from disk. ArviZ's `from_netcdf` also uses the same "
+"default. That is, ArviZ functions that read data from disk `from_netcdf` "
+"and `load_arviz_data` do not load the data into memory unless `data.load`"
+" rcParam is set to `eager`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:230006
+#: 1f30ac7674454c2083a6f8f7e37f3159
+msgid ""
+"Most use cases not only do not require loading data into memory but will "
+"also benefit from lazy loading. However, there is one clear exception: "
+"when too many files are lazily opened at the same time, xarray ends up "
+"crashing with extremely cryptic error messages, these cases require "
+"setting data loading to eager mode. One example of such situation is "
+"generating ArviZ documentation, we therefore set `data.load` to `eager` "
+"in sphinx configuration file."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:240002
+#: 19af771c0b0e4e8a82def275e8ab9062
+msgid "**data.metagroups** : *mapping of {str : list of str}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:250003
+#: b173f7d88a0f482984bee8d5e33da933
+msgid ""
+"Do not overwrite `data.metagroups` as things may break, to add custom "
+"metagroups add new keys to the dictionary as shown below"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:260002
+#: 0b7304358c4e47b1befa7223b40d69d1
+msgid ""
+"One of the current projects in ArviZ is to extend the capabilities of "
+"`InferenceData`. One of the limitations was not allowing its functions "
+"and methods to be applied to several groups at the same time. Starting "
+"with ArviZ 0.8.0, [`InferenceData` methods](https://arviz-"
+"devs.github.io/arviz/generated/arviz.InferenceData.html#arviz.InferenceData)"
+" take arguments `groups` and `filter_groups` to overcome this limitation."
+" These two combined arguments have the same capabilities as "
+"`var_names`+`filter_vars` in plotting functions: exact matching, like and"
+" regex matching like pandas and support for ArviZ `~` negation prefix and"
+" one extra feature: metagroups. So what are metagroups? Let's see"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:280002
+#: 1369dd0212f04a13a2086813bea67e1b
+msgid ""
+"Imagine the data you passed to the model was rescaled, after converting "
+"to `InferenceData` you have to rescale the data again to its original "
+"values, but not only the observations, posterior and prior predictive "
+"values too!"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:280004
+#: b61d743a589449fc8ae963a91b2f7540
+msgid ""
+"Having to apply the rescaling manually to each of the three groups is "
+"tedious at best, and creating a variable called `observed_vars` storing a"
+" list with these 3 groups is problematic -- when doing prior checks there"
+" is no `posterior_predictive` group, it's a highway towards errors at "
+"every turn. Metagroups are similar to the variable approach but it's "
+"already there and it applies the function only to present groups. Let's "
+"add a new metagroup and use it to shift our data:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:300002
+#: 3d8a755a94804e869cc6e388175b7ab0
+msgid "**data.save_warmup** : *bool*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:300004
+#: d815e28d72a84131a25ff0c864036b71
+msgid ""
+"If `True`, converter functions will store warmup iterations in the "
+"corresponding groups by default."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:300007
+#: c6197201e15649a1b82e5f71813fd5d1
+msgid ""
+"`data.save_warmup` does not affect `from_netcdf`, all groups are always "
+"loaded from file"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:320002
+#: 9070b21481f743848cbe868d30069fa1
+msgid "Plot"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:330002
+#: f9018b79414249dcadfe0ef74b65f932
+msgid "General"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:340002
+#: c3722ab1f7334575af1e1ae4b43ceb75
+msgid "**plot.backend** : *{matplotlib, bokeh}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:340004
+#: 334ed493563e47cf86ddd4492346b535
+msgid "Default plotting backend."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:350002
+#: 8731b34fd4cd4770aca86cf7aedead3b
+msgid "**plot.max_subplots** : int"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:350004
+#: 1fb201b11c6e41369ce4cc839ef772bb
+msgid ""
+"Maximum number of subplots in a single figure. Adding too many subplots "
+"into a figure can be really slow, to the point that it looks like "
+"everthing has crashed without any error message. When there are more "
+"variables to plot than `max_subplots` allowed, ArviZ sends a warning and "
+"plots at most `max_suplots`. See for yourselves:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:370002
+#: 15f1d69928bb41329ddfdcb9f6450842
+msgid "**plot.point_estimate** : *{mean, median, model, None}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:370004
+#: ef426a9fe5f743e58b054358cba6ab97
+msgid ""
+"Default point estimate to include in plots like `plot_posterior` or "
+"`plot_density`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:380002
+#: 0a6497c20f31495c91cedfa88b68a3bc
+msgid "Bokeh"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:390002
+#: 6416cf1448c944cfb69e9e8a4e542be6
+msgid ""
+"**plot.bokeh.bounds_x_range**, **plot.bokeh.bounds_y_range** : *auto, "
+"None or tuple of (float, float), default auto*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:400002
+#: a779e25c0397470fb6dda7df7dd664cc
+msgid "**plot.bokeh.figure.dpi** : *int, default 60*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:410002
+#: 9f6c4e10cfae443e93b12318533607db
+msgid ""
+"**plot.bokeh.figure.height**, **plot.bokeh.figure.width** : *int, default"
+" 500*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:420002
+#: 6eddcd15e2b14bf78f0627333517a8ec
+msgid "**plot.bokeh.layout.order** : *str, default default*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:420004
+#: ad45c7e802064a72836200925d1d8d39
+msgid ""
+"Select subplot structure for bokeh. One of `default`, `column`, `row`, "
+"`square`, `square_trimmed` or `Ncolumn` (`Nrow`) where N is an integer "
+"number of columns (rows), here is one example to generate a subplot grid "
+"with 2 columns and the necessary rows to fit all variables."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:440002
+#: bdb6dafcb5ba478aa8c583dadcc395ee
+msgid ""
+"**plot.bokeh.layout.sizing_mode** : *{fixed, stretch_width, "
+"stretch_height, stretch_both, scale_width, scale_height, scale_both}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:450002
+#: a5a1fe5ab0fa4b5db816c6b0a91b4a2a
+msgid ""
+"**plot.bokeh.layout.toolbar_location** : *{above, below, left, right, "
+"None}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:450004
+#: 8f96e671661f4af3be55fdb3f7c9792a
+msgid "Location for toolbar on bokeh layouts. `None` will hide the toolbar."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:460002
+#: ac1559dc77da422a818728dab3681fdd
+msgid "**plot.bokeh.marker** : *str, default Cross*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:460004
+#: 2e0237fe16c246749dd961bd183de4dc
+msgid ""
+"Default marker for bokeh plots. See [bokeh reference on "
+"markers](https://docs.bokeh.org/en/latest/docs/reference/models/markers.html)"
+" for more details."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:470002
+#: 5c3fbd712a7446ec8c4e229d900905b8
+msgid "**plot.bokeh.output_backend** : *{webgl, canvas, svg}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:480002
+#: 287bd9f6296e4a8da44dabe77082f040
+msgid "**plot.bokeh.show** : *bool, default True*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:480004
+#: 4806d810c05a437cbff7bed1bea6d057
+msgid "Show bokeh plot before returning in ArviZ function."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:490002
+#: 330ec86536824a7480342ad82fbd915e
+msgid ""
+"**plot.bokeh.tools** : *str, default "
+"reset,pan,box_zoom,wheel_zoom,lasso_select,undo,save,hove*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:490004
+#: b7b3dc3a5ce045858cf6b24c86d0e4cc
+msgid ""
+"Default tools in bokeh plots. More details on [Configuring Plot Tools "
+"docs](https://docs.bokeh.org/en/latest/docs/user_guide/tools.html)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:500002
+#: 0fe004d58298409186336eab6553cea8
+msgid "Matplotlib"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:500003
+#: 99f225ec86be4757a1ea2abe96579d27
+msgid ""
+"Matplotlib already has its own "
+"[`rcParams`](https://matplotlib.org/3.2.1/tutorials/introductory/customizing.html#a"
+"-sample-matplotlibrc-file), which are actually the inspiration for ArviZ "
+"rcParams. Therefore, this section is minimalistic."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:510002
+#: 2065bb66a9034b3a881c7bf0d938965b
+msgid "**plot.matplotlib.show** : *bool, default False*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:510004
+#: 1c6e17bd07954fe0921243573e9ee145
+msgid ""
+"Call `plt.show` from within ArviZ plotting functions. This generally "
+"makes no difference in jupyter like environments, but it can be useful "
+"for instance in the IPython terminal when we don't want to customize the "
+"plots genereted by ArviZ by changing titles or labels."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:530002
+#: 9b4a998ca116464f8f30d7103479cc64
+msgid "Stats"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:540002
+#: d0086d779b6940fb8fb4699f177e653f
+msgid "**stats.hdi_prob** : *float*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:540004
+#: 9bc4a9f0c0b84295a6ed8d49e60cd69a
+msgid "Default probability of the calculated HDI intervals."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:540007
+#: 3649488f6b2d4ad78750305c6784932c
+msgid ""
+"This probability is completely arbitrary. ArviZ using 0.94 instead of the"
+" more common 0.95 aims to emphasize this arbitrary choice."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:550002
+#: ec08219b78f9433ebfee12a78922f324
+msgid "**stats.information_criterion** : *{loo, waic}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:550004
+#: 29d577de34d74cfd874630c095f73baa
+msgid "Default information criterion used by `compare` and `plot_elpd`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:560002
+#: 58cddb8e85e0412e82eeb727fcd92987
+msgid "**stats.ic_pointwise** : *bool, default False*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:560004
+#: 13a0ba28904945e39e12183cbde116e3
+msgid ""
+"Return pointwise values when calling `loo` or `waic`. Pointwise values "
+"are an intermediate result and therefore setting `ic_pointwise` to true "
+"does not require extra computation."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:570002
+#: 0ed9ca2d01294cbf8f435dfa71a2ea45
+msgid "**stats.ic_scale** : *{log, deviance, negative_log}*"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:570004
+#: df96eeeff831404e85e106eea45d8ba8
+msgid ""
+"Default information criterion scale. See docs on [`loo`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.loo.html#arviz.loo) or "
+"[`waic`](https://arviz-"
+"devs.github.io/arviz/generated/arviz.waic.html#arviz.waic) for more "
+"detail."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:590003
+#: b31d52f4adbb4331b5e5e67560316413
+msgid ""
+"Is there any extra rcParam you'd like to see in ArviZ? Check out [arviz-"
+"devs/arviz#792](https://github.com/arviz-devs/arviz/issues/792), it's "
+"more than possible you'll be able to add it yourself!"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:600002
+#: 7dd23de0c1124b6f80d66c9fd6ccedb8
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2020/rcParams.ipynb:620003
+#: 7df7064351e749a98db5683459029d28
+msgid ""
+"Comments are not enabled for the blog, to inquiry further about the "
+"contents of the post, ask on [ArviZ Issues](https://github.com/arviz-"
+"devs/arviz/issues)."
+msgstr ""
+

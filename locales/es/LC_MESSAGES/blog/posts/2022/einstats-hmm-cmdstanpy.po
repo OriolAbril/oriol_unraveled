@@ -1,0 +1,381 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, Oriol Abril Pla
+# This file is distributed under the same license as the Oriol unraveled
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Oriol unraveled \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-08 15:50+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:10003
+#: 1e96c479af6047ac80a570310f218bc2
+msgid "CmdStanPy and ArviZ integration"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:20002
+#: 58a435c01df54712bd536acf5504c7b3
+msgid ""
+"This blog post is an adaptation of the [Tagging Basketball Events with "
+"HMM in Stan](https://mc-stan.org/users/documentation/case-studies/bball-"
+"hmm.html) case study. It will not cover any new topics or analysis and "
+"assumes you have at least skimmed the original case study."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:20004
+#: df799e9b49ef4f4aa6eb00e834ded27a
+msgid ""
+"So what is this post about? I will use cmdstanpy+ArviZ integration to "
+"show the potential of using labeled arrays when doing exploratory "
+"analysis of Bayesian models. I will use [xarray](https://xarray.dev/)'s "
+"automatic broadcasting and alignment of arrays and the `stats` module of "
+"[xarray-einstats](https://einstats.python.arviz.org) for posterior "
+"predictive sampling."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:20006
+#: 4e28b86c90f545cbaf50d23cb651b68a
+msgid ""
+"Each section maps to an example on the original case study: simple HMM "
+"example, tagging drive events and defensive assignment. All sections "
+"follow the same structure."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:20008
+#: e50dbcc40014404d9af2728f2e3c085c
+msgid ""
+"The beginning is as concise as possible to avoid duplication: the data "
+"needed for the model is read, the model is compiled and sampled. If you "
+"are interested you'll be able to read the stan code of the model clicking"
+" on the \"Show Output\" buttons. We then move to the target of this blog "
+"post: conversion of the cmdstanpy fit to ArviZ `InferenceData` and "
+"postprocessing with [xarray](https://xarray.dev/) and [xarray-"
+"einstats](https://einstats.python.arviz.org)."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:50002
+#: 35056de45eb5410e86f3e27b4f0779c8
+msgid "Simple HMM example"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:50003
+#: befda0bc941d43f9abe9b825aed7c1c2
+msgid ""
+"Link to [this same section](https://mc-stan.org/users/documentation/case-"
+"studies/bball-hmm.html#simple-hmm-example) in the original Stan case "
+"study."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:70002
+#: 6dee59158aa548fc8c37e70fbdbb73ff
+msgid "Click the button below to see the Stan code:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:110002
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:320002
+#: 26aadab0cfe84d65a408779689ffb3df 73612cd265bd43a796ee70f0aeee727c
+msgid "Conversion to `InferenceData`"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:110003
+#: 8f379b62112742b5aeac9b5d34507963
+msgid ""
+"To convert a CmdStanPy fit to `InferenceData`, only the `CmdStanMCMC` "
+"object is needed. However, to make the most out of ArviZ and xarray "
+"features, the dimensions of each variable should also be provided."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:110005
+#: 1fd1d1b9a88b4cce9e8bb6740a167d89
+msgid ""
+"Optionally, you can also give coordinate values to some of the "
+"dimensions. The dimensions without coordinate values provided are "
+"initialized with integers starting from 0 as their coordinate values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:110007
+#: ace4143e20944b8aaba1b5791d9740a7
+msgid ""
+"Dimensions are provided as a dictionary whose keys are variable names and"
+" whose values are a list with the dimension names."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:110009
+#: 2ce660f2f28044f7b55bb1d2312ddca4
+msgid ""
+"Coordinates are provided as a dictionary whose keys are now dimension "
+"names, and whose values are coordinate values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:130002
+#: d0a1373d183e42dd989285cf69287fc0
+msgid ""
+"We have now created an `InferenceData` object with two groups, the "
+"`posterior` (shown below) contains all posterior samples, and the "
+"`sample_stats` one contains sampler information like the log probability,"
+" which samples are divergent or the treedepth."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:130004
+#: d74840d8f8ee46a588d143aec97db07d
+msgid ""
+"Each group is an [xarray.Dataset](https://docs.xarray.dev/en/stable/user-"
+"guide/data-structures.html#dataset). As you can see, `Dataset`s have "
+"dimensions, coordinates, data variables and attributes. When printed "
+"(either as text or as html repr) each element has its own section with "
+"the relevant information."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:130006
+#: 986282d57e0b49e09934f7c860ef01fd
+msgid ""
+"The dimensions section lists all the dimensions and their lenghts. There "
+"we can quickly see that we have 2 states, and have sampled 1000 draws in "
+"4 independent chains..."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:130008
+#: f89572b6718445148d7bda3de2358c38
+msgid ""
+"The coordinates section lists information in the following order: "
+"coordinate name, dimension name, type of coordinate values and coordinate"
+" values. Moreover, in the beginning there can be an `*` which indicates "
+"it is an indexing coordinate. With indexing coordinates, you can use "
+"`.sel` method on either `InferenceData` or `Dataset` to select a subset "
+"of the data using coordinate values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:130010
+#: 20f6f5d5463b43e5b62c2890f851925f
+msgid ""
+"The data variables lists: variables name, dimensions, type and values. "
+"Each variable, stored as a `DataArray` object, is independent of the "
+"others. They can have any of the dimensions of the `Dataset` and in any "
+"order."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:130012
+#: a87abcdb392f4fcc81e986b8dc7f9afa
+msgid ""
+"The attributes section lists `Dataset` level attributes. By default, "
+"ArviZ adds some attributes to give an idea of how the data was generated."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:150002
+#: a8731db578c547a898263f2321ebcefd
+msgid "Diagnostics"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:150003
+#: 069fd55cd07e423198e89a394f82975e
+msgid ""
+"`arviz.summary` gives an overview of the fit with both summary statistics"
+" and diagnostics."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:170002
+#: c0ba8689633a4b70a39feb1b3c4dbd31
+msgid ""
+"We can customize the appearance of the summary with the `labeller` "
+"argument. The `arviz.labels` module includes some common labeller "
+"classes. The default is showing only variable name and coordinate values."
+" We will now use the `DimCoordLabeller` to show also the dimension name:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:190002
+#: e4552df5a82544f9aa9210feb3e02a0d
+msgid ""
+"Further guidance on sorting and customizing ArviZ labels can be found in "
+"the [ArviZ label "
+"guide](https://python.arviz.org/en/latest/user_guide/label_guide.html)"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:200002
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:340002
+#: 70c2e3f520cd49a09e5b1a553c5bd348 72a5f443420447a49a12dfd7e52c3450
+msgid "Posterior predictive sampling"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:200003
+#: ea61113de84e48cfaeb34134cffe9bb6
+msgid ""
+"Following the case study, we will perform posterior predictive sampling "
+"in Python instead of in the `generated_quantities` block of Stan. We will"
+" use [xarray-einstats](https://einstats.python.arviz.org/en/latest/) to "
+"generate the random samples from xarray objects."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:220002
+#: 8f04fbb290c74ba78f9c8fe2bde932cc
+msgid ""
+"When we do `.sel(state=DataArray)` we are telling xarray to use the "
+"values in the provided `DataArray` as labels with which to index the "
+"`state` dimension. xarray takes care of aligning and broadcasting the "
+"dimensions for the indexing to work and generates the desired 3d array "
+"with chain, draw and time dimensions."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:220004
+#: 50e14fc79dfe4639b15e7597fc777877
+msgid ""
+"With the means that correspond to each posterior predictive sample, we "
+"need to generate random draws from a normal with mean `mu` and standard "
+"deviation `1`.  xarray-einstats provides the "
+"[XrContinuousRV](https://einstats.python.arviz.org/en/latest/tutorials/stats_tutorial.html"
+"#probability-distributions) class to wrap SciPy distributions and have "
+"them take `DataArray`s as inputs."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:220007
+#: 40efd0a39129428e91d6e0091b54da03
+msgid ""
+"We can then generate the distribution and generate the random samples "
+"with the `rvs` method like we would do with SciPy. The `to_dataset` "
+"method is called so we can then add the data as a new group to our "
+"`InferenceData`."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:240002
+#: 5171d66cc09c4b9a9c3b77d6b38fe1e8
+msgid ""
+"Before plotting we will use the "
+"[extract_dataset](https://python.arviz.org/en/latest/api/generated/arviz.extract_dataset.html)"
+" function to get a random subset of 100 samples. Plotting the 4000 "
+"samples we have available would be excessive and not add any information "
+"to the plot."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:260002
+#: 069e7e5d78bc4c8f843c60cc8ab406fa
+msgid "Tagging Drive Events"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:260003
+#: d163442ec1174602b619320f12f5228a
+msgid ""
+"Link to [this same section](https://mc-stan.org/users/documentation/case-"
+"studies/bball-hmm.html#tagging-drive-events) in the original Stan case "
+"study."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:320003
+#: 915ef170a80a4fecad3bbe3fc1f038a5
+msgid ""
+"In this example we also use the `observed_data` argument to add some data"
+" to the `observed_data` group. This can be useful to have the "
+"observations also as xarray objects and ease postprocessing operations, "
+"or to share the model and InferenceData file for collaborators to "
+"reproduce the fit or work with the results directly."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:340003
+#: 2565da846f0144788e42061c6d972a4a
+msgid ""
+"We use again the same functions as before, with only a small difference, "
+"we now use `.sel` on a `Dataset` with the two variables of interest "
+"instead of a `DataArray`. As you can see, everything works the same."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:360002
+#: b928fbf2b4e64eb48db151fa3f6b0f76
+msgid ""
+"We end reproducing the plot in the original case study to show that the "
+"posterior predictive samples do indeed look the same."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:380002
+#: 79620beb3e5b4ccab89a5710385577e8
+msgid "Defensive assignment"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:380003
+#: 5bad1337cb004e638553a525636d6e29
+msgid ""
+"Link to [this same section](https://mc-stan.org/users/documentation/case-"
+"studies/bball-hmm.html#defensive-assignment) in the original Stan case "
+"study."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:430002
+#: 05302afacde74cf298441769eea1cd4d
+msgid ""
+"In this example we already have the data as an xarray object, so we won't"
+" use the `observed_data` group. If you still wanted to include it, it "
+"might be easier to use `.add_groups` with the already existing `Dataset` "
+"like we did with the posterior predictive samples."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:470002
+#: 00454910aa80450ba70b64c9fe5e3050
+msgid ""
+"Here I have chosen `param` as dimension name for `lambda` because each "
+"component multiplies a different provided variable, and used `o, h, b` as"
+" coordinate names to match the variable names in the data block, but they"
+" could be `offensive player, hoop, ball` as well, there is no need to "
+"restrict oneself to one character coordinate values."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:500002
+#: 5c86d09a26a04a2b83ef359a9c604d18
+msgid ""
+"Note that `mu0b` is now a 5d array. Thanks to xarray automatic alignment "
+"and broadcasting capabilities we have calculated its values for all "
+"players, all time steps and all samples at once:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:520002
+#: 0f9e656c796446929d043cd15385d148
+msgid ""
+"This doesn't make any difference in this case, because we are multiplying"
+" the components of `lambda` by quantities that are not random variables, "
+"so we will get the same result averaging on `lambda` before operating or "
+"averaging on `mu` after operating."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:520004
+#: 1f61dd9aae2d47e18736de479a80b5d6
+msgid ""
+"However, in many cases we need to operate with all the draws of each "
+"random variable. xarray makes it straightforward to work with all the "
+"samples and average only once we have the quantity of interest."
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:530002
+#: 471d5ba5f96e43bd930902a6a41e7f3e
+msgid "Further reading"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:530003
+#: 88e0a787bb554dfd9efa223a51cfde45
+msgid ""
+"[Working with "
+"InferenceData](https://python.arviz.org/en/latest/getting_started/WorkingWithInferenceData.html)"
+" page in the ArviZ docs"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:540002
+#: 91149db748f84067a47033dbd2ecaf82
+msgid "Package versions used to generate this post:"
+msgstr ""
+
+#: ../sphinx_source/blog/posts/2022/einstats-hmm-cmdstanpy.ipynb:560003
+#: 8a33e5e057e24c598b3e85793622de7c
+msgid ""
+"Comments are not enabled for this post, to inquiry further about the "
+"contents of the post, ask on [Stan Discourse](https://discourse.mc-"
+"stan.org/). Feel free to tag me at [@OriolAbril](https://discourse.mc-"
+"stan.org/u/oriolabril/summary)"
+msgstr ""
+

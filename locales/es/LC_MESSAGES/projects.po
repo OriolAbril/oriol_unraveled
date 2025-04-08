@@ -2,7 +2,7 @@
 # Copyright (C) 2019, Oriol Abril Pla
 # This file is distributed under the same license as the Oriol unraveled
 # package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
@@ -12,7 +12,9 @@ msgstr ""
 "POT-Creation-Date: 2025-04-08 19:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,20 +22,17 @@ msgstr ""
 
 #: ../sphinx_source/projects.md:2 29de8da662684afcbcc45b6435bb58b2
 msgid "Projects"
-msgstr "Projectes"
+msgstr ""
 
 #: ../sphinx_source/projects.md:3 c5430871ee4f4922b83ae045ad83f2fa
 msgid ""
 "This page describes my ongoing projects and collaborations, for past "
 "work, talks and publications, see {ref}`about_me`."
 msgstr ""
-"Aquesta pàgina descriu els meus projectes i col·laboracions actives, per "
-"consultar la meva trajectoria professional i acadèmica o les meves "
-"xerrades i publicacions vegeu {ref}`about_me`."
 
 #: ../sphinx_source/projects.md:6 94f6ef79c87a42649f2375eaff15e2f8
 msgid "Open source community projects"
-msgstr "Programari lliure liderat per la comunitat"
+msgstr ""
 
 #: ../sphinx_source/projects.md:8 a47a9135a0e24acdaad4662af911f84b
 msgid "ArviZ"
@@ -47,12 +46,6 @@ msgid ""
 "diagnostics, model comparison, summary statistics or model checking. "
 "ArviZ maintains several libraries in Python and Julia."
 msgstr ""
-"El {doc}`projecte ArviZ <arviz_org:index>` proveeix einex per a fer "
-"anàlisi exploratòria de models Bayesians que no depenen de les llibreries"
-" d'inferencia ni dels llenguatges de programació usats. Això inclou "
-"visualització, diagnostics de mostreig, comparació de models, resums "
-"estadístics o verificació de models. ArviZ manté varies llibreries en "
-"Python i Julia."
 
 #: ../sphinx_source/projects.md:18 0c3e94b7ebff49019d2087f8fe36b658
 msgid ""
@@ -60,10 +53,6 @@ msgid ""
 " am contribute to multiple libraries maintained by ArviZ and I am "
 "involved with other project initiatives such as grants."
 msgstr ""
-"Actualment soc col·laborador principal i membre del consell d'ArviZ. Com "
-"a tal, contribueixo en multiples de les llibreries mantingudes per ArviZ "
-"i participo d'altres iniciatives en el si del projecte com per exemple "
-"beques i subvencions."
 
 #: ../sphinx_source/projects.md:22 1616fd362c63423b92b092232bc5985a
 msgid ""
@@ -73,15 +62,10 @@ msgid ""
 "more deeply involved with some of the libraries and initiatives of the "
 "project:"
 msgstr ""
-"A nivell global de projecte, ajudo a mantenir la web a "
-"{doc}`www.arviz.org <arviz_org:index>`, a coordinar reunions internes, "
-"escriure propostes de beca, comprovar que complim amb la governança del "
-"projecte... A més, també em dedico amb més detall a algunes de les "
-"llibreries i iniciatives del projecte:"
 
 #: ../sphinx_source/projects.md:27 c8e383fa11f8419fb010d03c0231a7e6
 msgid "ArviZ Python library"
-msgstr "La llibreria ArviZ de Python"
+msgstr ""
 
 #: ../sphinx_source/projects.md:28 4e0e8c715fa441cfb42e39cd026ac09f
 msgid ""
@@ -91,15 +75,10 @@ msgid ""
 " or reviewing PRs, as well as mentoring and helping other contributors "
 "work on issues and submit PRs."
 msgstr ""
-"Soc un dels mantenidors i dels principals [contribuïdors]() de la "
-"llibreria ArviZ de Python. Contribueixo en la majoria de facetes del "
-"repositori, triatge, codi, documentació o revisió de PRs, així com "
-"mentoria i suport a altres contribuïdors que treballen en els seus propis"
-" informes i PRs."
 
 #: ../sphinx_source/projects.md:32 d8d6b37f14304a4eb0ff7e93d4fc1ecd
 msgid "I am also involved with the ongoing refactor of the library."
-msgstr "També treballo en l'esforç de refacció de la llibreria."
+msgstr ""
 
 #: ../sphinx_source/projects.md:34 37845504669544a0a9cc5836ceceaf80
 msgid "xarray-einstats"
@@ -111,10 +90,6 @@ msgid ""
 "externalize and package many tricks on executing NumPy/Scipy/Dask "
 "functions on xarray objects."
 msgstr ""
-"Vaig crear aquesta [petita llibreria](https://einstats.python.arviz.org) "
-"per a externalitzar i empaquetar la col·lecció de trucs que he anat "
-"recopilant i desenvolupant sobre com utilitzar NumPy/SciPy/Dask en "
-"objectes d'xarray."
 
 #: ../sphinx_source/projects.md:38 9f949dbad7714857915340c2ded95c3c
 msgid ""
@@ -122,10 +97,6 @@ msgid ""
 "statistics for circular variables, and it might be used more extensively "
 "to allow a better integration of ArviZ stats and diagnostics with xarray."
 msgstr ""
-"A dia d'avui, ArviZ en depèn per tal de per exemple facilitar l'ús de "
-"resums estadístics per a variables circulars, i es possible que el seu ús"
-" s'extengui per tal de millorar la integració dels diagnostics i resums "
-"estadístics d'ArviZ amb xarray."
 
 #: ../sphinx_source/projects.md:44 8396b51b865a4bc89f12b10db96b01a4
 msgid "PyMC"
@@ -147,15 +118,10 @@ msgid ""
 " try to focus much more on documentation and community efforts, coding "
 "much less than what I do at ArviZ."
 msgstr ""
-"Actualment sóc col·laborador principal de PyMC, havent-ne estat també "
-"membre del consell de direcció en el passat. Tal com faig a ArviZ, també "
-"contribueixo en multiples llibreries i iniciatives dins del projecte. Ara"
-" bé, dins de PyMC intento dedicar-me molt més en documentació i en la "
-"comunitat, de manera que programo molt menys del que faig a ArviZ."
 
 #: ../sphinx_source/projects.md:60 ed45b32ff0fb4324a2584fffa06dbb66
 msgid "PyMC example gallery"
-msgstr "La galeria d'exemples de PyMC"
+msgstr ""
 
 #: ../sphinx_source/projects.md:61 2cd44acf7b9f46be98b4afb1931ff153
 msgid ""
@@ -163,9 +129,6 @@ msgid ""
 "gallery](https://www.pymc.io/projects/examples/en/latest/gallery.html) "
 "(everything within the \"Examples\" navigation bar section)."
 msgstr ""
-"Soc un dels principals mantenidors i curadors de la [galeria d'exemples "
-"de PyMC](https://www.pymc.io/projects/examples/en/latest/gallery.html) "
-"(en anglès)."
 
 #: ../sphinx_source/projects.md:64 e0c62019785541358e8ef22490b22f1f
 msgid "PyMCon"
@@ -176,16 +139,12 @@ msgid ""
 "I am currently helping organize the [PyMCon "
 "Webseries](https://pymcon.com/) as an advisor."
 msgstr ""
-"Alhora també ajudo a la organització de la [_webseries_ "
-"PyMCon]((https://pymcon.com/) com a assessor."
 
 #: ../sphinx_source/projects.md:67 7e7c869d810d45dbbdb12cb3d0781a51
 msgid ""
 "I was also a Diversity Chair in [PyMCon 2020](https://pymc-"
 "devs.github.io/pymcon//)."
 msgstr ""
-"I també vaig ser _Diversity Chair_ de [PyMCon 2020](https://pymc-"
-"devs.github.io/pymcon//)."
 
 #: ../sphinx_source/projects.md:69 3f476c19fed54b00be50ed1695125443
 msgid "PyMC Discourse"
@@ -197,13 +156,10 @@ msgid ""
 "visualization, model comparison... on the [PyMC "
 "Discourse](https://discourse.pymc.io/)."
 msgstr ""
-"Per acabar, però no per això menys important, també intento respondre "
-"preguntes sobre PyMC, ArviZ, visualització, comparació de models... al "
-"fòrum de PyMC: [PyMC Discourse](https://discourse.pymc.io/)."
 
 #: ../sphinx_source/projects.md:75 c2e14cfbd85b46c5a6844ad13348e728
 msgid "Other"
-msgstr "Altres"
+msgstr ""
 
 #: ../sphinx_source/projects.md:76 4c4ef902fab346c79ded7970387fc8a1
 msgid ""
@@ -216,7 +172,7 @@ msgstr ""
 
 #: ../sphinx_source/projects.md:82 d225956ba951415dbc5d30aa08d5411c
 msgid "NumFOCUS DISC committee"
-msgstr "Comitè DISC de NumFOCUS"
+msgstr ""
 
 #: ../sphinx_source/projects.md:83 d5c4171f1c7a434e8fa3ebb0a5e7eb86
 msgid ""
@@ -231,15 +187,10 @@ msgid ""
 "unconference-2025-projects/en/intro.html) or the research on contributor "
 "diversification and retention."
 msgstr ""
-"Quan puc, faig de voluntari en iniciatives de {abbr}`EDIA (Equitat, Diversitat, Inclusió i Accessibilitat)` "
-"organitzades pel comitè {abbr}`DISC (Diversitat i Inclusió en Computació Científica)` de NumFOCUS. Alguns exemples son "
-"les _desconferències_ de [2023](https://numfocus.github.io/disc-unconference-2023-projects/en/intro.html) i "
-"de [2025](https://numfocus.github.io/disc-unconference-2025-projects/en/intro.html) "
-"o la recerca sobre diversificació i retenció de contribuïdors."
 
 #: ../sphinx_source/projects.md:89 48753b5240f9449291cfbd2f692c8e0d
 msgid "Scientific Python translations"
-msgstr "Traducción de Python Científic"
+msgstr ""
 
 #: ../sphinx_source/projects.md:90 ddf0c0b171084625b24631efd96d861e
 msgid ""
@@ -248,14 +199,10 @@ msgid ""
 "projects. Check out this [blog post](https://blog.scientific-python.org"
 "/scientific-python/translations/) if you are interested in this effort!"
 msgstr ""
-"De tant en tant, ajudo a traduir o a revisar les traduccions de les pàgines web dels "
-"projected de [Python Científic](https://scientific-python.org). "
-"Fes una ullada a aquest [blog](https://blog.scientific-python.org"
-"/scientific-python/translations/) (en anglès) si t'interessa el tema!"
 
 #: ../sphinx_source/projects.md:95 e8e3933d0492447dafcb1e165478267c
 msgid "Personal projects"
-msgstr "Projectes personals"
+msgstr ""
 
 #: ../sphinx_source/projects.md:97 7369371151f242eaa4fc30a93ce685e2
 msgid "Oriol Unraveled"
@@ -268,10 +215,6 @@ msgid ""
 "progress on my work, and I would like to post more regularly about both "
 "general work updates and tutorial or deep dive contents."
 msgstr ""
-"Ara mateix, el meu projecte personal principal és aquest blog que estàs llegit. "
-"He publicat articles esporàdicament sobre les llibreries a les que contribueixo i "
-"com progressa la feina, i m'agradaria fer publicacions de manera més regular "
-"tans sobre actualitzacions relacionades amb la feina com articles en profunditat sobre les llibreries."
 
 #: ../sphinx_source/projects.md:103 14a73faf1b85461e9ac71f38d1566642
 msgid "Sphinx primer"
@@ -324,123 +267,6 @@ msgid ""
 "other people, but I might consider it if there is interest and people "
 "willing to help improve and maintain it."
 msgstr ""
-
-#~ msgid "Page still in construction"
-#~ msgstr ""
-
-#~ msgid "CZI EOSS grant"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "I am currently acting as coordinator "
-#~ "for the ArviZ part of an Essential"
-#~ " Open Source Software (EOSS) grant "
-#~ "from the Chan Zuckerberg Initiative "
-#~ "(CZI): [Bayesian Open Source Software "
-#~ "for Biomedicine: Stan, ArviZ and "
-#~ "PyMC3](https://chanzuckerberg.com/eoss/proposals/bayesian-"
-#~ "open-source-software-for-biomedicine-"
-#~ "stan-arviz-and-pymc3/)."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Thanks to this grant, we have been"
-#~ " able to both book dedicated team "
-#~ "from team members and hire external "
-#~ "help to improve both Python and "
-#~ "Julia ArviZ libraries, improve the "
-#~ "documentation, explore refactoring avenues and"
-#~ " ease the maintenance cost."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The experiments I have uploaded to "
-#~ "[xrtist](https://xrtist.readthedocs.io/en/latest/), showcasing"
-#~ " potential refactorings of the plots "
-#~ "module in ArviZ are an example of"
-#~ " such work."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "I am core contributor and council "
-#~ "member of PyMC. Similarly to ArviZ, "
-#~ "I also contribute to multiple libraries"
-#~ " and initiatives within the project. "
-#~ "However, in PyMC I try to focus"
-#~ " much more on documentation and "
-#~ "community efforts, coding much less than"
-#~ " what I do at ArviZ."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "I started focusing on the example "
-#~ "gallery in 2020, when I coordinated "
-#~ "the participaiton of PyMC in both "
-#~ "[GSoD](https://developers.google.com/season-of-"
-#~ "docs/docs/2021/participants) and "
-#~ "[Outreachy](https://www.outreachy.org/). During 2020, "
-#~ "we defined the new look and "
-#~ "updated many notebooks to it together"
-#~ " with [Martina "
-#~ "Cantaro](https://linktr.ee/martinacantaro) and [Abhipsha"
-#~ " Das](https://chiral-carbon.github.io/)."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "And we have continued maintaining and"
-#~ " improving the example gallery within "
-#~ "the PyMC team since then."
-#~ msgstr ""
-
-#~ msgid "PyMC Data Umbrella working sessions"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "I also helped organize the [PyMC "
-#~ "Data Umbrella working sessions](https://pymc-"
-#~ "data-umbrella.xyz/en/latest). So far we "
-#~ "have organized two series of working "
-#~ "sessions in [Feb 2022](https://pymc-data-"
-#~ "umbrella.xyz/en/latest/2022-02_sprint/organizers/index.html) and"
-#~ " [July 2022](https://pymc-data-"
-#~ "umbrella.xyz/en/latest/2022-07_sprint/sprint_parties/organizers.html),"
-#~ " which have been quite successful and"
-#~ " helped several people join the PyMC"
-#~ " team."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We are currently working on translating"
-#~ " the sprint website! Join the efforts"
-#~ " on [transifex](https://explore.transifex.com/pymc/data-"
-#~ "umbrella-sprints-website/)!"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Last but not least, I also try "
-#~ "to answer questions about PyMC, ArviZ,"
-#~ " visualization, model comparison... at the"
-#~ " [PyMC Discourse](https://discourse.pymc.io/)."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "I also try to contribute to other"
-#~ " libraries, specially within the PyData "
-#~ "ecosystem. I have made some issues "
-#~ "and PRs to matplotlib, pydata-sphinx-"
-#~ "theme or numpydoc, and try to "
-#~ "follow xarray particularly closely to "
-#~ "see which ArviZ developments could be"
-#~ " upstreamed to xarray."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "It is an extension on top of "
-#~ "the [PyData-Sphinx-Theme](https://pydata-"
-#~ "sphinx-theme.readthedocs.io/en/stable/) inspired on "
-#~ "the [Massively theme](https://html5up.net/massively) "
-#~ "by HTML5Up."
-#~ msgstr ""
 
 #~ msgid ""
 #~ "I volunteer for {abbr}`EDIA (Equity, "

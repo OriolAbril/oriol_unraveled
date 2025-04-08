@@ -2,7 +2,7 @@
 # Copyright (C) 2019, Oriol Abril Pla
 # This file is distributed under the same license as the Oriol unraveled
 # package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 #, fuzzy
 msgid ""
@@ -12,7 +12,9 @@ msgstr ""
 "POT-Creation-Date: 2025-04-08 15:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,11 +22,11 @@ msgstr ""
 
 #: ../sphinx_source/index.md:9
 msgid "Tags"
-msgstr "Etiquetes"
+msgstr "Etiquetas"
 
 #: ../sphinx_source/index.md:9
 msgid "Categories"
-msgstr "Categories"
+msgstr "Categorías"
 
 #: ../sphinx_source/index.md:7 0c89f4476e4b42eda966f6f91a9be423
 msgid "Oriol unraveled"
@@ -41,48 +43,47 @@ msgid ""
 "and programming, allowing me to \"xerrar pels descosits\" in blog "
 "version."
 msgstr ""
-"En català tenim l'espressió \"Xerrar pels descosits\". En anglès, el verb"
-" \"unravel\" te dues accepcions: \"desfilar\" o \"fer planer, lliure de "
-"dificultats\". He escollit el participi \"unraveled\" pel nom del blog "
-"perquè tot i que normalment no parlo massa, quan es tracta de parlar "
-"d'estadística o programació acabo parlant massa. Espero que aquest blog "
-"pugui ser un lloc on poder \"desfilar\" i aclarir conceptes relacionats "
-"amb l'estadística i el programari lliure, un lloc on poder xerrar pels "
-"descosits en versió blog."
+"En catalàn tenemos un dicho muy conocido "\Xerrar pels descosits\". "
+"Significa que alguien habla demasiado; vendría a ser \"Hablar por los codos\". "
+"\"xerrar\" significa hablar, y \"descosit\" es un descosido o jirón. "
+"Al mismo tiempo, en inglès el verbo \"unravel\" tiene dos acepciones: \"desilachar\" "
+"o \"hacer fácil, libre de dificultad\". Elegí el participio \"unraveled\" ya que "
+"si bien no suelo hablar demasiado, cuando se trata de hablar de estadística o "
+"programación a menudo termino hablando demasiado. Espero que este blog pueda ser un sitio "
+"donde \"deshilachar\" y esclarecer conceptos relacionados con la estadística y el "
+"programario libre, un sitio donde poder hablar por los codos en versión blog."
 
 #: ../sphinx_source/index.md:23 86389c9830724504a751e9662752069b
 msgid "Get ready for some puns and let's dive in!"
 msgstr ""
-"Prepareu-vos per uns quants jocs de paraules i aprofundim en el "
-"programari lliure i l'estadística!"
+"Prepararos para algunos juegos de palabras y vamos a ahondar en el programario libre "
+"y la estadística!"
 
 #: ../sphinx_source/index.md:27 f9bb82b9ee634bc3b0683e8f0df173f4
 msgid ""
 "![A picture of me diving towards the sea bed while "
 "snorkeling.](images/theme_image.png)"
 msgstr ""
-"![Una fotografia meva capbussant-me cap al fons "
-"marí.](images/theme_image.png)"
+"![Una foto mia submergiendome hacia el fondo del mar usando tubo de buceo.](images/theme_image.png)"
 
 #: ../sphinx_source/index.md:27 388f9a31027f4ce98a28e4f19135c9a7
 msgid "A picture of me diving towards the sea bed while snorkeling."
-msgstr "Una fotografia meva capbussant-me cap al fons marí."
+msgstr ""
+"Una foto mia submergiendome hacia el fondo del mar usando tubo de buceo."
 
 #: ../sphinx_source/index.md:30 dd330cdf14d64b50b561c3ce20c69a3d
 msgid "Projects"
-msgstr "Projectes"
+msgstr "Proyectos"
 
 #: ../sphinx_source/index.md:31 d039629363474f3bb3036a10bcd8e4ce
-#, fuzzy
 msgid ""
 "Most of my current work is related to two community-driven open source "
 "libraries: ArviZ and PyMC. They are both related to Bayesian modelling, "
 "but have different and complementary goals."
 msgstr ""
-"La majoria de la meva feina actual està relacionada amb dues llibreries "
-"de programari lliure liderades per la comunitat: ArviZ i PyMC. Ambues són"
-" de modelització Bayesiana, però tenen missions diferents i "
-"complementàries."
+"El grueso de my trabajo actual está relacionado con dos librerías de "
+"programario libre lideradas por la comunidad: ArviZ y PyMC. "
+"Ambas tratan de modelización Bayesiana, pero tienen misiones distintas y complementarias."
 
 #: ../sphinx_source/index.md:39 9abaa069414f4e2bb0d98db92568495c
 msgid "{doc}`ArviZ <arviz_org:index>`"
@@ -94,9 +95,9 @@ msgid ""
 "Models that do not depend on the inference library nor the programming "
 "language used."
 msgstr ""
-"El projecte ArviZ proveeix eines per a fer anàlisi exploratòria de models"
-" Bayesians que no depenen de les llibreries d'inferència ni dels "
-"llenguatges de programació usats."
+"El proyecto ArviZ provee al usuario de herramientas para el análisi exploratorio "
+"de modelos Bayesianos que no dependen de las librerías de inferencia ni de los "
+"lenguajes de programación usados."
 
 #: ../sphinx_source/index.md:44 8329f3592b7648e090b1ea2e33e69b59
 msgid ""
@@ -104,25 +105,24 @@ msgid ""
 "summary statistics or model checking. The ArviZ project maintains several"
 " libraries in Python and Julia."
 msgstr ""
-"Això inclou visualització, diagnostics de mostreig, comparació de models,"
-" resums estadístics o verificació de models. El projecte ArviZ manté "
-"varies llibreries en Python i Julia."
+"Eso incluye visualización, diagnosticos de mostreo, comparación de modelos, "
+"resumenes estadísticos o verificación de modelos. El proyecto ArviZ mantiene "
+"varias librerías en Python y Julia."
 
 #: ../sphinx_source/index.md:48 7541b6496ef8437fbc1e437b8c0a33e9
 msgid "{doc}`PyMC <pymc_io:index>`"
 msgstr ""
 
 #: ../sphinx_source/index.md:51 90f8b60e557f43ff8fc3c5d2327f2495
-#, fuzzy
 msgid ""
 "PyMC is a project for probabilistic programming in Python. PyMC strives "
 "to make Bayesian modelling as simple and painless as possible, allowing "
 "users to focus on their problem rather than the methods."
 msgstr ""
-"PyMC és un projecte de programació probabilistica en Python. PyMC aspira "
-"a fer la modelització Bayesiana tan simple i agradable com sigui "
-"possible, permetent que els usuaris se centrin en els seus problemes "
-"reals enlloc dels mètodes necessaris per resoldre'ls."
+"El proyecto PyMC es un proyecto de programación probabilistica en Python. "
+"PyMC aspira a hacer la modelización Bayesiana tan simple y agradable como sea posible, "
+"permitiendo que los usuarios se centren en sus problemas reales en lugar de los "
+"métodos necesarios para resolverlos."
 
 #: ../sphinx_source/index.md:53 21d2a5196be74c6290e84d09c476ab81
 msgid ""
@@ -131,22 +131,19 @@ msgid ""
 "complement the PyMC library. Moreover, it also organizes many activities "
 "such as [PyMCon](https://pymcon.com/)."
 msgstr ""
-"El projecte PyMC manté la llibreria PyMC, la llibreria referent del "
-"projecte, juntament amb una extensa documentació i altres llibreries més"
-" petites que complementen la llibreria PyMC. A més, també organitza "
-"activitats com ara [PyMCon](https://pymcon.com/)."
+"El proyecto PyMC mantiene la librería PyMC, el referente del proyecto, junto "
+"con una extensa documentación y otras librerías más pequeñas que complementan "
+"la librería PyMC. Además, también organiza actividades como [PyMCon](https://pymcon.com)."
 
 #: ../sphinx_source/index.md:58 bbb159bde1714df4ac3ace54b510edcf
 msgid ""
 "See the {ref}`projects` page for a complete list of the projects I am "
 "involved in."
 msgstr ""
-"Consulteu a la pàgina de {ref}`projects` la llista completa dels "
-"projectes en els que treballo."
 
 #: ../sphinx_source/index.md:60 23319f816a88412db43ed5381971055c
 msgid "Support me"
-msgstr "Dona'm suport"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:11 d10cba5c57454dc9a594cc1f9ad90565
 msgid "Ko-Fi"
@@ -154,17 +151,17 @@ msgstr ""
 
 #: ../sphinx_source/partials/donations.md:14 cf270655cece4cb982e05716b5e4d7ed
 msgid "Flexible donations, one time or recurrent"
-msgstr "Donacions flexibles, puntuals o recurrents"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:15
 #: ../sphinx_source/partials/donations.md:28 264ff44c1de243cd8da38a7bd249a126
 #: a540f05de5dc42ad989910028d2b69bb
 msgid "Account required"
-msgstr "Cal inscriure's"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:16 9e521a0fe73a447fac478133c4fc79d4
 msgid "Debit or credit card, PayPal or Stripe available"
-msgstr "Accepta targetes de dèbit o crèdit, PayPal o Stripe"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:24 f42093fee69140c0bd1e35b724c9bb73
 msgid "LiberaPay"
@@ -172,13 +169,11 @@ msgstr ""
 
 #: ../sphinx_source/partials/donations.md:27 527ecd9863f2485a85e11cb49c95461e
 msgid "Recurrent donations only"
-msgstr "Només donacions recurrents"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:29 e3f3b23095a64efd813fcc14ffe1ef2d
 msgid "Debit or credit card, PayPal or EURO bank transfer available"
 msgstr ""
-"Accepta targeta de dèbit o crèdit, PayPal o transferències bancàries en "
-"EURO"
 
 #: ../sphinx_source/partials/donations.md:37 0af7f514af5640da9d51b65a2d86edc6
 msgid "Buy Me a Coffee"
@@ -186,97 +181,17 @@ msgstr ""
 
 #: ../sphinx_source/partials/donations.md:40 6196c186f25d4e029d12eb46e01cb05b
 msgid "One time donations only (at least for now)"
-msgstr "Només donacions puntuals"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:41 0bac00d32b1b4fe0b8a7204fc416a14c
 msgid "No account required"
-msgstr "No cal inscriure's"
+msgstr ""
 
 #: ../sphinx_source/partials/donations.md:42 33dae999370d4c578329652247746e7b
 msgid "Debit or credit card"
-msgstr "Targeta de dèbit o crèdit"
+msgstr ""
 
 #: ../sphinx_source/index.md:65 b588590e19334917bfd858ffac74ec78
-#, fuzzy
 msgid "See the {ref}`support_me` section for more ways to support my work."
 msgstr ""
-"La secció {ref}`support_me` conté encara més detalls sobre com ajudar a "
-"finançar la meva feina."
-
-#~ msgid ""
-#~ "I will give an [online "
-#~ "webinar](https://www.meetup.com/data-umbrella/events/289308615/)"
-#~ " with [Data Umbrella](https://www.dataumbrella.org/)"
-#~ " on how to contribute to ArviZ "
-#~ "and to open source in general."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "I will participate to [PyData "
-#~ "Global](https://global2022.pydata.org) hosting a "
-#~ "working session on [interoperability within"
-#~ " the Python Bayesian "
-#~ "ecosystem](https://global2022.pydata.org/cfp/talk/BNUAL8/)."
-#~ msgstr ""
-
-#~ msgid "News"
-#~ msgstr "Notícies"
-
-#~ msgid ""
-#~ "I will participate in a discussion "
-#~ "about Google Summer of Code organized"
-#~ " by [Data Umbrella](https://www.dataumbrella.org/). "
-#~ "Together with other GSoC participants, "
-#~ "we'll share our experiences applying and"
-#~ " participating to the project."
-#~ msgstr ""
-#~ "Participaré en una taula rodona sobre"
-#~ " Google Summer of Code (GSoC) "
-#~ "organitzada per [Data "
-#~ "Umbrella](https://www.dataumbrella.org/). Jo i "
-#~ "altres participants al GSoC parlarem de"
-#~ " la nostra experiència al inscriure'ns "
-#~ "i participar en aquest projecte."
-
-#~ msgid ""
-#~ "You can register on "
-#~ "[MeetUp](https://www.meetup.com/data-"
-#~ "umbrella/events/290346752/)."
-#~ msgstr ""
-#~ "Us podeu registrar a "
-#~ "[MeetUp](https://www.meetup.com/data-umbrella/events/290346752/)"
-#~ " (tant el formulari com la taula "
-#~ "rodona són en anglès)."
-
-#~ msgid "Jan 24, 2023"
-#~ msgstr "24 de gener de 2023"
-
-#~ msgid ""
-#~ "I gave an online webinar with "
-#~ "[Data Umbrella](https://www.dataumbrella.org/) on "
-#~ "how to contribute to ArviZ and to"
-#~ " open source in general, covering "
-#~ "both social and technical aspects and"
-#~ " doing a PR live during the "
-#~ "webinar."
-#~ msgstr ""
-#~ "Vaig fer una xerrada online amb "
-#~ "[Data Umbrella](https://www.dataumbrella.org) sobre "
-#~ "com col·laborar a ArviZ i al "
-#~ "programari lliure en general. Durant la"
-#~ " xerrada parlo tant d'aspectes tècnics "
-#~ "com socials, i faig una suggerència "
-#~ "de canvis en directe."
-
-#~ msgid ""
-#~ "The video is [available on "
-#~ "YouTube](https://www.youtube.com/watch?v=457ZTes4xOI), go "
-#~ "check it out!"
-#~ msgstr ""
-#~ "La gravació (en anglès) està [disponible"
-#~ " a YouTube](https://www.youtube.com/watch?v=457ZTes4xOI), "
-#~ "no te la perdis!"
-
-#~ msgid "Nov 29, 2022"
-#~ msgstr "29 de novembre de 2022"
 
