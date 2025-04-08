@@ -29,6 +29,8 @@ I am one of the maintainers and main [contributors](https://github.com/arviz-dev
 I contribute on most areas of the repo, issue triaging, code, documentation or reviewing PRs,
 as well as mentoring and helping other contributors work on issues and submit PRs.
 
+I am also involved with the ongoing refactor of the library.
+
 #### xarray-einstats
 I started this smaller [library](https://einstats.python.arviz.org) to externalize and package many tricks
 on executing NumPy/Scipy/Dask functions on xarray objects.
@@ -36,19 +38,6 @@ on executing NumPy/Scipy/Dask functions on xarray objects.
 ArviZ already depends on it so it is easier for example to use summary statistics
 for circular variables, and it might be used more extensively to allow a
 better integration of ArviZ stats and diagnostics with xarray.
-
-#### CZI EOSS grant
-I am currently acting as coordinator for the ArviZ part of an Essential
-Open Source Software (EOSS) grant from the Chan Zuckerberg Initiative (CZI):
-[Bayesian Open Source Software for Biomedicine: Stan, ArviZ and PyMC3](https://chanzuckerberg.com/eoss/proposals/bayesian-open-source-software-for-biomedicine-stan-arviz-and-pymc3/).
-
-Thanks to this grant, we have been able to both book dedicated team from
-team members and hire external help to improve both Python and Julia
-ArviZ libraries, improve the documentation, explore refactoring avenues
-and ease the maintenance cost.
-
-The experiments I have uploaded to [xrtist](https://xrtist.readthedocs.io/en/latest/),
-showcasing potential refactorings of the plots module in ArviZ are an example of such work.
 
 ---
 
@@ -63,8 +52,8 @@ The {doc}`PyMC project <pymc_io:index>` is a project for probabilistic programmi
 PyMC strives to make Bayesian modeling as simple and painless as possible,
 allowing users to focus on their problem rather than the methods.
 
-I am core contributor and council member of PyMC. Similarly to ArviZ,
-I also contribute to multiple libraries and initiatives within the project.
+Currently I am core contributor of PyMC, having also been a member of its steering council in the past.
+Similarly to ArviZ, I also contribute to multiple libraries and initiatives within the project.
 However, in PyMC I try to focus much more on documentation and community efforts,
 coding much less than what I do at ArviZ.
 
@@ -72,40 +61,36 @@ coding much less than what I do at ArviZ.
 I am one of the main maintainers and curators of the [PyMC example gallery](https://www.pymc.io/projects/examples/en/latest/gallery.html)
 (everything within the "Examples" navigation bar section).
 
-I started focusing on the example gallery in 2020, when I coordinated
-the participaiton of PyMC in both [GSoD](https://developers.google.com/season-of-docs/docs/2021/participants) and [Outreachy](https://www.outreachy.org/).
-During 2020, we defined the new look and updated many notebooks to it
-together with [Martina Cantaro](https://linktr.ee/martinacantaro)
-and [Abhipsha Das](https://chiral-carbon.github.io/).
-
-And we have continued maintaining and improving the example gallery
-within the PyMC team since then.
-
 #### PyMCon
 I am currently helping organize the [PyMCon Webseries](https://pymcon.com/) as an advisor.
 
 I was also a Diversity Chair in [PyMCon 2020](https://pymc-devs.github.io/pymcon//).
 
-#### PyMC Data Umbrella working sessions
-I also helped organize the [PyMC Data Umbrella working sessions](https://pymc-data-umbrella.xyz/en/latest).
-So far we have organized two series of working sessions in [Feb 2022](https://pymc-data-umbrella.xyz/en/latest/2022-02_sprint/organizers/index.html) and [July 2022](https://pymc-data-umbrella.xyz/en/latest/2022-07_sprint/sprint_parties/organizers.html),
-which have been quite successful and helped several people join the PyMC team.
-
-We are currently working on translating the sprint website! Join the efforts on
-[transifex](https://explore.transifex.com/pymc/data-umbrella-sprints-website/)!
-
 #### PyMC Discourse
 Last but not least, I also try to answer questions about PyMC, ArviZ, visualization,
-model comparison... at the [PyMC Discourse](https://discourse.pymc.io/).
+model comparison... on the [PyMC Discourse](https://discourse.pymc.io/).
 
 ---
 
 ### Other
-I also try to contribute to other libraries, specially within the PyData ecosystem.
+I try to contribute to other libraries, specially within the PyData ecosystem.
 I have made some contributions as both issues and PRs to libraries like scipy,
 matplotlib, pydata-sphinx-theme or numpydoc,
 and try to follow xarray particularly closely to see which ArviZ developments
 could be upstreamed to xarray.
+
+#### NumFOCUS DISC committee
+I volunteer for {abbr}`EDIA (Equity, Diversity, Inclusion, and Accessibility)` initiatives
+spearheaded by the [NumFOCUS {abbr}`DISC (Diversity and Inclusion in Scientific Computing)` committee](https://numfocus.org/programs/diversity-inclusion) whenever I can.
+Some examples are the DISC unconferences of [2023](https://numfocus.github.io/disc-unconference-2023-projects/en/intro.html)
+and [2025](https://numfocus.github.io/disc-unconference-2025-projects/en/intro.html)
+or the research on contributor diversification and retention.
+
+#### Scientific Python translations
+From time to time, I help translating and reviewing translations for the landing pages of
+[Scientific Python](https://scientific-python.org/) projects.
+Check out this [blog post](https://blog.scientific-python.org/scientific-python/translations/) if you are interested in this effort!
+
 
 ## Personal projects
 
@@ -130,7 +115,9 @@ in sphinx, which eventually allowed me to build my personal website
 ### `oriol-personal-theme`
 I also host the [sphinx theme used for this website](https://github.com/OriolAbril/oriol-personal-theme) on GitHub as a Python package.
 
-It is an extension on top of the [PyData-Sphinx-Theme](https://pydata-sphinx-theme.readthedocs.io/en/stable/) inspired on the [Massively theme](https://html5up.net/massively) by HTML5Up.
+It is an extension on top of the [PyData-Sphinx-Theme](https://pydata-sphinx-theme.readthedocs.io/en/stable/)
+inspired on the [Massively theme](https://html5up.net/massively) by HTML5Up
+and also with elements from the [Basically Basic](https://github.com/mmistakes/jekyll-theme-basically-basic) by Michael Rose.
 
 I don't have any immediate plans to make it a proper theme usable by other people,
 but I might consider it if there is interest and people willing to help improve

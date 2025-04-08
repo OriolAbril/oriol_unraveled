@@ -7,26 +7,36 @@ og:image: _static/oriol_profile_min.png
 
 I'm a physicist/engineer converted into a computational statistician.
 I love statistical data analysis, programming and data visualization.
-I am a core contributor of {doc}`ArviZ <arviz_org:index>` a project for exploratory
-analysis of Bayesian models. In addition to probabilistic
-modeling, I also enjoy teaching and technical writing.
+I am a core contributor of both {doc}`ArviZ <arviz_org:index>` a project for exploratory
+analysis of Bayesian models and {doc}`PyMC <pymc_io:index>` a Python library for probabilistic programming.
+In addition to probabilistic modelling, I also enjoy teaching and technical writing.
 
 I think that the culture in scientific research needs deep changes towards a
 more collaborative, open and diverse model. I am interested in open science,
 reproducible research and science communication. I want to pursue a career in
-probabilistic modeling and statistical research with special emphasis on
+probabilistic modelling and statistical research with special emphasis on
 openness and reproducibility.
 
 In my spare time, I like playing board games and going to the beach to do
 water activities. I have been sailing and snorkeling regularly since I was
 little and more recently I added kayaking to the mix too! I generally spend
 the summer at the _Costa Brava_. Here I leave you a sneak peak of the views
-when nobody is around
+when nobody is around.
 
 ![A small cave with clear water and pine trees growing near the sea](images/cala_costa_brava.jpg)
 
 (talks_conferences)=
 ## Talks and conferences
+::::{dropdown} Google Summer of Code (GSOC) Experience
+:icon: device-camera-video
+
+Panel discussion organized by [Data Umbrella](https://www.dataumbrella.org/)
+about our experiences participating in [GSoC](https://summerofcode.withgoogle.com/)
+
+:::{youtube} YE-TYJmvbfg
+:::
+
+::::
 ::::{dropdown} Contributing to ArviZ and Open Source: Social and technical sides
 :icon: device-camera-video
 :open:
@@ -92,19 +102,28 @@ Collaborative talk at StanCon 2020.
   - Slides and video presentations are available in English, Catalan, French and Finnish.
 ::::
 
+## Industry related work
+
+I am currently working with the [PyMC Labs](https://www.pymc-labs.com/) consultancy
+and the [IntuitiveBayes](https://www.intuitivebayes.com/) online courses.
+
+Moreover, in the past I have been grant funded to maintain and develop ArviZ 
+from [CZI EOSS](https://chanzuckerberg.com/eoss/) and [NumFOCUS small development](https://numfocus.org/programs/small-development-grants) grants.
+
 ## Academic work and publications
 I have also worked as doctoral researcher and research assistant,
 at Helsinki University and at Universitat Pompeu Fabra respectively.
 Here are some publications I have helped a bit with:
 
-* Mikkola, Petrus, et al. "Prior knowledge elicitation: The past, present, and future." _arXiv preprint arXiv:2112.01380_ (2021).
-* Rossell, David, Oriol Abril, and Anirban Bhattacharya. "Approximate Laplace approximations for scalable model selection."
-  _Journal of the Royal Statistical Society: Series B (Statistical Methodology)_ 83.4 (2021): 853-879.
+* Abril-Pla, Oriol, et al. "PyMC: a modern, and comprehensive probabilistic programming framework in Python." _PeerJ Computer Science 9_ (2023): e1516. [https://doi.org/10.7717/peerj-cs.1516](https://doi.org/10.7717/peerj-cs.1516)
+* Mikkola, Petrus, et al. "Prior knowledge elicitation: The past, present, and future." _Bayesian Analysis_ 19.4 (2024): 1129-1161. [https://doi.org/10.1214/23-BA1381](https://doi.org/10.1214/23-BA1381)
+* Icazatti, Alejandro, et al. "PreliZ: A tool-box for prior elicitation." _Journal of Open Source Software_ 8.89 (2023): 5499. [https://doi.org/10.21105/joss.05499](https://doi.org/10.21105/joss.05499)
+* Rossell, David, Oriol Abril, and Anirban Bhattacharya. "Approximate Laplace approximations for scalable model selection"
+  _Journal of the Royal Statistical Society: Series B (Statistical Methodology)_ 83.4 (2021): 853-879. [https://doi.org/10.1111/rssb.12466](https://doi.org/10.1111/rssb.12466)
 * Badenas-Agusti, Mariona, et al. "HD 191939: Three Sub-Neptunes Transiting a Sun-like Star Only 54 pc Away."
-  _The Astronomical Journal_ 160.3 (2020): 113.
+  _The Astronomical Journal_ 160.3 (2020): 113. [https://doi.org/10.3847/1538-3881/aba0b5](https://doi.org/10.3847/1538-3881/aba0b5)
 * Foreman-Mackey, Daniel, et al. "emcee v3: A Python ensemble sampling toolkit for affine-invariant MCMC."
-  _arXiv preprint arXiv:1911.07688_ (2019).
-  - Get the [emcee package code](https://github.com/dfm/emcee)!
+  _Journal of Open Source Software_ 4.43 (2019): 1864. [https://doi.org/10.21105/joss.01864](https://doi.org/10.21105/joss.01864)
 
 (support_me)=
 ## Support me
@@ -125,7 +144,7 @@ you can also do so through NumFOCUS:
 :class: sd-text-center
 
 :::{button-link} https://numfocus.org/donate-to-arviz
-:color: info
+:color: primary
 
 Donate to ArviZ
 :::
@@ -134,7 +153,7 @@ Donate to ArviZ
 :class: sd-text-center
 
 :::{button-link} https://numfocus.org/donate-to-pymc
-:color: info
+:color: primary
 
 Donate to PyMC
 :::
