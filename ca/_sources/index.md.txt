@@ -28,9 +28,8 @@ Get ready for some puns and let's dive in!
 
 
 ## Projects
-Most of my current work is related to two community-driven open source libraries:
-ArviZ and PyMC. They are both related to Bayesian modelling, but have different
-and complementary goals.
+Most of my current work is related to two community-driven open source libraries: ArviZ and PyMC.
+They are both related to Bayesian modelling, but have different and complementary goals.
 
 :::::{grid} 1 1 2 2
 ::::{grid-item}
@@ -47,7 +46,7 @@ That includes visualization, sampling diagnostics, model comparison, summary sta
 {doc}`PyMC <pymc_io:index>`
 :::
 
-PyMC is a project for probabilistic programming in Python. PyMC strives to make Bayesian modeling as simple and painless as possible, allowing users to focus on their problem rather than the methods.
+PyMC is a project for probabilistic programming in Python. PyMC strives to make Bayesian modelling as simple and painless as possible, allowing users to focus on their problem rather than the methods.
 
 The PyMC project maintains the PyMC library, the flagship of the project, as well as
 extensive documentation and some smaller libraries that complement the PyMC library.
@@ -63,4 +62,4 @@ See the {ref}`projects` page for a complete list of the projects I am involved i
 :::{include} partials/donations.md
 :::
 
-See {ref}`support_me` section for more ways to support my work.
+See the {ref}`support_me` section for more ways to support my work.
